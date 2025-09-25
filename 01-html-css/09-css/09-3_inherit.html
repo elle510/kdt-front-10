@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS inherit 실습</title>
+    <style>
+      /* 기본 inherit 예제 */
+      .parent {
+        color: blue;
+        font-size: 20px;
+        font-weight: bold;
+        border: 2px solid red;
+        padding: 20px;
+        margin: 20px;
+      }
+
+      .child-auto {
+        /* color와 font-size는 자동으로 상속됨 */
+        background-color: lightgray;
+        padding: 10px;
+      }
+
+      .child-inherit {
+        /* 모든 속성을 명시적으로 상속 */
+        border: inherit;
+        margin: inherit;
+        background-color: lightyellow;
+      }
+
+      .child-no-inherit {
+        /* 상속을 무시하고 새로운 값 설정 */
+        color: green;
+        font-size: 14px;
+        font-weight: normal;
+        background-color: lightpink;
+      }
+
+      /* initial 예제들 */
+      .child-initial {
+        /* 브라우저 기본 색상(보통 검은색)으로 재설정 */
+        color: initial;
+        margin: initial;
+        background-color: lightblue;
+      }
+
+      /* unset 예제들 */
+      .child-unset {
+        /* color는 inherit, margin 은 initial 로 재설정 */
+        color: unset;
+        margin: unset;
+        background-color: lightblue;
+      }
+
+      /* revert 예제들 */
+      .child-revert {
+        /* color는 브라우저의 기본 동작인 inherit으로 돌아가고, margin은 브라우저의 기본 스타일 margin: 0 로 재설정 */
+        color: revert;
+        margin: revert;
+        background-color: lightblue;
+      }
+
+      /* all: inherit - 모든 속성을 부모에서 강제 상속 */
+      .child-all-inherit {
+        all: inherit;
+        /* inherit 후에 필요한 스타일만 추가 */
+        background-color: lightblue;
+      }
+
+      /* all: initial - 모든 속성을 브라우저 기본값으로 */
+      .child-all-initial {
+        all: initial;
+        /* initial 후에 필요한 기본 스타일 추가 */
+        display: block;
+        background-color: lightblue;
+      }
+
+      /* all: unset - 상속 가능하면 inherit, 아니면 initial */
+      .child-all-unset {
+        all: unset;
+        /* unset 후에 필요한 기본 스타일 추가 */
+        display: block;
+        background-color: lightblue;
+      }
+
+      /* all: revert - 사용자 에이전트 스타일로 되돌림 */
+      .child-all-revert {
+        all: revert;
+        /* revert 후에 필요한 기본 스타일 추가 */
+        background-color: lightblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="parent">
+      부모 요소 (파란색, 20px, 굵게, 빨간 테두리)
+
+      <div class="child-auto">
+        자식1: 자동 상속 (색상과 폰트는 상속, 테두리는 상속 안됨)
+      </div>
+
+      <div class="child-inherit">
+        자식2: 명시적 inherit (테두리와 마진도 상속)
+      </div>
+
+      <div class="child-no-inherit">자식3: 상속 무시 (새로운 스타일 적용)</div>
+
+      <div class="child-initial">
+        자식4: 명시적 initial (color, margin initial)
+      </div>
+
+      <div class="child-unset">
+        자식5: 명시적 unset (color는 inherit, margin은 initial)
+      </div>
+
+      <div class="child-revert">
+        자식6: 명시적 revert (color는 브라우저의 기본 동작인 inherit으로
+        돌아가고, margin은 브라우저의 기본 스타일 margin: 0 로 재설정)
+      </div>
+
+      <div class="child-all-inherit">자식7: all inherit</div>
+
+      <div class="child-all-initial">자식8: all initial</div>
+
+      <div class="child-all-unset">자식9: all unset</div>
+
+      <!--
+        * color는 부모로부터 상속받는 blue가 되고, font-size도 상속받습니다.
+        * border, padding, margin 등 상속되지 않는 속성들은 모두 브라우저의 초기값(대부분 0 또는 auto)으로 설정됩니다.
+        * display 속성도 브라우저 기본값인 block으로 돌아갑니다.
+      -->
+      <div class="child-all-revert">자식10: all revert</div>
+    </div>
+  </body>
+</html>

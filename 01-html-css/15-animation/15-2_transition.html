@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Transitions 기본 개념</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+
+      .demo-box {
+        background: white;
+        padding: 20px;
+        margin: 20px 0;
+        border: 2px solid #007bff;
+        border-radius: 8px;
+      }
+
+      h2 {
+        color: #333;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 5px;
+      }
+
+      .demo-item {
+        width: 100px;
+        height: 100px;
+        background: #28a745;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        border-radius: 8px;
+        margin: 10px;
+        cursor: pointer;
+      }
+
+      /* ========== Transition 없음 (기본) ========== */
+      .no-transition {
+        background: #dc3545;
+      }
+
+      .no-transition:hover {
+        background: #28a745;
+        transform: scale(1.2);
+      }
+
+      /* ========== 기본 Transition ========== */
+      .basic-transition {
+        transition: all 0.3s ease;
+      }
+
+      .basic-transition:hover {
+        background: #007bff;
+        transform: scale(1.2);
+        border-radius: 50%;
+      }
+
+      /* ========== transition-property (속성 지정) ========== */
+      .property-specific {
+        transition-property: background-color;
+        transition-duration: 0.5s;
+      }
+
+      .property-specific:hover {
+        background: #6f42c1;
+        transform: scale(1.3); /* 이것은 애니메이션 안됨 */
+      }
+
+      /* ========== transition-duration (지속시간) ========== */
+      .duration-fast {
+        transition: all 0.1s ease;
+      }
+
+      .duration-slow {
+        transition: all 2s ease;
+      }
+
+      .duration-fast:hover,
+      .duration-slow:hover {
+        background: #ffc107;
+        color: #333;
+        transform: translateX(50px);
+      }
+
+      /* ========== transition-timing-function (타이밍 함수) ========== */
+      .timing-linear {
+        transition: all 1s linear;
+      }
+
+      .timing-ease {
+        transition: all 1s ease;
+      }
+
+      .timing-ease-in {
+        transition: all 1s ease-in;
+      }
+
+      .timing-ease-out {
+        transition: all 1s ease-out;
+      }
+
+      .timing-ease-in-out {
+        transition: all 1s ease-in-out;
+      }
+
+      .timing-demo:hover {
+        transform: translateX(200px);
+        background: #e83e8c;
+      }
+
+      /* ========== transition-delay (지연시간) ========== */
+      .delay-none {
+        transition: all 0.5s ease;
+      }
+
+      .delay-short {
+        transition: all 0.5s ease 0.2s; /* 0.2초 지연 */
+      }
+
+      .delay-long {
+        transition: all 0.5s ease 1s; /* 1초 지연 */
+      }
+
+      .delay-demo:hover {
+        background: #17a2b8;
+        transform: scale(1.3);
+      }
+
+      /* ========== 여러 속성 개별 설정 ========== */
+      .multiple-properties {
+        transition: background-color 0.3s ease, transform 0.5s ease-in-out,
+          border-radius 0.8s linear;
+      }
+
+      .multiple-properties:hover {
+        background: #fd7e14;
+        transform: rotate(180deg) scale(1.1);
+        border-radius: 50%;
+      }
+
+      /* ========== 실용적인 예제들 ========== */
+      .button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 5px;
+        transition: all 0.3s ease;
+      }
+
+      .button:hover {
+        background: #0056b3;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+      }
+
+      .card {
+        width: 200px;
+        height: 150px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 10px;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      }
+
+      .input-field {
+        width: 250px;
+        padding: 10px;
+        border: 2px solid #dee2e6;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .input-field:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+      }
+
+      .progress-bar {
+        width: 300px;
+        height: 20px;
+        background: #e9ecef;
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 20px 0;
+      }
+
+      .progress-fill {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(90deg, #28a745, #20c997);
+        transition: width 2s ease-in-out;
+      }
+
+      .progress-bar:hover .progress-fill {
+        width: 100%;
+      }
+
+      /* 컨테이너 스타일 */
+      .demo-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: flex-start;
+        padding: 20px;
+        border: 2px dashed #007bff;
+        border-radius: 8px;
+        background: #f8f9ff;
+        margin: 15px 0;
+      }
+
+      .timing-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+      }
+
+      .timing-demo {
+        width: 150px;
+        height: 50px;
+        background: #28a745;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .code-example {
+        background: #2d3748;
+        color: #e2e8f0;
+        padding: 15px;
+        border-radius: 5px;
+        font-family: "Courier New", monospace;
+        font-size: 14px;
+        margin: 15px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS Transitions 기본 개념</h1>
+
+    <!-- Transition 없음 vs 있음 -->
+    <div class="demo-box">
+      <h2>1. Transition 없음 vs 있음</h2>
+      <p>마우스를 올려서 차이점을 확인해보세요!</p>
+
+      <div class="demo-container">
+        <div class="demo-item no-transition">
+          Transition 없음<br />(즉시 변화)
+        </div>
+        <div class="demo-item basic-transition">
+          Transition 있음<br />(부드러운 변화)
+        </div>
+      </div>
+
+      <div class="code-example">
+        /* Transition 없음 */ <br />
+        .no-transition:hover { <br />
+        &nbsp;&nbsp;background: #28a745; <br />
+        &nbsp;&nbsp;transform: scale(1.2); <br />
+        } <br />
+        /* Transition 있음 */ <br />
+        .basic-transition { <br />
+        &nbsp;&nbsp;transition: all 0.3s ease; /* 모든 속성, 0.3초, ease 타이밍
+        */ <br />
+        }
+      </div>
+    </div>
+
+    <!-- transition-property -->
+    <div class="demo-box">
+      <h2>2. transition-property (어떤 속성을 애니메이션할지)</h2>
+      <p>특정 속성만 애니메이션 적용</p>
+
+      <div class="demo-container">
+        <div class="demo-item property-specific">배경색만<br />애니메이션</div>
+      </div>
+
+      <div class="code-example">
+        .property-specific { <br />
+        &nbsp;&nbsp;transition-property: background-color; /* 배경색만
+        애니메이션 */ <br />
+        &nbsp;&nbsp;transition-duration: 0.5s; <br />
+        } <br />
+        .property-specific:hover { <br />
+        &nbsp;&nbsp;background: #6f42c1; /* 애니메이션됨 */ <br />
+        &nbsp;&nbsp;transform: scale(1.3); /* 애니메이션 안됨 */ <br />
+        }
+      </div>
+    </div>
+
+    <!-- transition-duration -->
+    <div class="demo-box">
+      <h2>3. transition-duration (애니메이션 지속시간)</h2>
+      <p>애니메이션이 완료되는 데 걸리는 시간</p>
+
+      <div class="demo-container">
+        <div class="demo-item duration-fast">빠름 (0.1s)</div>
+        <div class="demo-item duration-slow">느림 (2s)</div>
+      </div>
+
+      <div class="code-example">
+        .duration-fast { <br />
+        &nbsp;&nbsp;transition: all 0.1s ease; /* 0.1초 */ <br />
+        } <br />
+        .duration-slow { <br />
+        &nbsp;&nbsp;transition: all 2s ease; /* 2초 */ <br />
+        }
+      </div>
+    </div>
+
+    <!-- transition-timing-function -->
+    <div class="demo-box">
+      <h2>4. transition-timing-function (애니메이션 속도 곡선)</h2>
+      <p>애니메이션이 시간에 따라 어떻게 진행될지 결정</p>
+
+      <div class="timing-container">
+        <div class="timing-demo timing-linear">linear (일정한 속도)</div>
+        <div class="timing-demo timing-ease">ease (기본값, 부드럽게)</div>
+        <div class="timing-demo timing-ease-in">ease-in (천천히 시작)</div>
+        <div class="timing-demo timing-ease-out">ease-out (천천히 끝)</div>
+        <div class="timing-demo timing-ease-in-out">
+          ease-in-out (천천히 시작과 끝)
+        </div>
+      </div>
+
+      <div class="code-example">
+        transition-timing-function: linear; /* 일정한 속도 */ <br />
+        transition-timing-function: ease; /* 기본값 */ <br />
+        transition-timing-function: ease-in; /* 천천히 시작 */ <br />
+        transition-timing-function: ease-out; /* 천천히 끝 */ <br />
+        transition-timing-function: ease-in-out; /* 천천히 시작과 끝 */
+      </div>
+    </div>
+
+    <!-- transition-delay -->
+    <div class="demo-box">
+      <h2>5. transition-delay (애니메이션 지연시간)</h2>
+      <p>애니메이션이 시작되기 전 대기시간</p>
+
+      <div class="demo-container">
+        <div class="demo-item delay-demo delay-none">지연 없음</div>
+        <div class="demo-item delay-demo delay-short">0.2초 지연</div>
+        <div class="demo-item delay-demo delay-long">1초 지연</div>
+      </div>
+
+      <div class="code-example">
+        .delay-none { <br />
+        &nbsp;&nbsp;transition: all 0.5s ease; /* 지연 없음 */ <br />
+        } <br />
+        .delay-short { <br />
+        &nbsp;&nbsp;transition: all 0.5s ease 0.2s; /* 0.2초 지연 */ <br />
+        } <br />
+        .delay-long { <br />
+        &nbsp;&nbsp;transition: all 0.5s ease 1s; /* 1초 지연 */ <br />
+        }
+      </div>
+    </div>
+
+    <!-- 여러 속성 개별 설정 -->
+    <div class="demo-box">
+      <h2>6. 여러 속성 개별 설정</h2>
+      <p>각 속성마다 다른 애니메이션 설정 가능</p>
+
+      <div class="demo-container">
+        <div class="demo-item multiple-properties">
+          각각 다른<br />애니메이션
+        </div>
+      </div>
+
+      <div class="code-example">
+        .multiple-properties { <br />
+        &nbsp;&nbsp;transition: <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;/* 배경색: 0.3초 */ <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;background-color 0.3s ease, <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;/* 변형: 0.5초 */ <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;transform 0.5s ease-in-out, <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;/* 모서리: 0.8초 */ <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;border-radius 0.8s linear;
+        <br />
+        }
+      </div>
+    </div>
+
+    <!-- 실용적인 예제들 -->
+    <div class="demo-box">
+      <h2>7. 실용적인 활용 예제</h2>
+
+      <h3>버튼 호버 효과</h3>
+      <button class="button">호버 효과 버튼</button>
+      <button class="button">부드러운 변화</button>
+
+      <h3>카드 호버 효과</h3>
+      <div style="display: flex; justify-content: center; flex-wrap: wrap">
+        <div class="card">
+          <h4>카드 1</h4>
+          <p>마우스를 올리면 위로 올라갑니다.</p>
+        </div>
+        <div class="card">
+          <h4>카드 2</h4>
+          <p>그림자도 함께 변화합니다.</p>
+        </div>
+      </div>
+
+      <h3>입력 필드 포커스 효과</h3>
+      <input type="text" class="input-field" placeholder="클릭해서 포커스" />
+
+      <h3>프로그레스 바</h3>
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+      <p>위 프로그레스 바에 마우스를 올려보세요!</p>
+
+      <div class="code-example">
+        /* 버튼 효과 */ <br />
+        .button { transition: all 0.3s ease; } <br />
+        .button:hover { <br />
+        &nbsp;&nbsp;transform: translateY(-2px); <br />
+        &nbsp;&nbsp;box-shadow: 0 4px 15px rgba(0,123,255,0.3); <br />
+        } <br />
+        /* 입력 필드 효과 */ <br />
+        .input-field { <br />
+        &nbsp;&nbsp;transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        <br />
+        }
+        <br />
+        .input-field:focus { <br />
+        &nbsp;&nbsp;border-color: #007bff; <br />
+        &nbsp;&nbsp;box-shadow: 0 0 10px rgba(0,123,255,0.3); <br />
+        }<br />
+      </div>
+    </div>
+
+    <!-- 요약 -->
+    <div class="demo-box" style="background: #f8f9fa">
+      <h2>CSS Transitions 요약</h2>
+
+      <h3>4가지 주요 속성</h3>
+      <ul>
+        <li>
+          <strong>transition-property:</strong> 어떤 속성을 애니메이션할지
+        </li>
+        <li><strong>transition-duration:</strong> 애니메이션 지속시간</li>
+        <li>
+          <strong>transition-timing-function:</strong> 애니메이션 속도 곡선
+        </li>
+        <li><strong>transition-delay:</strong> 애니메이션 지연시간</li>
+      </ul>
+
+      <h3>단축 속성</h3>
+      <div class="code-example">
+        /* 개별 설정 */ <br />
+        transition-property: all; <br />
+        transition-duration: 0.3s; <br />
+        transition-timing-function: ease; transition-delay: 0s; <br />
+        /* 단축 설정 */ <br />
+        transition: all 0.3s ease 0s; <br />
+        /* 또는 */ <br />
+        transition: all 0.3s ease; <br />
+      </div>
+
+      <h3>주요 특징</h3>
+      <ul>
+        <li>CSS 속성 값이 변할 때 부드러운 애니메이션 제공</li>
+        <li>JavaScript 없이도 인터랙티브한 효과 구현</li>
+        <li>:hover, :focus, :active 등의 가상 클래스와 함께 사용</li>
+        <li>성능이 좋은 속성들(transform, opacity)에 주로 사용</li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>블록 요소와 인라인 요소</title>
+    <style>
+      /* 요소 구분을 위한 스타일 */
+      .block-element {
+        border: 2px solid #ff5733;
+        margin: 10px 0;
+        padding: 10px;
+      }
+      .inline-element {
+        border: 2px solid #33ff57;
+        margin: 0 5px;
+        padding: 5px;
+      }
+      /* 너비/높이 테스트를 위한 스타일 */
+      .size-test {
+        width: 200px;
+        height: 100px;
+        background-color: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>블록 요소와 인라인 요소</h1>
+
+    <section>
+      <h2>블록 레벨 요소 (Block-level Elements)</h2>
+      <div class="block-element">
+        <p>1. 새로운 줄에서 시작하며, 한 줄을 모두 차지합니다.</p>
+      </div>
+      <div class="block-element">
+        <p>2. 너비와 높이를 지정할 수 있습니다.</p>
+      </div>
+      <div class="block-element size-test">
+        3. 이 div는 width: 200px, height: 100px로 설정되어 있습니다.
+      </div>
+
+      <!-- 블록 요소 예시 -->
+      <h3>주요 블록 요소 예시:</h3>
+      <div class="block-element">div - 블록 요소</div>
+      <p class="block-element">p - 블록 요소</p>
+      <form class="block-element">form - 블록 요소</form>
+      <header class="block-element">header - 블록 요소</header>
+    </section>
+
+    <section>
+      <h2>인라인 요소 (Inline Elements)</h2>
+      <p>
+        <span class="inline-element">인라인 요소 1</span>는
+        <span class="inline-element">인라인 요소 2</span>와
+        <span class="inline-element">인라인 요소 3</span>처럼 옆으로 나열됩니다.
+      </p>
+
+      <!-- 인라인 요소의 크기 제한 테스트 -->
+      <p>
+        <span class="inline-element size-test">
+          이 span은 width, height가 설정되어 있지만 적용되지 않습니다.
+        </span>
+      </p>
+
+      <!-- 인라인 요소 예시 -->
+      <h3>주요 인라인 요소 예시:</h3>
+      <p>
+        <span class="inline-element">span</span>
+        <a href="#" class="inline-element">a 링크</a>
+        <img src="sample.jpg" alt="이미지" class="inline-element" />
+        <strong class="inline-element">strong</strong>
+        <em class="inline-element">em</em>
+      </p>
+    </section>
+
+    <section>
+      <h2>인라인-블록 요소 (display: inline-block)</h2>
+      <p>
+        <span
+          class="inline-element"
+          style="display: inline-block; width: 250px; height: 100px"
+        >
+          인라인-블록 요소는 인라인처럼 배치되면서 블록처럼 크기 조절이
+          가능합니다.
+        </span>
+        <span
+          class="inline-element"
+          style="display: inline-block; width: 100px; height: 100px"
+        >
+          두 번째 인라인-블록 요소
+        </span>
+      </p>
+    </section>
+
+    <!-- 폼 요소들의 인라인-블록 특성 예시 추가 -->
+    <section>
+      <h2>폼 요소의 인라인-블록 특성</h2>
+      <p>
+        button, input, select 등은 기본적으로 display: inline-block 속성을
+        가집니다.
+      </p>
+
+      <div class="block-element">
+        <h3>버튼 요소</h3>
+        <button style="width: 100px; height: 40px">버튼 1</button>
+        <button style="width: 150px; height: 40px">버튼 2</button>
+        <button>기본 크기 버튼</button>
+      </div>
+
+      <div class="block-element">
+        <h3>입력 요소</h3>
+        <input type="text" placeholder="텍스트 입력" style="width: 200px" />
+        <input type="number" placeholder="숫자 입력" style="width: 100px" />
+        <input type="date" style="width: 150px" />
+      </div>
+
+      <div class="block-element">
+        <h3>선택 요소</h3>
+        <select style="width: 150px; height: 30px">
+          <option>옵션 1</option>
+          <option>옵션 2</option>
+          <option>옵션 3</option>
+        </select>
+        <select>
+          <option>기본 크기</option>
+          <option>선택 2</option>
+        </select>
+      </div>
+
+      <div class="block-element">
+        <h3>혼합 사용 예시</h3>
+        <input type="text" placeholder="이름" style="width: 100px" />
+        <select style="width: 80px">
+          <option>성별</option>
+          <option>남성</option>
+          <option>여성</option>
+        </select>
+        <button style="width: 80px">제출</button>
+      </div>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Position 속성 완전 가이드</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f5f5f5;
+        line-height: 1.6;
+      }
+
+      .demo-section {
+        background: white;
+        margin: 20px 0;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .section-header {
+        background: #007bff;
+        color: white;
+        padding: 15px 20px;
+        margin: 0;
+        font-size: 18px;
+      }
+
+      .section-content {
+        padding: 20px;
+      }
+
+      .demo-container {
+        border: 2px dashed #007bff;
+        padding: 20px;
+        margin: 15px 0;
+        position: relative;
+        background: #f8f9ff;
+        min-height: 200px;
+      }
+
+      .demo-box {
+        width: 100px;
+        height: 60px;
+        background: #28a745;
+        border: 2px solid #1e7e34;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 12px;
+        text-align: center;
+      }
+
+      .reference-box {
+        width: 80px;
+        height: 40px;
+        background: #ffc107;
+        border: 2px solid #e0a800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        color: #333;
+        margin: 5px;
+      }
+
+      /* ========== position: static ========== */
+      .static-demo {
+        position: static; /* 기본값 */
+        /* top, right, bottom, left 무시됨 */
+        top: 50px;
+        left: 50px;
+      }
+
+      /* ========== position: relative ========== */
+      .relative-demo {
+        position: relative;
+        top: 20px;
+        left: 30px;
+        background: #17a2b8;
+        border-color: #138496;
+      }
+
+      .relative-container {
+        position: relative;
+      }
+
+      /* ========== position: absolute ========== */
+      .absolute-demo {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #dc3545;
+        border-color: #c82333;
+      }
+
+      .absolute-demo-2 {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #6f42c1;
+        border-color: #59359a;
+      }
+
+      /* ========== position: fixed ========== */
+      .fixed-demo {
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: #fd7e14;
+        border-color: #dc6502;
+        z-index: 1000;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .fixed-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #343a40;
+        color: white;
+        padding: 10px 20px;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      /* ========== position: sticky ========== */
+      .sticky-demo {
+        position: sticky;
+        top: 60px; /* fixed-header 높이만큼 */
+        background: #e83e8c;
+        border-color: #d91a72;
+        z-index: 100;
+      }
+
+      .sticky-container {
+        height: 400px;
+        overflow-y: auto;
+        border: 2px solid #dee2e6;
+        background: white;
+      }
+
+      .sticky-content {
+        height: 200px;
+        padding: 20px;
+        background: #f8f9fa;
+        margin: 10px;
+      }
+
+      /* 스크롤 데모용 */
+      .scroll-content {
+        height: 1500px;
+        background: linear-gradient(to bottom, #e3f2fd, #bbdefb);
+        padding: 20px;
+        margin: 20px 0;
+      }
+
+      /* 코드 예제 */
+      .code-example {
+        background: #2d3748;
+        color: #e2e8f0;
+        padding: 15px;
+        border-radius: 5px;
+        font-family: "Courier New", monospace;
+        font-size: 14px;
+        margin: 15px 0;
+        overflow-x: auto;
+      }
+
+      /* z-index 데모 */
+      .z-index-demo {
+        position: relative;
+        height: 200px;
+      }
+
+      .layer {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        border-radius: 8px;
+      }
+
+      .layer-1 {
+        background: #ff6b6b;
+        top: 20px;
+        left: 20px;
+        z-index: 1;
+      }
+
+      .layer-2 {
+        background: #4ecdc4;
+        top: 40px;
+        left: 40px;
+        z-index: 2;
+      }
+
+      .layer-3 {
+        background: #45b7d1;
+        top: 60px;
+        left: 60px;
+        z-index: 3;
+      }
+
+      /* 실용 예제 스타일 */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        z-index: 1000;
+      }
+
+      .modal-content {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        max-width: 400px;
+        width: 90%;
+      }
+
+      .tooltip {
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #333;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 12px;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+      }
+
+      .tooltip::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 5px solid transparent;
+        border-top-color: #333;
+      }
+
+      .tooltip-container {
+        position: relative;
+        display: inline-block;
+      }
+
+      .tooltip-container:hover .tooltip {
+        opacity: 1;
+      }
+
+      /* 버튼 스타일 */
+      .btn {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 5px;
+      }
+
+      .btn:hover {
+        background: #0056b3;
+      }
+
+      /* 반응형 */
+      @media (max-width: 768px) {
+        .fixed-demo {
+          position: static;
+          margin: 10px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Fixed Header -->
+    <div class="fixed-header">
+      <strong>고정 헤더</strong> - position: fixed로 항상 화면 상단에 위치
+    </div>
+
+    <!-- Fixed Box -->
+    <div class="fixed-demo">Fixed<br />Box</div>
+
+    <div style="margin-top: 60px">
+      <!-- fixed-header 공간 확보 -->
+      <h1>CSS Position 속성 완전 가이드</h1>
+
+      <!-- position: static -->
+      <div class="demo-section">
+        <h2 class="section-header">1. position: static (기본값)</h2>
+        <div class="section-content">
+          <p>
+            문서의 일반적인 흐름에 따라 배치됩니다. top, right, bottom, left
+            속성이 적용되지 않습니다.
+          </p>
+
+          <div class="demo-container">
+            <div class="reference-box">참조 박스</div>
+            <div class="demo-box static-demo">Static</div>
+            <div class="reference-box">참조 박스</div>
+          </div>
+
+          <div class="code-example">
+            .static-box { position: static; /* 기본값 */ /* top, left 등이
+            무시됨 */ top: 50px; /* 적용 안됨 */ left: 50px; /* 적용 안됨 */ }
+          </div>
+          <p>
+            <strong>특징:</strong> 기본 문서 흐름, 위치 속성 무시, z-index 적용
+            안됨
+          </p>
+        </div>
+      </div>
+
+      <!-- position: relative -->
+      <div class="demo-section">
+        <h2 class="section-header">2. position: relative (상대 위치)</h2>
+        <div class="section-content">
+          <p>
+            원래 위치를 기준으로 상대적으로 이동합니다. 원래 자리는 그대로
+            유지됩니다.
+          </p>
+
+          <div class="demo-container">
+            <div class="reference-box">참조 박스</div>
+            <div class="demo-box relative-demo">Relative<br />↗️ 이동</div>
+            <div class="reference-box">참조 박스</div>
+          </div>
+
+          <div class="code-example">
+            .relative-box { position: relative; top: 20px; /* 원래 위치에서
+            아래로 20px */ left: 30px; /* 원래 위치에서 오른쪽으로 30px */ }
+          </div>
+          <p>
+            <strong>특징:</strong> 원래 공간 유지, 다른 요소에 영향 없음,
+            absolute의 기준점 역할
+          </p>
+        </div>
+      </div>
+
+      <!-- position: absolute -->
+      <div class="demo-section">
+        <h2 class="section-header">3. position: absolute (절대 위치)</h2>
+        <div class="section-content">
+          <p>
+            가장 가까운 positioned 부모 요소(relative, absolute, fixed)를
+            기준으로 배치됩니다.
+          </p>
+
+          <div class="demo-container relative-container">
+            <div class="reference-box">참조 박스</div>
+            <div class="demo-box absolute-demo">Absolute<br />우상단</div>
+            <div class="demo-box absolute-demo-2">Absolute<br />하단중앙</div>
+            <div class="reference-box">참조 박스</div>
+          </div>
+
+          <div class="code-example">
+            /* 부모 컨테이너 */ .container { position: relative; /* absolute의
+            기준점 */ } /* 절대 위치 요소 */ .absolute-box { position: absolute;
+            top: 10px; /* 부모 기준 상단에서 10px */ right: 10px; /* 부모 기준
+            오른쪽에서 10px */ }
+          </div>
+          <p>
+            <strong>특징:</strong> 문서 흐름에서 제거, 부모 기준 위치, 다른
+            요소와 겹칠 수 있음
+          </p>
+        </div>
+      </div>
+
+      <!-- position: fixed -->
+      <div class="demo-section">
+        <h2 class="section-header">4. position: fixed (고정 위치)</h2>
+        <div class="section-content">
+          <p>
+            뷰포트(브라우저 창)를 기준으로 고정됩니다. 스크롤해도 위치가 변하지
+            않습니다.
+          </p>
+
+          <div class="demo-container">
+            <p>
+              오른쪽에 고정된 주황색 박스를 확인하세요. 스크롤해도 따라다닙니다.
+            </p>
+            <p>상단의 헤더도 fixed로 고정되어 있습니다.</p>
+          </div>
+
+          <div class="code-example">
+            .fixed-box { position: fixed; top: 100px; /* 뷰포트 상단에서 100px
+            */ right: 20px; /* 뷰포트 오른쪽에서 20px */ z-index: 1000; /* 다른
+            요소 위에 표시 */ }
+          </div>
+          <p>
+            <strong>특징:</strong> 뷰포트 기준, 스크롤 시 고정,
+            네비게이션/헤더에 주로 사용
+          </p>
+        </div>
+      </div>
+
+      <!-- position: sticky -->
+      <div class="demo-section">
+        <h2 class="section-header">5. position: sticky (끈끈한 위치)</h2>
+        <div class="section-content">
+          <p>스크롤 위치에 따라 relative와 fixed 사이를 전환합니다.</p>
+
+          <div class="sticky-container">
+            <div class="sticky-content">
+              <h4>스크롤 콘텐츠 1</h4>
+              <p>아래로 스크롤하면 분홍색 박스가 상단에 고정됩니다.</p>
+            </div>
+
+            <div class="demo-box sticky-demo">Sticky<br />Box</div>
+
+            <div class="sticky-content">
+              <h4>스크롤 콘텐츠 2</h4>
+              <p>sticky 박스가 상단에 고정되어 있는 것을 확인하세요.</p>
+            </div>
+
+            <div class="sticky-content">
+              <h4>스크롤 콘텐츠 3</h4>
+              <p>
+                더 스크롤하면 sticky 박스가 컨테이너를 벗어날 때 사라집니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="code-example">
+            .sticky-box { position: sticky; top: 60px; /* 상단에서 60px 지점에
+            고정 */ z-index: 100; }
+          </div>
+          <p>
+            <strong>특징:</strong> 조건부 고정, 부모 컨테이너 범위 내에서만
+            작동, 테이블 헤더에 유용
+          </p>
+        </div>
+      </div>
+
+      <!-- z-index 데모 -->
+      <div class="demo-section">
+        <h2 class="section-header">6. z-index (쌓임 순서)</h2>
+        <div class="section-content">
+          <p>
+            positioned 요소들의 쌓임 순서를 제어합니다. 숫자가 클수록 위에
+            표시됩니다.
+          </p>
+
+          <div class="z-index-demo">
+            <div class="layer layer-1">z-index: 1</div>
+            <div class="layer layer-2">z-index: 2</div>
+            <div class="layer layer-3">z-index: 3</div>
+          </div>
+
+          <div class="code-example">
+            .layer-1 { z-index: 1; } /* 맨 아래 */ .layer-2 { z-index: 2; } /*
+            중간 */ .layer-3 { z-index: 3; } /* 맨 위 */
+          </div>
+        </div>
+      </div>
+
+      <!-- 실용적인 활용 예제 -->
+      <div class="demo-section">
+        <h2 class="section-header">7. 실용적인 활용 예제</h2>
+        <div class="section-content">
+          <h3>모달 창</h3>
+          <button class="btn" onclick="showModal()">모달 열기</button>
+
+          <h3>툴팁</h3>
+          <div class="tooltip-container">
+            <button class="btn">마우스 올려보세요</button>
+            <div class="tooltip">이것은 툴팁입니다!</div>
+          </div>
+
+          <div class="code-example">
+            /* 모달 오버레이 */ <br />
+            .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom:
+            0; background: rgba(0,0,0,0.5); z-index: 1000; } <br />
+            /* 모달 콘텐츠 */ <br />
+            .modal-content { position: fixed; top: 50%; left: 50%; transform:
+            translate(-50%, -50%); background: white; z-index: 1001; } <br />
+            /* 툴팁 */ <br />
+            .tooltip { position: absolute; bottom: 100%; left: 50%; transform:
+            translateX(-50%); }
+          </div>
+        </div>
+      </div>
+
+      <!-- 스크롤 테스트용 긴 콘텐츠 -->
+      <div class="scroll-content">
+        <h2>스크롤 테스트 영역</h2>
+        <p>이 영역은 스크롤 테스트를 위한 긴 콘텐츠입니다.</p>
+        <p>fixed와 sticky 요소의 동작을 확인하기 위해 스크롤해보세요.</p>
+        <p>오른쪽의 주황색 박스(fixed)는 항상 같은 위치에 있습니다.</p>
+        <p>상단의 헤더(fixed)도 항상 화면 상단에 고정되어 있습니다.</p>
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        <p>
+          여기까지 스크롤했다면 fixed 요소들이 계속 보이는 것을 확인할 수
+          있습니다.
+        </p>
+      </div>
+
+      <!-- 요약 표 -->
+      <div class="demo-section">
+        <h2 class="section-header">Position 속성 요약</h2>
+        <div class="section-content">
+          <table style="width: 100%; border-collapse: collapse; margin: 20px 0">
+            <thead>
+              <tr style="background: #f8f9fa">
+                <th
+                  style="
+                    border: 1px solid #dee2e6;
+                    padding: 12px;
+                    text-align: left;
+                  "
+                >
+                  속성
+                </th>
+                <th
+                  style="
+                    border: 1px solid #dee2e6;
+                    padding: 12px;
+                    text-align: left;
+                  "
+                >
+                  기준점
+                </th>
+                <th
+                  style="
+                    border: 1px solid #dee2e6;
+                    padding: 12px;
+                    text-align: left;
+                  "
+                >
+                  문서 흐름
+                </th>
+                <th
+                  style="
+                    border: 1px solid #dee2e6;
+                    padding: 12px;
+                    text-align: left;
+                  "
+                >
+                  주요 용도
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="border: 1px solid #dee2e6; padding: 12px">
+                  <strong>static</strong>
+                </td>
+                <td style="border: 1px solid #dee2e6; padding: 12px">없음</td>
+                <td style="border: 1px solid #dee2e6; padding: 12px">
+                  ✅ 포함
+                </td>
+                <td style="border: 1px solid #dee2e6; padding: 12px">
+                  기본 레이아웃
+                </td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #dee2e6; padding: 12px">
+                  <strong>relative</strong>
+                </td>
+                <td style="border: 1px solid #dee2e6; padding: 12px">
+                  원래 위치
+                </td>
+                <td style="border: 1px solid #dee2e6; padding: 12px">
+                  ✅ 공간 유지
+                </td>
+                <td style="border: 1px solid #dee2e6; padding: 12px">
+                  미세 조정, absolute 기준
+                </td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #dee2e6; padding: 12px">
+                  <strong>absolute</strong>
+                </td>
+                <td style="border: 1px solid #dee2e6; padding: 12px">
+                  positioned 부모
+                </td>
+                <td style="border: 1px solid #dee2e6; padding: 12px">
+                  ❌ 제거됨
+                </td>
+                <td style="border: 1px solid #dee2e6; padding: 12px">
+                  오버레이, 툴팁
+                </td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #dee2e6; padding: 12px">
+                  <strong>fixed</strong>
+                </td>
+                <td style="border: 1px solid #dee2e6; padding: 12px">뷰포트</td>
+                <td style="border: 1px solid #dee2e6; padding: 12px">
+                  ❌ 제거됨
+                </td>
+                <td style="border: 1px solid #dee2e6; padding: 12px">
+                  헤더, 사이드바
+                </td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #dee2e6; padding: 12px">
+                  <strong>sticky</strong>
+                </td>
+                <td style="border: 1px solid #dee2e6; padding: 12px">
+                  스크롤 위치
+                </td>
+                <td style="border: 1px solid #dee2e6; padding: 12px">
+                  🔄 조건부
+                </td>
+                <td style="border: 1px solid #dee2e6; padding: 12px">
+                  테이블 헤더, 네비
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 모달 -->
+    <div class="modal-overlay" id="modalOverlay" onclick="hideModal()">
+      <div class="modal-content" onclick="event.stopPropagation()">
+        <h3>모달 창</h3>
+        <p>이것은 fixed position으로 만든 모달 창입니다.</p>
+        <button class="btn" onclick="hideModal()">닫기</button>
+      </div>
+    </div>
+
+    <script>
+      function showModal() {
+        document.getElementById("modalOverlay").style.display = "block";
+      }
+
+      function hideModal() {
+        document.getElementById("modalOverlay").style.display = "none";
+      }
+
+      // 스크롤 위치 표시 (디버깅용)
+      window.addEventListener("scroll", function () {
+        console.log("스크롤 위치:", window.pageYOffset);
+      });
+    </script>
+  </body>
+</html>

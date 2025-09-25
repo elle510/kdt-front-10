@@ -1,0 +1,7 @@
+/* 외부 스타일 예제 */
+.external-style {
+  background-color: rgb(213, 225, 223);
+  padding: 20px;
+  margin: 10px;
+  border: 2px dashed blue;
+}

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS 단위 완전 가이드</title>
+    <style>
+      /* 기본 설정 */
+      html {
+        font-size: 16px; /* 1rem = 16px */
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 14px; /* 1em = 14px */
+        margin: 0;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+
+      .demo-section {
+        background: white;
+        margin: 20px 0;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .unit-demo {
+        border: 2px solid #007bff;
+        margin: 10px 0;
+        padding: 10px;
+        background: rgba(0, 123, 255, 0.1);
+      }
+
+      h1,
+      h2 {
+        color: #333;
+      }
+
+      h2 {
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 5px;
+      }
+
+      /* ========== px (픽셀) ========== */
+      .px-100 {
+        width: 100px;
+        height: 50px;
+        font-size: 16px;
+      }
+      .px-200 {
+        width: 200px;
+        height: 50px;
+        font-size: 20px;
+      }
+      .px-300 {
+        width: 300px;
+        height: 50px;
+        font-size: 24px;
+      }
+
+      /* ========== % (퍼센트) ========== */
+      .parent-box {
+        width: 400px;
+        height: 200px;
+        background: #e9ecef;
+        position: relative;
+        border: 2px solid #6c757d;
+      }
+
+      .percent-50 {
+        width: 50%;
+        height: 50%;
+        background: #ffc107;
+      }
+      .percent-75 {
+        width: 75%;
+        height: 25%;
+        background: #28a745;
+      }
+      .percent-100 {
+        width: 100%;
+        height: 10%;
+        background: #dc3545;
+      }
+
+      /* ========== vw (뷰포트 너비) ========== */
+      .vw-25 {
+        width: 25vw;
+        height: 50px;
+        background: #17a2b8;
+      }
+      .vw-50 {
+        width: 50vw;
+        height: 50px;
+        background: #6f42c1;
+      }
+      .vw-100 {
+        width: 100vw;
+        height: 50px;
+        background: #e83e8c;
+        margin-left: -20px;
+      }
+
+      /* ========== vh (뷰포트 높이) ========== */
+      .vh-20 {
+        width: 200px;
+        height: 20vh;
+        background: #fd7e14;
+      }
+      .vh-30 {
+        width: 200px;
+        height: 30vh;
+        background: #20c997;
+      }
+
+      /* ========== vmin/vmax ========== */
+      .vmin-20 {
+        width: 20vmin;
+        height: 20vmin;
+        background: #6610f2;
+      }
+      .vmax-15 {
+        width: 15vmax;
+        height: 50px;
+        background: #e21e80;
+      }
+
+      /* ========== em (상대 단위) ========== */
+      .em-parent {
+        font-size: 20px; /* 이 컨테이너의 기본 폰트 크기 */
+        border: 2px solid #495057;
+        padding: 10px;
+      }
+
+      .em-1 {
+        font-size: 1em;
+        width: 10em;
+        height: 3em;
+        background: #ffc107;
+      }
+      .em-1-5 {
+        font-size: 1.5em;
+        width: 8em;
+        height: 2em;
+        background: #28a745;
+      }
+      .em-2 {
+        font-size: 2em;
+        width: 6em;
+        height: 1.5em;
+        background: #dc3545;
+      }
+
+      /* ========== rem (루트 상대 단위) ========== */
+      .rem-1 {
+        font-size: 1rem;
+        width: 15rem;
+        height: 3rem;
+        background: #17a2b8;
+      }
+      .rem-1-5 {
+        font-size: 1.5rem;
+        width: 12rem;
+        height: 2.5rem;
+        background: #6f42c1;
+      }
+      .rem-2 {
+        font-size: 2rem;
+        width: 10rem;
+        height: 2rem;
+        background: #e83e8c;
+      }
+
+      /* 비교용 스타일 */
+      .comparison-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin: 20px 0;
+      }
+
+      .unit-card {
+        background: white;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+        padding: 15px;
+        text-align: center;
+      }
+
+      .size-display {
+        font-size: 12px;
+        color: #6c757d;
+        margin-top: 5px;
+      }
+
+      /* 반응형 테스트용 */
+      .responsive-test {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 15px 0;
+      }
+
+      .responsive-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS 단위 완전 가이드</h1>
+    <p>브라우저 창 크기를 조절하면서 각 단위의 차이점을 확인해보세요!</p>
+
+    <!-- px (픽셀) -->
+    <div class="demo-section">
+      <h2>px (픽셀) - 절대 단위</h2>
+      <p>화면 크기에 상관없이 항상 같은 크기를 유지합니다.</p>
+
+      <div class="unit-demo px-100">100px 너비, 16px 글씨</div>
+      <div class="unit-demo px-200">200px 너비, 20px 글씨</div>
+      <div class="unit-demo px-300">300px 너비, 24px 글씨</div>
+
+      <p><strong>특징:</strong> 정확한 크기 제어, 반응형에는 부적합</p>
+    </div>
+
+    <!-- % (퍼센트) -->
+    <div class="demo-section">
+      <h2>% (퍼센트) - 부모 요소 기준</h2>
+      <p>부모 요소 크기의 백분율로 계산됩니다.</p>
+
+      <div class="parent-box">
+        <div class="unit-demo percent-50">50% 너비, 50% 높이</div>
+        <div class="unit-demo percent-75">75% 너비, 25% 높이</div>
+        <div class="unit-demo percent-100">100% 너비, 10% 높이</div>
+      </div>
+
+      <p><strong>특징:</strong> 부모 크기에 따라 변함, 레이아웃에 유용</p>
+    </div>
+
+    <!-- vw (뷰포트 너비) -->
+    <div class="demo-section">
+      <h2>vw (Viewport Width) - 뷰포트 너비 기준</h2>
+      <p>브라우저 창 너비의 1% = 1vw</p>
+
+      <div class="unit-demo vw-25 responsive-box">25vw (화면 너비의 25%)</div>
+      <div class="unit-demo vw-50 responsive-box">50vw (화면 너비의 50%)</div>
+      <div class="unit-demo vw-100 responsive-box">
+        100vw (화면 너비의 100%)
+      </div>
+
+      <p><strong>특징:</strong> 화면 크기에 따라 변함, 반응형 디자인에 유용</p>
+    </div>
+
+    <!-- vh (뷰포트 높이) -->
+    <div class="demo-section">
+      <h2>vh (Viewport Height) - 뷰포트 높이 기준</h2>
+      <p>브라우저 창 높이의 1% = 1vh</p>
+
+      <div style="display: flex; gap: 20px">
+        <div class="unit-demo vh-20 responsive-box">20vh</div>
+        <div class="unit-demo vh-30 responsive-box">30vh</div>
+      </div>
+
+      <p><strong>특징:</strong> 화면 높이에 따라 변함, 풀스크린 요소에 유용</p>
+    </div>
+
+    <!-- vmin/vmax -->
+    <div class="demo-section">
+      <h2>vmin / vmax - 뷰포트 최소/최대값 기준</h2>
+      <p>
+        <strong>vmin:</strong> vw와 vh 중 작은 값 | <strong>vmax:</strong> vw와
+        vh 중 큰 값
+      </p>
+
+      <div style="display: flex; gap: 20px; align-items: flex-end">
+        <div class="unit-demo vmin-20 responsive-box">20vmin (정사각형)</div>
+        <div class="unit-demo vmax-15 responsive-box">15vmax</div>
+      </div>
+
+      <p><strong>특징:</strong> 화면 비율에 관계없이 일정한 비율 유지</p>
+    </div>
+
+    <!-- em (상대 단위) -->
+    <div class="demo-section">
+      <h2>em - 부모 요소 폰트 크기 기준</h2>
+      <p>부모 요소의 font-size를 1em으로 계산 (현재 부모: 20px)</p>
+
+      <div class="em-parent">
+        <div class="unit-demo em-1">1em = 20px (폰트, 너비, 높이 모두)</div>
+        <div class="unit-demo em-1-5">1.5em = 30px</div>
+        <div class="unit-demo em-2">2em = 40px</div>
+      </div>
+
+      <p>
+        <strong>특징:</strong> 중첩될 때마다 계산이 복잡해짐, 컴포넌트 내부
+        스케일링에 유용
+      </p>
+    </div>
+
+    <!-- rem (루트 상대 단위) -->
+    <div class="demo-section">
+      <h2>rem - 루트 요소(html) 폰트 크기 기준</h2>
+      <p>html 요소의 font-size를 1rem으로 계산 (현재: 16px)</p>
+
+      <div class="unit-demo rem-1">1rem = 16px</div>
+      <div class="unit-demo rem-1-5">1.5rem = 24px</div>
+      <div class="unit-demo rem-2">2rem = 32px</div>
+
+      <p><strong>특징:</strong> 일관된 계산, 전역 스케일링에 유용</p>
+    </div>
+
+    <!-- 실시간 비교 -->
+    <div class="demo-section">
+      <h2>실시간 크기 비교</h2>
+      <p>브라우저 창 크기를 조절해보세요!</p>
+
+      <div class="comparison-grid">
+        <div class="unit-card">
+          <div
+            style="
+              width: 200px;
+              height: 50px;
+              background: #007bff;
+              margin: 0 auto;
+            "
+          ></div>
+          <div class="size-display">200px (고정)</div>
+        </div>
+        <div class="unit-card">
+          <div
+            style="
+              width: 50%;
+              height: 50px;
+              background: #28a745;
+              margin: 0 auto;
+            "
+          ></div>
+          <div class="size-display">50% (부모 기준)</div>
+        </div>
+        <div class="unit-card">
+          <div
+            style="
+              width: 20vw;
+              height: 50px;
+              background: #ffc107;
+              margin: 0 auto;
+            "
+          ></div>
+          <div class="size-display">20vw (화면 너비 기준)</div>
+        </div>
+        <div class="unit-card">
+          <div
+            style="
+              width: 12rem;
+              height: 50px;
+              background: #dc3545;
+              margin: 0 auto;
+            "
+          ></div>
+          <div class="size-display">12rem (루트 폰트 기준)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 사용 권장사항 -->
+    <div class="demo-section" style="background-color: #f8f9fa">
+      <h2>단위별 사용 권장사항</h2>
+      <div
+        style="
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 15px;
+        "
+      >
+        <div>
+          <h4>px (픽셀)</h4>
+          <ul>
+            <li>테두리 두께</li>
+            <li>작은 간격</li>
+            <li>정확한 크기가 필요한 경우</li>
+          </ul>
+        </div>
+        <div>
+          <h4>% (퍼센트)</h4>
+          <ul>
+            <li>너비 설정</li>
+            <li>레이아웃 구성</li>
+            <li>부모 기준 크기 조절</li>
+          </ul>
+        </div>
+        <div>
+          <h4>vw/vh</h4>
+          <ul>
+            <li>풀스크린 요소</li>
+            <li>반응형 타이포그래피</li>
+            <li>뷰포트 기준 레이아웃</li>
+          </ul>
+        </div>
+        <div>
+          <h4>rem</h4>
+          <ul>
+            <li>폰트 크기</li>
+            <li>일관된 간격</li>
+            <li>전역 스케일링</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // 현재 뷰포트 크기 표시
+      function updateViewportInfo() {
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const info = `현재 뷰포트: ${vw}px × ${vh}px | 1vw = ${(
+          vw / 100
+        ).toFixed(1)}px | 1vh = ${(vh / 100).toFixed(1)}px`;
+
+        let infoDiv = document.getElementById("viewport-info");
+        if (!infoDiv) {
+          infoDiv = document.createElement("div");
+          infoDiv.id = "viewport-info";
+          infoDiv.style.cssText =
+            "position: fixed; top: 10px; right: 10px; background: #333; color: white; padding: 10px; border-radius: 5px; font-size: 12px; z-index: 1000;";
+          document.body.appendChild(infoDiv);
+        }
+        infoDiv.textContent = info;
+      }
+
+      window.addEventListener("resize", updateViewportInfo);
+      updateViewportInfo();
+    </script>
+  </body>
+</html>

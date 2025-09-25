@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SVG와 Canvas 실습</title>
+    <style>
+      .container {
+        margin: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      svg,
+      canvas {
+        border: 1px solid #ccc;
+        margin: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>SVG와 Canvas 실습</h1>
+
+    <!-- SVG 예제 -->
+    <section class="container">
+      <h2>SVG 예제</h2>
+
+      <!-- 기본 도형 -->
+      <svg width="400" height="200">
+        <!-- 원 -->
+        <circle
+          cx="50"
+          cy="50"
+          r="40"
+          stroke="black"
+          stroke-width="3"
+          fill="red"
+        />
+
+        <!-- 사각형 -->
+        <rect x="120" y="20" width="60" height="60" fill="blue" />
+
+        <!-- 선 -->
+        <line
+          x1="200"
+          y1="20"
+          x2="300"
+          y2="80"
+          stroke="green"
+          stroke-width="4"
+        />
+
+        <!-- 다각형 -->
+        <polygon points="220,150 260,180 200,180" fill="purple" />
+
+        <!-- 텍스트 -->
+        <text x="300" y="150" fill="black">SVG Text</text>
+      </svg>
+
+      <!-- 애니메이션 -->
+      <svg width="200" height="200">
+        <circle cx="100" cy="100" r="20" fill="orange">
+          <animate
+            attributeName="r"
+            values="20;40;20"
+            dur="2s"
+            repeatCount="indefinite"
+          />
+        </circle>
+      </svg>
+    </section>
+
+    <!-- Canvas 예제 -->
+    <section class="container">
+      <h2>Canvas 예제</h2>
+      <canvas id="myCanvas" width="400" height="200"></canvas>
+
+      <div>
+        <button id="toggleDrawing">도형 그리기</button>
+        <button id="toggleAnimation">애니메이션 시작</button>
+      </div>
+    </section>
+
+    <script>
+      // Canvas 컨텍스트 가져오기
+      const canvas = document.getElementById("myCanvas");
+      const ctx = canvas.getContext("2d");
+
+      // 토글 상태 변수 추가
+      let isDrawn = false;
+
+      // 도형 그리기 함수
+      function drawShapes() {
+        // 캔버스 초기화
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // 원 그리기
+        ctx.beginPath();
+        ctx.arc(50, 50, 40, 0, Math.PI * 2);
+        ctx.fillStyle = "red";
+        ctx.fill();
+        ctx.stroke();
+
+        // 사각형 그리기
+        ctx.fillStyle = "blue";
+        ctx.fillRect(120, 20, 60, 60);
+
+        // 선 그리기
+        ctx.beginPath();
+        ctx.moveTo(200, 20);
+        ctx.lineTo(300, 80);
+        ctx.strokeStyle = "green";
+        ctx.lineWidth = 4;
+        ctx.stroke();
+
+        // 다각형 그리기
+        ctx.beginPath();
+        ctx.moveTo(220, 150);
+        ctx.lineTo(260, 180);
+        ctx.lineTo(200, 180);
+        ctx.closePath();
+        ctx.fillStyle = "purple";
+        ctx.fill();
+
+        // 텍스트 그리기
+        ctx.fillStyle = "black";
+        ctx.font = "16px Arial";
+        ctx.fillText("Canvas Text", 300, 150);
+      }
+
+      // 애니메이션 상태 변수 추가
+      let isAnimating = false;
+      let animationId = null;
+      let radius = 20;
+      let growing = true;
+
+      function animate() {
+        if (isAnimating) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          // 원 그리기
+          ctx.beginPath();
+          ctx.arc(100, 100, radius, 0, Math.PI * 2);
+          ctx.fillStyle = "orange";
+          ctx.fill();
+
+          // 크기 조절
+          if (growing) {
+            radius += 1;
+            if (radius >= 40) growing = false;
+          } else {
+            radius -= 1;
+            if (radius <= 20) growing = true;
+          }
+
+          animationId = requestAnimationFrame(animate);
+        }
+      }
+
+      // 애니메이션 토글 함수
+      function toggleAnimation() {
+        isAnimating = !isAnimating;
+        if (isAnimating) {
+          this.textContent = "애니메이션 정지";
+          animate();
+        } else {
+          this.textContent = "애니메이션 시작";
+          if (animationId) {
+            cancelAnimationFrame(animationId);
+          }
+        }
+      }
+
+      // 토글 버튼 이벤트 리스너
+      document
+        .getElementById("toggleDrawing")
+        .addEventListener("click", function () {
+          if (!isDrawn) {
+            drawShapes();
+            this.textContent = "도형 지우기";
+          } else {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            this.textContent = "도형 그리기";
+          }
+          isDrawn = !isDrawn;
+        });
+
+      document
+        .getElementById("toggleAnimation")
+        .addEventListener("click", toggleAnimation);
+    </script>
+  </body>
+</html>

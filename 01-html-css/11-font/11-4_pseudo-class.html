@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS 가상 클래스/요소 핵심</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+
+      .demo-box {
+        background: white;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+      }
+
+      h2 {
+        color: #333;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 5px;
+      }
+
+      /* ========== 링크 상태 선택자 ========== */
+      .link-demo a:link {
+        color: blue;
+      } /* 방문 전 */
+      .link-demo a:visited {
+        color: purple;
+      } /* 방문 후 */
+      .link-demo a:hover {
+        color: red;
+      } /* 마우스 올렸을 때 */
+      .link-demo a:active {
+        color: orange;
+      } /* 클릭 중 */
+
+      /* ========== :focus ========== */
+      .focus-demo input:focus {
+        border: 2px solid #007bff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+      }
+
+      /* ========== ::before, ::after ========== */
+      .before-after::before {
+        content: "🎯 ";
+        color: #28a745;
+      }
+      .before-after::after {
+        content: " ✅";
+        color: #007bff;
+      }
+
+      /* ========== ::marker ========== */
+      .marker-demo li::marker {
+        color: #dc3545;
+        font-size: 1.5em;
+      }
+
+      /* ========== ::placeholder ========== */
+      .placeholder-demo::placeholder {
+        color: #6c757d;
+        font-style: italic;
+      }
+
+      /* ========== 구조 선택자 ========== */
+      .structure-demo li:first-child {
+        color: #28a745;
+        font-weight: bold;
+      }
+      .structure-demo li:last-child {
+        color: #dc3545;
+        font-weight: bold;
+      }
+      .structure-demo li:nth-child(2) {
+        background: #fff3cd;
+      }
+      .structure-demo li:nth-child(odd) {
+        background: #f8f9fa;
+      }
+
+      .type-demo p:nth-of-type(1) {
+        color: #007bff;
+      }
+      .type-demo p:nth-of-type(2) {
+        color: #28a745;
+      }
+      .type-demo span:only-of-type {
+        background: #ffc107;
+        padding: 2px 5px;
+      }
+
+      /* ========== :not ========== */
+      .not-demo li:not(.special) {
+        color: #6c757d;
+      }
+      .not-demo .special {
+        color: #dc3545;
+        font-weight: bold;
+      }
+
+      /* ========== :is(), :where() ========== */
+      .is-demo :is(h3, h4, h5) {
+        color: #6f42c1;
+      }
+      .where-demo :where(p, span) {
+        font-style: italic;
+      }
+
+      /* ========== :has() ========== */
+      .has-demo .card:has(img) {
+        border: 2px solid #28a745;
+      }
+      .has-demo .card:has(.important) {
+        background: #fff3cd;
+      }
+
+      /* 데모용 스타일 */
+      .card {
+        border: 1px solid #dee2e6;
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 5px;
+      }
+      input {
+        padding: 8px;
+        margin: 5px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+      ul {
+        padding-left: 25px;
+      }
+      li {
+        margin: 3px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS 가상 클래스/요소 핵심</h1>
+
+    <!-- 링크 상태 -->
+    <div class="demo-box link-demo">
+      <h2>링크 상태 선택자</h2>
+      <a href="https://google.com">:link (방문 전 파란색)</a> |
+      <a href="#visited">:visited (방문 후 보라색)</a> |
+      <a href="#hover">:hover (마우스 올리면 빨간색)</a> |
+      <a href="#active">:active (클릭 중 주황색)</a>
+    </div>
+
+    <!-- focus -->
+    <div class="demo-box focus-demo">
+      <h2>:focus (포커스 상태)</h2>
+      <input type="text" placeholder="클릭하면 파란 테두리" />
+      <input type="email" placeholder="이메일 입력" />
+    </div>
+
+    <!-- before, after -->
+    <div class="demo-box">
+      <h2>::before, ::after (가상 요소)</h2>
+      <p class="before-after">가상 요소로 앞뒤에 콘텐츠 추가</p>
+      <p class="before-after">모든 문장에 자동으로 아이콘 추가됨</p>
+    </div>
+
+    <!-- marker -->
+    <div class="demo-box marker-demo">
+      <h2>::marker (리스트 마커)</h2>
+      <ul>
+        <li>빨간색 큰 마커</li>
+        <li>커스텀 마커 스타일</li>
+        <li>리스트 꾸미기</li>
+      </ul>
+    </div>
+
+    <!-- placeholder -->
+    <div class="demo-box">
+      <h2>::placeholder (플레이스홀더)</h2>
+      <input
+        type="text"
+        class="placeholder-demo"
+        placeholder="회색 이탤릭 플레이스홀더"
+      />
+    </div>
+
+    <!-- 구조 선택자 -->
+    <div class="demo-box structure-demo">
+      <h2>구조 선택자</h2>
+      <ul>
+        <li>첫 번째 (:first-child) - 초록색</li>
+        <li>두 번째 (:nth-child(2)) - 노란 배경</li>
+        <li>세 번째 (홀수 :nth-child(odd)) - 회색 배경</li>
+        <li>네 번째 (짝수)</li>
+        <li>마지막 (:last-child) - 빨간색</li>
+      </ul>
+    </div>
+
+    <!-- nth-of-type, only-of-type -->
+    <div class="demo-box type-demo">
+      <h2>타입별 선택자</h2>
+      <p>첫 번째 p 태그 (:nth-of-type(1)) - 파란색</p>
+      <p>두 번째 p 태그 (:nth-of-type(2)) - 초록색</p>
+      <div>div 태그</div>
+      <span>유일한 span (:only-of-type) - 노란 배경</span>
+    </div>
+
+    <!-- not -->
+    <div class="demo-box not-demo">
+      <h2>:not (부정 선택자)</h2>
+      <ul>
+        <li>일반 아이템 (회색)</li>
+        <li class="special">특별한 아이템 (빨간색)</li>
+        <li>일반 아이템 (회색)</li>
+      </ul>
+    </div>
+
+    <!-- is, where -->
+    <div class="demo-box is-demo">
+      <h2>:is() (그룹 선택자)</h2>
+      <h3>h3 제목 (보라색)</h3>
+      <h4>h4 제목 (보라색)</h4>
+      <p>일반 단락</p>
+    </div>
+
+    <div class="demo-box where-demo">
+      <h2>:where() (우선순위 0)</h2>
+      <p>p 태그 (이탤릭)</p>
+      <span>span 태그 (이탤릭)</span>
+      <div>div 태그</div>
+    </div>
+
+    <!-- has -->
+    <div class="demo-box has-demo">
+      <h2>:has() (부모 선택자)</h2>
+      <div class="card">
+        <p>이미지가 없는 카드</p>
+      </div>
+      <div class="card">
+        <img
+          src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='30' fill='%23007bff'><rect width='50' height='30' rx='5'/></svg>"
+          alt="이미지"
+        />
+        <p>이미지가 있는 카드 (초록 테두리)</p>
+      </div>
+      <div class="card">
+        <p class="important">중요한 내용이 있는 카드 (노란 배경)</p>
+      </div>
+    </div>
+
+    <!-- 요약 -->
+    <div class="demo-box" style="background: #f8f9fa">
+      <h2>선택자 요약</h2>
+      <ul style="list-style: none; padding-left: 0">
+        <li>🔗 <strong>링크 상태:</strong> :link, :visited, :hover, :active</li>
+        <li>⚡ <strong>상호작용:</strong> :focus</li>
+        <li>
+          ➕ <strong>가상 요소:</strong> ::before, ::after, ::marker,
+          ::placeholder
+        </li>
+        <li>
+          🏗️ <strong>구조:</strong> :first-child, :last-child, :nth-child()
+        </li>
+        <li>🎯 <strong>타입:</strong> :nth-of-type(), :only-of-type</li>
+        <li>❌ <strong>부정:</strong> :not()</li>
+        <li>👥 <strong>그룹:</strong> :is(), :where()</li>
+        <li>🔍 <strong>관계:</strong> :has()</li>
+      </ul>
+    </div>
+  </body>
+</html>

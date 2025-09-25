@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>텍스트 관련 태그</title>
+    <style>
+      /* 예제를 위한 기본 스타일 */
+      body {
+        margin: 20px;
+        line-height: 1.6;
+      }
+      section {
+        margin-bottom: 30px;
+      }
+      h2 {
+        color: #333;
+        border-bottom: 2px solid #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>텍스트 관련 태그 실습</h1>
+
+    <section>
+      <h2>제목 태그 (h1~h6)</h2>
+      <h1>제목 1</h1>
+      <h2>제목 2</h2>
+      <h3>제목 3</h3>
+      <h4>제목 4</h4>
+      <h5>제목 5</h5>
+      <h6>제목 6</h6>
+    </section>
+
+    <section>
+      <h2>링크 태그 (a)</h2>
+      <a href="https://www.google.com">구글로 이동</a>
+      <a href="mailto:example@email.com">이메일 보내기</a>
+      <a href="tel:010-1234-5678">전화걸기</a>
+    </section>
+
+    <section>
+      <h2>단락과 줄바꿈 (p, br, wbr)</h2>
+      <p>
+        이것은 첫 번째 단락입니다.<br />
+        이렇게 br 태그로 줄을 바꿀 수 있습니다.
+      </p>
+      <p>
+        긴 URL이나 긴 단어는 wbr 태그로 줄바꿈 위치를 지정할 수 있습니다:
+        https://very<wbr />.long<wbr />.url<wbr />.example<wbr />.com
+      </p>
+
+      <!-- 한글 wbr 사용 예시 추가 -->
+      <p style="word-break: keep-all">
+        긴 URL이나 긴 단어는 wbr 태그로 줄바꿈 위치를 지정할 수 있습니다:
+        한글에서의 wbr 사용: 대한민국<wbr />행정안전부<wbr />소프트웨어<wbr />진흥과
+      </p>
+    </section>
+
+    <section>
+      <h2>코드 관련 (code, pre)</h2>
+      <p>인라인 코드: <code>console.log('Hello World');</code></p>
+      <pre><code>
+function example() {
+    return 'This is a code block';
+}
+        </code></pre>
+    </section>
+
+    <section>
+      <h2>강조 태그 (strong, b, em, i)</h2>
+      <p><strong>중요한 텍스트</strong></p>
+      <p><b>굵은 텍스트</b></p>
+      <p><em>강조된 텍스트</em></p>
+      <p><i>기울어진 텍스트</i></p>
+    </section>
+
+    <section>
+      <h2>인용 관련 (q, blockquote, cite)</h2>
+      <p>짧은 인용: <q>작은 따옴표로 표시됩니다.</q></p>
+      <blockquote cite="https://example.com/source">
+        이것은 긴 인용문입니다. 들여쓰기로 표시됩니다.
+        <cite>- 출처: 예시 도서</cite>
+      </blockquote>
+    </section>
+
+    <section>
+      <h2>기타 텍스트 태그</h2>
+      <address>
+        작성자: 홍길동<br />
+        이메일: example@email.com
+      </address>
+      <p>이것은 <mark>하이라이트</mark> 된 텍스트입니다.</p>
+      <p><dfn>HTML</dfn>은 웹 페이지를 만드는 마크업 언어입니다.</p>
+      <p>
+        <abbr title="World Wide Web">WWW</abbr>는 인터넷의 정보를 하이퍼텍스트로
+        연결한 전세계적 정보 서비스입니다.
+      </p>
+      <p>E = mc<sup>2</sup></p>
+      <p>H<sub>2</sub>O</p>
+      <p>Windows에서 저장하려면 <kbd>Ctrl</kbd> + <kbd>S</kbd>를 누르세요.</p>
+    </section>
+  </body>
+</html>

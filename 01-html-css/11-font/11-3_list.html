@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS 리스트 스타일 핵심</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+
+      .demo-box {
+        background: white;
+        padding: 20px;
+        margin: 15px 0;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        color: #333;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 5px;
+      }
+
+      /* ========== list-style-type ========== */
+      .type-disc {
+        list-style-type: disc;
+      }
+      .type-circle {
+        list-style-type: circle;
+      }
+      .type-square {
+        list-style-type: square;
+      }
+      .type-decimal {
+        list-style-type: decimal;
+      }
+      .type-lower-alpha {
+        list-style-type: lower-alpha;
+      }
+      .type-upper-alpha {
+        list-style-type: upper-alpha;
+      }
+      .type-lower-roman {
+        list-style-type: lower-roman;
+      }
+      .type-upper-roman {
+        list-style-type: upper-roman;
+      }
+      .type-none {
+        list-style-type: none;
+      }
+
+      /* ========== list-style-position ========== */
+      .position-inside {
+        list-style-position: inside;
+        border: 1px solid #ccc;
+        padding: 10px;
+        background: #f8f9fa;
+      }
+      .position-outside {
+        list-style-position: outside;
+        border: 1px solid #ccc;
+        padding: 10px;
+        background: #f8f9fa;
+      }
+
+      /* ========== list-style-image ========== */
+      .image-star {
+        list-style-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23ffc107" viewBox="0 0 16 16"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"/></svg>');
+      }
+      .image-arrow {
+        list-style-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23007bff" viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/></svg>');
+      }
+
+      /* ========== @counter-style (CSS 카운터) ========== */
+      /* 예제 1: 이모티콘을 순환하는 카운터 */
+      @counter-style emoji-cycle {
+        system: cyclic; /* 지정된 심볼을 순환합니다. */
+        symbols: "🍓" "🍌" "🍎" "🍇";
+        suffix: " "; /* 심볼 뒤에 공백을 추가합니다. */
+      }
+
+      .list-emoji {
+        list-style-type: emoji-cycle;
+      }
+
+      /* 예제 2: 'Chapter 1'과 같은 텍스트 형식 카운터 */
+      @counter-style chapter-marker {
+        system: numeric; /* 1, 2, 3...과 같은 숫자 체계를 사용합니다. */
+        symbols: "1" "2" "3" "4" "5" "6" "7" "8" "9";
+        prefix: "Chapter "; /* 심볼 앞에 접두사를 추가합니다. */
+        suffix: ": "; /* 심볼 뒤에 접미사를 추가합니다. */
+      }
+
+      .list-chapter {
+        list-style-type: chapter-marker;
+      }
+
+      /* 예제 3: 한글 자음을 사용하는 카운터 */
+      @counter-style hangul-consonant {
+        system: alphabetic; /* ㄱ, ㄴ, ㄷ...과 같은 알파벳 체계를 사용합니다. */
+        symbols: "ㄱ" "ㄴ" "ㄷ" "ㄹ" "ㅁ" "ㅂ" "ㅅ" "ㅇ" "ㅈ" "ㅊ" "ㅋ" "ㅌ"
+          "ㅍ" "ㅎ";
+        suffix: ". ";
+      }
+
+      .list-hangul {
+        list-style-type: hangul-consonant;
+      }
+
+      /* 데모용 스타일 */
+      ul,
+      ol {
+        padding-left: 30px;
+        margin: 10px 0;
+      }
+
+      li {
+        margin: 5px 0;
+        padding: 2px 0;
+      }
+
+      .code-example {
+        background: #2d3748;
+        color: #e2e8f0;
+        padding: 10px;
+        border-radius: 5px;
+        font-family: "Courier New", monospace;
+        font-size: 14px;
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS 리스트 스타일 핵심 속성</h1>
+
+    <!-- list-style-type -->
+    <div class="demo-box">
+      <h2>list-style-type (마커 종류)</h2>
+
+      <h3>순서 없는 리스트 (ul)</h3>
+      <ul class="type-disc">
+        <li>disc (기본 점)</li>
+        <li>검은 원형 마커</li>
+      </ul>
+
+      <ul class="type-circle">
+        <li>circle (빈 원)</li>
+        <li>속이 빈 원형 마커</li>
+      </ul>
+
+      <ul class="type-square">
+        <li>square (사각형)</li>
+        <li>검은 사각형 마커</li>
+      </ul>
+
+      <h3>순서 있는 리스트 (ol)</h3>
+      <ol class="type-decimal">
+        <li>decimal (숫자)</li>
+        <li>1, 2, 3...</li>
+      </ol>
+
+      <ol class="type-lower-alpha">
+        <li>lower-alpha (소문자)</li>
+        <li>a, b, c...</li>
+      </ol>
+
+      <ol class="type-upper-roman">
+        <li>upper-roman (대문자 로마숫자)</li>
+        <li>I, II, III...</li>
+      </ol>
+
+      <ul class="type-none">
+        <li>none (마커 없음)</li>
+        <li>리스트 마커가 보이지 않음</li>
+      </ul>
+
+      <div class="code-example">
+        list-style-type: disc | circle | square | decimal | lower-alpha |
+        upper-roman | none;
+      </div>
+    </div>
+
+    <!-- list-style-position -->
+    <div class="demo-box">
+      <h2>list-style-position (마커 위치)</h2>
+
+      <h3>outside (기본값) - 마커가 텍스트 영역 밖</h3>
+      <ul class="position-outside">
+        <li>
+          마커가 텍스트 블록 밖에 위치합니다. 텍스트가 길어져도 마커 아래로
+          들어가지 않습니다.
+        </li>
+        <li>두 번째 아이템</li>
+      </ul>
+
+      <h3>inside - 마커가 텍스트 영역 안</h3>
+      <ul class="position-inside">
+        <li>
+          마커가 텍스트 블록 안에 위치합니다. 텍스트가 길어지면 마커 아래로도
+          들어갑니다.
+        </li>
+        <li>두 번째 아이템</li>
+      </ul>
+
+      <div class="code-example">list-style-position: outside | inside;</div>
+    </div>
+
+    <!-- list-style-image -->
+    <div class="demo-box">
+      <h2>list-style-image (이미지 마커)</h2>
+
+      <ul class="image-star">
+        <li>별 모양 마커</li>
+        <li>SVG 이미지를 마커로 사용</li>
+        <li>커스텀 디자인 가능</li>
+      </ul>
+
+      <ul class="image-arrow">
+        <li>화살표 마커</li>
+        <li>파란색 원형 화살표</li>
+        <li>브랜드에 맞는 디자인</li>
+      </ul>
+
+      <div class="code-example">
+        list-style-image: url('image-path.png'); list-style-image:
+        url('data:image/svg+xml,...'); /* SVG 인라인 */
+      </div>
+    </div>
+
+    <!-- @counter-style (CSS 카운터) -->
+    <div class="demo-box">
+      <h2>CSS <code>@counter-style</code></h2>
+
+      <h3>예제 1: 이모티콘 순환 리스트</h3>
+      <ul class="list-emoji">
+        <li>첫 번째 항목</li>
+        <li>두 번째 항목</li>
+        <li>세 번째 항목</li>
+        <li>네 번째 항목</li>
+        <li>다섯 번째 항목 (다시 처음부터)</li>
+      </ul>
+
+      <h3>예제 2: 'Chapter' 형식 리스트</h3>
+      <ol class="list-chapter" start="0">
+        <li>소개</li>
+        <li>기본 개념</li>
+        <li>심화 학습</li>
+        <li>결론</li>
+      </ol>
+
+      <h3>예제 3: 한글 자음 리스트</h3>
+      <ol class="list-hangul">
+        <li>가나다</li>
+        <li>라마바</li>
+        <li>사아자</li>
+        <li>차카타</li>
+        <li>파하</li>
+      </ol>
+
+      <div class="code-example">
+        .counter-list { counter-reset: my-counter; /* 카운터 초기화 */
+        list-style: none; } <br />
+        .counter-list li { counter-increment: my-counter; /* 카운터 증가 */ }
+        <br />
+        .counter-list li::before { content: counter(my-counter) ". "; /* 카운터
+        표시 */ }
+      </div>
+    </div>
+
+    <!-- 종합 예제 -->
+    <div class="demo-box">
+      <h2>실용적인 활용 예제</h2>
+
+      <h3>단계별 가이드</h3>
+      <ol
+        style="
+          list-style-type: decimal;
+          list-style-position: outside;
+          padding-left: 25px;
+        "
+      >
+        <li style="margin-bottom: 10px">
+          <strong>준비 단계</strong><br />필요한 도구와 재료를 준비합니다.
+        </li>
+        <li style="margin-bottom: 10px">
+          <strong>설계 단계</strong><br />구체적인 계획을 세웁니다.
+        </li>
+        <li style="margin-bottom: 10px">
+          <strong>실행 단계</strong><br />계획에 따라 단계별로 진행합니다.
+        </li>
+      </ol>
+
+      <h3>기능 리스트</h3>
+      <ul class="image-star" style="list-style-position: outside">
+        <li>반응형 디자인 지원</li>
+        <li>크로스 브라우저 호환성</li>
+        <li>접근성 최적화</li>
+      </ul>
+    </div>
+
+    <!-- 요약 -->
+    <div class="demo-box" style="background-color: #f8f9fa">
+      <h2>리스트 스타일 속성 요약</h2>
+      <ul style="list-style-type: none; padding-left: 0">
+        <li>
+          🎯 <strong>list-style-type:</strong> 마커 모양 (disc, decimal, alpha
+          등)
+        </li>
+        <li>
+          📍 <strong>list-style-position:</strong> 마커 위치 (outside, inside)
+        </li>
+        <li>🖼️ <strong>list-style-image:</strong> 커스텀 이미지 마커</li>
+        <li>
+          🔢 <strong>CSS 카운터:</strong> counter-reset, counter-increment로
+          커스텀 번호
+        </li>
+      </ul>
+
+      <div class="code-example">
+        /* 한 번에 설정 */ <br />
+        list-style: square inside url('marker.png'); <br />
+        /* 개별 설정 */ <br />
+        list-style-type: decimal; list-style-position: outside; <br />
+        list-style-image: url('custom-marker.svg'); <br />
+      </div>
+    </div>
+  </body>
+</html>

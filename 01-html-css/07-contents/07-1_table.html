@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML 테이블 실습</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px 0;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      caption {
+        padding: 10px;
+        font-weight: bold;
+      }
+      .highlight {
+        background-color: #fffde7;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>HTML 테이블 실습</h1>
+
+    <!-- 1. 기본 테이블 구조 -->
+    <table>
+      <caption>
+        기본 테이블 구조
+      </caption>
+      <tr>
+        <th>제목 1</th>
+        <th>제목 2</th>
+        <th>제목 3</th>
+      </tr>
+      <tr>
+        <td>내용 1-1</td>
+        <td>내용 1-2</td>
+        <td>내용 1-3</td>
+      </tr>
+      <tr>
+        <td>내용 2-1</td>
+        <td>내용 2-2</td>
+        <td>내용 2-3</td>
+      </tr>
+    </table>
+
+    <!-- 2. thead, tbody, tfoot 사용 -->
+    <table>
+      <caption>
+        성적표
+      </caption>
+      <thead>
+        <tr>
+          <th>이름</th>
+          <th>국어</th>
+          <th>영어</th>
+          <th>수학</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>홍길동</td>
+          <td>90</td>
+          <td>85</td>
+          <td>95</td>
+        </tr>
+        <tr>
+          <td>김철수</td>
+          <td>85</td>
+          <td>90</td>
+          <td>88</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th>평균</th>
+          <td>87.5</td>
+          <td>87.5</td>
+          <td>91.5</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <!-- 3. colspan과 rowspan 사용 -->
+    <table>
+      <caption>
+        셀 병합 예시
+      </caption>
+      <tr>
+        <th colspan="2">지역별 판매량</th>
+        <th>판매액</th>
+      </tr>
+      <tr>
+        <td rowspan="2">서울</td>
+        <td>강남</td>
+        <td>1,000만원</td>
+      </tr>
+      <tr>
+        <td>강북</td>
+        <td>800만원</td>
+      </tr>
+    </table>
+
+    <!-- 4. colgroup 사용 -->
+    <table>
+      <caption>
+        열 그룹 스타일 적용
+      </caption>
+      <colgroup>
+        <col style="width: 150px" />
+        <col style="background-color: #f0f0f0" />
+        <col style="background-color: #e0e0e0" />
+      </colgroup>
+      <tr>
+        <th>항목</th>
+        <th>수량</th>
+        <th>가격</th>
+      </tr>
+      <tr>
+        <td>상품A</td>
+        <td>10</td>
+        <td>1,000원</td>
+      </tr>
+      <tr>
+        <td>상품B</td>
+        <td>20</td>
+        <td>2,000원</td>
+      </tr>
+    </table>
+  </body>
+</html>

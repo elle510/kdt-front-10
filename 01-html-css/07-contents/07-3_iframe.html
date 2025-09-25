@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>iframe 실습</title>
+    <style>
+      .iframe-container {
+        margin: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      iframe {
+        border: 1px solid #ccc;
+        max-width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>iframe 태그 실습</h1>
+
+    <!-- 1. 기본 iframe -->
+    <section class="iframe-container">
+      <h2>1. 기본 iframe</h2>
+      <iframe
+        src="https://www.example.com"
+        width="600"
+        height="400"
+        title="예제 웹사이트"
+      >
+      </iframe>
+    </section>
+
+    <!-- 2. 유튜브 영상 삽입 -->
+    <section class="iframe-container">
+      <h2>2. 유튜브 영상</h2>
+      <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/8kJwTrs6e-4?si=o58DodvDMQ6D6YFU"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </section>
+
+    <!-- 3. 구글 지도 삽입 -->
+    <section class="iframe-container">
+      <h2>3. 구글 지도</h2>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3162.510921286925!2d126.97562887659237!3d37.56658507203851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca2f332cb082b%3A0xe92b70ac420cf0a8!2z7ISc7Jq47Yq567OE7Iuc7LKt!5e0!3m2!1sko!2skr!4v1758095816107!5m2!1sko!2skr"
+        width="600"
+        height="450"
+        style="border: 0"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </section>
+
+    <!-- 5. iframe 속성 설명 -->
+    <section class="iframe-container">
+      <h2>5. 주요 속성 설명</h2>
+      <ul>
+        <li><code>src</code>: 포함할 문서의 URL</li>
+        <li><code>width</code>, <code>height</code>: 크기 설정</li>
+        <li>
+          <code>loading</code>: 지연 로딩 설정 (lazy/eager)
+          <ul>
+            <li>
+              lazy 설정 시:
+              <ul>
+                <li>frame이 뷰포트에 가까워질 때까지 로딩을 지연</li>
+                <li>초기 페이지 로드 시간 개선</li>
+                <li>대역폭 절약</li>
+              </ul>
+            </li>
+          </ul>
+          <ul>
+            <li>
+              eager 설정 시:
+              <ul>
+                <li>페이지 로드 시 즉시 로딩</li>
+                <li>기본값</li>
+                <li>중요한 콘텐츠에 사용</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><code>title</code>: 접근성을 위한 제목</li>
+        <li><code>allowfullscreen</code>: 전체화면 허용</li>
+      </ul>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Flexbox 기본 개념</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+
+      .demo-box {
+        background: white;
+        padding: 20px;
+        margin: 20px 0;
+        border: 2px solid #007bff;
+        border-radius: 8px;
+      }
+
+      .flex-item {
+        background: #28a745;
+        color: white;
+        padding: 20px;
+        margin: 5px;
+        text-align: center;
+        font-weight: bold;
+        border-radius: 5px;
+        min-width: 80px;
+      }
+
+      /* ========== Flex Container ========== */
+      .flex-container {
+        display: flex;
+        background: #e3f2fd;
+        padding: 10px;
+        border: 2px dashed #007bff;
+        border-radius: 5px;
+        margin: 10px 0;
+      }
+
+      /* ========== Flex Direction ========== */
+      .flex-row {
+        flex-direction: row; /* 기본값: 가로 방향 */
+      }
+
+      .flex-column {
+        flex-direction: column; /* 세로 방향 */
+      }
+
+      /* ========== Justify Content (주축 정렬) ========== */
+      .justify-start {
+        justify-content: flex-start; /* 시작점 정렬 */
+      }
+
+      .justify-center {
+        justify-content: center; /* 가운데 정렬 */
+      }
+
+      .justify-end {
+        justify-content: flex-end; /* 끝점 정렬 */
+      }
+
+      .justify-between {
+        justify-content: space-between; /* 사이 공간 균등 */
+      }
+
+      .justify-around {
+        justify-content: space-around; /* 주변 공간 균등 */
+      }
+
+      /* ========== Align Items (교차축 정렬) ========== */
+      .align-center {
+        align-items: center;
+        height: 120px; /* 높이를 줘야 효과 확인 가능 */
+      }
+
+      .align-start {
+        align-items: flex-start;
+        height: 120px;
+      }
+
+      .align-end {
+        align-items: flex-end;
+        height: 120px;
+      }
+
+      /* ========== Flex Grow/Shrink ========== */
+      .flex-grow-1 {
+        flex-grow: 1; /* 남은 공간 차지 */
+      }
+
+      .flex-grow-2 {
+        flex-grow: 2; /* 더 많은 공간 차지 */
+      }
+
+      /* 코드 표시용 */
+      .code {
+        background: #2d3748;
+        color: #e2e8f0;
+        padding: 10px;
+        border-radius: 5px;
+        font-family: "Courier New", monospace;
+        font-size: 14px;
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS Flexbox 기본 개념</h1>
+
+    <!-- 1. Flex 없음 (기본 상태) -->
+    <div class="demo-box">
+      <h2>1. Flex 없음 (기본 상태)</h2>
+      <div
+        style="
+          background: #f8f9fa;
+          padding: 10px;
+          border: 2px dashed #6c757d;
+          border-radius: 5px;
+        "
+      >
+        <div class="flex-item">아이템 1</div>
+        <div class="flex-item">아이템 2</div>
+        <div class="flex-item">아이템 3</div>
+      </div>
+      <p>블록 요소들이 세로로 쌓입니다 (기본 동작)</p>
+    </div>
+
+    <!-- 2. Flex 적용 -->
+    <div class="demo-box">
+      <h2>2. display: flex 적용</h2>
+      <div class="flex-container">
+        <div class="flex-item">아이템 1</div>
+        <div class="flex-item">아이템 2</div>
+        <div class="flex-item">아이템 3</div>
+      </div>
+      <div class="code">display: flex;</div>
+      <p>아이템들이 가로로 나란히 배치됩니다!</p>
+    </div>
+
+    <!-- 3. Flex Direction -->
+    <div class="demo-box">
+      <h2>3. Flex Direction (방향)</h2>
+
+      <h3>flex-direction: row (가로, 기본값)</h3>
+      <div class="flex-container flex-row">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+        <div class="flex-item">3</div>
+      </div>
+
+      <h3>flex-direction: column (세로)</h3>
+      <div class="flex-container flex-column">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+        <div class="flex-item">3</div>
+      </div>
+      <div class="code">flex-direction: row | column;</div>
+    </div>
+
+    <!-- 4. Justify Content (주축 정렬) -->
+    <div class="demo-box">
+      <h2>4. Justify Content (가로 정렬)</h2>
+
+      <h3>justify-content: flex-start (기본값)</h3>
+      <div class="flex-container justify-start">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+        <div class="flex-item">3</div>
+      </div>
+
+      <h3>justify-content: center</h3>
+      <div class="flex-container justify-center">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+        <div class="flex-item">3</div>
+      </div>
+
+      <h3>justify-content: space-between</h3>
+      <div class="flex-container justify-between">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+        <div class="flex-item">3</div>
+      </div>
+      <div class="code">
+        justify-content: flex-start | center | space-between;
+      </div>
+    </div>
+
+    <!-- 5. Align Items (교차축 정렬) -->
+    <div class="demo-box">
+      <h2>5. Align Items (세로 정렬)</h2>
+
+      <h3>align-items: flex-start</h3>
+      <div class="flex-container align-start">
+        <div class="flex-item">높이가<br />다른</div>
+        <div class="flex-item">아이템들</div>
+        <div class="flex-item">위쪽 정렬</div>
+      </div>
+
+      <h3>align-items: center</h3>
+      <div class="flex-container align-center">
+        <div class="flex-item">높이가<br />다른</div>
+        <div class="flex-item">아이템들</div>
+        <div class="flex-item">가운데 정렬</div>
+      </div>
+      <div class="code">align-items: flex-start | center | flex-end;</div>
+    </div>
+
+    <!-- 6. Flex Grow -->
+    <div class="demo-box">
+      <h2>6. Flex Grow (공간 확장)</h2>
+
+      <div class="flex-container">
+        <div class="flex-item">고정</div>
+        <div class="flex-item flex-grow-1">flex-grow: 1</div>
+        <div class="flex-item">고정</div>
+      </div>
+
+      <div class="flex-container">
+        <div class="flex-item flex-grow-1">grow: 1</div>
+        <div class="flex-item flex-grow-2">grow: 2 (더 큼)</div>
+        <div class="flex-item flex-grow-1">grow: 1</div>
+      </div>
+      <div class="code">flex-grow: 1; /* 남은 공간 차지 */</div>
+    </div>
+
+    <!-- 7. 실용적인 예제 -->
+    <div class="demo-box">
+      <h2>7. 실용적인 예제</h2>
+
+      <h3>헤더 레이아웃</h3>
+      <div class="flex-container" style="background: #343a40; color: white">
+        <div style="color: white; padding: 15px; font-weight: bold">로고</div>
+        <div style="flex-grow: 1"></div>
+        <!-- 빈 공간 -->
+        <div style="color: white; padding: 15px">메뉴</div>
+        <div style="color: white; padding: 15px">로그인</div>
+      </div>
+
+      <h3>카드 레이아웃</h3>
+      <div class="flex-container">
+        <div class="flex-item flex-grow-1">카드 1</div>
+        <div class="flex-item flex-grow-1">카드 2</div>
+        <div class="flex-item flex-grow-1">카드 3</div>
+      </div>
+
+      <h3>완벽한 가운데 정렬</h3>
+      <div
+        class="flex-container justify-center align-center"
+        style="height: 100px"
+      >
+        <div class="flex-item">정중앙!</div>
+      </div>
+    </div>
+  </body>
+</html>

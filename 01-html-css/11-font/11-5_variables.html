@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Variables 테마 전환</title>
+    <style>
+      /* ========== CSS Variables 정의 ========== */
+      :root {
+        /* 라이트 테마 (기본) */
+        --primary-color: #007bff;
+        --secondary-color: #6c757d;
+        --success-color: #28a745;
+        --danger-color: #dc3545;
+
+        --bg-color: #ffffff;
+        --bg-secondary: #f8f9fa;
+        --text-color: #333333;
+        --text-muted: #6c757d;
+        --border-color: #dee2e6;
+
+        --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        --border-radius: 8px;
+        --spacing: 20px;
+      }
+
+      /* 다크 테마 */
+      [data-theme="dark"] {
+        --primary-color: #0d6efd;
+        --secondary-color: #6c757d;
+        --success-color: #198754;
+        --danger-color: #dc3545;
+
+        --bg-color: #212529;
+        --bg-secondary: #343a40;
+        --text-color: #ffffff;
+        --text-muted: #adb5bd;
+        --border-color: #495057;
+
+        --shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      /* 컬러풀 테마 */
+      [data-theme="colorful"] {
+        --primary-color: #e91e63;
+        --secondary-color: #9c27b0;
+        --success-color: #4caf50;
+        --danger-color: #f44336;
+
+        --bg-color: #fce4ec;
+        --bg-secondary: #f3e5f5;
+        --text-color: #1a1a1a;
+        --text-muted: #424242;
+        --border-color: #e1bee7;
+
+        --shadow: 0 4px 15px rgba(233, 30, 99, 0.2);
+      }
+
+      /* ========== CSS Variables 사용 ========== */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        margin: 0;
+        padding: var(--spacing);
+        transition: all 0.3s ease;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        padding: var(--spacing);
+        margin-bottom: var(--spacing);
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+      }
+
+      .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        font-size: 16px;
+        margin: 5px;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary {
+        background: var(--primary-color);
+        color: white;
+      }
+
+      .btn-secondary {
+        background: var(--secondary-color);
+        color: white;
+      }
+
+      .btn-success {
+        background: var(--success-color);
+        color: white;
+      }
+
+      .btn-danger {
+        background: var(--danger-color);
+        color: white;
+      }
+
+      .btn:hover {
+        opacity: 0.8;
+        transform: translateY(-2px);
+      }
+
+      .theme-switcher {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        padding: 10px;
+        box-shadow: var(--shadow);
+      }
+
+      .theme-btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 5px;
+        padding: 8px 16px;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .theme-btn:last-child {
+        margin-bottom: 0;
+      }
+
+      .text-muted {
+        color: var(--text-muted);
+      }
+
+      .border {
+        border: 2px solid var(--border-color);
+      }
+
+      h1,
+      h2 {
+        color: var(--text-color);
+      }
+
+      h2 {
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 5px;
+      }
+
+      .demo-colors {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+        margin: 15px 0;
+      }
+
+      .color-box {
+        height: 60px;
+        border-radius: var(--border-radius);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      }
+
+      .color-primary {
+        background: var(--primary-color);
+      }
+      .color-secondary {
+        background: var(--secondary-color);
+      }
+      .color-success {
+        background: var(--success-color);
+      }
+      .color-danger {
+        background: var(--danger-color);
+      }
+
+      /* 로컬 CSS Variables 예제 */
+      .local-vars {
+        --local-color: #ff6b6b;
+        --local-size: 24px;
+
+        color: var(--local-color);
+        font-size: var(--local-size);
+        border: 2px solid var(--local-color);
+        padding: 10px;
+        border-radius: var(--border-radius);
+      }
+
+      /* JavaScript로 동적 변경될 스타일 */
+      .dynamic-element {
+        background: var(--dynamic-bg, #f0f0f0);
+        color: var(--dynamic-text, #333);
+        padding: var(--spacing);
+        border-radius: var(--border-radius);
+        transition: all 0.3s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>CSS Variables와 테마 전환</h1>
+
+      <!-- 테마 전환 버튼 -->
+      <div class="theme-switcher">
+        <button class="theme-btn" onclick="setTheme('light')">라이트</button>
+        <button class="theme-btn" onclick="setTheme('dark')">다크</button>
+        <button class="theme-btn" onclick="setTheme('colorful')">컬러풀</button>
+      </div>
+
+      <!-- CSS Variables 기본 사용법 -->
+      <div class="card">
+        <h2>CSS Variables 기본</h2>
+        <p>CSS 변수를 사용하면 값을 재사용하고 동적으로 변경할 수 있습니다.</p>
+        <div class="demo-colors">
+          <div class="color-box color-primary">Primary</div>
+          <div class="color-box color-secondary">Secondary</div>
+          <div class="color-box color-success">Success</div>
+          <div class="color-box color-danger">Danger</div>
+        </div>
+      </div>
+
+      <!-- 버튼 예제 -->
+      <div class="card">
+        <h2>테마가 적용된 버튼들</h2>
+        <button class="btn btn-primary">Primary 버튼</button>
+        <button class="btn btn-secondary">Secondary 버튼</button>
+        <button class="btn btn-success">Success 버튼</button>
+        <button class="btn btn-danger">Danger 버튼</button>
+      </div>
+
+      <!-- 로컬 변수 예제 -->
+      <div class="card">
+        <h2>로컬 CSS Variables</h2>
+        <div class="local-vars">
+          로컬 변수를 사용한 요소입니다. --local-color와 --local-size를
+          정의했습니다.
+        </div>
+      </div>
+
+      <!-- 동적 변경 예제 -->
+      <div class="card">
+        <h2>JavaScript로 동적 변경</h2>
+        <div class="dynamic-element" id="dynamicElement">
+          이 요소의 스타일을 JavaScript로 동적 변경할 수 있습니다.
+        </div>
+        <button class="btn btn-primary" onclick="changeDynamicStyle()">
+          스타일 변경
+        </button>
+      </div>
+
+      <!-- CSS Variables 문법 설명 -->
+      <div class="card">
+        <h2>CSS Variables 문법</h2>
+        <div
+          style="
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+          "
+        >
+          <div style="color: var(--success-color)">/* 1. 변수 정의 */</div>
+          <div>:root { --primary-color: #007bff; }</div>
+          <br />
+          <div style="color: var(--success-color)">/* 2. 변수 사용 */</div>
+          <div>color: var(--primary-color);</div>
+          <br />
+          <div style="color: var(--success-color)">/* 3. 기본값 설정 */</div>
+          <div>color: var(--undefined-var, #333);</div>
+        </div>
+      </div>
+
+      <!-- 테마별 차이점 -->
+      <div class="card border">
+        <h2>현재 테마 정보</h2>
+        <p>
+          배경색:
+          <span
+            style="
+              display: inline-block;
+              width: 20px;
+              height: 20px;
+              background: var(--bg-color);
+              border: 1px solid var(--border-color);
+              vertical-align: middle;
+            "
+          ></span>
+          var(--bg-color)
+        </p>
+        <p>
+          텍스트색:
+          <span
+            style="
+              display: inline-block;
+              width: 20px;
+              height: 20px;
+              background: var(--text-color);
+              border: 1px solid var(--border-color);
+              vertical-align: middle;
+            "
+          ></span>
+          var(--text-color)
+        </p>
+        <p>
+          기본 색상:
+          <span
+            style="
+              display: inline-block;
+              width: 20px;
+              height: 20px;
+              background: var(--primary-color);
+              vertical-align: middle;
+            "
+          ></span>
+          var(--primary-color)
+        </p>
+        <p class="text-muted">회색 텍스트 예제 (var(--text-muted))</p>
+      </div>
+    </div>
+
+    <script>
+      // 테마 전환 함수
+      function setTheme(theme) {
+        if (theme === "light") {
+          document.documentElement.removeAttribute("data-theme");
+        } else {
+          document.documentElement.setAttribute("data-theme", theme);
+        }
+
+        // 로컬 스토리지에 저장
+        localStorage.setItem("theme", theme);
+      }
+
+      // 동적 스타일 변경 함수
+      function changeDynamicStyle() {
+        const element = document.getElementById("dynamicElement");
+        const colors = [
+          { bg: "#ff6b6b", text: "white" },
+          { bg: "#4ecdc4", text: "white" },
+          { bg: "#45b7d1", text: "white" },
+          { bg: "#96ceb4", text: "black" },
+          { bg: "#ffeaa7", text: "black" },
+        ];
+
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+        // CSS 변수를 JavaScript로 동적 설정
+        element.style.setProperty("--dynamic-bg", randomColor.bg);
+        element.style.setProperty("--dynamic-text", randomColor.text);
+      }
+
+      // 페이지 로드 시 저장된 테마 적용
+      document.addEventListener("DOMContentLoaded", function () {
+        const savedTheme = localStorage.getItem("theme") || "light";
+        setTheme(savedTheme);
+      });
+
+      // CSS 변수 값을 JavaScript에서 읽기
+      function getCSSVariable(name) {
+        return getComputedStyle(document.documentElement).getPropertyValue(
+          name
+        );
+      }
+
+      // 예제: 현재 primary-color 값 출력
+      console.log("현재 primary-color:", getCSSVariable("--primary-color"));
+    </script>
+  </body>
+</html>

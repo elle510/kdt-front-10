@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Grid 기본 개념</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+
+      .demo-box {
+        background: white;
+        padding: 20px;
+        margin: 20px 0;
+        border: 2px solid #007bff;
+        border-radius: 8px;
+      }
+
+      .grid-item {
+        background: #28a745;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-weight: bold;
+        border-radius: 5px;
+      }
+
+      /* ========== Grid Container ========== */
+      .grid-container {
+        display: grid;
+        background: #e3f2fd;
+        padding: 10px;
+        border: 2px dashed #007bff;
+        border-radius: 5px;
+        gap: 10px;
+        margin: 10px 0;
+      }
+
+      /* ========== 기본 그리드 ========== */
+      .grid-3-columns {
+        grid-template-columns: 1fr 1fr 1fr; /* 3개 열 */
+      }
+
+      .grid-2x2 {
+        grid-template-columns: 1fr 1fr; /* 2개 열 */
+        grid-template-rows: 100px 100px; /* 2개 행 */
+      }
+
+      /* ========== 다양한 크기 ========== */
+      .grid-mixed {
+        grid-template-columns: 200px 1fr 100px; /* 고정+유연+고정 */
+      }
+
+      /* ========== 영역 지정 ========== */
+      .grid-layout {
+        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-areas:
+          "header header header"
+          "sidebar content ads"
+          "footer footer footer";
+        height: 300px;
+      }
+
+      .header {
+        grid-area: header;
+        background: #dc3545;
+      }
+      .sidebar {
+        grid-area: sidebar;
+        background: #ffc107;
+        color: #333;
+      }
+      .content {
+        grid-area: content;
+        background: #17a2b8;
+      }
+      .ads {
+        grid-area: ads;
+        background: #6f42c1;
+      }
+      .footer {
+        grid-area: footer;
+        background: #6c757d;
+      }
+
+      /* ========== 확장 아이템 ========== */
+      .span-2 {
+        grid-column: span 2; /* 2개 열 차지 */
+        background: #dc3545;
+      }
+
+      .code {
+        background: #2d3748;
+        color: #e2e8f0;
+        padding: 10px;
+        border-radius: 5px;
+        font-family: "Courier New", monospace;
+        font-size: 14px;
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS Grid 기본 개념</h1>
+
+    <!-- 1. 기본 그리드 -->
+    <div class="demo-box">
+      <h2>1. 기본 3열 그리드</h2>
+      <div class="grid-container grid-3-columns">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+      </div>
+      <div class="code">
+        display: grid; grid-template-columns: 1fr 1fr 1fr; /* 3개 열 균등 분할
+        */ gap: 10px; /* 간격 */
+      </div>
+    </div>
+
+    <!-- 2. 2x2 그리드 -->
+    <div class="demo-box">
+      <h2>2. 2x2 그리드 (행과 열 지정)</h2>
+      <div class="grid-container grid-2x2">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+      </div>
+      <div class="code">
+        grid-template-columns: 1fr 1fr; /* 2개 열 */ grid-template-rows: 100px
+        100px; /* 2개 행 */
+      </div>
+    </div>
+
+    <!-- 3. 다양한 크기 -->
+    <div class="demo-box">
+      <h2>3. 다양한 열 크기</h2>
+      <div class="grid-container grid-mixed">
+        <div class="grid-item">200px<br />고정</div>
+        <div class="grid-item">1fr<br />유연</div>
+        <div class="grid-item">100px<br />고정</div>
+      </div>
+      <div class="code">
+        grid-template-columns: 200px 1fr 100px; /* 고정너비 + 유연크기 +
+        고정너비 */
+      </div>
+    </div>
+
+    <!-- 4. 아이템 확장 -->
+    <div class="demo-box">
+      <h2>4. 아이템 확장 (span)</h2>
+      <div class="grid-container grid-3-columns">
+        <div class="grid-item">1</div>
+        <div class="grid-item span-2">2개 열 차지</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+      </div>
+      <div class="code">.span-2 { grid-column: span 2; /* 2개 열 차지 */ }</div>
+    </div>
+
+    <!-- 5. 레이아웃 영역 -->
+    <div class="demo-box">
+      <h2>5. 웹페이지 레이아웃</h2>
+      <div class="grid-container grid-layout">
+        <div class="grid-item header">Header</div>
+        <div class="grid-item sidebar">Sidebar</div>
+        <div class="grid-item content">Main Content</div>
+        <div class="grid-item ads">Ads</div>
+        <div class="grid-item footer">Footer</div>
+      </div>
+      <div class="code">
+        grid-template-areas: "header header header" "sidebar content ads"
+        "footer footer footer"; .header { grid-area: header; } .sidebar {
+        grid-area: sidebar; }
+      </div>
+    </div>
+
+    <!-- 6. 실용 예제 -->
+    <div class="demo-box">
+      <h2>6. 카드 레이아웃</h2>
+      <div
+        class="grid-container"
+        style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr))"
+      >
+        <div class="grid-item">카드 1</div>
+        <div class="grid-item">카드 2</div>
+        <div class="grid-item">카드 3</div>
+        <div class="grid-item">카드 4</div>
+      </div>
+      <div class="code">
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* 반응형:
+        최소 150px, 자동으로 열 개수 조절 */
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>비디오와 오디오 실습</title>
+    <style>
+      .media-container {
+        margin: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      video,
+      audio {
+        max-width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>멀티미디어 요소 실습</h1>
+
+    <!-- 1. 기본 비디오 -->
+    <section class="media-container">
+      <h2>1. 기본 비디오</h2>
+      <video width="640" height="360" controls>
+        <source src="videos/sample.mp4" type="video/mp4" />
+        <source src="videos/sample.webm" type="video/webm" />
+        브라우저가 비디오 태그를 지원하지 않습니다.
+      </video>
+    </section>
+
+    <!-- 2. 자동재생 비디오 -->
+    <section class="media-container">
+      <h2>2. 자동재생 비디오 (음소거)</h2>
+      <video width="640" height="360" autoplay muted loop>
+        <source src="videos/background.mp4" type="video/mp4" />
+      </video>
+    </section>
+
+    <!-- 3. 포스터 이미지가 있는 비디오 -->
+    <section class="media-container">
+      <h2>3. 포스터 이미지 비디오</h2>
+      <video width="640" height="360" controls poster="images/poster.png">
+        <source src="videos/sample.mp4" type="video/mp4" />
+      </video>
+    </section>
+
+    <!-- 4. 기본 오디오 -->
+    <section class="media-container">
+      <h2>4. 기본 오디오</h2>
+      <audio controls>
+        <source src="audios/music.mp3" type="audio/mpeg" />
+        <source src="audios/music.ogg" type="audio/ogg" />
+        브라우저가 오디오 태그를 지원하지 않습니다.
+      </audio>
+    </section>
+
+    <!-- 5. 자동재생 오디오 -->
+    <section class="media-container">
+      <h2>5. 배경 음악 (자동재생)</h2>
+      <audio autoplay loop muted>
+        <source src="audios/background.mp3" type="audio/mpeg" />
+      </audio>
+    </section>
+
+    <!-- 6. 비디오와 오디오 속성 설명 -->
+    <section class="media-container">
+      <h2>6. 주요 속성 설명</h2>
+      <ul>
+        <li><code>controls</code>: 재생 컨트롤 표시</li>
+        <li><code>autoplay</code>: 자동 재생 (음소거 필요)</li>
+        <li><code>loop</code>: 반복 재생</li>
+        <li><code>muted</code>: 음소거</li>
+        <li><code>preload</code>: 미리 로딩 (auto/metadata/none)</li>
+        <li><code>poster</code>: 비디오 썸네일 이미지</li>
+      </ul>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS 폰트 스타일 핵심</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+
+      .demo-box {
+        background: white;
+        padding: 20px;
+        margin: 15px 0;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      /* ========== color ========== */
+      .color-red {
+        color: red;
+      }
+      .color-blue {
+        color: #0066cc;
+      }
+      .color-green {
+        color: rgb(0, 128, 0);
+      }
+
+      /* ========== font-family ========== */
+      .font-serif {
+        font-family: "Times New Roman", serif;
+      }
+      .font-monospace {
+        font-family: "Courier New", monospace;
+      }
+      .font-cursive {
+        font-family: cursive;
+      }
+
+      /* ========== font-size ========== */
+      .size-small {
+        font-size: 12px;
+      }
+      .size-medium {
+        font-size: 18px;
+      }
+      .size-large {
+        font-size: 24px;
+      }
+      .size-percent {
+        font-size: 150%;
+      }
+
+      /* ========== font-weight ========== */
+      .weight-light {
+        font-weight: 300;
+      }
+      .weight-normal {
+        font-weight: normal;
+      }
+      .weight-bold {
+        font-weight: bold;
+      }
+      .weight-900 {
+        font-weight: 900;
+      }
+
+      /* ========== text-transform ========== */
+      .transform-upper {
+        text-transform: uppercase;
+      }
+      .transform-lower {
+        text-transform: lowercase;
+      }
+      .transform-capitalize {
+        text-transform: capitalize;
+      }
+
+      /* ========== text-decoration ========== */
+      .decoration-underline {
+        text-decoration: underline;
+      }
+      .decoration-overline {
+        text-decoration: overline;
+      }
+      .decoration-line-through {
+        text-decoration: line-through;
+      }
+      .decoration-none {
+        text-decoration: none;
+      }
+
+      /* ========== text-shadow ========== */
+      .shadow-simple {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      .shadow-colorful {
+        text-shadow: 3px 3px 0px #ff6b6b, 6px 6px 0px #4ecdc4;
+      }
+      .shadow-glow {
+        text-shadow: 0 0 10px #00ff00;
+      }
+
+      /* ========== text-align ========== */
+      .align-left {
+        text-align: left;
+      }
+      .align-center {
+        text-align: center;
+      }
+      .align-right {
+        text-align: right;
+      }
+      .align-justify {
+        text-align: justify;
+      }
+
+      /* ========== vertical-align ========== */
+      .vertical-demo {
+        font-size: 20px;
+        line-height: 2;
+      }
+      .v-top {
+        vertical-align: top;
+      }
+      .v-middle {
+        vertical-align: middle;
+      }
+      .v-bottom {
+        vertical-align: bottom;
+      }
+      .v-super {
+        vertical-align: super;
+      }
+      .v-sub {
+        vertical-align: sub;
+      }
+
+      /* ========== line-height ========== */
+      .line-tight {
+        line-height: 1.2;
+      }
+      .line-normal {
+        line-height: 1.5;
+      }
+      .line-loose {
+        line-height: 2;
+      }
+
+      /* ========== letter-spacing ========== */
+      .spacing-tight {
+        letter-spacing: -1px;
+      }
+      .spacing-normal {
+        letter-spacing: normal;
+      }
+      .spacing-wide {
+        letter-spacing: 3px;
+      }
+
+      /* ========== text-indent ========== */
+      .indent-small {
+        text-indent: 20px;
+      }
+      .indent-large {
+        text-indent: 50px;
+      }
+
+      /* ========== word-break ========== */
+      .break-box {
+        width: 200px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px 0;
+      }
+      .break-normal {
+        word-break: normal;
+      }
+      .break-all {
+        word-break: break-all;
+      }
+      .break-keep {
+        word-break: keep-all;
+      }
+
+      /* ========== text-overflow ========== */
+      .overflow-box {
+        width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px 0;
+      }
+      .overflow-ellipsis {
+        text-overflow: ellipsis;
+      }
+      .overflow-clip {
+        text-overflow: clip;
+      }
+
+      h2 {
+        color: #333;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS 폰트 스타일 핵심 속성들</h1>
+
+    <!-- color -->
+    <div class="demo-box">
+      <h2>color (글자 색상)</h2>
+      <p class="color-red">빨간색 텍스트</p>
+      <p class="color-blue">파란색 텍스트 (#0066cc)</p>
+      <p class="color-green">초록색 텍스트 (rgb값)</p>
+    </div>
+
+    <!-- font-family -->
+    <div class="demo-box">
+      <h2>font-family (폰트 종류)</h2>
+      <p class="font-serif">세리프 폰트 (Times New Roman)</p>
+      <p class="font-monospace">모노스페이스 폰트 (Courier New)</p>
+      <p class="font-cursive">필기체 폰트 (cursive)</p>
+    </div>
+
+    <!-- font-size -->
+    <div class="demo-box">
+      <h2>font-size (글자 크기)</h2>
+      <p class="size-small">작은 글씨 (12px)</p>
+      <p class="size-medium">중간 글씨 (18px)</p>
+      <p class="size-large">큰 글씨 (24px)</p>
+      <p class="size-percent">퍼센트 크기 (150%)</p>
+    </div>
+
+    <!-- font-weight -->
+    <div class="demo-box">
+      <h2>font-weight (글자 굵기)</h2>
+      <p class="weight-light">얇은 글씨 (300)</p>
+      <p class="weight-normal">보통 글씨 (normal)</p>
+      <p class="weight-bold">굵은 글씨 (bold)</p>
+      <p class="weight-900">가장 굵은 글씨 (900)</p>
+    </div>
+
+    <!-- text-transform -->
+    <div class="demo-box">
+      <h2>text-transform (대소문자 변환)</h2>
+      <p class="transform-upper">uppercase - 모두 대문자</p>
+      <p class="transform-lower">LOWERCASE - 모두 소문자</p>
+      <p class="transform-capitalize">capitalize - 첫글자만 대문자</p>
+    </div>
+
+    <!-- text-decoration -->
+    <div class="demo-box">
+      <h2>text-decoration (텍스트 장식)</h2>
+      <p class="decoration-underline">밑줄 텍스트</p>
+      <p class="decoration-overline">윗줄 텍스트</p>
+      <p class="decoration-line-through">취소선 텍스트</p>
+      <a href="#" class="decoration-none">링크 밑줄 제거</a>
+    </div>
+
+    <!-- text-shadow -->
+    <div class="demo-box">
+      <h2>text-shadow (텍스트 그림자)</h2>
+      <p class="shadow-simple">간단한 그림자</p>
+      <p class="shadow-colorful">다채로운 그림자</p>
+      <p class="shadow-glow">빛나는 효과</p>
+    </div>
+
+    <!-- text-align -->
+    <div class="demo-box">
+      <h2>text-align (텍스트 정렬)</h2>
+      <p class="align-left">왼쪽 정렬</p>
+      <p class="align-center">가운데 정렬</p>
+      <p class="align-right">오른쪽 정렬</p>
+      <p class="align-justify">
+        양쪽 정렬 - 이 텍스트는 양쪽 끝에 맞춰서 정렬됩니다. 줄의 양 끝이
+        일정하게 맞춰집니다.
+      </p>
+    </div>
+
+    <!-- vertical-align -->
+    <div class="demo-box">
+      <h2>vertical-align (수직 정렬)</h2>
+      <div class="vertical-demo">
+        기준 텍스트
+        <span class="v-top">top</span>
+        <span class="v-middle">middle</span>
+        <span class="v-bottom">bottom</span>
+        <span class="v-super">super</span>
+        <span class="v-sub">sub</span>
+      </div>
+    </div>
+
+    <!-- line-height -->
+    <div class="demo-box">
+      <h2>line-height (줄 간격)</h2>
+      <p class="line-tight">
+        좁은 줄간격 (1.2)<br />두 번째 줄입니다<br />세 번째 줄입니다
+      </p>
+      <p class="line-normal">
+        보통 줄간격 (1.5)<br />두 번째 줄입니다<br />세 번째 줄입니다
+      </p>
+      <p class="line-loose">
+        넓은 줄간격 (2.0)<br />두 번째 줄입니다<br />세 번째 줄입니다
+      </p>
+    </div>
+
+    <!-- letter-spacing -->
+    <div class="demo-box">
+      <h2>letter-spacing (자간)</h2>
+      <p class="spacing-tight">좁은 자간 (-1px)</p>
+      <p class="spacing-normal">보통 자간 (normal)</p>
+      <p class="spacing-wide">넓은 자간 (3px)</p>
+    </div>
+
+    <!-- text-indent -->
+    <div class="demo-box">
+      <h2>text-indent (들여쓰기)</h2>
+      <p class="indent-small">
+        작은 들여쓰기 (20px) - 첫 줄만 들여쓰기가 적용됩니다.
+      </p>
+      <p class="indent-large">
+        큰 들여쓰기 (50px) - 첫 줄만 들여쓰기가 적용됩니다.
+      </p>
+    </div>
+
+    <!-- word-break -->
+    <div class="demo-box">
+      <h2>word-break (단어 줄바꿈)</h2>
+      <div class="break-box break-normal">
+        <strong>normal:</strong> verylongwordthatdoesnotfitin200px
+      </div>
+      <div class="break-box break-all">
+        <strong>break-all:</strong> verylongwordthatdoesnotfitin200px
+      </div>
+      <div class="break-box break-keep">
+        <strong>keep-all:</strong> 한글은 단어 단위로 줄바꿈이 됩니다
+      </div>
+    </div>
+
+    <!-- text-overflow -->
+    <div class="demo-box">
+      <h2>text-overflow (텍스트 넘침 처리)</h2>
+      <div class="overflow-box overflow-ellipsis">
+        <strong>ellipsis:</strong> 이 텍스트는 너무 길어서 박스를 넘칩니다
+      </div>
+      <div class="overflow-box overflow-clip">
+        <strong>clip:</strong> 이 텍스트는 너무 길어서 박스를 넘칩니다
+      </div>
+    </div>
+  </body>
+</html>

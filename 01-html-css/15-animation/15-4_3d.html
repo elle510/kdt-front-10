@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS 3D 속성 기본 개념</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+
+      .demo-box {
+        background: white;
+        padding: 20px;
+        margin: 20px 0;
+        border: 2px solid #007bff;
+        border-radius: 8px;
+      }
+
+      h2 {
+        color: #333;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 5px;
+      }
+
+      /* ========== perspective (원근감) ========== */
+      .perspective-container {
+        perspective: 1000px; /* 원근감 설정 */
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        padding: 40px;
+        border: 2px dashed #007bff;
+        border-radius: 8px;
+        background: #f8f9ff;
+        margin: 15px 0;
+      }
+
+      .no-perspective {
+        perspective: none; /* 원근감 없음 */
+      }
+
+      .perspective-near {
+        perspective: 200px; /* 가까운 원근감 */
+      }
+
+      .perspective-far {
+        perspective: 2000px; /* 먼 원근감 */
+      }
+
+      .demo-item {
+        width: 100px;
+        height: 100px;
+        background: #28a745;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: transform 0.5s ease;
+        cursor: pointer;
+      }
+
+      /* ========== 3D 회전 ========== */
+      .rotate-x:hover {
+        transform: rotateX(60deg);
+      }
+
+      .rotate-y:hover {
+        transform: rotateY(60deg);
+      }
+
+      .rotate-z:hover {
+        transform: rotateZ(45deg);
+      }
+
+      /* ========== 3D 이동 ========== */
+      .translate-z:hover {
+        transform: translateZ(50px); /* Z축으로 앞으로 */
+      }
+
+      .translate-z-back:hover {
+        transform: translateZ(-50px); /* Z축으로 뒤로 */
+      }
+
+      .translate-3d:hover {
+        transform: translate3d(30px, -20px, 40px);
+      }
+
+      /* ========== transform-style ========== */
+      .preserve-3d {
+        transform-style: preserve-3d; /* 3D 공간 유지 */
+      }
+
+      .flat {
+        transform-style: flat; /* 평면으로 변환 (기본값) */
+      }
+
+      .cube-container {
+        width: 100px;
+        height: 100px;
+        position: relative;
+        margin: 50px;
+        transform-style: preserve-3d;
+        animation: rotateCube 6s infinite linear;
+      }
+
+      .cube-face {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: white;
+      }
+
+      .front {
+        background: #dc3545;
+        transform: translateZ(50px);
+      }
+      .back {
+        background: #28a745;
+        transform: rotateY(180deg) translateZ(50px);
+      }
+      .right {
+        background: #ffc107;
+        color: #333;
+        transform: rotateY(90deg) translateZ(50px);
+      }
+      .left {
+        background: #17a2b8;
+        transform: rotateY(-90deg) translateZ(50px);
+      }
+      .top {
+        background: #6f42c1;
+        transform: rotateX(90deg) translateZ(50px);
+      }
+      .bottom {
+        background: #fd7e14;
+        transform: rotateX(-90deg) translateZ(50px);
+      }
+
+      @keyframes rotateCube {
+        0% {
+          transform: rotateX(0) rotateY(0);
+        }
+        100% {
+          transform: rotateX(360deg) rotateY(360deg);
+        }
+      }
+
+      /* ========== backface-visibility ========== */
+      .card {
+        width: 150px;
+        height: 200px;
+        position: relative;
+        margin: 20px;
+        cursor: pointer;
+        perspective: 1000px;
+      }
+
+      .card-inner {
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        transition: transform 0.6s;
+      }
+
+      .card:hover .card-inner {
+        transform: rotateY(180deg);
+      }
+
+      .card-front,
+      .card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        border-radius: 8px;
+        backface-visibility: hidden; /* 뒷면 숨기기 */
+      }
+
+      .card-front {
+        background: #007bff;
+        color: white;
+      }
+
+      .card-back {
+        background: #28a745;
+        color: white;
+        transform: rotateY(180deg);
+      }
+
+      /* ========== perspective-origin ========== */
+      .perspective-origin-demo {
+        perspective: 600px;
+        padding: 40px;
+        border: 2px dashed #28a745;
+        border-radius: 8px;
+        background: #f0fff4;
+        margin: 15px 0;
+      }
+
+      .origin-center {
+        perspective-origin: center center; /* 기본값 */
+      }
+
+      .origin-top {
+        perspective-origin: center top; /* 위쪽에서 보는 시점 */
+      }
+
+      .origin-left {
+        perspective-origin: left center; /* 왼쪽에서 보는 시점 */
+      }
+
+      .perspective-item {
+        width: 120px;
+        height: 80px;
+        background: #6f42c1;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        border-radius: 8px;
+        margin: 0 auto;
+        transition: transform 0.5s ease;
+      }
+
+      .perspective-item:hover {
+        transform: rotateX(45deg);
+      }
+
+      /* 실용적인 예제들 */
+      .book {
+        width: 150px;
+        height: 200px;
+        position: relative;
+        margin: 20px;
+        cursor: pointer;
+      }
+
+      .book-cover {
+        width: 100%;
+        height: 100%;
+        background: #8b4513;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        border-radius: 5px;
+        transform-origin: left;
+        transition: transform 0.8s ease;
+      }
+
+      .book:hover .book-cover {
+        transform: rotateY(-30deg);
+      }
+
+      .floating-card {
+        width: 120px;
+        height: 80px;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        border-radius: 8px;
+        margin: 20px;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) rotateX(0);
+        }
+        50% {
+          transform: translateY(-20px) rotateX(10deg);
+        }
+      }
+
+      .code-example {
+        background: #2d3748;
+        color: #e2e8f0;
+        padding: 15px;
+        border-radius: 5px;
+        font-family: "Courier New", monospace;
+        font-size: 14px;
+        margin: 15px 0;
+      }
+
+      .demo-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS 3D 속성 기본 개념</h1>
+
+    <!-- perspective (원근감) -->
+    <div class="demo-box">
+      <h2>1. perspective (원근감)</h2>
+      <p>3D 효과를 보기 위해 필요한 원근감 설정. 마우스를 올려보세요!</p>
+
+      <h3>원근감 없음</h3>
+      <div class="perspective-container no-perspective">
+        <div class="demo-item rotate-x">rotateX</div>
+        <div class="demo-item rotate-y">rotateY</div>
+      </div>
+
+      <h3>원근감 있음 (perspective: 1000px)</h3>
+      <div class="perspective-container">
+        <div class="demo-item rotate-x">rotateX</div>
+        <div class="demo-item rotate-y">rotateY</div>
+        <div class="demo-item rotate-z">rotateZ</div>
+      </div>
+
+      <div class="code-example">
+        .container { <br />
+        &nbsp;&nbsp;perspective: 1000px; /* 원근감 설정 */ <br />
+        } <br />
+        .item:hover { <br />
+        &nbsp;&nbsp;transform: rotateX(60deg); /* X축 회전 */ <br />
+        &nbsp;&nbsp;transform: rotateY(60deg); /* Y축 회전 */ <br />
+        }
+      </div>
+    </div>
+
+    <!-- 3D 이동 -->
+    <div class="demo-box">
+      <h2>2. 3D 이동 (translateZ, translate3d)</h2>
+      <p>Z축으로 앞뒤 이동. 마우스를 올려보세요!</p>
+
+      <div class="perspective-container">
+        <div class="demo-item translate-z">앞으로<br />(translateZ)</div>
+        <div class="demo-item translate-z-back">뒤로<br />(translateZ)</div>
+        <div class="demo-item translate-3d">3D 이동<br />(translate3d)</div>
+      </div>
+
+      <div class="code-example">
+        .item:hover { <br />
+        &nbsp;&nbsp;transform: translateZ(50px); /* Z축으로 앞으로 */ <br />
+        &nbsp;&nbsp;transform: translateZ(-50px); /* Z축으로 뒤로 */ <br />
+        &nbsp;&nbsp;transform: translate3d(30px, -20px, 40px); /* X, Y, Z 모두
+        이동 */ <br />
+        }
+      </div>
+    </div>
+
+    <!-- transform-style -->
+    <div class="demo-box">
+      <h2>3. transform-style (3D 공간 유지)</h2>
+      <p>자식 요소들이 3D 공간에서 변환되도록 설정</p>
+
+      <div
+        style="
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 200px;
+        "
+      >
+        <div class="cube-container">
+          <div class="cube-face front">앞</div>
+          <div class="cube-face back">뒤</div>
+          <div class="cube-face right">오른쪽</div>
+          <div class="cube-face left">왼쪽</div>
+          <div class="cube-face top">위</div>
+          <div class="cube-face bottom">아래</div>
+        </div>
+      </div>
+
+      <div class="code-example">
+        .cube-container { <br />
+        &nbsp;&nbsp;transform-style: preserve-3d; /* 3D 공간 유지 */ <br />
+        &nbsp;&nbsp;animation: rotateCube 6s infinite linear; <br />
+        }<br />
+        .cube-face { <br />
+        &nbsp;&nbsp;position: absolute; <br />
+        } <br />
+        .front { <br />
+        &nbsp;&nbsp;transform: translateZ(50px); <br />
+        } <br />
+        .back { <br />
+        &nbsp;&nbsp;transform: rotateY(180deg) translateZ(50px); <br />
+        } <br />
+        .right { <br />
+        &nbsp;&nbsp;transform: rotateY(90deg) translateZ(50px); <br />
+        }
+      </div>
+    </div>
+
+    <!-- backface-visibility -->
+    <div class="demo-box">
+      <h2>4. backface-visibility (뒷면 표시 여부)</h2>
+      <p>카드를 뒤집는 효과. 카드에 마우스를 올려보세요!</p>
+
+      <div class="demo-grid">
+        <div class="card">
+          <div class="card-inner">
+            <div class="card-front">앞면</div>
+            <div class="card-back">뒷면</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-inner">
+            <div class="card-front">Card Front</div>
+            <div class="card-back">Card Back</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-example">
+        .card-inner { <br />
+        &nbsp;&nbsp;transform-style: preserve-3d; <br />
+        &nbsp;&nbsp;transition: transform 0.6s; <br />
+        } <br />
+        .card:hover .card-inner { <br />
+        &nbsp;&nbsp;transform: rotateY(180deg); <br />
+        } <br />
+        .card-front, .card-back { <br />
+        &nbsp;&nbsp;backface-visibility: hidden; /* 뒷면 숨기기 */ <br />
+        } <br />
+        .card-back { <br />
+        &nbsp;&nbsp;transform: rotateY(180deg); <br />
+        }
+      </div>
+    </div>
+
+    <!-- perspective-origin -->
+    <div class="demo-box">
+      <h2>5. perspective-origin (시점 위치)</h2>
+      <p>어느 위치에서 보는지 설정. 각 박스에 마우스를 올려보세요!</p>
+
+      <h3>중앙에서 보는 시점 (기본값)</h3>
+      <div class="perspective-origin-demo origin-center">
+        <div class="perspective-item">Center</div>
+      </div>
+
+      <h3>위쪽에서 보는 시점</h3>
+      <div class="perspective-origin-demo origin-top">
+        <div class="perspective-item">Top</div>
+      </div>
+
+      <h3>왼쪽에서 보는 시점</h3>
+      <div class="perspective-origin-demo origin-left">
+        <div class="perspective-item">Left</div>
+      </div>
+
+      <div class="code-example">
+        .container { <br />
+        &nbsp;&nbsp;perspective: 600px; perspective-origin: center center; /*
+        기본값 */ <br />
+        &nbsp;&nbsp;perspective-origin: center top; /* 위쪽 시점 */ <br />
+        &nbsp;&nbsp;perspective-origin: left center; /* 왼쪽 시점 */ <br />
+        }
+      </div>
+    </div>
+
+    <!-- 실용적인 예제들 -->
+    <div class="demo-box">
+      <h2>6. 실용적인 3D 효과 예제</h2>
+
+      <h3>책 넘기기 효과</h3>
+      <div class="demo-grid">
+        <div class="book">
+          <div class="book-cover">Book Cover</div>
+        </div>
+        <div class="book">
+          <div class="book-cover">CSS 3D</div>
+        </div>
+      </div>
+
+      <h3>떠다니는 카드</h3>
+      <div class="demo-grid">
+        <div class="floating-card">Floating</div>
+        <div class="floating-card">Animation</div>
+      </div>
+
+      <div class="code-example">
+        /* 책 넘기기 효과 */ <br />
+        .book-cover { <br />
+        &nbsp;&nbsp;transform-origin: left; /* 왼쪽을 기준으로 회전 */ <br />
+        &nbsp;&nbsp;transition: transform 0.8s ease; <br />
+        } <br />
+        .book:hover .book-cover { <br />
+        &nbsp;&nbsp;transform: rotateY(-30deg); <br />
+        } <br />
+        /* 떠다니는 애니메이션 */ <br />
+        @keyframes float { <br />
+        &nbsp;&nbsp;0%, 100% { <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;transform: translateY(0) rotateX(0); <br />
+        &nbsp;&nbsp;} <br />
+        &nbsp;&nbsp;50% { <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;transform: translateY(-20px) rotateX(10deg);
+        <br />
+        &nbsp;&nbsp;} <br />
+        }
+      </div>
+    </div>
+
+    <!-- 요약 -->
+    <div class="demo-box" style="background: #f8f9fa">
+      <h2>CSS 3D 속성 요약</h2>
+
+      <h3>핵심 속성들</h3>
+      <ul>
+        <li><strong>perspective:</strong> 원근감 설정 (부모에 적용)</li>
+        <li><strong>transform-style:</strong> 3D 공간 유지 (preserve-3d)</li>
+        <li><strong>backface-visibility:</strong> 뒷면 표시 여부</li>
+        <li><strong>perspective-origin:</strong> 시점 위치 설정</li>
+      </ul>
+
+      <h3>3D 변환 함수들</h3>
+      <div class="code-example">
+        /* 3D 회전 */ <br />
+        transform: rotateX(45deg); /* X축 회전 */ <br />
+        transform: rotateY(45deg); /* Y축 회전 */ <br />
+        transform: rotateZ(45deg); /* Z축 회전 */ <br />
+        /* 3D 이동 */ <br />
+        transform: translateZ(50px); /* Z축 이동 */ <br />
+        transform: translate3d(10px, 20px, 30px); /* 3D 이동 */ <br />
+        /* 3D 크기 조절 */ <br />
+        transform: scaleZ(2); /* Z축 크기 */ <br />
+        transform: scale3d(1, 1, 2); /* 3D 크기 */
+      </div>
+
+      <h3>기본 설정 패턴</h3>
+      <div class="code-example">
+        /* 3D 효과를 위한 기본 설정 */ <br />
+        .container { <br />
+        &nbsp;&nbsp;perspective: 1000px; /* 원근감 */ <br />
+        &nbsp;&nbsp;perspective-origin: center; /* 시점 */ <br />
+        } <br />
+        .item { <br />
+        &nbsp;&nbsp;transform-style: preserve-3d; /* 3D 공간 유지 */ <br />
+        &nbsp;&nbsp;backface-visibility: hidden; /* 뒷면 숨기기 */ <br />
+        &nbsp;&nbsp;transition: transform 0.5s; /* 부드러운 변화 */ <br />
+        }
+      </div>
+
+      <h3>주의사항</h3>
+      <ul>
+        <li>부모 요소에 <code>perspective</code> 설정 필요</li>
+        <li>3D 효과는 GPU를 사용하여 성능이 좋음</li>
+        <li>모바일에서는 성능을 고려하여 사용</li>
+        <li>
+          <code>transform-style: preserve-3d</code>는 자식 요소들에 3D 효과 적용
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

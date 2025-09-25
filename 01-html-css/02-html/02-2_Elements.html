@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>HTML 요소 관계</title>
+    <style>
+      /* 1. 부모 > 자식 선택자 */
+      .parent > .child {
+        color: blue;
+      }
+
+      /* 2. 조상 자손 선택자 (공백) */
+      .ancestor .descendant {
+        background-color: yellow;
+      }
+
+      /* 3. 인접 형제 선택자 (+) */
+      .sibling + p {
+        color: red;
+      }
+
+      /* 4. 일반 형제 선택자 (~) */
+      .sibling ~ span {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 조상 요소 -->
+    <div class="ancestor">
+      <!-- 부모 요소 -->
+      <div class="parent">
+        <!-- 자식 요소들 -->
+        <p class="child">자식1: 나는 파란색</p>
+        <p class="child">자식2: 나도 파란색</p>
+
+        <!-- 자손 요소 -->
+        <div>
+          <p class="descendant">자손: 나는 노란 배경</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 형제 관계 요소들 -->
+    <div class="sibling">기준 형제</div>
+    <p>인접 형제: 나는 빨간색</p>
+    <div>다른 요소</div>
+    <span>일반 형제1: 나는 굵은 글씨</span>
+    <span>일반 형제2: 나도 굵은 글씨</span>
+  </body>
+</html>

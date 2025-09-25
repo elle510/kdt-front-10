@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML5 시맨틱 요소</title>
+    <style>
+      /* 시맨틱 요소 구분을 위한 스타일 */
+      header,
+      nav,
+      main,
+      article,
+      section,
+      aside,
+      footer {
+        padding: 20px;
+        margin: 10px;
+        border: 2px solid #333;
+        border-radius: 5px;
+      }
+      header {
+        background-color: #ffebee;
+      }
+      nav {
+        background-color: #e3f2fd;
+      }
+      main {
+        background-color: #f1f8e9;
+      }
+      article {
+        background-color: #f9fbe7;
+      }
+      section {
+        background-color: #fff3e0;
+      }
+      aside {
+        background-color: #efebe9;
+      }
+      footer {
+        background-color: #fafafa;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- header: 문서의 헤더 영역 -->
+    <header>
+      <h1>웹사이트 제목</h1>
+      <!-- nav: 네비게이션 영역 -->
+      <nav>
+        <ul>
+          <li><a href="#home">홈</a></li>
+          <li><a href="#about">소개</a></li>
+          <li><a href="#contact">연락처</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- main: 문서의 주요 콘텐츠 -->
+    <main>
+      <!-- article: 독립적인 콘텐츠 영역 -->
+      <article>
+        <h2>주요 기사</h2>
+        <!-- section: 관련 콘텐츠의 섹션 -->
+        <section>
+          <h3>첫 번째 섹션</h3>
+          <p>섹션 내용입니다.</p>
+        </section>
+        <section>
+          <h3>두 번째 섹션</h3>
+          <p>섹션 내용입니다.</p>
+        </section>
+      </article>
+
+      <!-- aside: 부가 콘텐츠 영역 -->
+      <aside>
+        <h2>사이드바</h2>
+        <ul>
+          <li>관련 링크 1</li>
+          <li>관련 링크 2</li>
+        </ul>
+      </aside>
+
+      <!-- time: 날짜/시간 정보 (datetime 은 검색 엔진이나 접근성을 위해) -->
+      <p>작성일: <time datetime="2024-01-15">2024년 1월 15일</time></p>
+
+      <!-- mark: 하이라이트된 텍스트 -->
+      <p>이것은 <mark>중요한</mark> 내용입니다.</p>
+    </main>
+
+    <!-- footer: 문서의 푸터 영역 -->
+    <footer>
+      <p>&copy; 2024 웹사이트. All rights reserved.</p>
+      <!-- address: 연락처 정보 -->
+      <address>
+        연락처: <a href="mailto:example@email.com">example@email.com</a>
+      </address>
+    </footer>
+  </body>
+</html>

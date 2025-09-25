@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이미지 태그 실습</title>
+    <style>
+      .img-container {
+        margin: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+      }
+      .responsive-img {
+        max-width: 100%;
+        height: auto;
+      }
+      .thumbnail {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>이미지 태그 실습</h1>
+
+    <!-- 기본 이미지 삽입 -->
+    <section class="img-container">
+      <h2>1. 기본 이미지</h2>
+      <img
+        src="images/example.png"
+        alt="샘플 이미지"
+        title="이미지 제목입니다."
+      />
+    </section>
+
+    <!-- width와 height 속성 -->
+    <section class="img-container">
+      <h2>2. 크기 지정</h2>
+      <img
+        src="images/example.png"
+        alt="크기 조절된 이미지"
+        width="300"
+        height="200"
+      />
+    </section>
+
+    <!-- 반응형 이미지 -->
+    <section class="img-container">
+      <h2>3. 반응형 이미지</h2>
+      <img
+        src="images/example.png"
+        alt="반응형 이미지"
+        class="responsive-img"
+      />
+    </section>
+
+    <!-- 이미지 맵 -->
+    <section class="img-container">
+      <h2>6. 이미지 맵</h2>
+      <img src="images/image-map.png" usemap="#image-map" />
+
+      <map name="image-map">
+        <area
+          target="_blank"
+          alt="estsoft"
+          title="estsoft"
+          href="https://estsoft.ai/"
+          coords="0,0,100,100"
+          shape="rect"
+        />
+      </map>
+    </section>
+
+    <!-- figure 요소 사용 -->
+    <section class="img-container">
+      <h2>7. figure와 figcaption</h2>
+      <figure>
+        <img src="images/example.png" alt="설명이 있는 이미지" />
+        <figcaption>이미지에 대한 상세한 설명을 여기에 작성합니다.</figcaption>
+      </figure>
+
+      <h3>코드 조각, 인용문 등에도 사용 가능</h3>
+      <figure>
+        <pre>
+           /\_/\
+          ( o.o )
+           > ^ <
+    </pre
+        >
+        <figcaption>그림 1: 귀여운 고양이 아스키 아트</figcaption>
+      </figure>
+    </section>
+
+    <!-- 백그라운드 이미지 vs img 태그 -->
+    <section class="img-container">
+      <h2>8. 배경 이미지</h2>
+      <div
+        style="
+          width: 300px;
+          height: 200px;
+          background-image: url('images/example.png');
+          background-size: cover;
+        "
+      >
+        배경 이미지 예시
+      </div>
+    </section>
+  </body>
+</html>

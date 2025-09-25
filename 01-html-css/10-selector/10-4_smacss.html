@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SMACSS 핵심 이해</title>
+    <style>
+      /* ========== 1. BASE (기본) ========== */
+      /* 기본 HTML 요소 스타일 */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0 0 15px 0;
+      }
+      p {
+        margin: 0 0 10px 0;
+      }
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      /* ========== 2. LAYOUT (레이아웃) ========== */
+      /* 주요 레이아웃 요소들 (접두사: l-) */
+      .l-header {
+        background: #333;
+        color: white;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .l-sidebar {
+        width: 200px;
+        float: left;
+        background: white;
+        padding: 20px;
+        margin-right: 20px;
+      }
+
+      .l-content {
+        margin-left: 240px;
+        background: white;
+        padding: 20px;
+      }
+
+      .l-footer {
+        clear: both;
+        background: #333;
+        color: white;
+        padding: 15px;
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      /* ========== 3. MODULE (모듈) ========== */
+      /* 재사용 가능한 컴포넌트들 */
+      .card {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .card h3 {
+        color: #333;
+      }
+      .card p {
+        color: #666;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      .nav {
+        background: #007bff;
+        padding: 10px;
+        border-radius: 5px;
+      }
+
+      .nav ul {
+        display: flex;
+        gap: 15px;
+      }
+      .nav a {
+        color: white;
+        text-decoration: none;
+      }
+
+      /* ========== 4. STATE (상태) ========== */
+      /* 상태를 나타내는 클래스들 (접두사: is-, has-) */
+      .is-hidden {
+        display: none;
+      }
+      .is-active {
+        background-color: #28a745 !important;
+        color: white;
+      }
+      .is-disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .is-loading {
+        position: relative;
+      }
+
+      .has-error {
+        border: 2px solid #dc3545;
+        background: #f8d7da;
+      }
+      .has-success {
+        border: 2px solid #28a745;
+        background: #d4edda;
+      }
+
+      /* ========== 5. THEME (테마) ========== */
+      /* 색상, 폰트 등 테마 관련 (접두사: theme-) */
+      .theme-primary {
+        background: #007bff;
+        color: white;
+      }
+      .theme-success {
+        background: #28a745;
+        color: white;
+      }
+      .theme-warning {
+        background: #ffc107;
+        color: #333;
+      }
+      .theme-danger {
+        background: #dc3545;
+        color: white;
+      }
+
+      .theme-dark {
+        background: #333;
+        color: white;
+      }
+
+      .theme-dark .card {
+        background: #444;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- LAYOUT: Header -->
+    <header class="l-header">
+      <h1>SMACSS 방법론 예제</h1>
+
+      <!-- MODULE: Navigation -->
+      <nav class="nav">
+        <ul>
+          <li><a href="#" class="is-active">홈</a></li>
+          <li><a href="#">소개</a></li>
+          <li><a href="#">연락처</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- LAYOUT: Sidebar -->
+    <aside class="l-sidebar">
+      <h3>사이드바</h3>
+
+      <!-- MODULE: Card -->
+      <div class="card">
+        <h3>모듈 카드</h3>
+        <p>재사용 가능한 카드 컴포넌트입니다.</p>
+        <button class="btn theme-primary">버튼</button>
+      </div>
+    </aside>
+
+    <!-- LAYOUT: Main Content -->
+    <main class="l-content">
+      <h2>SMACSS 5가지 카테고리</h2>
+
+      <!-- MODULE: Card with different states -->
+      <div class="card">
+        <h3>1. Base (기본)</h3>
+        <p>HTML 요소의 기본 스타일 (body, h1, p 등)</p>
+      </div>
+
+      <div class="card">
+        <h3>2. Layout (레이아웃)</h3>
+        <p>주요 레이아웃 요소들 (.l-header, .l-sidebar, .l-content)</p>
+      </div>
+
+      <div class="card">
+        <h3>3. Module (모듈)</h3>
+        <p>재사용 가능한 컴포넌트들 (.card, .btn, .nav)</p>
+      </div>
+
+      <!-- STATE 예제 -->
+      <div class="card has-success">
+        <h3>4. State (상태)</h3>
+        <p>이 카드는 has-success 상태입니다.</p>
+        <button class="btn theme-success">성공 버튼</button>
+        <button class="btn theme-danger is-disabled">비활성화 버튼</button>
+      </div>
+
+      <!-- THEME 예제 -->
+      <div class="card theme-dark">
+        <h3>5. Theme (테마)</h3>
+        <p>다크 테마가 적용된 카드입니다.</p>
+        <button class="btn theme-warning">경고 버튼</button>
+      </div>
+
+      <!-- 숨겨진 카드 (STATE) -->
+      <div class="card is-hidden">
+        <p>이 카드는 숨겨져 있습니다.</p>
+      </div>
+    </main>
+
+    <!-- LAYOUT: Footer -->
+    <footer class="l-footer">
+      <p>SMACSS 방법론으로 구조화된 CSS</p>
+    </footer>
+
+    <script>
+      // 상태 변경 예제
+      setTimeout(() => {
+        document.querySelector(".is-hidden").classList.remove("is-hidden");
+      }, 3000);
+    </script>
+  </body>
+</html>

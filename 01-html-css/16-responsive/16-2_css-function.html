@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS 함수 예제: calc, min, max, clamp</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        padding: 20px;
+        background-color: #f4f4f9;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      .container {
+        background-color: #ffffff;
+        padding: 20px;
+        margin-bottom: 25px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      h1,
+      h2 {
+        margin-top: 0;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+
+      p {
+        margin-top: 0;
+      }
+
+      .box {
+        height: 80px;
+        border-radius: 4px;
+        margin-top: 10px;
+        transition: width 0.2s ease-in-out;
+      }
+
+      /* 1. calc() 예제 */
+      /* 설명: 전체 너비(100%)에서 고정된 값(100px)을 뺍니다. */
+      .calc-box {
+        width: calc(100% - 100px);
+        background-color: #e3f2fd;
+        border: 2px solid #90caf9;
+      }
+
+      /* 2. min() 예제 */
+      /* 설명: 너비가 80%이지만, 그 값이 600px를 초과하면 600px가 됩니다. (최대 너비 제한) */
+      .min-box {
+        width: min(80%, 600px);
+        background-color: #e8f5e9;
+        border: 2px solid #a5d6a7;
+      }
+
+      /* 3. max() 예제 */
+      /* 설명: 너비가 50%이지만, 그 값이 200px보다 작아지면 200px가 됩니다. (최소 너비 보장) */
+      .max-box {
+        width: max(200px, 50%);
+        background-color: #fff3e0;
+        border: 2px solid #ffcc80;
+      }
+
+      /* 4. clamp() 예제 */
+      /* 설명: 너비는 50vw(뷰포트 너비의 50%)를 가지려고 하지만, 최소 200px, 최대 600px의 범위를 벗어나지 않습니다. */
+      .clamp-box {
+        width: clamp(200px, 50vw, 600px);
+        background-color: #f3e5f5;
+        border: 2px solid #ce93d8;
+      }
+
+      /* clamp()를 사용한 반응형 폰트 크기 */
+      .clamp-text {
+        /* 설명: 폰트 크기는 뷰포트 너비(vw)에 따라 유동적으로 변하지만, 최소 16px, 최대 24px의 범위를 벗어나지 않습니다. */
+        font-size: clamp(16px, 2.5vw, 24px);
+        font-weight: bold;
+        color: #9c27b0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS 계산 및 비교 함수 예제</h1>
+
+    <div class="container">
+      <h2>1. calc()</h2>
+      <p>
+        서로 다른 단위를 사용하여 값을 계산합니다. (예:
+        <code>width: calc(100% - 100px)</code>)
+      </p>
+      <div class="box calc-box"></div>
+    </div>
+
+    <div class="container">
+      <h2>2. min()</h2>
+      <p>
+        주어진 값들 중 <strong>가장 작은 값</strong>을 선택합니다. (예:
+        <code>width: min(80%, 600px)</code>)<br />
+        창 너비가 넓어져도 박스는 600px 이상 커지지 않습니다.
+      </p>
+      <div class="box min-box"></div>
+    </div>
+
+    <div class="container">
+      <h2>3. max()</h2>
+      <p>
+        주어진 값들 중 <strong>가장 큰 값</strong>을 선택합니다. (예:
+        <code>width: max(200px, 50%)</code>)<br />
+        창 너비가 좁아져도 박스는 200px보다 작아지지 않습니다.
+      </p>
+      <div class="box max-box"></div>
+    </div>
+
+    <div class="container">
+      <h2>4. clamp()</h2>
+      <p>
+        <strong>최소값, 기본값, 최대값</strong> 사이에서 값을 제한합니다. (예:
+        <code>width: clamp(200px, 50vw, 600px)</code>)<br />
+        박스는 200px보다 작아지지도, 600px보다 커지지도 않으면서 뷰포트 너비의
+        50%를 유지하려고 합니다.
+      </p>
+      <div class="box clamp-box"></div>
+      <hr style="margin: 20px 0; border: 1px solid #eee" />
+      <p class="clamp-text">
+        이 텍스트의 크기는 clamp()로 조절됩니다. 화면 너비를 변경해보세요.<br />
+        (<code>font-size: clamp(16px, 2.5vw, 24px)</code>)
+      </p>
+    </div>
+  </body>
+</html>

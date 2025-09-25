@@ -1,0 +1,440 @@
+/* ========================================
+   사용자 지정 Reset CSS
+   브라우저 기본 스타일 초기화 및 기본 설정
+======================================== */
+
+/* ========== 1. 기본 리셋 ========== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* 모든 요소에 border-box 적용 */
+  margin: 0;
+  padding: 0;
+}
+
+/* ========== 2. HTML & Body 기본 설정 ========== */
+html {
+  font-size: 16px; /* 1rem = 16px 기준 설정 */
+  line-height: 1.15; /* 기본 줄 간격 */
+  -webkit-text-size-adjust: 100%; /* iOS Safari 텍스트 크기 조정 방지 */
+  -webkit-tap-highlight-color: transparent; /* 모바일 탭 하이라이트 제거 */
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif; /* 시스템 폰트 스택 */
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  -webkit-font-smoothing: antialiased; /* macOS/iOS 폰트 스무딩 */
+  -moz-osx-font-smoothing: grayscale; /* Firefox 폰트 스무딩 */
+  text-rendering: optimizeLegibility; /* 텍스트 렌더링 최적화 */
+}
+
+/* ========== 3. 제목 요소 리셋 ========== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  margin: 0;
+}
+
+/* ========== 4. 텍스트 요소 리셋 ========== */
+p,
+blockquote,
+pre,
+address,
+hr,
+table,
+fieldset,
+figure {
+  margin: 0;
+}
+
+/* 강조 요소 */
+strong,
+b {
+  font-weight: bolder;
+}
+
+em,
+i {
+  font-style: italic;
+}
+
+/* 코드 요소 */
+code,
+kbd,
+samp,
+pre {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas,
+    "Liberation Mono", Menlo, monospace;
+  font-size: 1em;
+}
+
+/* 작은 텍스트 */
+small {
+  font-size: 0.875em;
+}
+
+/* 위첨자, 아래첨자 */
+sub,
+sup {
+  font-size: 0.75em;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/* ========== 5. 링크 리셋 ========== */
+a {
+  color: inherit;
+  text-decoration: inherit;
+  background-color: transparent;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
+
+/* ========== 6. 리스트 리셋 ========== */
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin: 0;
+  padding: 0;
+}
+
+/* ========== 7. 폼 요소 리셋 ========== */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+}
+
+/* 버튼 */
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+/* 입력 필드 */
+input,
+textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+button:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* 플레이스홀더 */
+::placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
+/* 체크박스, 라디오 */
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+/* 숫자 입력 스피너 제거 */
+[type="number"]::-webkit-outer-spin-button,
+[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* 검색 입력 */
+[type="search"] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/* ========== 8. 미디어 요소 리셋 ========== */
+img,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+img {
+  border-style: none;
+}
+
+svg {
+  fill: currentColor;
+  display: block;
+  max-width: 100%;
+}
+
+/* ========== 9. 테이블 리셋 ========== */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th,
+td {
+  padding: 0;
+  text-align: left;
+  vertical-align: top;
+}
+
+/* ========== 10. 기타 요소 리셋 ========== */
+hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+  border: 0;
+  border-top: 1px solid #dee2e6;
+}
+
+details {
+  display: block;
+}
+
+summary {
+  display: list-item;
+  cursor: pointer;
+}
+
+/* 숨겨진 요소 */
+[hidden] {
+  display: none !important;
+}
+
+/* ========== 11. 접근성 개선 ========== */
+/* 스크린 리더 전용 클래스 */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* 포커스 시 스크린 리더 전용 클래스 표시 */
+.sr-only:focus {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  padding: inherit !important;
+  margin: inherit !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: inherit !important;
+}
+
+/* 움직임 감소 설정 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ========== 12. 유용한 기본 클래스 ========== */
+/* 컨테이너 */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* 플렉스 유틸리티 */
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 그리드 유틸리티 */
+.grid {
+  display: grid;
+}
+
+.grid-center {
+  display: grid;
+  place-items: center;
+}
+
+/* 텍스트 정렬 */
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+
+/* 여백 리셋 */
+.m-0 {
+  margin: 0 !important;
+}
+.p-0 {
+  padding: 0 !important;
+}
+
+/* 숨기기 */
+.hidden {
+  display: none !important;
+}
+
+.invisible {
+  visibility: hidden !important;
+}
+
+/* 반응형 이미지 */
+.img-responsive {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 클리어픽스 (플로트 해제) */
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* ========== 13. 인쇄 스타일 ========== */
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+
+  abbr[title]::after {
+    content: " (" attr(title) ")";
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  img {
+    max-width: 100% !important;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}

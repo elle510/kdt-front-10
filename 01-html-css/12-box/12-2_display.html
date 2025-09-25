@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Display 속성과 숨기기 방법</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+
+      .demo-section {
+        background: white;
+        padding: 20px;
+        margin: 15px 0;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        color: #333;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 5px;
+      }
+
+      .demo-box {
+        background: #e3f2fd;
+        border: 2px solid #007bff;
+        padding: 10px;
+        margin: 5px;
+        color: #333;
+      }
+
+      /* ========== display: block ========== */
+      .block-demo {
+        display: block;
+        width: 200px;
+        height: 50px;
+        background: #ffebee;
+        border: 2px solid #f44336;
+      }
+
+      /* ========== display: inline ========== */
+      .inline-demo {
+        display: inline;
+        background: #e8f5e8;
+        border: 2px solid #4caf50;
+        padding: 5px;
+        /* width, height 무시됨 */
+        width: 200px;
+        height: 50px;
+      }
+
+      /* ========== display: inline-block ========== */
+      .inline-block-demo {
+        display: inline-block;
+        width: 120px;
+        height: 60px;
+        background: #fff3e0;
+        border: 2px solid #ff9800;
+        text-align: center;
+        vertical-align: top;
+      }
+
+      /* ========== display: flex ========== */
+      .flex-container {
+        display: flex;
+        gap: 10px;
+        background: #f3e5f5;
+        border: 2px solid #9c27b0;
+        padding: 15px;
+      }
+
+      .flex-item {
+        background: #e1bee7;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+      }
+
+      .flex-item:nth-child(2) {
+        flex: 1; /* 남은 공간 차지 */
+      }
+
+      /* ========== display: grid ========== */
+      .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+        background: #e0f2f1;
+        border: 2px solid #009688;
+        padding: 15px;
+      }
+
+      .grid-item {
+        background: #b2dfdb;
+        padding: 10px;
+        text-align: center;
+        border-radius: 5px;
+      }
+
+      /* ========== display: none ========== */
+      .display-none {
+        display: none; /* 완전히 제거 */
+      }
+
+      /* ========== 숨기기 방법들 ========== */
+      .visibility-hidden {
+        visibility: hidden; /* 공간은 유지, 보이지 않음 */
+      }
+
+      .text-indent-hidden {
+        text-indent: -9999px; /* 텍스트만 화면 밖으로 */
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      .position-hidden {
+        position: absolute;
+        left: -9999px; /* 요소를 화면 밖으로 */
+      }
+
+      .clip-hidden {
+        position: absolute;
+        clip: rect(0 0 0 0); /* 클립으로 숨기기 */
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
+
+      .opacity-hidden {
+        opacity: 0; /* 투명하게 */
+      }
+
+      .transform-hidden {
+        transform: scale(0); /* 크기를 0으로 */
+      }
+
+      /* 데모용 스타일 */
+      .comparison-box {
+        width: 150px;
+        height: 50px;
+        background: #ffc107;
+        border: 2px solid #f57c00;
+        margin: 10px;
+        padding: 10px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .toggle-btn {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 5px;
+      }
+
+      .code-example {
+        background: #2d3748;
+        color: #e2e8f0;
+        padding: 10px;
+        border-radius: 5px;
+        font-family: "Courier New", monospace;
+        font-size: 14px;
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS Display 속성과 콘텐츠 숨기기 방법</h1>
+
+    <!-- display: block -->
+    <div class="demo-section">
+      <h2>display: block (블록 요소)</h2>
+      <div class="block-demo">블록 요소 1</div>
+      <div class="block-demo">블록 요소 2</div>
+      <p>
+        <strong>특징:</strong> 전체 너비 차지, 새 줄에서 시작, width/height 적용
+        가능
+      </p>
+      <div class="code-example">display: block;</div>
+    </div>
+
+    <!-- display: inline -->
+    <div class="demo-section">
+      <h2>display: inline (인라인 요소)</h2>
+      <span class="inline-demo">인라인 1</span>
+      <span class="inline-demo">인라인 2</span>
+      <span class="inline-demo">인라인 3</span>
+      <p>
+        <strong>특징:</strong> 한 줄에 나란히, width/height 무시, 좌우
+        margin/padding만 적용
+      </p>
+      <div class="code-example">display: inline;</div>
+    </div>
+
+    <!-- display: inline-block -->
+    <div class="demo-section">
+      <h2>display: inline-block (인라인 블록)</h2>
+      <div class="inline-block-demo">인라인<br />블록 1</div>
+      <div class="inline-block-demo">인라인<br />블록 2</div>
+      <div class="inline-block-demo">인라인<br />블록 3</div>
+      <p><strong>특징:</strong> 한 줄에 나란히 + width/height 적용 가능</p>
+      <div class="code-example">display: inline-block;</div>
+    </div>
+
+    <!-- display: flex -->
+    <div class="demo-section">
+      <h2>display: flex (플렉스 컨테이너)</h2>
+      <div class="flex-container">
+        <div class="flex-item">아이템 1</div>
+        <div class="flex-item">아이템 2 (확장)</div>
+        <div class="flex-item">아이템 3</div>
+      </div>
+      <p><strong>특징:</strong> 유연한 레이아웃, 자동 정렬, 반응형</p>
+      <div class="code-example">display: flex;</div>
+    </div>
+
+    <!-- display: grid -->
+    <div class="demo-section">
+      <h2>display: grid (그리드 컨테이너)</h2>
+      <div class="grid-container">
+        <div class="grid-item">그리드 1</div>
+        <div class="grid-item">그리드 2</div>
+        <div class="grid-item">그리드 3</div>
+        <div class="grid-item">그리드 4</div>
+        <div class="grid-item">그리드 5</div>
+        <div class="grid-item">그리드 6</div>
+      </div>
+      <p><strong>특징:</strong> 2차원 레이아웃, 행과 열 제어</p>
+      <div class="code-example">
+        display: grid;<br />grid-template-columns: 1fr 1fr 1fr;
+      </div>
+    </div>
+
+    <!-- display: none -->
+    <div class="demo-section">
+      <h2>display: none (완전 숨김)</h2>
+      <div class="comparison-box">보이는 박스 1</div>
+      <div class="comparison-box display-none">숨겨진 박스</div>
+      <div class="comparison-box">보이는 박스 2</div>
+      <button class="toggle-btn" onclick="toggleDisplay()">
+        display: none 토글
+      </button>
+      <p><strong>특징:</strong> 완전히 제거, 공간도 차지하지 않음</p>
+      <div class="code-example">display: none;</div>
+    </div>
+
+    <!-- 콘텐츠 숨기기 방법들 -->
+    <div class="demo-section">
+      <h2>다양한 콘텐츠 숨기기 방법</h2>
+
+      <h3>1. visibility: hidden</h3>
+      <div class="comparison-box">보이는 박스 1</div>
+      <div class="comparison-box visibility-hidden">
+        숨겨진 박스 (공간 유지)
+      </div>
+      <div class="comparison-box">보이는 박스 2</div>
+      <button class="toggle-btn" onclick="toggleVisibility()">
+        visibility 토글
+      </button>
+      <div class="code-example">visibility: hidden; /* 공간은 유지 */</div>
+
+      <h3>2. text-indent: -9999px</h3>
+      <div class="comparison-box text-indent-hidden">숨겨진 텍스트</div>
+      <p><strong>용도:</strong> 텍스트만 숨기고 배경 이미지는 보이게 할 때</p>
+      <div class="code-example">
+        text-indent: -9999px;<br />overflow: hidden;
+      </div>
+
+      <h3>3. 화면 밖으로 보내기</h3>
+      <div class="comparison-box position-hidden">화면 밖 요소</div>
+      <p><strong>용도:</strong> 스크린 리더는 읽지만 시각적으로 숨김</p>
+      <div class="code-example">position: absolute;<br />left: -9999px;</div>
+
+      <h3>4. CSS 클립 방법</h3>
+      <div class="comparison-box clip-hidden">클립으로 숨긴 요소</div>
+      <p><strong>용도:</strong> 접근성을 위한 숨김 (스크린 리더 접근 가능)</p>
+      <div class="code-example">
+        position: absolute;<br />clip: rect(0 0 0 0);<br />width: 1px; height:
+        1px;
+      </div>
+
+      <h3>5. 기타 방법들</h3>
+      <div class="comparison-box opacity-hidden">투명한 박스</div>
+      <div class="comparison-box transform-hidden">크기 0인 박스</div>
+      <div class="code-example">
+        opacity: 0; /* 투명 */<br />transform: scale(0); /* 크기 0 */
+      </div>
+    </div>
+
+    <!-- 숨기기 방법 비교표 -->
+    <div class="demo-section" style="background: #f8f9fa">
+      <h2>숨기기 방법 비교</h2>
+      <table style="width: 100%; border-collapse: collapse; margin: 15px 0">
+        <tr style="background: #e9ecef">
+          <th style="border: 1px solid #ccc; padding: 10px; text-align: left">
+            방법
+          </th>
+          <th style="border: 1px solid #ccc; padding: 10px; text-align: left">
+            공간 차지
+          </th>
+          <th style="border: 1px solid #ccc; padding: 10px; text-align: left">
+            스크린 리더
+          </th>
+          <th style="border: 1px solid #ccc; padding: 10px; text-align: left">
+            사용 용도
+          </th>
+        </tr>
+        <tr>
+          <td style="border: 1px solid #ccc; padding: 10px">
+            <code>display: none</code>
+          </td>
+          <td style="border: 1px solid #ccc; padding: 10px">❌ 없음</td>
+          <td style="border: 1px solid #ccc; padding: 10px">❌ 읽지 않음</td>
+          <td style="border: 1px solid #ccc; padding: 10px">완전한 숨김</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid #ccc; padding: 10px">
+            <code>visibility: hidden</code>
+          </td>
+          <td style="border: 1px solid #ccc; padding: 10px">✅ 차지함</td>
+          <td style="border: 1px solid #ccc; padding: 10px">❌ 읽지 않음</td>
+          <td style="border: 1px solid #ccc; padding: 10px">레이아웃 유지</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid #ccc; padding: 10px">
+            <code>text-indent: -9999px</code>
+          </td>
+          <td style="border: 1px solid #ccc; padding: 10px">✅ 차지함</td>
+          <td style="border: 1px solid #ccc; padding: 10px">❌ 읽지 않음</td>
+          <td style="border: 1px solid #ccc; padding: 10px">텍스트만 숨김</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid #ccc; padding: 10px">
+            <code>position: absolute; left: -9999px</code>
+          </td>
+          <td style="border: 1px solid #ccc; padding: 10px">❌ 없음</td>
+          <td style="border: 1px solid #ccc; padding: 10px">✅ 읽음</td>
+          <td style="border: 1px solid #ccc; padding: 10px">접근성 유지</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid #ccc; padding: 10px">
+            <code>clip: rect(0 0 0 0)</code>
+          </td>
+          <td style="border: 1px solid #ccc; padding: 10px">❌ 최소</td>
+          <td style="border: 1px solid #ccc; padding: 10px">✅ 읽음</td>
+          <td style="border: 1px solid #ccc; padding: 10px">접근성 최적</td>
+        </tr>
+      </table>
+    </div>
+
+    <script>
+      function toggleDisplay() {
+        const element = document.querySelector(".display-none");
+        if (element.style.display === "block") {
+          element.style.display = "none";
+        } else {
+          element.style.display = "block";
+        }
+      }
+
+      function toggleVisibility() {
+        const element = document.querySelector(".visibility-hidden");
+        if (element.style.visibility === "visible") {
+          element.style.visibility = "hidden";
+        } else {
+          element.style.visibility = "visible";
+        }
+      }
+    </script>
+  </body>
+</html>

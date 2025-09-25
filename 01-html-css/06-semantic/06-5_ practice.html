@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>위니브 로그인</title>
+    <style>
+      /* CSS는 레이아웃을 위한 예시입니다 */
+      .login-container {
+        width: 350px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .welcome-text {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .login-btn {
+        width: 100%;
+        padding: 15px;
+        background-color: #8a2be2; /* 보라색 */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .login-options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        font-size: 14px;
+      }
+
+      .login-link {
+        text-decoration: none;
+        color: #555;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <p class="welcome-text">더 편리해진 위니브에 오신 것을 환영합니다.</p>
+      <button class="login-btn">weniv 로그인</button>
+      <div class="login-options">
+        <a href="#" class="login-link">
+          <img
+            src="images/icon-lock.png"
+            alt="아이디/비밀번호"
+            width="23"
+            height="23"
+          />
+          <span>아이디 | 비밀번호찾기</span>
+        </a>
+        <a href="#" class="login-link">
+          <img
+            src="images/icon-user.png"
+            alt="아이디/비밀번호"
+            width="23"
+            height="23"
+          />
+          <span>회원가입</span>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

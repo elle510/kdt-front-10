@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OOCSS 핵심 이해</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+
+      /* ========== OOCSS 핵심 1: 구조와 스킨 분리 ========== */
+
+      /* 구조 (Structure) - 레이아웃, 크기 */
+      .box {
+        padding: 20px;
+        margin: 10px 0;
+        border-radius: 8px;
+        display: block;
+      }
+
+      .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        display: inline-block;
+      }
+
+      /* 스킨 (Skin) - 색상, 배경, 테두리 */
+      .theme-primary {
+        background: #007bff;
+        color: white;
+      }
+
+      .theme-success {
+        background: #28a745;
+        color: white;
+      }
+
+      .theme-warning {
+        background: #ffc107;
+        color: #333;
+      }
+
+      .theme-light {
+        background: white;
+        color: #333;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      /* ========== OOCSS 핵심 2: 컨테이너와 콘텐츠 분리 ========== */
+
+      /* 위치에 의존하지 않는 독립적인 스타일 */
+      .title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .text {
+        line-height: 1.6;
+        margin-bottom: 15px;
+      }
+
+      .list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .list-item {
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      /* 크기 유틸리티 */
+      .size-small {
+        font-size: 14px;
+        padding: 8px 16px;
+      }
+      .size-large {
+        font-size: 18px;
+        padding: 15px 30px;
+      }
+
+      /* 간격 유틸리티 */
+      .margin-bottom {
+        margin-bottom: 20px;
+      }
+      .no-margin {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>OOCSS 방법론 핵심</h1>
+
+    <!-- 구조와 스킨 분리 예제 -->
+    <div class="box theme-light margin-bottom">
+      <h2 class="title">구조 + 스킨 조합</h2>
+      <p class="text">box(구조) + theme-light(스킨)을 조합했습니다.</p>
+    </div>
+
+    <div class="box theme-primary margin-bottom">
+      <h2 class="title">같은 구조, 다른 스킨</h2>
+      <p class="text">같은 box 구조에 theme-primary 스킨을 적용했습니다.</p>
+    </div>
+
+    <!-- 버튼 예제 -->
+    <div class="box theme-light">
+      <h2 class="title">재사용 가능한 버튼</h2>
+      <button class="btn theme-primary">Primary 버튼</button>
+      <button class="btn theme-success">Success 버튼</button>
+      <button class="btn theme-warning">Warning 버튼</button>
+      <br /><br />
+      <button class="btn theme-primary size-small">작은 버튼</button>
+      <button class="btn theme-success size-large">큰 버튼</button>
+    </div>
+
+    <!-- 컨테이너와 콘텐츠 분리 예제 -->
+    <div class="box theme-warning margin-bottom">
+      <h2 class="title">어디서든 같은 스타일</h2>
+      <p class="text">
+        title과 text 클래스는 어떤 컨테이너 안에서도 동일하게 작동합니다.
+      </p>
+      <ul class="list">
+        <li class="list-item">리스트 아이템 1</li>
+        <li class="list-item">리스트 아이템 2</li>
+        <li class="list-item">리스트 아이템 3</li>
+      </ul>
+    </div>
+
+    <!-- OOCSS 설명 -->
+    <div class="box theme-light">
+      <h2 class="title">OOCSS 2가지 핵심 원칙</h2>
+      <div class="text">
+        <strong>1. 구조와 스킨 분리</strong><br />
+        • 구조: .box, .btn (레이아웃, 크기)<br />
+        • 스킨: .theme-primary, .theme-success (색상, 배경)
+      </div>
+      <div class="text no-margin">
+        <strong>2. 컨테이너와 콘텐츠 분리</strong><br />
+        • .title, .text는 어떤 컨테이너 안에서도 동일하게 작동<br />
+        • 위치에 의존하지 않는 독립적인 스타일
+      </div>
+    </div>
+  </body>
+</html>

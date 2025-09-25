@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Float 기본 개념</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+
+      .demo-box {
+        background: white;
+        padding: 20px;
+        margin: 20px 0;
+        border: 2px solid #007bff;
+        border-radius: 8px;
+      }
+
+      .float-item {
+        width: 150px;
+        height: 100px;
+        background: #28a745;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin: 10px;
+      }
+
+      /* ========== Float 속성 ========== */
+      .float-left {
+        float: left;
+      }
+
+      .float-right {
+        float: right;
+      }
+
+      .float-none {
+        float: none;
+      }
+
+      /* ========== Clear 속성 ========== */
+      .clear-both {
+        clear: both;
+      }
+
+      /* ========== Clearfix ========== */
+      .clearfix::after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      .text-content {
+        background: #fff3cd;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS Float 기본 개념</h1>
+
+    <!-- 1. Float 없음 (기본 상태) -->
+    <div class="demo-box">
+      <h2>1. Float 없음 (기본 상태)</h2>
+      <div class="float-item float-none">박스 1</div>
+      <div class="float-item float-none">박스 2</div>
+      <p>박스들이 세로로 배치됩니다 (블록 요소 기본 동작)</p>
+    </div>
+
+    <!-- 2. Float Left -->
+    <div class="demo-box clearfix">
+      <h2>2. Float Left</h2>
+      <div class="float-item float-left">Float Left</div>
+      <div class="text-content">
+        이 텍스트는 float된 박스 옆으로 흘러갑니다. Float left는 요소를 왼쪽으로
+        띄워서 배치하고, 다른 콘텐츠가 그 주변으로 배치되도록 합니다.
+      </div>
+    </div>
+
+    <!-- 3. Float Right -->
+    <div class="demo-box clearfix">
+      <h2>3. Float Right</h2>
+      <div class="float-item float-right">Float Right</div>
+      <div class="text-content">
+        이 텍스트는 오른쪽으로 float된 박스 옆으로 흘러갑니다. Float right는
+        요소를 오른쪽으로 띄워서 배치합니다.
+      </div>
+    </div>
+
+    <!-- 4. 여러 개 Float -->
+    <div class="demo-box clearfix">
+      <h2>4. 여러 개 Float</h2>
+      <div class="float-item float-left">Float 1</div>
+      <div class="float-item float-left">Float 2</div>
+      <div class="float-item float-left">Float 3</div>
+      <p>여러 요소를 float하면 가로로 나란히 배치됩니다.</p>
+    </div>
+
+    <!-- 5. Clear 사용 -->
+    <div class="demo-box clearfix">
+      <h2>5. Clear 사용</h2>
+      <div class="float-item float-left">Float Left</div>
+      <div class="float-item float-left clear-both">Clear Both</div>
+      <p>
+        clear: both를 사용하면 float의 영향을 무시하고 새로운 줄에서 시작합니다.
+      </p>
+    </div>
+
+    <!-- 6. 실제 사용 예제 (이미지 + 텍스트) -->
+    <div class="demo-box clearfix">
+      <h2>6. 실제 사용 예제</h2>
+      <div
+        style="
+          width: 120px;
+          height: 80px;
+          background: #6c757d;
+          float: left;
+          margin: 0 15px 10px 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          border-radius: 5px;
+        "
+      >
+        이미지
+      </div>
+      <p>
+        이것이 float의 원래 목적입니다. 이미지나 그림을 텍스트 옆에 배치하여
+        신문이나 잡지와 같은 레이아웃을 만드는 것입니다.
+      </p>
+      <p>
+        텍스트가 이미지 주변으로 자연스럽게 흘러가며 읽기 좋은 레이아웃을 만들
+        수 있습니다.
+      </p>
+    </div>
+  </body>
+</html>

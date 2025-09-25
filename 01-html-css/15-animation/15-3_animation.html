@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Animations 기본 개념</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+
+      .demo-box {
+        background: white;
+        padding: 20px;
+        margin: 20px 0;
+        border: 2px solid #007bff;
+        border-radius: 8px;
+      }
+
+      h2 {
+        color: #333;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 5px;
+      }
+
+      .demo-item {
+        width: 100px;
+        height: 100px;
+        background: #28a745;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        border-radius: 8px;
+        margin: 20px;
+      }
+
+      .demo-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        align-items: flex-start;
+        padding: 20px;
+        border: 2px dashed #007bff;
+        border-radius: 8px;
+        background: #f8f9ff;
+        margin: 15px 0;
+      }
+
+      /* ========== 기본 @keyframes와 animation ========== */
+      @keyframes slideIn {
+        from {
+          transform: translateX(-100px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      .basic-animation {
+        animation: slideIn 2s ease-in-out;
+      }
+
+      /* ========== 여러 단계 keyframes ========== */
+      @keyframes colorChange {
+        0% {
+          background: #dc3545;
+          transform: scale(1);
+        }
+        25% {
+          background: #ffc107;
+          transform: scale(1.2);
+        }
+        50% {
+          background: #28a745;
+          transform: scale(1);
+        }
+        75% {
+          background: #17a2b8;
+          transform: scale(0.8);
+        }
+        100% {
+          background: #6f42c1;
+          transform: scale(1);
+        }
+      }
+
+      .multi-step {
+        animation: colorChange 3s infinite;
+      }
+
+      /* ========== animation-duration (지속시간) ========== */
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-30px);
+        }
+      }
+
+      .duration-fast {
+        animation: bounce 0.5s infinite;
+      }
+
+      .duration-slow {
+        animation: bounce 2s infinite;
+      }
+
+      /* ========== animation-timing-function (타이밍 함수) ========== */
+      @keyframes moveRight {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(200px);
+        }
+      }
+
+      .timing-linear {
+        animation: moveRight 2s linear infinite alternate;
+      }
+
+      .timing-ease {
+        animation: moveRight 2s ease infinite alternate;
+      }
+
+      .timing-ease-in-out {
+        animation: moveRight 2s ease-in-out infinite alternate;
+      }
+
+      /* ========== animation-delay (지연시간) ========== */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .delay-0 {
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      .delay-1 {
+        animation: fadeIn 1s ease-in-out 0.5s;
+      }
+
+      .delay-2 {
+        animation: fadeIn 1s ease-in-out 1s;
+      }
+
+      /* ========== animation-iteration-count (반복 횟수) ========== */
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+      }
+
+      .repeat-once {
+        animation: pulse 1s ease-in-out 1; /* 1번만 */
+      }
+
+      .repeat-three {
+        animation: pulse 1s ease-in-out 3; /* 3번 반복 */
+      }
+
+      .repeat-infinite {
+        animation: pulse 1s ease-in-out infinite; /* 무한 반복 */
+      }
+
+      /* ========== animation-direction (방향) ========== */
+      @keyframes slideRight {
+        from {
+          transform: translateX(0);
+          background: #dc3545;
+        }
+        to {
+          transform: translateX(150px);
+          background: #28a745;
+        }
+      }
+
+      .direction-normal {
+        animation: slideRight 2s ease-in-out infinite normal;
+      }
+
+      .direction-reverse {
+        animation: slideRight 2s ease-in-out infinite reverse;
+      }
+
+      .direction-alternate {
+        animation: slideRight 2s ease-in-out infinite alternate;
+      }
+
+      .direction-alternate-reverse {
+        animation: slideRight 2s ease-in-out infinite alternate-reverse;
+      }
+
+      /* ========== animation-fill-mode (채우기 모드) ========== */
+      @keyframes scaleUp {
+        from {
+          transform: scale(0.5);
+          background: #ffc107;
+        }
+        to {
+          transform: scale(1.5);
+          background: #dc3545;
+        }
+      }
+
+      .fill-none {
+        animation: scaleUp 2s ease-in-out 1s; /* 1초 지연 */
+        animation-fill-mode: none;
+      }
+
+      .fill-forwards {
+        animation: scaleUp 2s ease-in-out 1s;
+        animation-fill-mode: forwards; /* 끝 상태 유지 */
+      }
+
+      .fill-backwards {
+        animation: scaleUp 2s ease-in-out 1s;
+        animation-fill-mode: backwards; /* 시작 상태 미리 적용 */
+      }
+
+      .fill-both {
+        animation: scaleUp 2s ease-in-out 1s;
+        animation-fill-mode: both; /* 시작과 끝 상태 모두 */
+      }
+
+      /* ========== animation-play-state (재생 상태) ========== */
+      @keyframes rotate {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .play-state {
+        animation: rotate 2s linear infinite;
+      }
+
+      .play-state:hover {
+        animation-play-state: paused; /* 호버 시 일시정지 */
+      }
+
+      /* ========== 실용적인 예제들 ========== */
+
+      /* 로딩 스피너 */
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #007bff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* 깜빡이는 효과 */
+      .blink {
+        animation: blink 1s ease-in-out infinite alternate;
+      }
+
+      @keyframes blink {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0.3;
+        }
+      }
+
+      /* 흔들리는 효과 */
+      .shake {
+        animation: shake 0.5s ease-in-out;
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+          transform: translateX(-5px);
+        }
+        20%,
+        40%,
+        60%,
+        80% {
+          transform: translateX(5px);
+        }
+      }
+
+      /* 타이핑 효과 */
+      .typing {
+        width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 2px solid #333;
+        animation: typing 3s steps(20) forwards, blink-cursor 1s infinite;
+      }
+
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      @keyframes blink-cursor {
+        0%,
+        50% {
+          border-color: #333;
+        }
+        51%,
+        100% {
+          border-color: transparent;
+        }
+      }
+
+      /* 버튼 효과 */
+      .animated-button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px;
+        transition: transform 0.1s ease;
+      }
+
+      .animated-button:hover {
+        animation: buttonPulse 0.6s ease-in-out;
+      }
+
+      .animated-button:active {
+        transform: scale(0.95);
+      }
+
+      @keyframes buttonPulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      /* 카드 등장 애니메이션 */
+      .card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        animation: cardSlideUp 0.6s ease-out;
+      }
+
+      @keyframes cardSlideUp {
+        from {
+          transform: translateY(30px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .code-example {
+        background: #2d3748;
+        color: #e2e8f0;
+        padding: 15px;
+        border-radius: 5px;
+        font-family: "Courier New", monospace;
+        font-size: 14px;
+        margin: 15px 0;
+      }
+
+      .control-buttons {
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      .control-buttons button {
+        background: #28a745;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        margin: 5px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS Animations 기본 개념</h1>
+
+    <!-- 기본 @keyframes와 animation -->
+    <div class="demo-box">
+      <h2>1. 기본 @keyframes와 animation</h2>
+      <p>@keyframes로 애니메이션을 정의하고 animation 속성으로 적용</p>
+
+      <div class="demo-container">
+        <div class="demo-item basic-animation">슬라이드 인</div>
+      </div>
+
+      <div class="code-example">
+        @keyframes slideIn { <br />
+        &nbsp;&nbsp;from { <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;transform: translateX(-100px); <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;opacity: 0; <br />
+        &nbsp;&nbsp;} <br />
+        &nbsp;&nbsp;to { <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;transform: translateX(0); <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;opacity: 1; <br />
+        &nbsp;&nbsp;} <br />
+        } <br />
+        .basic-animation { <br />
+        &nbsp;&nbsp;animation: slideIn 2s ease-in-out; <br />
+        }
+      </div>
+    </div>
+
+    <!-- 여러 단계 keyframes -->
+    <div class="demo-box">
+      <h2>2. 여러 단계 keyframes (0%, 25%, 50%, 75%, 100%)</h2>
+      <p>여러 지점에서 다른 스타일을 지정할 수 있습니다</p>
+
+      <div class="demo-container">
+        <div class="demo-item multi-step">색상 변화</div>
+      </div>
+
+      <div class="code-example">
+        @keyframes colorChange { <br />
+        &nbsp;&nbsp;0% { <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;background: #dc3545; <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;transform: scale(1); <br />
+        &nbsp;&nbsp;} <br />
+        &nbsp;&nbsp;25% { <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;background: #ffc107; <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;transform: scale(1.2); <br />
+        &nbsp;&nbsp;} <br />
+        &nbsp;&nbsp;50% { <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;background: #28a745; <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;transform: scale(1); <br />
+        &nbsp;&nbsp;} <br />
+        &nbsp;&nbsp;75% { <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;background: #17a2b8; <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;transform: scale(0.8); <br />
+        &nbsp;&nbsp;} <br />
+        &nbsp;&nbsp;100% { <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;background: #6f42c1; <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;transform: scale(1); <br />
+        &nbsp;&nbsp;} <br />
+        }
+      </div>
+    </div>
+
+    <!-- animation-duration -->
+    <div class="demo-box">
+      <h2>3. animation-duration (지속시간)</h2>
+      <p>애니메이션이 완료되는 데 걸리는 시간</p>
+
+      <div class="demo-container">
+        <div class="demo-item duration-fast">빠름 (0.5s)</div>
+        <div class="demo-item duration-slow">느림 (2s)</div>
+      </div>
+
+      <div class="code-example">
+        .duration-fast { <br />
+        &nbsp;&nbsp;animation: bounce 0.5s infinite; <br />
+        } <br />
+        .duration-slow { <br />
+        &nbsp;&nbsp;animation: bounce 2s infinite; <br />
+        }
+      </div>
+    </div>
+
+    <!-- animation-timing-function -->
+    <div class="demo-box">
+      <h2>4. animation-timing-function (타이밍 함수)</h2>
+      <p>애니메이션의 속도 곡선을 결정</p>
+
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <div class="demo-item timing-linear">linear</div>
+        <div class="demo-item timing-ease">ease</div>
+        <div class="demo-item timing-ease-in-out">ease-in-out</div>
+      </div>
+
+      <div class="code-example">
+        animation-timing-function: linear; /* 일정한 속도 */ <br />
+        animation-timing-function: ease; /* 부드럽게 */ <br />
+        animation-timing-function: ease-in-out; /* 천천히 시작과 끝 */
+      </div>
+    </div>
+
+    <!-- animation-delay -->
+    <div class="demo-box">
+      <h2>5. animation-delay (지연시간)</h2>
+      <p>애니메이션이 시작되기 전 대기시간</p>
+
+      <div class="control-buttons">
+        <button onclick="restartDelayAnimation()">애니메이션 재시작</button>
+      </div>
+
+      <div class="demo-container" id="delayContainer">
+        <div class="demo-item delay-0">지연 없음</div>
+        <div class="demo-item delay-1">0.5초 지연</div>
+        <div class="demo-item delay-2">1초 지연</div>
+      </div>
+
+      <div class="code-example">
+        /* 지연 없음 */ <br />
+        .delay-0 { <br />
+        &nbsp;&nbsp;animation: fadeIn 1s ease-in-out; <br />
+        } <br />
+        /* 0.5초 지연 */ <br />
+        .delay-1 { <br />
+        &nbsp;&nbsp;animation: fadeIn 1s ease-in-out 0.5s; <br />
+        } <br />
+        /* 1초 지연 */ <br />
+        .delay-2 { <br />
+        &nbsp;&nbsp;animation: fadeIn 1s ease-in-out 1s; <br />
+        }
+      </div>
+    </div>
+
+    <!-- animation-iteration-count -->
+    <div class="demo-box">
+      <h2>6. animation-iteration-count (반복 횟수)</h2>
+      <p>애니메이션이 몇 번 반복될지 설정</p>
+
+      <div class="demo-container">
+        <div class="demo-item repeat-once">1번만</div>
+        <div class="demo-item repeat-three">3번 반복</div>
+        <div class="demo-item repeat-infinite">무한 반복</div>
+      </div>
+
+      <div class="code-example">
+        animation-iteration-count: 1; /* 1번만 */ <br />
+        animation-iteration-count: 3; /* 3번 반복 */ <br />
+        animation-iteration-count: infinite; /* 무한 반복 */
+      </div>
+    </div>
+
+    <!-- animation-direction -->
+    <div class="demo-box">
+      <h2>7. animation-direction (애니메이션 방향)</h2>
+      <p>애니메이션이 어떤 방향으로 재생될지 설정</p>
+
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <div class="demo-item direction-normal">normal</div>
+        <div class="demo-item direction-reverse">reverse</div>
+        <div class="demo-item direction-alternate">alternate</div>
+        <div class="demo-item direction-alternate-reverse">
+          alternate-reverse
+        </div>
+      </div>
+
+      <div class="code-example">
+        animation-direction: normal; /* 정방향 */ <br />
+        animation-direction: reverse; /* 역방향 */ <br />
+        animation-direction: alternate; /* 정방향 → 역방향 반복 */ <br />
+        animation-direction: alternate-reverse; /* 역방향 → 정방향 반복 */
+      </div>
+    </div>
+
+    <!-- animation-fill-mode -->
+    <div class="demo-box">
+      <h2>8. animation-fill-mode (채우기 모드)</h2>
+      <p>애니메이션 실행 전후의 스타일 적용 방식</p>
+
+      <div class="control-buttons">
+        <button onclick="restartFillAnimation()">애니메이션 재시작</button>
+      </div>
+
+      <div class="demo-container" id="fillContainer">
+        <div class="demo-item fill-none">none</div>
+        <div class="demo-item fill-forwards">forwards</div>
+        <div class="demo-item fill-backwards">backwards</div>
+        <div class="demo-item fill-both">both</div>
+      </div>
+
+      <div class="code-example">
+        animation-fill-mode: none; /* 기본값, 애니메이션 외 영향 없음 */ <br />
+        animation-fill-mode: forwards; /* 끝 상태 유지 */ <br />
+        animation-fill-mode: backwards; /* 시작 상태 미리 적용 */ <br />
+        animation-fill-mode: both; /* 시작과 끝 상태 모두 */
+      </div>
+    </div>
+
+    <!-- animation-play-state -->
+    <div class="demo-box">
+      <h2>9. animation-play-state (재생 상태)</h2>
+      <p>애니메이션을 일시정지하거나 재생할 수 있습니다</p>
+
+      <div class="demo-container">
+        <div class="demo-item play-state">호버하면 정지</div>
+      </div>
+
+      <div class="code-example">
+        .play-state { <br />
+        &nbsp;&nbsp;animation: rotate 2s linear infinite; <br />
+        } <br />
+        .play-state:hover { <br />
+        &nbsp;&nbsp;animation-play-state: paused; /* 호버 시 일시정지 */ <br />
+        }
+      </div>
+    </div>
+
+    <!-- 실용적인 예제들 -->
+    <div class="demo-box">
+      <h2>10. 실용적인 애니메이션 예제들</h2>
+
+      <h3>로딩 스피너</h3>
+      <div class="spinner"></div>
+
+      <h3>깜빡이는 텍스트</h3>
+      <div class="demo-item blink" style="width: auto; padding: 10px 20px">
+        중요한 알림!
+      </div>
+
+      <h3>흔들리는 효과</h3>
+      <button class="animated-button shake">흔들리는 버튼</button>
+
+      <h3>타이핑 효과</h3>
+      <div class="typing" style="font-size: 18px; margin: 20px 0">
+        안녕하세요! CSS 애니메이션입니다.
+      </div>
+
+      <h3>버튼 호버 효과</h3>
+      <button class="animated-button">호버해보세요</button>
+      <button class="animated-button">펄스 효과</button>
+
+      <h3>카드 등장 애니메이션</h3>
+      <div class="card">
+        <h4>애니메이션 카드</h4>
+        <p>아래에서 위로 슬라이드하며 등장합니다.</p>
+      </div>
+
+      <div class="code-example">
+        /* 로딩 스피너 */ <br />
+        @keyframes spin { <br />
+        &nbsp;&nbsp;0% { <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;transform: rotate(0deg); <br />
+        &nbsp;&nbsp;} <br />
+        &nbsp;&nbsp;100% { <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;transform: rotate(360deg); <br />
+        &nbsp;&nbsp;} <br />
+        } <br />
+        /* 타이핑 효과 */<br />
+        @keyframes typing {<br />
+        &nbsp;&nbsp;from { <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;width: 0; <br />
+        &nbsp;&nbsp;} <br />
+        &nbsp;&nbsp;to { <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;width: 100%; <br />
+        &nbsp;&nbsp;} <br />
+        } <br />
+        .typing { <br />
+        &nbsp;&nbsp;animation: typing 3s steps(20) forwards; <br />
+        }
+      </div>
+    </div>
+
+    <!-- 요약 -->
+    <div class="demo-box" style="background: #f8f9fa">
+      <h2>CSS Animations 요약</h2>
+
+      <h3>주요 속성들</h3>
+      <ul>
+        <li><strong>animation-name:</strong> @keyframes 이름</li>
+        <li><strong>animation-duration:</strong> 지속시간</li>
+        <li><strong>animation-timing-function:</strong> 타이밍 함수</li>
+        <li><strong>animation-delay:</strong> 지연시간</li>
+        <li><strong>animation-iteration-count:</strong> 반복 횟수</li>
+        <li><strong>animation-direction:</strong> 방향</li>
+        <li><strong>animation-fill-mode:</strong> 채우기 모드</li>
+        <li><strong>animation-play-state:</strong> 재생 상태</li>
+      </ul>
+
+      <h3>단축 속성</h3>
+      <div class="code-example">
+        /* 개별 설정 */ <br />
+        animation-name: slideIn; animation-duration: 2s; <br />
+        animation-timing-function: ease-in-out; animation-delay: 0s; <br />
+        animation-iteration-count: 1; animation-direction: normal; <br />
+        animation-fill-mode: none; <br />
+        /* 단축 설정 */ <br />
+        animation: slideIn 2s ease-in-out 0s 1 normal none; /* 또는 */ <br />
+        animation: slideIn 2s ease-in-out;
+      </div>
+
+      <h3>Transitions vs Animations</h3>
+      <ul>
+        <li>
+          <strong>Transitions:</strong> 상태 변화에 반응 (hover, focus 등)
+        </li>
+        <li>
+          <strong>Animations:</strong> 자동으로 실행, 복잡한 키프레임 가능
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      function restartDelayAnimation() {
+        const container = document.getElementById("delayContainer");
+        const items = container.querySelectorAll(".demo-item");
+
+        items.forEach((item) => {
+          item.style.animation = "none";
+          item.offsetHeight; // 리플로우 강제 실행
+          item.style.animation = null;
+        });
+      }
+
+      function restartFillAnimation() {
+        const container = document.getElementById("fillContainer");
+        const items = container.querySelectorAll(".demo-item");
+
+        items.forEach((item) => {
+          item.style.animation = "none";
+          item.offsetHeight; // 리플로우 강제 실행
+          item.style.animation = null;
+        });
+      }
+    </script>
+  </body>
+</html>

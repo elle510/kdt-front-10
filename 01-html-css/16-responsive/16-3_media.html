@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Media Query 완전 가이드</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background: #f5f5f5;
+        margin: 0;
+      }
+
+      .demo-box {
+        background: white;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        color: #333;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 5px;
+      }
+
+      .status-box {
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      /* ========== 1. 화면 너비 기반 (가장 많이 사용) ========== */
+      .width-demo {
+        background: #dc3545;
+        color: white;
+      }
+
+      /* 모바일 퍼스트 접근법 */
+      .width-demo::before {
+        content: "📱 모바일 (기본): ";
+      }
+
+      /* 태블릿 */
+      @media (min-width: 768px) {
+        .width-demo {
+          background: #ffc107;
+          color: black;
+        }
+        .width-demo::before {
+          content: "📱 태블릿 (768px+): ";
+        }
+      }
+
+      /* 데스크톱 */
+      @media (min-width: 1024px) {
+        .width-demo {
+          background: #28a745;
+          color: white;
+        }
+        .width-demo::before {
+          content: "🖥️ 데스크톱 (1024px+): ";
+        }
+      }
+
+      /* 대형 데스크톱 */
+      @media (min-width: 1440px) {
+        .width-demo {
+          background: #6f42c1;
+          color: white;
+        }
+        .width-demo::before {
+          content: "🖥️ 대형 데스크톱 (1440px+): ";
+        }
+      }
+
+      /* ========== 2. 범위 지정 ========== */
+      .range-demo {
+        background: #6c757d;
+        color: white;
+      }
+
+      @media (min-width: 768px) and (max-width: 1023px) {
+        .range-demo {
+          background: #17a2b8;
+          color: white;
+        }
+        .range-demo::before {
+          content: "📱 태블릿 전용 (768-1023px): ";
+        }
+      }
+
+      /* ========== 3. 화면 방향 ========== */
+      .orientation-demo {
+        background: #6c757d;
+        color: white;
+      }
+
+      @media (orientation: portrait) {
+        .orientation-demo {
+          background: #007bff;
+        }
+        .orientation-demo::after {
+          content: " - 세로 모드";
+        }
+      }
+
+      @media (orientation: landscape) {
+        .orientation-demo {
+          background: #28a745;
+        }
+        .orientation-demo::after {
+          content: " - 가로 모드";
+        }
+      }
+
+      /* ========== 4. 해상도 기반 ========== */
+      .resolution-demo {
+        background: #6c757d;
+        color: white;
+      }
+
+      @media (min-resolution: 192dpi) {
+        .resolution-demo {
+          background: #fd7e14;
+          font-weight: bold;
+          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        .resolution-demo::before {
+          content: "✨ 고해상도 디스플레이: ";
+        }
+      }
+
+      /* ========== 5. 다크모드 감지 ========== */
+      .theme-demo {
+        background: #ffffff;
+        color: #333;
+        border: 2px solid #333;
+      }
+
+      .theme-demo::before {
+        content: "☀️ 라이트 모드: ";
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .theme-demo {
+          background: #333;
+          color: #fff;
+          border: 2px solid #fff;
+        }
+        .theme-demo::before {
+          content: "🌙 다크 모드: ";
+        }
+      }
+
+      /* ========== 6. 애니메이션 선호도 ========== */
+      .animation-demo {
+        background: #007bff;
+        color: white;
+        transition: all 0.3s ease;
+      }
+
+      .animation-demo:hover {
+        transform: scale(1.05);
+        background: #0056b3;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .animation-demo {
+          transition: none;
+        }
+        .animation-demo:hover {
+          transform: none;
+        }
+        .animation-demo::after {
+          content: " (애니메이션 비활성화)";
+        }
+      }
+
+      /* ========== 7. 프린트 스타일 ========== */
+      @media print {
+        body {
+          background: white;
+          color: black;
+        }
+        .demo-box {
+          box-shadow: none;
+          border: 1px solid #000;
+        }
+        .status-box {
+          border: 1px solid #000;
+          background: white !important;
+          color: black !important;
+        }
+        .no-print {
+          display: none;
+        }
+      }
+
+      /* ========== 8. 호버 지원 여부 ========== */
+      .hover-demo {
+        background: #6c757d;
+        color: white;
+        cursor: pointer;
+      }
+
+      @media (hover: hover) {
+        .hover-demo::before {
+          content: "🖱️ 호버 지원: ";
+        }
+        .hover-demo:hover {
+          background: #007bff;
+        }
+      }
+
+      @media (hover: none) {
+        .hover-demo::before {
+          content: "👆 터치 기기: ";
+        }
+        .hover-demo:active {
+          background: #007bff;
+        }
+      }
+
+      /* ========== 반응형 그리드 예제 ========== */
+      .grid {
+        display: grid;
+        gap: 15px;
+        margin: 20px 0;
+      }
+
+      .grid-item {
+        background: #007bff;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        border-radius: 5px;
+      }
+
+      /* 모바일: 1열 */
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* 태블릿: 2열 */
+      @media (min-width: 768px) {
+        .grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      /* 데스크톱: 4열 */
+      @media (min-width: 1024px) {
+        .grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS Media Query 완전 가이드</h1>
+
+    <div class="demo-box">
+      <h2>1. 화면 너비 기반 (가장 기본)</h2>
+      <div class="status-box width-demo">브라우저 창 크기를 조절해보세요!</div>
+      <pre>
+@media (min-width: 768px) { /* 태블릿 */ }
+@media (min-width: 1024px) { /* 데스크톱 */ }</pre
+      >
+    </div>
+
+    <div class="demo-box">
+      <h2>2. 범위 지정</h2>
+      <div class="status-box range-demo">특정 범위에서만 적용</div>
+      <pre>
+@media (min-width: 768px) and (max-width: 1023px) {
+    /* 태블릿에서만 적용 */
+}</pre
+      >
+    </div>
+
+    <div class="demo-box">
+      <h2>3. 화면 방향</h2>
+      <div class="status-box orientation-demo">기기를 회전해보세요</div>
+      <pre>
+@media (orientation: portrait) { /* 세로 */ }
+@media (orientation: landscape) { /* 가로 */ }</pre
+      >
+    </div>
+
+    <div class="demo-box">
+      <h2>4. 고해상도 디스플레이</h2>
+      <div class="status-box resolution-demo">레티나 디스플레이 감지</div>
+      <pre>
+@media (min-resolution: 192dpi) {
+    /* 고해상도 디스플레이용 스타일 */
+}</pre
+      >
+    </div>
+
+    <div class="demo-box">
+      <h2>5. 다크모드 감지</h2>
+      <div class="status-box theme-demo">시스템 테마 감지</div>
+      <pre>
+@media (prefers-color-scheme: dark) {
+    /* 다크모드 스타일 */
+}</pre
+      >
+    </div>
+
+    <div class="demo-box no-print">
+      <h2>6. 애니메이션 선호도</h2>
+      <div class="status-box animation-demo">
+        호버해보세요 (접근성 설정 확인)
+      </div>
+      <pre>
+@media (prefers-reduced-motion: reduce) {
+    /* 애니메이션 비활성화 */
+}</pre
+      >
+    </div>
+
+    <div class="demo-box no-print">
+      <h2>7. 호버 지원 여부</h2>
+      <div class="status-box hover-demo">터치 기기 vs 마우스 감지</div>
+      <pre>
+@media (hover: hover) { /* 마우스 지원 */ }
+@media (hover: none) { /* 터치만 지원 */ }</pre
+      >
+    </div>
+
+    <div class="demo-box">
+      <h2>8. 반응형 그리드 예제</h2>
+      <div class="grid">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+      </div>
+      <pre>
+/* 모바일: 1열, 태블릿: 2열, 데스크톱: 4열 */
+.grid { grid-template-columns: 1fr; }
+@media (min-width: 768px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+    .grid { grid-template-columns: repeat(4, 1fr); }
+}</pre
+      >
+    </div>
+
+    <div class="demo-box">
+      <h2>9. 프린트 스타일</h2>
+      <p>이 페이지를 인쇄해보세요! (Ctrl+P)</p>
+      <pre>
+@media print {
+    body { background: white; color: black; }
+    .no-print { display: none; }
+}</pre
+      >
+    </div>
+  </body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reset CSS 적용 예제</title>
+    <link rel="stylesheet" href="reset.css" />
+    <style>
+      /* Reset CSS 적용 후 커스텀 스타일 */
+      body {
+        font-family: "Apple SD Gothic Neo", -apple-system, sans-serif;
+        line-height: 1.6;
+        color: #333;
+      }
+
+      .demo-section {
+        margin: 2rem 0;
+        padding: 1.5rem;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
+      h3 {
+        font-size: 1.25rem;
+      }
+
+      p {
+        margin-bottom: 1rem;
+      }
+
+      ul {
+        list-style: disc;
+        padding-left: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      a {
+        color: #007bff;
+      }
+
+      button {
+        background: #007bff;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      input,
+      textarea {
+        border: 1px solid #ced4da;
+        padding: 0.5rem;
+        border-radius: 4px;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .form-group {
+        margin-bottom: 1rem;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Reset CSS 적용 예제</h1>
+
+      <div class="demo-section">
+        <h2>제목 요소들</h2>
+        <h1>H1 제목</h1>
+        <h2>H2 제목</h2>
+        <h3>H3 제목</h3>
+        <p>Reset CSS로 기본 마진이 제거되고, 커스텀 스타일이 적용되었습니다.</p>
+      </div>
+
+      <div class="demo-section">
+        <h2>텍스트 요소들</h2>
+        <p>
+          일반 단락입니다. <strong>굵은 텍스트</strong>와
+          <em>기울임 텍스트</em>가 있습니다.
+        </p>
+        <p>
+          <a href="#link">링크 예제</a>와 <code>인라인 코드</code>도 포함되어
+          있습니다.
+        </p>
+
+        <ul>
+          <li>리스트 아이템 1</li>
+          <li>리스트 아이템 2</li>
+          <li>리스트 아이템 3</li>
+        </ul>
+      </div>
+
+      <div class="demo-section">
+        <h2>폼 요소들</h2>
+        <div class="form-group">
+          <label for="name">이름:</label>
+          <input type="text" id="name" placeholder="이름을 입력하세요" />
+        </div>
+
+        <div class="form-group">
+          <label for="email">이메일:</label>
+          <input type="email" id="email" placeholder="이메일을 입력하세요" />
+        </div>
+
+        <div class="form-group">
+          <label for="message">메시지:</label>
+          <textarea
+            id="message"
+            rows="4"
+            placeholder="메시지를 입력하세요"
+          ></textarea>
+        </div>
+
+        <button type="submit">전송</button>
+      </div>
+
+      <div class="demo-section">
+        <h2>유틸리티 클래스 예제</h2>
+        <div
+          class="flex-between"
+          style="border: 1px solid #dee2e6; padding: 1rem"
+        >
+          <span>왼쪽 콘텐츠</span>
+          <span>오른쪽 콘텐츠</span>
+        </div>
+
+        <div
+          class="flex-center"
+          style="height: 100px; border: 1px solid #dee2e6; margin-top: 1rem"
+        >
+          <span>가운데 정렬된 콘텐츠</span>
+        </div>
+      </div>
+
+      <!-- 접근성 예제 -->
+      <div class="demo-section">
+        <h2>접근성 개선</h2>
+        <button>
+          <span class="sr-only">메뉴 열기</span>
+          ☰
+        </button>
+        <p>
+          스크린 리더는 "메뉴 열기"를 읽지만, 시각적으로는 햄버거 아이콘만
+          보입니다.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

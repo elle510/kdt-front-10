@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>반응형 웹 개념 예제</title>
+    <style>
+      /* 기본 스타일 */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f0f0f0;
+        color: #333;
+      }
+
+      h1,
+      h2 {
+        text-align: center;
+      }
+
+      .concept-section {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        padding: 20px;
+      }
+
+      /* --- 1. Fluid Grid (유동 그리드) --- */
+      /* 그리드 컨테이너는 화면 너비의 100%를 사용합니다. */
+      .fluid-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px; /* 아이템 사이의 간격 */
+      }
+
+      /* 각 그리드 아이템은 컨테이너 너비에 따라 유동적으로 변합니다.
+           3개의 열을 가지도록 너비를 약 33.333%로 설정하고, gap을 고려하여 너비를 계산합니다. */
+      .fluid-item {
+        box-sizing: border-box; /* 패딩과 테두리를 너비에 포함 */
+        width: calc(33.333% - 14px);
+        padding: 15px;
+        background-color: #e3f2fd;
+        border: 1px solid #90caf9;
+        border-radius: 4px;
+      }
+
+      /* --- 2. Flexible Images (가변 이미지) --- */
+      .flexible-image {
+        /* 이미지가 부모 요소의 너비를 초과하지 않도록 설정합니다. */
+        max-width: 100%;
+        /* 높이는 너비에 맞춰 자동으로 조절되어 비율이 유지됩니다. */
+        height: auto;
+        display: block; /* 이미지 아래의 불필요한 여백 제거 */
+        margin: 0 auto; /* 가운데 정렬 */
+      }
+
+      /* --- 3. Media Queries (미디어 쿼리) --- */
+      /* 화면 너비가 768px 이하일 때 적용될 스타일 (태블릿 등) */
+      @media (max-width: 768px) {
+        .fluid-item {
+          /* 2개의 열로 변경 */
+          width: calc(50% - 10px);
+        }
+        h1 {
+          font-size: 1.5em;
+        }
+      }
+
+      /* 화면 너비가 480px 이하일 때 적용될 스타일 (모바일 등) */
+      @media (max-width: 480px) {
+        .fluid-item {
+          /* 1개의 열로 변경 (수직으로 쌓임) */
+          width: 100%;
+        }
+        h1 {
+          font-size: 1.2em;
+        }
+        body {
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>반응형 웹 핵심 기술 예제</h1>
+
+    <div class="concept-section">
+      <h2>1. Fluid Grid (유동 그리드)</h2>
+      <p>
+        화면 크기에 따라 레이아웃의 각 열 너비가 유동적으로 변합니다. 브라우저
+        창 크기를 조절해보세요.
+      </p>
+      <div class="fluid-container">
+        <div class="fluid-item">열 1</div>
+        <div class="fluid-item">열 2</div>
+        <div class="fluid-item">열 3</div>
+      </div>
+    </div>
+
+    <div class="concept-section">
+      <h2>2. Flexible Image (가변 이미지)</h2>
+      <p>
+        이미지가 포함된 열(Column)의 너비가 변할 때 이미지 크기도 함께
+        조절됩니다.
+      </p>
+      <img
+        class="flexible-image"
+        src="../05-img/images/rabbit.png"
+        alt="가변 이미지 예시"
+      />
+    </div>
+
+    <div class="concept-section">
+      <h2>3. Media Queries (미디어 쿼리)</h2>
+      <p>
+        화면 너비가 특정 값(768px, 480px) 이하로 줄어들면 그리드 레이아웃이 2열
+        또는 1열로 변경됩니다.
+      </p>
+    </div>
+  </body>
+</html>

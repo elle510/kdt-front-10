@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS 우선순위 원칙</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+
+      .demo-box {
+        padding: 20px;
+        margin: 20px 0;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        background: white;
+      }
+
+      /* ========== 1. 후자 우선의 원칙 (Cascade) ========== */
+      /* 같은 우선순위라면 나중에 작성된 스타일이 적용됨 */
+
+      .cascade-test {
+        color: red;
+        background-color: yellow;
+        padding: 10px;
+        margin: 10px 0;
+      }
+
+      /* 같은 선택자로 나중에 작성 - 이것이 적용됨 */
+      .cascade-test {
+        color: blue; /* red를 덮어씀 */
+        font-weight: bold; /* 새로 추가 */
+        /* background-color는 그대로 유지 */
+      }
+
+      .first-style {
+        color: green;
+        font-size: 16px;
+      }
+
+      .first-style {
+        color: purple; /* green을 덮어씀 */
+        text-decoration: underline; /* 새로 추가 */
+      }
+
+      /* ========== 2. 구체성의 원칙 (Specificity) ========== */
+      /* 더 구체적인 선택자가 우선 적용됨 */
+
+      /* 구체성 점수: 1 (타입 선택자) */
+      p {
+        color: black;
+        font-size: 14px;
+      }
+
+      /* 구체성 점수: 10 (클래스 선택자) */
+      .specific-test {
+        color: red;
+        font-size: 18px;
+      }
+
+      /* 구체성 점수: 100 (ID 선택자) */
+      #very-specific {
+        color: blue;
+        font-size: 22px;
+      }
+
+      /* 구체성 점수: 111 (ID + 클래스 + 타입) */
+      #very-specific.specific-test p {
+        color: green;
+        font-weight: bold;
+      }
+
+      /* 구체성 비교 예제 */
+      .box {
+        background-color: lightblue;
+        padding: 15px;
+      }
+
+      div.box {
+        /* 구체성: 11 (타입 + 클래스) */
+        background-color: lightgreen;
+        border: 2px solid green;
+      }
+
+      .container .box {
+        /* 구체성: 20 (클래스 + 클래스) */
+        background-color: lightyellow;
+        border: 2px solid orange;
+      }
+
+      #content .box {
+        /* 구체성: 110 (ID + 클래스) */
+        background-color: lightpink;
+        border: 2px solid red;
+      }
+
+      /* ========== 3. 중요성의 원칙 (!important) ========== */
+      /* !important가 모든 것을 무시하고 최우선 적용됨 */
+
+      .important-test {
+        color: red;
+        background-color: yellow;
+        padding: 10px;
+        margin: 10px 0;
+        font-size: 16px;
+      }
+
+      /* ID 선택자 (구체성 높음) */
+      #important-demo {
+        color: blue;
+        background-color: lightblue;
+        font-size: 20px;
+      }
+
+      /* !important 사용 - 위의 모든 것을 무시하고 적용됨 */
+      .important-override {
+        color: white !important;
+        background-color: purple !important;
+        font-size: 24px !important;
+      }
+
+      /* !important끼리는 후자 우선 원칙 적용 */
+      .important-cascade {
+        color: orange !important;
+      }
+
+      .important-cascade {
+        color: darkgreen !important; /* 이것이 적용됨 */
+      }
+
+      /* 설명용 스타일 */
+      h1 {
+        color: #333;
+        text-align: center;
+        border-bottom: 3px solid #333;
+        padding-bottom: 10px;
+      }
+
+      h2 {
+        color: #666;
+        margin: 25px 0 15px 0;
+      }
+
+      .code-example {
+        background-color: #f6f8fa; /* 밝은 회색 배경 */
+        color: #24292e; /* 어두운 텍스트 색상 */
+        padding: 16px;
+        border-radius: 6px;
+        border: 1px solid #eaecef; /* 미세한 테두리 */
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+          Courier, monospace; /* 가독성 좋은 고정폭 폰트 */
+        font-size: 14px;
+        line-height: 1.5; /* 줄 간격 확보 */
+        margin: 10px 0;
+        overflow-x: auto; /* 가로 스크롤 */
+        white-space: pre-wrap; /* 공백 유지 및 자동 줄바꿈 */
+        word-break: break-all; /* 단어 단위가 아닌 곳에서도 줄바꿈 허용 */
+      }
+
+      .highlight {
+        background-color: #fff3cd;
+        border: 1px solid #ffeaa7;
+        padding: 2px 5px;
+        border-radius: 3px;
+        font-weight: bold;
+      }
+
+      .priority-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+      }
+
+      .priority-table th,
+      .priority-table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+      }
+
+      .priority-table th {
+        background-color: #f8f9fa;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS 우선순위 3가지 원칙</h1>
+
+    <!-- 1. 후자 우선의 원칙 -->
+    <div class="demo-box">
+      <h2>1. 후자 우선의 원칙 (Cascade)</h2>
+      <p>
+        <span class="highlight">같은 우선순위</span>라면 나중에 작성된 스타일이
+        적용됩니다.
+      </p>
+
+      <div class="code-example">
+        .cascade-test { color: red; /* 먼저 작성 */ } <br />
+        .cascade-test { color: blue; /* 나중에 작성 - 이것이 적용됨 */ }
+      </div>
+
+      <div class="cascade-test">
+        이 텍스트는 파란색입니다 (나중에 작성된 blue가 적용됨)
+      </div>
+
+      <div class="first-style">이 텍스트는 보라색이고 밑줄이 있습니다</div>
+    </div>
+
+    <!-- 2. 구체성의 원칙 -->
+    <div class="demo-box">
+      <h2>2. 구체성의 원칙 (Specificity)</h2>
+      <p>
+        <span class="highlight">더 구체적인 선택자</span>가 우선 적용됩니다.
+      </p>
+
+      <div class="code-example">
+        /* 구체성 점수 계산 */ <br />
+        p { } /* 점수: 1 (타입) */ <br />
+        .class { } /* 점수: 10 (클래스) */ <br />
+        #id { } /* 점수: 100 (ID) */ <br />
+        #id .class p { } /* 점수: 111 (ID + 클래스 + 타입) */
+      </div>
+
+      <!-- 기본 구체성 테스트 -->
+      <p class="specific-test" id="very-specific">
+        이 텍스트는 ID 선택자(파란색)가 적용됩니다
+      </p>
+
+      <!-- 복합 구체성 테스트 -->
+      <div id="very-specific" class="specific-test">
+        <p>이 텍스트는 가장 구체적인 선택자(초록색, 굵게)가 적용됩니다</p>
+      </div>
+
+      <!-- 구체성 비교 예제 -->
+      <div class="container" id="content">
+        <div class="box">
+          이 박스는 #content .box 선택자가 적용됩니다 (분홍 배경, 빨간 테두리)
+        </div>
+      </div>
+
+      <table class="priority-table">
+        <tr>
+          <th>선택자</th>
+          <th>구체성 점수</th>
+          <th>적용 여부</th>
+        </tr>
+        <tr>
+          <td>.box</td>
+          <td>10</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td>div.box</td>
+          <td>11</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td>.container .box</td>
+          <td>20</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td><strong>#content .box</strong></td>
+          <td><strong>110</strong></td>
+          <td><strong>✅ 적용됨</strong></td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- 3. 중요성의 원칙 -->
+    <div class="demo-box">
+      <h2>3. 중요성의 원칙 (!important)</h2>
+      <p>
+        <span class="highlight">!important</span>가 모든 우선순위를 무시하고
+        최우선 적용됩니다.
+      </p>
+
+      <div class="code-example">
+        .test { color: red; } #id { color: blue; /* 구체성이 더 높음 */ } <br />
+        .override { color: white !important; /* 모든 것을 무시하고 적용됨 */ }
+      </div>
+
+      <div class="important-test important-override" id="important-demo">
+        이 텍스트는 !important 때문에 흰색 배경에 보라색입니다
+      </div>
+
+      <div class="important-cascade">
+        !important끼리는 후자 우선 원칙이 적용됩니다 (진한 초록색)
+      </div>
+
+      <div
+        style="
+          background: #ffe6e6;
+          padding: 15px;
+          border-radius: 5px;
+          margin: 15px 0;
+        "
+      >
+        <strong>⚠️ !important 사용 주의사항:</strong>
+        <ul>
+          <li>디버깅을 어렵게 만듭니다</li>
+          <li>CSS의 자연스러운 흐름을 깨뜨립니다</li>
+          <li>정말 필요한 경우에만 사용하세요</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 우선순위 전체 요약 -->
+    <div class="demo-box" style="background-color: #f8f9fa">
+      <h2>CSS 우선순위 전체 순서 (높은 순서대로)</h2>
+      <ol style="font-size: 16px; line-height: 1.8">
+        <li><strong>인라인 스타일 + !important</strong></li>
+        <li><strong>ID 선택자 + !important</strong></li>
+        <li><strong>클래스 선택자 + !important</strong></li>
+        <li><strong>타입 선택자 + !important</strong></li>
+        <li><strong>인라인 스타일</strong> (style="...")</li>
+        <li><strong>ID 선택자</strong> (#id)</li>
+        <li><strong>클래스 선택자</strong> (.class), 속성 선택자 ([attr])</li>
+        <li><strong>타입 선택자</strong> (element)</li>
+        <li><strong>전체 선택자</strong> (*)</li>
+      </ol>
+
+      <p style="margin-top: 20px">
+        <span class="highlight">기억하세요:</span> 같은 우선순위라면 나중에
+        작성된 것이 적용됩니다!
+      </p>
+    </div>
+  </body>
+</html>

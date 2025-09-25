@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS 파일 분리 예제</title>
+
+    <!-- CSS 파일 연결 (로드 순서 중요) -->
+    <!-- 1. 초기화 -->
+    <link rel="stylesheet" href="styles/reset.css" />
+    <!-- 2. 폰트 -->
+    <link rel="stylesheet" href="styles/font.css" />
+    <!-- 3. 레이아웃 -->
+    <link rel="stylesheet" href="styles/layout.css" />
+    <!-- 4. 컴포넌트 -->
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1 class="text-center">CSS 파일 분리 예제</h1>
+      </header>
+
+      <main>
+        <div class="card">
+          <h2>카드 제목</h2>
+          <p>카드 내용이 들어갑니다.</p>
+          <button class="button">자세히 보기</button>
+        </div>
+
+        <div class="alert">알림 메시지가 표시됩니다.</div>
+      </main>
+
+      <footer>
+        <p class="text-center">푸터 영역입니다.</p>
+      </footer>
+    </div>
+  </body>
+</html>

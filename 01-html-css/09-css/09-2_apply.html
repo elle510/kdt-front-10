@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS 적용 방식</title>
+
+    <!-- 2. 내부 스타일 시트 -->
+    <style>
+      /* 내부 스타일 예제 */
+      .internal-style {
+        background-color: lightblue;
+        padding: 20px;
+        margin: 10px;
+        border: 2px dashed blue;
+      }
+    </style>
+
+    <!-- 3. 외부 스타일 시트 연결 -->
+    <link rel="stylesheet" href="styles/external.css" />
+  </head>
+  <body>
+    <h1>CSS 적용 방식 실습</h1>
+
+    <!-- 1. 인라인 스타일 -->
+    <div
+      style="
+        color: red;
+        font-size: 20px;
+        padding: 10px;
+        border: 1px solid red;
+        margin: 10px;
+      "
+    >
+      이것은 인라인 스타일이 적용된 요소입니다.
+    </div>
+
+    <!-- 2. 내부 스타일 -->
+    <div class="internal-style">이것은 내부 스타일이 적용된 요소입니다.</div>
+
+    <!-- 3. 외부 스타일 -->
+    <div class="external-style">이것은 외부 스타일이 적용된 요소입니다.</div>
+  </body>
+</html>

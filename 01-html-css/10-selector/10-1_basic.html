@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS 선택자 기본 원리</title>
+    <style>
+      /* ========== 1. 전체 선택자 (*) ========== */
+      /* 모든 요소에 적용 */
+      * {
+        margin: 5px;
+        font-family: Arial, sans-serif;
+      }
+
+      /* ========== 2. 타입 선택자 (요소명) ========== */
+      /* HTML 태그명으로 선택 */
+      h1 {
+        color: blue;
+        text-align: center;
+      }
+
+      p {
+        color: green;
+        background-color: #f0f0f0;
+        padding: 10px;
+      }
+
+      button {
+        background-color: orange;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+      }
+
+      li {
+        color: purple;
+        margin: 5px 0;
+      }
+
+      /* ========== 3. 아이디 선택자 (#) ========== */
+      /* ID로 선택 (고유해야 함) */
+      #header {
+        background-color: navy;
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
+
+      #content {
+        background-color: lightblue;
+        padding: 15px;
+        margin: 10px 0;
+      }
+
+      #footer {
+        background-color: gray;
+        color: white;
+        padding: 10px;
+        text-align: center;
+      }
+
+      /* ========== 4. 클래스 선택자 (.) ========== */
+      /* class 속성으로 선택 (재사용 가능) */
+      .highlight {
+        background-color: yellow;
+        font-weight: bold;
+      }
+
+      .box {
+        border: 2px solid red;
+        padding: 10px;
+        margin: 10px 0;
+      }
+
+      .center {
+        text-align: center;
+      }
+
+      .large-text {
+        font-size: 20px;
+      }
+
+      /* ========== 5. 속성 선택자 ([]) ========== */
+      /* HTML 속성으로 선택 */
+
+      /* 특정 속성을 가진 요소 */
+      [title] {
+        border-bottom: 1px dotted black;
+      }
+
+      /* 특정 속성값을 가진 요소 */
+      [type="text"] {
+        background-color: lightyellow;
+        border: 2px solid gold;
+      }
+
+      [type="password"] {
+        background-color: lightpink;
+        border: 2px solid red;
+      }
+
+      /* 속성값이 특정 문자로 시작하는 요소 */
+      [class^="btn"] {
+        padding: 8px 16px;
+        margin: 5px;
+        border-radius: 3px;
+        border: none;
+        cursor: pointer;
+      }
+
+      [href^="http"] {
+        color: red;
+        font-weight: bold;
+      }
+
+      /* 속성값에 특정 문자가 포함된 요소 */
+      [class*="special"] {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        border-radius: 15px;
+      }
+
+      /* 타입별 input 스타일링 */
+      .input-text[type="text"] {
+        border-color: #3498db;
+        background-color: #ebf3fd;
+      }
+
+      /* ========== 6. 그룹 선택자 (,) ========== */
+      /* 여러 선택자를 콤마로 묶어서 같은 스타일 적용 */
+      h2,
+      h3 {
+        color: darkgreen;
+        border-left: 4px solid green;
+        padding-left: 10px;
+      }
+
+      .warning,
+      .error {
+        background-color: #ffe6e6;
+        border: 1px solid red;
+        padding: 10px;
+        border-radius: 5px;
+      }
+
+      input,
+      select,
+      textarea {
+        padding: 8px;
+        margin: 5px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+
+      #header,
+      #footer {
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 전체 선택자 효과: 모든 요소에 margin과 font-family 적용 -->
+
+    <!-- 아이디 선택자 예제 -->
+    <div id="header">
+      <h1>CSS 선택자 기본 원리</h1>
+      <p>6가지 선택자를 간단히 이해해보자!</p>
+    </div>
+
+    <div id="content">
+      <!-- 타입 선택자 예제 -->
+      <h2>1. 전체 선택자 (*)</h2>
+      <p>모든 요소에 margin: 5px와 Arial 폰트가 적용되었습니다.</p>
+
+      <h2>2. 타입 선택자</h2>
+      <p>이 p 태그는 초록색 글자와 회색 배경을 가집니다.</p>
+      <button>이 버튼은 주황색 배경입니다</button>
+      <ul>
+        <li>li 요소들은 보라색 글자입니다</li>
+        <li>타입 선택자로 스타일링됨</li>
+      </ul>
+
+      <h2>3. 아이디 선택자 (#)</h2>
+      <p>위의 header와 아래 footer는 ID로 선택되었습니다.</p>
+
+      <!-- 클래스 선택자 예제 -->
+      <h2>4. 클래스 선택자 (.)</h2>
+      <p class="highlight">이 문장은 highlight 클래스로 노란색 배경입니다.</p>
+      <div class="box">이 박스는 빨간 테두리를 가집니다.</div>
+      <p class="center large-text">가운데 정렬되고 큰 글씨입니다.</p>
+
+      <!-- 속성 선택자 예제 -->
+      <h2>5. 속성 선택자 ([])</h2>
+      <p title="이것은 툴팁입니다">
+        마우스를 올리면 툴팁이 보입니다 (title 속성)
+      </p>
+
+      <div>
+        <input type="text" placeholder="텍스트 입력 (노란 배경)" />
+        <input type="password" placeholder="비밀번호 (분홍 배경)" />
+      </div>
+
+      <div>
+        <button class="btn-primary">btn으로 시작하는 클래스</button>
+        <button class="btn-secondary">이것도 btn으로 시작</button>
+      </div>
+
+      <p>
+        <a href="http://www.google.com">외부 링크 (빨간색)</a> |
+        <a href="#content">내부 링크 (기본색)</a>
+      </p>
+
+      <div>
+        <input class="input-special" value="special 을 포함하는 클래스"></input>
+        <input class="input-text" type="text" value="input-text 클래스"></input>
+      </div>
+
+      <!-- 그룹 선택자 예제 -->
+      <h2>6. 그룹 선택자 (,)</h2>
+      <h3>이 제목들은 그룹 선택자로</h3>
+      <p>h2, h3가 함께 선택되어 같은 스타일을 가집니다.</p>
+
+      <div class="warning">경고 메시지 (그룹 선택자로 스타일링)</div>
+      <div class="error">에러 메시지 (같은 스타일 적용)</div>
+
+      <div>
+        <input type="text" placeholder="입력 필드" />
+        <select>
+          <option>선택 박스</option>
+        </select>
+        <textarea placeholder="텍스트 영역"></textarea>
+        <p>위 폼 요소들은 그룹 선택자로 같은 패딩과 테두리를 가집니다.</p>
+      </div>
+    </div>
+
+    <div id="footer">
+      <p>푸터 영역 - ID 선택자와 그룹 선택자 적용</p>
+    </div>
+
+    <!-- 선택자 우선순위 설명 -->
+    <div style="background: #f9f9f9; padding: 20px; margin: 20px 0">
+      <h3>선택자 우선순위 (높은 순서대로)</h3>
+      <ol>
+        <li><strong>인라인 스타일</strong> (style="...") - 가장 높음</li>
+        <li><strong>아이디 선택자</strong> (#id)</li>
+        <li><strong>클래스 선택자</strong> (.class), 속성 선택자 ([attr])</li>
+        <li><strong>타입 선택자</strong> (element)</li>
+        <li><strong>전체 선택자</strong> (*) - 가장 낮음</li>
+      </ol>
+    </div>
+  </body>
+</html>
