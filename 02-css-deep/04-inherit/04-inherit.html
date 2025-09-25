@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Inheritance Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      .parent-container {
+        color: blue; /* 이 색상은 자식 요소에 상속됩니다. */
+        font-family: "Verdana", sans-serif; /* 이 폰트도 자식 요소에 상속됩니다. */
+        font-size: 18px; /* 이 폰트 크기도 자식 요소에 상속됩니다. */
+        border: 2px solid green; /* 이 테두리는 상속되지 않습니다. */
+        padding: 15px; /* 이 패딩은 상속되지 않습니다. */
+        margin-bottom: 20px; /* 이 마진은 상속되지 않습니다. */
+      }
+
+      .child-paragraph {
+        /* color, font-family, font-size는 부모로부터 상속받습니다. */
+        margin-top: 10px;
+      }
+
+      .child-span {
+        /* color, font-family, font-size는 부모로부터 상속받습니다. */
+        font-weight: bold;
+      }
+
+      .child-list-item {
+        /* color, font-family, font-size는 부모로부터 상속받습니다. */
+        list-style-type: disc;
+      }
+
+      .non-inheriting-element {
+        /* 이 요소는 부모의 스타일을 상속받지 않고 자체 스타일을 가집니다. */
+        color: purple;
+        font-size: 14px;
+        border: 1px dashed orange;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS 상속(Inheritance) 예시</h1>
+
+    <p>
+      부모 요소에 적용된 스타일이 자식 요소에 어떻게 상속되는지 보여주는
+      예시입니다.
+    </p>
+
+    <div class="parent-container">
+      <h2>부모 컨테이너 (parent-container)</h2>
+      <p class="child-paragraph">
+        이 단락은 부모로부터 텍스트 색상, 폰트 패밀리, 폰트 크기를 상속받습니다.
+      </p>
+      <p>일반적인 단락도 부모의 스타일을 상속받습니다.</p>
+      <span class="child-span"
+        >이 스팬 요소도 부모의 스타일을 상속받아 파란색, Verdana 폰트, 18px
+        크기를 가집니다.</span
+      >
+      <ul>
+        <li class="child-list-item">리스트 아이템 1 (상속받음)</li>
+        <li>리스트 아이템 2 (상속받음)</li>
+      </ul>
+      <div class="non-inheriting-element">
+        <h3>상속받지 않는 요소</h3>
+        <p>
+          이 div는 자체적으로 다른 색상과 폰트 크기, 테두리를 가집니다. 부모의
+          스타일을 덮어씁니다.
+        </p>
+      </div>
+    </div>
+
+    <p>부모 컨테이너 밖에 있는 이 단락은 상속의 영향을 받지 않습니다.</p>
+  </body>
+</html>
