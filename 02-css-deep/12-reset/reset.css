@@ -1,0 +1,99 @@
+/*
+  A modern CSS reset
+  Based on the work of Andy Bell, Josh Comeau, and others.
+*/
+
+/* 
+  1. Use a more intuitive box-sizing model.
+  This makes layout work more predictable.
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 
+  2. Remove default margin and padding from most elements.
+*/
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd,
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+/* 
+  3. Set core root defaults for smooth scrolling.
+*/
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* 
+  4. Set core body defaults.
+*/
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* 
+  5. Remove list styles on ul, ol elements.
+*/
+ul,
+ol {
+  list-style: none;
+}
+
+/* 
+  6. Make images, pictures, and other media easier to work with.
+*/
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 
+  7. Inherit fonts for inputs and buttons for consistency.
+*/
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* 
+  8. Remove all animations and transitions for people that prefer not to see them.
+*/
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

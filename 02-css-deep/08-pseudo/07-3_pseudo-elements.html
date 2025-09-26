@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pseudo-elements</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        color: #333;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+
+      /* --- ::before & ::after --- */
+      /* 
+      - 요소의 내용 앞(::before)이나 뒤(::after)에 가상의 요소를 생성합니다.
+      - 반드시 'content' 속성이 있어야 렌더링됩니다. 내용이 없어도 'content: "";' 와 같이 비워두어야 합니다.
+      - 생성된 요소는 인라인(inline)이 기본값입니다.
+    */
+
+      /* 예시 1: 인용구에 따옴표 추가하기 */
+      .quote {
+        font-style: italic;
+        color: #555;
+      }
+      .quote::before {
+        content: "“"; /* 여는 따옴표 */
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #007bff;
+        margin-right: 5px;
+      }
+      .quote::after {
+        content: "”"; /* 닫는 따옴표 */
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #007bff;
+        margin-left: 5px;
+      }
+
+      /* 예시 2: 링크에 아이콘 추가하기 */
+      .icon-link::after {
+        content: " ↗"; /* 화살표 아이콘 */
+        font-size: 0.8em;
+        display: inline-block;
+        transition: transform 0.2s;
+      }
+      .icon-link:hover::after {
+        transform: translateX(3px) translateY(-3px);
+      }
+
+      /* 예시 3: Clearfix (float 해제) */
+      .clearfix::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+      .float-box {
+        float: left;
+        width: 100px;
+        height: 100px;
+        background-color: #e3f2fd;
+        border: 1px solid #90caf9;
+        margin: 10px;
+      }
+
+      /* --- ::placeholder --- */
+      /* input 요소의 placeholder 텍스트 스타일을 지정합니다. */
+      .placeholder-example input::placeholder {
+        color: #aaa;
+        font-style: italic;
+        font-size: 0.9em;
+        transition: opacity 0.3s;
+      }
+      .placeholder-example input:focus::placeholder {
+        opacity: 0; /* 포커스 시 placeholder 숨기기 */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>가상 요소(Pseudo-elements) 예시</h1>
+
+    <div class="container">
+      <h2>::before & ::after</h2>
+
+      <h3>예시 1: 인용구 스타일링</h3>
+      <p class="quote">
+        CSS 가상 요소는 실제 DOM에 존재하지 않는 요소를 생성하여 스타일을 적용할
+        수 있게 해줍니다.
+      </p>
+
+      <h3>예시 2: 링크에 아이콘 추가</h3>
+      <a href="#" class="icon-link">외부 링크</a>
+
+      <h3>예시 3: Clearfix (float 해제)</h3>
+      <div class="container clearfix">
+        <div class="float-box">Float 1</div>
+        <div class="float-box">Float 2</div>
+      </div>
+      <p>
+        위 회색 박스는 <code>.clearfix::after</code>가 없었다면 자식 float
+        요소들의 높이를 인식하지 못해 높이가 0이 되었을 것입니다.
+      </p>
+    </div>
+
+    <div class="container placeholder-example">
+      <h2>::placeholder</h2>
+      <p>
+        아래 입력창의 placeholder 텍스트 스타일을 확인하고, 입력창을
+        클릭해보세요.
+      </p>
+      <input type="text" placeholder="이름을 입력하세요..." />
+    </div>
+  </body>
+</html>

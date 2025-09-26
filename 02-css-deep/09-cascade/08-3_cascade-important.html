@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Cascade: !important</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+
+      /*
+      중요성의 원칙 (!important)
+      - CSS 속성값 뒤에 !important를 붙이면, 해당 선언은 다른 모든 선언(인라인 스타일 포함)을 무시하고 최우선 순위를 갖게 됩니다.
+      - 명시도(Specificity)나 코드 순서에 관계없이 가장 먼저 적용됩니다.
+      - 하지만 !important는 CSS 캐스케이드의 자연스러운 흐름을 깨뜨려 유지보수를 어렵게 만들 수 있으므로, 꼭 필요한 경우에만 신중하게 사용해야 합니다.
+    */
+
+      /* --- 예시 --- */
+
+      /* 규칙 A: 태그 선택자 (가장 낮은 명시도) + !important */
+      #important-test {
+        color: blue !important;
+        background-color: yellow !important;
+      }
+
+      /* 규칙 B: ID 선택자 (높은 명시도) */
+      #important-test {
+        color: red;
+        border: 2px solid red;
+      }
+
+      /* 규칙 C: 클래스 선택자 (중간 명시도) */
+      .text-item {
+        color: green;
+        background-color: lightgreen;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS 캐스케이드: 중요성의 원칙 (!important)</h1>
+
+    <div class="container">
+      <h2>!important 예시</h2>
+      <p
+        id="important-test"
+        class="text-item"
+        style="color: orange; border: 2px solid orange"
+      >
+        이 텍스트의 최종 스타일은?
+      </p>
+
+      <h3>적용된 스타일 분석:</h3>
+      <ul>
+        <li>
+          <strong>color:</strong>
+          <ul>
+            <li>인라인 스타일: <code>orange</code></li>
+            <li>ID 선택자: <code>red</code></li>
+            <li>클래스 선택자: <code>green</code></li>
+            <li>태그 선택자: <code>blue !important</code></li>
+            <li>
+              <strong>결과:</strong> <code>!important</code>가 붙은
+              <strong>blue</strong>가 모든 명시도(인라인 포함)를 무시하고
+              적용됩니다.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>background-color:</strong>
+          <ul>
+            <li>클래스 선택자: <code>lightgreen</code></li>
+            <li>태그 선택자: <code>yellow !important</code></li>
+            <li>
+              <strong>결과:</strong> <code>!important</code>가 붙은
+              <strong>yellow</strong>가 적용됩니다.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>border:</strong>
+          <ul>
+            <li>인라인 스타일: <code>2px solid orange</code></li>
+            <li>ID 선택자: <code>2px solid red</code></li>
+            <li>
+              <strong>결과:</strong> <code>!important</code>가 없으므로,
+              명시도가 가장 높은 <strong>인라인 스타일(orange)</strong>이
+              적용됩니다.
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <p
+        style="
+          background-color: #fbe9e7;
+          border: 1px solid #ffab91;
+          padding: 10px;
+          border-radius: 5px;
+        "
+      >
+        <strong>주의:</strong> <code>!important</code>는 꼭 필요할 때만 사용해야
+        합니다. 예를 들어, 특정 유틸리티 클래스로 다른 스타일을 반드시 덮어써야
+        하거나, 외부 라이브러리 스타일을 수정해야 할 때 제한적으로 사용하는 것이
+        좋습니다.
+      </p>
+    </div>
+  </body>
+</html>

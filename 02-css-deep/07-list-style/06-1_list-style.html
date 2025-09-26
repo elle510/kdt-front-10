@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS List & Counter Style</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      h2,
+      h3 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+      ul,
+      ol {
+        padding-left: 25px; /* 기본 패딩 조정 */
+      }
+
+      /* --- 1. list-style-type --- */
+      .lst-disc {
+        list-style-type: disc;
+      } /* 기본값 */
+      .lst-circle {
+        list-style-type: circle;
+      }
+      .lst-square {
+        list-style-type: square;
+      }
+      .lst-none {
+        list-style-type: none;
+      }
+      .lst-decimal {
+        list-style-type: decimal;
+      } /* 기본값 */
+      .lst-decimal-zero {
+        list-style-type: decimal-leading-zero;
+      }
+      .lst-lower-roman {
+        list-style-type: lower-roman;
+      }
+      .lst-upper-roman {
+        list-style-type: upper-roman;
+      }
+      .lst-lower-alpha {
+        list-style-type: lower-alpha;
+      }
+      .lst-upper-alpha {
+        list-style-type: upper-alpha;
+      }
+
+      /* --- 2. list-style-position --- */
+      .lst-pos-outside {
+        list-style-position: outside; /* 기본값. 마커가 리스트 아이템의 외부에 위치 */
+        background-color: #f0f0f0;
+      }
+      .lst-pos-inside {
+        list-style-position: inside; /* 마커가 리스트 아이템의 내부에 위치 (첫 줄 시작점) */
+        background-color: #e9f5e9;
+      }
+
+      /* --- 3. list-style-image --- */
+      .lst-img {
+        /* 사용자 정의 이미지로 마커를 설정합니다. */
+        list-style-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16" fill="%23007bff"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>');
+      }
+      /* --- 4. list-style (shorthand) --- */
+      .lst-shorthand {
+        list-style: square inside;
+      }
+
+      /* --- 5. @counter-style --- */
+      /* 자신만의 카운터 스타일을 정의합니다. */
+      @counter-style custom-emoji {
+        system: cyclic; /* 심볼 목록을 순환합니다. */
+        symbols: "😀" "😎" "🚀" "🎉";
+        suffix: " ";
+      }
+
+      @counter-style custom-roman-prefix {
+        system: numeric;
+        symbols: "I" "II" "III" "IV" "V" "VI";
+        prefix: "Part ";
+        suffix: ": ";
+      }
+
+      .lst-custom-emoji {
+        list-style-type: custom-emoji;
+      }
+      .lst-custom-roman {
+        list-style-type: custom-roman-prefix;
+      }
+
+      /* 가상 요소 사용 */
+      .custom-bullet-list,
+      .arrow-list,
+      .check-list {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .custom-bullet-list li {
+        position: relative;
+        padding-left: 25px;
+        margin-bottom: 8px;
+      }
+
+      .custom-bullet-list li::before {
+        content: "•";
+        color: #3498db;
+        font-size: 1.2em;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+
+      /* 다양한 불렛 스타일 */
+      .arrow-list li::before {
+        content: "→";
+        color: #e74c3c;
+      }
+
+      .check-list li::before {
+        content: "✓";
+        color: #27ae60;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS List Styling 예시</h1>
+
+    <div class="container">
+      <h2>1. list-style-type: 마커의 종류</h2>
+      <h3>Unordered List (ul)</h3>
+      <ul class="lst-disc">
+        <li>disc (기본값)</li>
+      </ul>
+      <ul class="lst-circle">
+        <li>circle</li>
+      </ul>
+      <ul class="lst-square">
+        <li>square</li>
+      </ul>
+      <ul class="lst-none">
+        <li>none</li>
+      </ul>
+      <h3>Ordered List (ol)</h3>
+      <ol class="lst-decimal">
+        <li>decimal (기본값)</li>
+      </ol>
+      <ol class="lst-decimal-zero">
+        <li>decimal-leading-zero</li>
+      </ol>
+      <ol class="lst-lower-roman">
+        <li>lower-roman</li>
+      </ol>
+      <ol class="lst-upper-roman">
+        <li>upper-roman</li>
+      </ol>
+      <ol class="lst-lower-alpha">
+        <li>lower-alpha</li>
+      </ol>
+      <ol class="lst-upper-alpha">
+        <li>upper-alpha</li>
+      </ol>
+    </div>
+
+    <div class="container">
+      <h2>2. list-style-position: 마커의 위치</h2>
+      <ul class="lst-pos-outside">
+        <li>
+          <strong>outside (기본값):</strong> 마커가 텍스트 블록 외부에
+          위치합니다. 이 텍스트는 마커의 위치를 보여주기 위해 길게
+          작성되었습니다.
+        </li>
+      </ul>
+      <ul class="lst-pos-inside">
+        <li>
+          <strong>inside:</strong> 마커가 텍스트 블록 내부에 위치하여 첫 번째
+          줄의 시작 부분이 됩니다. 이 텍스트는 마커의 위치를 보여주기 위해 길게
+          작성되었습니다.
+        </li>
+      </ul>
+    </div>
+
+    <div class="container">
+      <h2>3. list-style-image: 이미지 마커</h2>
+      <ul class="lst-img">
+        <li>커스텀 이미지 마커</li>
+        <li>SVG 이미지를 사용했습니다.</li>
+      </ul>
+    </div>
+
+    <div class="container">
+      <h2>4. list-style: 단축 속성</h2>
+      <ul class="lst-shorthand">
+        <li><code>list-style: square inside;</code></li>
+        <li>타입과 위치를 한 번에 지정했습니다.</li>
+      </ul>
+    </div>
+
+    <div class="container">
+      <h2>5. @counter-style: 나만의 카운터 만들기</h2>
+      <p>
+        <code>@counter-style</code> 규칙을 사용하면 미리 정의된 스타일 외에
+        자신만의 리스트 마커를 만들 수 있습니다.
+      </p>
+      <h3>Emoji 카운터</h3>
+      <ul class="lst-custom-emoji">
+        <li>First item</li>
+        <li>Second item</li>
+        <li>Third item</li>
+        <li>Fourth item</li>
+        <li>Fifth item (순환 시작)</li>
+      </ul>
+      <h3>커스텀 로마 숫자 접두사 카운터</h3>
+      <ol class="lst-custom-roman">
+        <li>Introduction</li>
+        <li>Main Body</li>
+        <li>Conclusion</li>
+      </ol>
+    </div>
+
+    <div class="container">
+      <h2>6. 가상요소 사용</h2>
+      <ul class="custom-bullet-list">
+        <li>커스텀 1</li>
+        <li>커스텀 2</li>
+        <li>커스텀 3</li>
+      </ul>
+
+      <ul class="arrow-list">
+        <li>arrow 1</li>
+        <li>arrow 2</li>
+        <li>arrow 3</li>
+      </ul>
+
+      <ul class="check-list">
+        <li>check 1</li>
+        <li>check 2</li>
+        <li>check 3</li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Cascade: Rule of the Latter</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+
+      /* 
+      후자 우선의 원칙 (Rule of the Latter)
+      - 동일한 명시도(specificity)를 가진 스타일 규칙이 충돌할 경우,
+        CSS 코드에서 가장 마지막에 선언된 규칙이 적용됩니다.
+    */
+
+      /* 예시 1: 동일한 클래스 선택자 */
+      .title {
+        color: blue; /* 이 색상은 아래 규칙에 의해 덮어쓰기 됩니다. */
+      }
+
+      .title {
+        color: red; /* 동일한 선택자이므로, 나중에 선언된 이 규칙이 적용됩니다. */
+      }
+
+      /* 예시 2: 다른 파일이나 다른 style 블록에 있어도 순서는 유효합니다. */
+      p {
+        font-size: 16px;
+        border: 2px solid green;
+      }
+
+      p {
+        border: 2px solid orange; /* 위 border 규칙을 덮어씁니다. */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS 캐스케이드: 후자 우선의 원칙</h1>
+
+    <div class="container">
+      <h2>예시 1: 클래스 선택자 충돌</h2>
+      <h3 class="title">이 텍스트의 색상은?</h3>
+      <p>
+        <code>.title</code> 선택자에 대해 <code>color: blue;</code>가 먼저
+        선언되고, 그 다음에 <code>color: red;</code>가 선언되었습니다.
+        <br />
+        두 규칙의 명시도가 동일하므로, 나중에 선언된 <strong>red</strong>가
+        적용됩니다.
+      </p>
+    </div>
+
+    <div class="container">
+      <h2>예시 2: 태그 선택자 충돌</h2>
+      <p>
+        이 단락의 테두리 색상은 <strong>orange</strong>입니다.
+        <code>border: 2px solid green;</code> 규칙이 먼저 선언되었지만, 동일한
+        명시도를 가진 <code>border: 2px solid orange;</code> 규칙이 나중에
+        선언되어 이전 규칙을 덮어썼기 때문입니다.
+      </p>
+    </div>
+  </body>
+</html>

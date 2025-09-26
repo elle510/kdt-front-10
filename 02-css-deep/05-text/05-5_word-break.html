@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS word-break & text-overflow</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .container {
+        border: 2px solid #666;
+        padding: 10px;
+        margin-bottom: 30px;
+        width: 300px;
+      }
+      h2 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+      p {
+        border: 1px solid #ccc;
+        padding: 5px;
+      }
+
+      /* word-break: 텍스트가 콘텐츠 박스 밖으로 넘칠 때 줄 바꿈 규칙을 설정합니다. */
+      .word-break-normal {
+        word-break: normal; /* 기본값. CJK 문자는 글자 기준, 그 외에는 단어 기준으로 줄바꿈. */
+      }
+      .word-break-all {
+        word-break: break-all; /* 글자 기준으로 강제 줄바꿈. */
+      }
+      .word-break-keep-all {
+        word-break: keep-all; /* 단어 기준으로만 줄바꿈 (CJK 텍스트에만 적용). */
+      }
+
+      /* text-overflow: 넘치는 텍스트를 어떻게 보여줄지 설정합니다. */
+      /* text-overflow를 적용하려면 overflow: hidden; white-space: nowrap; 이 필요합니다. */
+      .overflow-base {
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .text-overflow-clip {
+        text-overflow: clip; /* 기본값. 텍스트를 자릅니다. */
+      }
+      .text-overflow-ellipsis {
+        text-overflow: ellipsis; /* 잘린 텍스트를 ... (말줄임표)로 표시합니다. */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS word-break & text-overflow 예시</h1>
+
+    <div class="container">
+      <h2>word-break</h2>
+      <p class="word-break-normal">
+        <strong>normal:</strong>
+        ThisIsAVeryLongWordThatWillOverflowTheContainerWithoutBreaking.
+      </p>
+      <p class="word-break-all">
+        <strong>break-all:</strong>
+        ThisIsAVeryLongWordThatWillBeBrokenAtAnyCharacterToPreventOverflow.
+      </p>
+      <p class="word-break-keep-all">
+        <strong>keep-all (CJK):</strong> 한글은단어기준으로줄바꿈이됩니다.
+        그래서긴단어는넘칩니다.
+      </p>
+    </div>
+
+    <div class="container">
+      <h2>text-overflow</h2>
+      <p class="overflow-base text-overflow-clip">
+        <strong>clip:</strong> This is a very long text that will be clipped
+        when it overflows the container's boundary.
+      </p>
+      <p class="overflow-base text-overflow-ellipsis">
+        <strong>ellipsis:</strong> This is a very long text that will show an
+        ellipsis (...) when it overflows the container's boundary.
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Pseudo-classes</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+
+      /* 
+      동적 가상 클래스는 스타일 우선순위 규칙 때문에 특정 순서로 작성하는 것이 중요합니다.
+      보통 LVHA (Link -> Visited -> Hover -> Active) 순서를 따릅니다.
+      :focus는 보통 :hover와 함께 또는 그 뒤에 정의합니다.
+    */
+
+      .link-example a,
+      .button-example button {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 10px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 18px;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+      }
+
+      /* :link - 방문하지 않은 링크에 적용 */
+      .link-example a:link {
+        background-color: #e3f2fd; /* 연한 파랑 */
+        color: #0d47a1;
+      }
+
+      /* :visited - 방문한 링크에 적용 */
+      .link-example a:visited {
+        background-color: #e8eaf6; /* 연한 보라 */
+        color: #311b92;
+      }
+
+      /* :focus - 요소가 포커스를 받았을 때 (키보드 탭, 클릭 등) */
+      .link-example a:focus,
+      .input-example input:focus,
+      .button-example button:focus {
+        outline: 3px solid #ffca28; /* 노란색 아웃라인 */
+        box-shadow: 0 0 10px rgba(255, 202, 40, 0.7);
+      }
+
+      /* :hover - 마우스 커서가 요소 위에 올라왔을 때 */
+      .link-example a:hover,
+      .button-example button:hover {
+        background-color: #fff3e0; /* 연한 주황 */
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      /* :active - 요소가 활성화되었을 때 (클릭하는 순간) */
+      .link-example a:active,
+      .button-example button:active {
+        background-color: #ffcdd2; /* 연한 빨강 */
+        color: #b71c1c;
+        transform: translateY(0);
+      }
+
+      .input-example input {
+        padding: 10px;
+        font-size: 16px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>동적 가상 클래스(Dynamic Pseudo-classes) 예시</h1>
+
+    <div class="container link-example">
+      <h2>링크 예시 (:link, :visited, :hover, :active, :focus)</h2>
+      <p>
+        아래 링크들을 클릭하거나, 마우스를 올리거나, 키보드(Tab)로 포커스를
+        이동해보세요.
+      </p>
+      <a href="#link1">방문하지 않은 링크</a>
+      <a href="#">방문한 링크 (클릭해보세요)</a>
+    </div>
+
+    <div class="container input-example">
+      <h2>폼 입력 예시 (:focus)</h2>
+      <p>아래 입력창을 클릭하거나, 키보드(Tab)로 포커스를 이동해보세요.</p>
+      <input type="text" placeholder="여기를 클릭하세요" />
+    </div>
+
+    <div class="container button-example">
+      <h2>버튼 예시 (:hover, :active, :focus)</h2>
+      <p>아래 버튼에 마우스를 올리거나 클릭해보세요.</p>
+      <button type="button">버튼</button>
+    </div>
+  </body>
+</html>

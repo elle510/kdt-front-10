@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Font & Text Properties</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        line-height: 1.6;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+
+      /* font-weight: 폰트의 굵기를 설정합니다. */
+      .font-weight-normal {
+        font-weight: normal;
+      }
+      .font-weight-bold {
+        font-weight: bold;
+      }
+      .font-weight-700 {
+        font-weight: 700;
+      } /* bold와 동일 */
+      .font-weight-400 {
+        font-weight: 400;
+      } /* normal과 동일 */
+
+      /* text-transform: 텍스트의 대소문자를 변경합니다. */
+      .text-transform-uppercase {
+        text-transform: uppercase;
+      }
+      .text-transform-lowercase {
+        text-transform: lowercase;
+      }
+      .text-transform-capitalize {
+        text-transform: capitalize;
+      }
+
+      /* text-decoration: 텍스트에 장식용 선을 추가합니다. */
+      .text-decoration-underline {
+        text-decoration: underline;
+      }
+      .text-decoration-overline {
+        text-decoration: overline;
+      }
+      .text-decoration-line-through {
+        text-decoration: line-through;
+      }
+      .text-decoration-none {
+        text-decoration: none;
+      }
+
+      /* text-shadow: 텍스트에 그림자 효과를 줍니다. */
+      .text-shadow-example {
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      }
+
+      /* text-align: 텍스트의 수평 정렬을 설정합니다. */
+      .text-align-left {
+        text-align: left;
+      }
+      .text-align-center {
+        text-align: center;
+      }
+      .text-align-right {
+        text-align: right;
+      }
+      .text-align-justify {
+        text-align: justify;
+      }
+
+      /* vertical-align: 인라인 또는 테이블-셀 요소의 수직 정렬을 설정합니다. */
+      .vertical-align-container span {
+        font-size: 24px;
+      }
+      .vertical-align-baseline {
+        vertical-align: baseline;
+      } /* 기본값 */
+      .vertical-align-top {
+        vertical-align: top;
+      }
+      .vertical-align-middle {
+        vertical-align: middle;
+      }
+      .vertical-align-bottom {
+        vertical-align: bottom;
+      }
+
+      /* line-height: 줄 간격을 설정합니다. */
+      .line-height-1 {
+        line-height: 1;
+      }
+      .line-height-1-5 {
+        line-height: 1.5;
+      }
+      .line-height-2 {
+        line-height: 2;
+      }
+
+      /* letter-spacing: 글자 사이의 간격을 설정합니다. */
+      .letter-spacing-normal {
+        letter-spacing: normal;
+      }
+      .letter-spacing-wide {
+        letter-spacing: 4px;
+      }
+      .letter-spacing-narrow {
+        letter-spacing: -1px;
+      }
+
+      /* word-spacing: 단어 사이의 간격을 설정합니다. */
+      .word-spacing-normal {
+        word-spacing: normal;
+      }
+      .word-spacing-wide {
+        word-spacing: 10px;
+      }
+      .word-spacing-narrow {
+        word-spacing: -2px;
+      }
+
+      /* text-indent: 단락의 첫 줄 들여쓰기를 설정합니다. */
+      .text-indent-example {
+        text-indent: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS Font & Text Styling 예시</h1>
+
+    <div class="container">
+      <h2>font-weight</h2>
+      <p class="font-weight-normal">
+        This is normal text (font-weight: normal).
+      </p>
+      <p class="font-weight-bold">This is bold text (font-weight: bold).</p>
+      <p class="font-weight-400">This is normal text (font-weight: 400).</p>
+      <p class="font-weight-700">This is bold text (font-weight: 700).</p>
+    </div>
+
+    <div class="container">
+      <h2>text-transform</h2>
+      <p class="text-transform-uppercase">This text is uppercase.</p>
+      <p class="text-transform-lowercase">This Text Is Lowercase.</p>
+      <p class="text-transform-capitalize">this text is capitalized.</p>
+    </div>
+
+    <div class="container">
+      <h2>text-decoration</h2>
+      <p class="text-decoration-underline">This text is underlined.</p>
+      <p class="text-decoration-overline">This text has an overline.</p>
+      <p class="text-decoration-line-through">This text has a line-through.</p>
+      <p>
+        <a href="#" class="text-decoration-none">This link has no underline.</a>
+      </p>
+    </div>
+
+    <div class="container">
+      <h2>text-shadow</h2>
+      <p class="text-shadow-example">This text has a shadow.</p>
+    </div>
+
+    <div class="container">
+      <h2>text-align</h2>
+      <p class="text-align-left">This text is left-aligned.</p>
+      <p class="text-align-center">This text is center-aligned.</p>
+      <p class="text-align-right">This text is right-aligned.</p>
+      <p class="text-align-justify">
+        This is a long justified paragraph. Justification means that the text is
+        spread out in a way that the lines of text have the same width, creating
+        clean edges on both sides.
+      </p>
+    </div>
+
+    <div class="container vertical-align-container">
+      <h2>vertical-align</h2>
+      <p>
+        Image with vertical-align:
+        <img
+          src="https://via.placeholder.com/100x20/0000FF/FFFFFF?text=IMG"
+          alt="placeholder"
+          class="vertical-align-baseline"
+        />
+        (baseline)
+        <img
+          src="https://via.placeholder.com/100x20/0000FF/FFFFFF?text=IMG"
+          alt="placeholder"
+          class="vertical-align-top"
+        />
+        (top)
+        <img
+          src="https://via.placeholder.com/100x20/0000FF/FFFFFF?text=IMG"
+          alt="placeholder"
+          class="vertical-align-middle"
+        />
+        (middle)
+        <img
+          src="https://via.placeholder.com/100x20/0000FF/FFFFFF?text=IMG"
+          alt="placeholder"
+          class="vertical-align-bottom"
+        />
+        (bottom)
+      </p>
+    </div>
+
+    <div class="container">
+      <h2>line-height</h2>
+      <p class="line-height-1">
+        This paragraph has a line-height of 1. There is very little space
+        between the lines, which can make the text harder to read.
+      </p>
+      <p class="line-height-1-5">
+        This paragraph has a line-height of 1.5. This is a common and readable
+        line height for body text.
+      </p>
+      <p class="line-height-2">
+        This paragraph has a line-height of 2. There is a lot of space between
+        the lines.
+      </p>
+    </div>
+
+    <div class="container">
+      <h2>letter-spacing</h2>
+      <p class="letter-spacing-normal">Normal letter-spacing.</p>
+      <p class="letter-spacing-wide">Wide letter-spacing.</p>
+      <p class="letter-spacing-narrow">Narrow letter-spacing.</p>
+    </div>
+
+    <div class="container">
+      <h2>word-spacing</h2>
+      <p class="word-spacing-normal">Normal word spacing between words.</p>
+      <p class="word-spacing-wide">Wide word spacing between words.</p>
+      <p class="word-spacing-narrow">Narrow word spacing between words.</p>
+    </div>
+
+    <div class="container">
+      <h2>text-indent</h2>
+      <p class="text-indent-example">
+        This paragraph has a text-indent of 50px. The first line of the text is
+        indented to the right, which is a common formatting for starting new
+        paragraphs in printed text.
+      </p>
+    </div>
+  </body>
+</html>

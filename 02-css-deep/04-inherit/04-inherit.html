@@ -40,6 +40,23 @@
         font-size: 14px;
         border: 1px dashed orange;
       }
+
+      /* inherit, initial, unset 예시 스타일 */
+      .inherit-parent {
+        color: red;
+        border: 1px solid black;
+        padding: 10px;
+        margin-top: 20px;
+      }
+      .inherit-p {
+        color: inherit; /* 부모 요소의 color 값(red)을 상속받습니다. */
+      }
+      .initial-p {
+        color: initial; /* color 속성의 초기값(사용자 에이전트 기본값, 보통 black)으로 설정됩니다. */
+      }
+      .unset-p {
+        color: unset; /* color는 상속 가능한 속성이므로 inherit과 동일하게 동작하여 부모의 값(red)을 상속받습니다. */
+      }
     </style>
   </head>
   <body>
@@ -74,5 +91,13 @@
     </div>
 
     <p>부모 컨테이너 밖에 있는 이 단락은 상속의 영향을 받지 않습니다.</p>
+
+    <h2>inherit, initial, unset 예시</h2>
+    <div class="inherit-parent">
+      <p>Parent element (color: red)</p>
+      <p class="inherit-p">This paragraph has <code>color: inherit</code>.</p>
+      <p class="initial-p">This paragraph has <code>color: initial</code>.</p>
+      <p class="unset-p">This paragraph has <code>color: unset</code>.</p>
+    </div>
   </body>
 </html>

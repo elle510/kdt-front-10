@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Structural Pseudo-classes</title>
+    <style>
+      /* :root - 문서의 루트 요소를 선택합니다. (<html> 태그와 동일) */
+      :root {
+        --main-bg-color: #f0f8ff; /* CSS 변수 선언 */
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: var(--main-bg-color);
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      .container > * {
+        /* 예시를 명확하게 보기 위한 기본 스타일 */
+        display: block;
+        border: 1px dashed #999;
+        padding: 10px;
+        margin: 5px;
+      }
+
+      /* --- :first-child & :last-child --- */
+      .first-last-demo > :first-child {
+        background-color: #e3f2fd; /* 첫 번째 자식 요소 */
+        color: #1565c0;
+        font-weight: bold;
+      }
+      .first-last-demo > :last-child {
+        background-color: #fff3e0; /* 마지막 자식 요소 */
+        color: #e65100;
+        font-weight: bold;
+      }
+
+      /* --- :nth-child(n) --- */
+      /* 형제 그룹에서 n번째 자식 요소를 선택 (태그 종류 무관) */
+      .nth-child-demo p:nth-child(3) {
+        /* 3번째 자식인 p */
+        background-color: #a3a3ae;
+      }
+      .nth-child-demo p:nth-child(odd) {
+        /* 홀수번째 자식인 p */
+        text-decoration: underline;
+      }
+
+      /* --- :nth-of-type(n) --- */
+      /* 형제 그룹에서 특정 태그 중 n번째 요소를 선택 */
+      .nth-of-type-demo p:nth-of-type(2) {
+        /* p 태그 중에서 2번째 요소 */
+        background-color: #a4d8a6;
+      }
+      .nth-of-type-demo p:nth-of-type(odd) {
+        /* p 태그 중에서 홀수번째 요소 */
+        font-style: italic;
+      }
+
+      /* --- :only-of-type --- */
+      /* 형제 그룹에서 유일한 태그인 요소를 선택 */
+      .only-of-type-demo h3:only-of-type {
+        background-color: #fce4ec;
+        border: 2px solid #ad1457;
+      }
+
+      /* --- :not(selector) --- */
+      /* 특정 셀렉터를 제외한 나머지 요소를 선택 */
+      .not-demo p:not(.special) {
+        color: #9e9e9e;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>구조적 가상 클래스(Structural Pseudo-classes) 예시</h1>
+    <p>
+      <code>:root</code>에 의해 body의 배경색이 <code>aliceblue</code>로
+      설정되었습니다.
+    </p>
+
+    <div class="container first-last-demo">
+      <h2>:first-child & :last-child 첫 번째 자식</h2>
+      <div>두 번째 자식 (div)</div>
+      <p>세 번째 자식 (p)</p>
+      <p>네 번째 자식 (p)</p>
+      <span>마지막 자식 (span)</span>
+    </div>
+
+    <div class="container nth-child-demo">
+      <h2>:nth-child(n) - 모든 형제 중에서 순서 계산</h2>
+      <h3>h3는 두 번째 자식</h3>
+      <p>p는 세 번째 자식 (p:nth-child(3) 선택) & (p:nth-child(odd) 선택)</p>
+      <div>div는 네 번째 자식</div>
+      <p>p는 다섯 번째 자식 (p:nth-child(odd) 선택)</p>
+      <p>p는 여섯 번째 자식</p>
+    </div>
+
+    <div class="container nth-of-type-demo">
+      <h2>:nth-of-type(n) - 특정 태그 중에서 순서 계산</h2>
+      <h3>h3 (p가 아님)</h3>
+      <p>첫 번째 p (p:nth-of-type(odd) 선택)</p>
+      <div>div (p가 아님)</div>
+      <p>두 번째 p (p:nth-of-type(2) 선택)</p>
+      <p>세 번째 p (p:nth-of-type(odd) 선택)</p>
+    </div>
+
+    <div class="container only-of-type-demo">
+      <h2>:only-of-type</h2>
+      <h3>이 h3는 형제 중 유일한 h3입니다. (선택됨)</h3>
+      <p>첫 번째 p</p>
+      <p>두 번째 p (p는 유일하지 않으므로 선택 안됨)</p>
+    </div>
+
+    <div class="container not-demo">
+      <h2>:not(selector)</h2>
+      <p>일반 p 태그</p>
+      <p class="special">.special 클래스를 가진 p 태그 (제외됨)</p>
+      <p>일반 p 태그</p>
+    </div>
+  </body>
+</html>

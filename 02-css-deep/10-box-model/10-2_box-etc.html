@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Box Properties</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f4f4f4;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+        background-color: #fff;
+      }
+      h2,
+      h3 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+      .box {
+        border: 2px solid #333;
+        padding: 10px;
+        margin-top: 10px;
+      }
+
+      /* --- 1. overflow --- */
+      .overflow-box {
+        width: 300px;
+        height: 100px;
+      }
+      .visible {
+        overflow: visible;
+      } /* (기본값) 콘텐츠가 박스를 넘어 보임 */
+      .hidden {
+        overflow: hidden;
+      } /* 넘어가는 부분을 잘라냄 */
+      .scroll {
+        overflow: scroll;
+      } /* 항상 스크롤바를 표시 */
+      .auto {
+        overflow: auto;
+      } /* 콘텐츠가 넘칠 때만 스크롤바 표시 */
+      .overflow-x {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+      } /* 가로 스크롤만 */
+
+      /* --- 2. border-radius --- */
+      .radius-box {
+        width: 200px;
+        height: 100px;
+        background: #e3f2fd;
+        text-align: center;
+        line-height: 100px;
+      }
+      .radius-1 {
+        border-radius: 20px;
+      } /* 모든 모서리 */
+      .radius-2 {
+        border-radius: 10px 40px;
+      } /* 대각선 모서리 */
+      .radius-3 {
+        border-radius: 10px 20px 30px 40px;
+      } /* 각 모서리 시계방향 */
+      .radius-circle {
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+        border-radius: 50%;
+      } /* 원 */
+
+      /* --- 3. background --- */
+      .bg-box {
+        width: 100%;
+        height: 200px;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        font-size: 1.5em;
+      }
+      .bg-shorthand {
+        /* color image repeat position/size attachment */
+        background: #4682b4 url(https://picsum.photos/id/10/200/200) no-repeat
+          right center / 100px fixed;
+      }
+      .parallax-container {
+        height: 400px;
+        overflow-y: scroll;
+        border: 2px solid black;
+      }
+
+      /* --- 4. box-shadow --- */
+      .shadow-box {
+        width: 200px;
+        height: 100px;
+        background: #fff;
+        margin: 20px;
+      }
+      .shadow-1 {
+        box-shadow: 10px 10px 5px #888;
+      } /* x-offset y-offset blur color */
+      .shadow-2 {
+        box-shadow: 0 0 15px 5px rgba(0, 0, 255, 0.5);
+      } /* spread + glow 효과 */
+      .shadow-inset {
+        box-shadow: inset 5px 5px 10px #666;
+      } /* 내부 그림자 */
+
+      /* --- 5. opacity --- */
+      .opacity-box {
+        width: 200px;
+        height: 100px;
+        background: #d32f2f;
+        color: white;
+        padding: 10px;
+      }
+      .opacity-1 {
+        opacity: 1;
+      } /* 불투명 (기본값) */
+      .opacity-05 {
+        opacity: 0.5;
+      } /* 반투명 (자식 요소 포함) */
+      .opacity-rgba {
+        background: rgba(211, 47, 47, 0.5);
+      } /* 배경만 반투명 */
+    </style>
+  </head>
+  <body>
+    <h1>CSS Box 관련 속성 예시</h1>
+
+    <div class="container">
+      <h2>1. overflow: 내용이 넘칠 때 처리</h2>
+      <div class="box overflow-box visible">
+        <strong>visible:</strong> ... 콘텐츠가 박스를 넘어 그대로 보입니다.<br />
+        ... 콘텐츠가 박스를 넘어 그대로 보입니다.<br />... 콘텐츠가 박스를 넘어
+        그대로 보입니다.<br />... 콘텐츠가 박스를 넘어 그대로 보입니다.<br />...
+        콘텐츠가 박스를 넘어 그대로 보입니다.<br />... 콘텐츠가 박스를 넘어
+        그대로 보입니다.
+      </div>
+      <div class="box overflow-box hidden">
+        <strong>hidden:</strong> 1... 박스를 넘어가는 부분은 잘려서 보이지
+        않습니다.<br />2... 박스를 넘어가는 부분은 잘려서 보이지 않습니다.<br />3...
+        박스를 넘어가는 부분은 잘려서 보이지 않습니다.<br />4... 박스를 넘어가는
+        부분은 잘려서 보이지 않습니다.<br />5... 박스를 넘어가는 부분은 잘려서
+        보이지 않습니다.
+      </div>
+      <div class="box overflow-box scroll">
+        <strong>scroll:</strong> ... 콘텐츠가 넘치지 않아도 가로/세로 스크롤바가
+        항상 보입니다.<br />... 콘텐츠가 넘치지 않아도 가로/세로 스크롤바가 항상
+        보입니다.<br />... 콘텐츠가 넘치지 않아도 가로/세로 스크롤바가 항상
+        보입니다.<br />... 콘텐츠가 넘치지 않아도 가로/세로 스크롤바가 항상
+        보입니다.
+      </div>
+      <div class="box overflow-box auto">
+        <strong>auto:</strong> ... 콘텐츠가 넘칠 때만 필요한 스크롤바가
+        나타납니다.<br />
+      </div>
+      <div class="box overflow-box overflow-x">
+        <strong>overflow-x:</strong> This text is very long and will cause a
+        horizontal scrollbar.
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>2. border-radius: 모서리 둥글게</h2>
+      <div class="box radius-box radius-1">20px</div>
+      <div class="box radius-box radius-2">10px 40px</div>
+      <div class="box radius-box radius-3">10px 20px 30px 40px</div>
+      <div class="box radius-box radius-circle">50%</div>
+    </div>
+
+    <div class="container">
+      <h2>3. background: 배경 스타일링</h2>
+      <p>
+        아래는 background 단축 속성을 사용한 예시입니다. (색상, 이미지, 반복,
+        위치/크기, 부착 방식)
+      </p>
+      <div class="parallax-container">
+        <div class="box bg-box bg-shorthand">Parallax Effect (fixed)</div>
+        <p style="height: 300px; padding: 10px">
+          스크롤을 내려보세요. 배경 이미지가 고정되어 있어 패럴랙스 효과가
+          나타납니다.
+        </p>
+      </div>
+    </div>
+
+    <div class="container" style="display: flex; flex-wrap: wrap">
+      <h2>4. box-shadow: 그림자 효과</h2>
+      <div class="shadow-box shadow-1">기본 그림자</div>
+      <div class="shadow-box shadow-2">Glow 효과</div>
+      <div class="shadow-box shadow-inset">Inset 그림자</div>
+    </div>
+
+    <div class="container">
+      <h2>5. opacity vs RGBA</h2>
+      <p>
+        <code>opacity</code>는 요소 전체(자식 포함)를 투명하게 만들고,
+        <code>rgba()</code>는 특정 속성(예: 배경색)만 투명하게 만듭니다.
+      </p>
+      <div class="opacity-box opacity-1">
+        <strong>opacity: 1</strong> (기본)
+      </div>
+      <div class="opacity-box opacity-05">
+        <strong>opacity: 0.5</strong> (텍스트도 반투명)
+      </div>
+      <div class="opacity-box opacity-rgba">
+        <strong>background: rgba(..., 0.5)</strong> (배경만 반투명)
+      </div>
+    </div>
+  </body>
+</html>

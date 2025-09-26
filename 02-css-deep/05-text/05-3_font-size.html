@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Font-Size Examples</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        font-size: 16px; /* rem, em, %의 기준이 되는 기본 폰트 크기 */
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .font-size-section {
+        margin-bottom: 30px;
+        padding: 15px;
+        border: 1px solid #eee;
+        background-color: #f9f9f9;
+      }
+
+      .example-text {
+        margin-bottom: 10px;
+        padding: 5px;
+        border: 1px dashed #ccc;
+      }
+
+      /* 1. Absolute Units (절대 단위) */
+      .px-example .example-text {
+        font-size: 24px;
+      }
+      .pt-example .example-text {
+        font-size: 18pt;
+      }
+
+      /* 2. Relative Units (상대 단위) */
+      .em-parent {
+        font-size: 20px; /* em의 기준이 되는 부모 폰트 크기 */
+        border: 1px solid blue;
+        padding: 10px;
+        margin-bottom: 15px;
+      }
+      .em-example .example-text {
+        font-size: 1.5em; /* 부모의 폰트 크기(20px)의 1.5배 = 30px */
+      }
+      .rem-example .example-text {
+        font-size: 1.5rem; /* html의 기본 폰트 크기(16px)의 1.5배 = 24px */
+      }
+      .percent-example .example-text {
+        font-size: 150%; /* 부모의 폰트 크기(20px)의 150% = 30px */
+      }
+      .vw-example .example-text {
+        font-size: 3vw; /* 뷰포트 너비의 3% */
+      }
+      .vh-example .example-text {
+        font-size: 5vh; /* 뷰포트 높이의 5% */
+      }
+
+      /* 3. Keywords (키워드) */
+      .keyword-xx-small .example-text {
+        font-size: xx-small;
+      }
+      .keyword-x-small .example-text {
+        font-size: x-small;
+      }
+      .keyword-small .example-text {
+        font-size: small;
+      }
+      .keyword-medium .example-text {
+        font-size: medium;
+      }
+      .keyword-large .example-text {
+        font-size: large;
+      }
+      .keyword-x-large .example-text {
+        font-size: x-large;
+      }
+      .keyword-xx-large .example-text {
+        font-size: xx-large;
+      }
+      .keyword-smaller .example-text {
+        font-size: smaller; /* 부모보다 한 단계 작게 */
+      }
+      .keyword-larger .example-text {
+        font-size: larger; /* 부모보다 한 단계 크게 */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS Font-Size 속성 예시</h1>
+
+    <p>CSS에서 텍스트의 크기를 지정하는 다양한 단위를 보여줍니다.</p>
+
+    <div class="font-size-section">
+      <h2>1. 절대 단위 (Absolute Units)</h2>
+      <p>
+        절대적인 크기를 가지며, 사용자 설정이나 뷰포트 크기에 따라 변하지
+        않습니다.
+      </p>
+      <div class="px-example">
+        <div class="example-text">24px (픽셀) 폰트 크기</div>
+        <p>
+          <code>px</code>: 화면의 픽셀을 기준으로 하는 절대 단위입니다. 대부분의
+          웹 개발에서 가장 흔하게 사용됩니다.
+        </p>
+      </div>
+      <div class="pt-example">
+        <div class="example-text">18pt (포인트) 폰트 크기</div>
+        <p>
+          <code>pt</code>: 인쇄 매체에서 주로 사용되는 단위로, 1pt는
+          1/72인치입니다. 웹에서는 <code>px</code>가 더 일반적입니다.
+        </p>
+      </div>
+    </div>
+
+    <div class="font-size-section">
+      <h2>2. 상대 단위 (Relative Units)</h2>
+      <p>
+        다른 요소의 크기나 뷰포트 크기에 따라 상대적으로 변하는 단위입니다.
+        반응형 웹 디자인에 유용합니다.
+      </p>
+      <div class="em-parent">
+        <p>이 부모 요소의 폰트 크기는 20px입니다.</p>
+        <div class="em-example">
+          <div class="example-text">1.5em 폰트 크기</div>
+          <p>
+            <code>em</code>: 부모 요소의 폰트 크기에 상대적인 단위입니다. 이
+            경우 부모 폰트 크기(20px)의 1.5배인 30px입니다.
+          </p>
+        </div>
+      </div>
+      <div class="rem-example">
+        <div class="example-text">1.5rem 폰트 크기</div>
+        <p>
+          <code>rem</code>: 문서의 루트 요소(<code>html</code>)의 폰트 크기에
+          상대적인 단위입니다. 기본적으로 16px이므로 1.5rem은 24px입니다.
+        </p>
+      </div>
+      <div class="em-parent">
+        <p>이 부모 요소의 폰트 크기는 20px입니다.</p>
+        <div class="percent-example">
+          <div class="example-text">150% 폰트 크기</div>
+          <p>
+            <code>%</code>: 부모 요소의 폰트 크기에 대한 백분율입니다.
+            <code>em</code>과 유사하게 동작합니다.
+          </p>
+        </div>
+      </div>
+      <div class="vw-example">
+        <div class="example-text">3vw 폰트 크기</div>
+        <p>
+          <code>vw</code>: 뷰포트(브라우저 창) 너비의 1/100에 해당하는
+          단위입니다. 뷰포트 너비가 변하면 폰트 크기도 변합니다.
+        </p>
+      </div>
+      <div class="vh-example">
+        <div class="example-text">5vh 폰트 크기</div>
+        <p>
+          <code>vh</code>: 뷰포트(브라우저 창) 높이의 1/100에 해당하는
+          단위입니다. 뷰포트 높이가 변하면 폰트 크기도 변합니다.
+        </p>
+      </div>
+    </div>
+
+    <div class="font-size-section">
+      <h2>3. 키워드 (Keywords)</h2>
+      <p>미리 정의된 상대적인 크기 키워드입니다.</p>
+      <div class="keyword-xx-small">
+        <div class="example-text">xx-small</div>
+      </div>
+      <div class="keyword-x-small"><div class="example-text">x-small</div></div>
+      <div class="keyword-small"><div class="example-text">small</div></div>
+      <div class="keyword-medium">
+        <div class="example-text">medium (기본값)</div>
+      </div>
+      <div class="keyword-large"><div class="example-text">large</div></div>
+      <div class="keyword-x-large"><div class="example-text">x-large</div></div>
+      <div class="keyword-xx-large">
+        <div class="example-text">xx-large</div>
+      </div>
+      <div class="keyword-smaller">
+        <div class="example-text">smaller (부모보다 한 단계 작게)</div>
+      </div>
+      <div class="keyword-larger">
+        <div class="example-text">larger (부모보다 한 단계 크게)</div>
+      </div>
+    </div>
+
+    <p>
+      일반적으로 반응형 웹 디자인에서는 <code>rem</code> 단위를 사용하여 일관된
+      크기 조절을 하는 것이 권장됩니다.
+    </p>
+  </body>
+</html>

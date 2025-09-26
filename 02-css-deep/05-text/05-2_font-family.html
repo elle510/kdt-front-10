@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Font-Family Examples</title>
+
+    <!-- 폰트 적용 방법 1: link 태그로 외부 폰트 삽입 (Google Fonts 예시) https://fonts.google.com/selection/embed -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* 폰트 적용 방법 2: @import로 외부 폰트 삽입 (Google Fonts 예시) */
+      @import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap");
+
+      /* 폰트 적용 방법 3: @font-face로 커스텀 폰트 삽입 */
+      /* 실제 폰트 파일이 필요하며, 경로는 프로젝트 구조에 맞게 설정해야 합니다. */
+      /* 여기서는 예시를 위해 가상의 폰트 이름을 사용합니다. */
+      @font-face {
+        font-family: "Pretendard-Regular";
+        src: url("./font/Pretendard-Regular.woff") format("woff");
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .font-section {
+        margin-bottom: 30px;
+        padding: 15px;
+        border: 1px solid #eee;
+        background-color: #f9f9f9;
+      }
+
+      /* 기본 시스템 폰트 */
+      .system-font p {
+        font-family: "Times New Roman", serif;
+        font-size: 18px;
+      }
+
+      /* link 태그로 삽입된 폰트 적용 */
+      .linked-font p {
+        font-family: "Noto Sans KR", sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        color: #0056b3;
+      }
+
+      /* @import로 삽입된 폰트 적용 */
+      .imported-font p {
+        font-family: "Nanum Gothic", sans-serif;
+        font-size: 22px;
+        font-weight: 400;
+        color: #28a745;
+      }
+
+      /* @font-face로 삽입된 커스텀 폰트 적용 */
+      .custom-font p {
+        font-family: "Pretendard-Regular", sans-serif;
+        font-size: 24px;
+        color: #dc3545;
+      }
+
+      .fallback-font p {
+        font-family: "NonExistentFont", "Verdana", sans-serif;
+        font-size: 16px;
+        color: #6c757d;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS Font-Family 속성 예시</h1>
+
+    <p>CSS에서 텍스트의 폰트를 지정하는 다양한 방법을 보여줍니다.</p>
+
+    <div class="font-section system-font">
+      <h2>1. 기본 시스템 폰트 사용</h2>
+      <p>
+        이 텍스트는 'Times New Roman', serif 폰트 패밀리를 사용합니다. (시스템에
+        설치된 폰트)
+      </p>
+    </div>
+
+    <div class="font-section linked-font">
+      <h2>2. &lt;link&gt; 태그로 외부 폰트 삽입 (Google Fonts)</h2>
+      <p>
+        이 텍스트는 &lt;link&gt; 태그로 불러온 'Noto Sans KR' 폰트를 사용합니다.
+      </p>
+    </div>
+
+    <div class="font-section imported-font">
+      <h2>3. @import 규칙으로 외부 폰트 삽입 (Google Fonts)</h2>
+      <p>
+        이 텍스트는 @import 규칙으로 불러온 'Nanum Gothic' 폰트를 사용합니다.
+      </p>
+    </div>
+
+    <div class="font-section custom-font">
+      <h2>4. @font-face 규칙으로 커스텀 폰트 삽입</h2>
+      <p>
+        이 텍스트는 @font-face로 정의된 'Pretendard-Regular'를 사용합니다. (폰트
+        파일이 실제로 존재해야 적용됩니다.)
+      </p>
+    </div>
+
+    <div class="font-section fallback-font">
+      <h2>5. 폰트 폴백 (Fallback)</h2>
+      <p>
+        'NonExistentFont'가 없으면 'Verdana'가 적용되고, 그것도 없으면 일반
+        sans-serif 폰트가 적용됩니다.
+      </p>
+    </div>
+
+    <p>
+      <code>font-family</code> 속성은 여러 폰트 이름을 쉼표로 구분하여 나열할 수
+      있습니다. 브라우저는 목록의 첫 번째 폰트부터 찾아보고, 해당 폰트가 없으면
+      다음 폰트를 시도합니다. 마지막에는 항상 일반 폰트 패밀리(serif,
+      sans-serif, monospace 등)를 지정하여 어떤 환경에서든 텍스트가 표시되도록
+      하는 것이 좋습니다.
+    </p>
+  </body>
+</html>

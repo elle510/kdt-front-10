@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Efficient em & rem Usage</title>
+    <style>
+      /* --- 1. 기본 설정: rem을 위한 기반 다지기 --- */
+      html {
+        /*
+          브라우저 기본 폰트 크기(16px)의 62.5%는 10px입니다.
+          이렇게 설정하면 1rem = 10px 이 되어 rem 단위를 픽셀처럼 직관적으로 계산할 수 있습니다.
+          (예: 1.6rem = 16px, 2.4rem = 24px)
+          사용자가 브라우저 폰트 크기를 조절해도 전체 사이트가 함께 확대/축소되므로 접근성도 좋습니다.
+        */
+        font-size: 62.5%;
+
+        /* font-size: 100%; */
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        /* 기본 본문 폰트 크기를 16px로 설정합니다. (1.6rem = 10px * 1.6) */
+        font-size: 1.6rem;
+        line-height: 1.6;
+        margin: 0;
+        background-color: #f9f9f9;
+      }
+
+      /* --- 2. 전역(Global) 레이아웃: rem 사용 --- */
+      /*
+        페이지의 큰 구조(header, main, footer, container 등)의 간격은 rem으로 설정합니다.
+        이렇게 하면 html의 font-size 변경 시 전체 레이아웃이 일관되게 조절됩니다.
+      */
+      .container {
+        width: 90%;
+        max-width: 80rem; /* 800px */
+        margin: 4rem auto; /* 40px */
+        padding: 2rem; /* 20px */
+        background-color: #fff;
+        border-radius: 0.8rem; /* 8px */
+      }
+
+      h1,
+      h2 {
+        /* 제목 폰트 크기도 rem으로 설정하여 기본 텍스트와 비례하도록 합니다. */
+        font-size: 3.2rem; /* 32px */
+        margin-bottom: 2rem; /* 20px */
+      }
+
+      p {
+        margin-bottom: 1.6rem; /* 16px */
+      }
+
+      /* --- 3. 국소(Local) 컴포넌트: em 사용 --- */
+      /*
+        버튼처럼 독립적인 컴포넌트 내부의 간격은 em을 사용합니다.
+        이렇게 하면 버튼의 font-size만 바꿔도 내부 padding이 자연스럽게 조절됩니다.
+      */
+      .button {
+        display: inline-block;
+        border: none;
+        border-radius: 0.5em; /* 폰트 크기에 비례하는 둥근 모서리 */
+        padding: 0.8em 1.5em; /* 폰트 크기에 비례하는 내부 여백 */
+        background-color: #007bff;
+        color: white;
+        font-size: 1.6rem; /* 16px. 기본 폰트 크기는 rem으로 설정 */
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      /* .button1 {
+          display: inline-block;
+          border: none;
+          border-radius: 30px; 
+          padding: 10px 5px; 
+          background-color: #007bff;
+          color: white;
+          font-size: 12px; 
+          text-decoration: none;
+          cursor: pointer;
+        } */
+
+      /* font-size만 큰 버튼을 만들어 봅시다. */
+      .button.large {
+        font-size: 2rem; /* 20px. 폰트 크기만 키웠습니다. */
+        /* padding, border-radius는 em이라 자동으로 커집니다. */
+      }
+
+      .icon {
+        /* 아이콘의 크기를 em으로 설정하면 주변 텍스트 크기에 맞춰 함께 변합니다. */
+        width: 1em;
+        height: 1em;
+        vertical-align: -0.15em; /* 아이콘과 텍스트의 세로 정렬 미세조정 */
+        margin-right: 0.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>효율적인 em, rem 사용법</h1>
+
+      <p>
+        이 페이지의 전체적인 레이아웃(컨테이너의 여백, 제목 크기 등)은
+        <strong>rem</strong>으로 설정되어 있습니다. 따라서 html의 기본 폰트
+        크기를 바꾸면 전체 페이지가 일관되게 커지거나 작아집니다.
+      </p>
+
+      <h2>버튼 컴포넌트 (em 사용 예시)</h2>
+      <p>
+        버튼 내부의 여백(padding)과 모서리(border-radius)는
+        <strong>em</strong>으로 설정되어 있습니다. 따라서 버튼의 폰트 크기만
+        조절해도, 나머지 스타일은 자동으로 비율에 맞게 조절됩니다.
+      </p>
+
+      <div>
+        <a href="#" class="button">
+          <svg class="icon" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            />
+          </svg>
+          기본 버튼
+        </a>
+      </div>
+
+      <!-- <div>
+        <a href="#" class="button1">
+          <svg class="icon" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            />
+          </svg>
+          기본 버튼
+        </a>
+      </div> -->
+
+      <div style="margin-top: 2rem">
+        <a href="#" class="button large">
+          <svg class="icon" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            />
+          </svg>
+          큰 버튼
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

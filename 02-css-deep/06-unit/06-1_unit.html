@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Units Example</title>
+    <style>
+      /* rem 계산을 쉽게 하기 위해 html의 기본 폰트 크기를 10px로 설정 (기본값은 16px) */
+      html {
+        font-size: 10px;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        font-size: 16px; /* body의 기본 폰트 크기는 16px로 유지 */
+      }
+      .container {
+        border: 2px solid #333;
+        margin: 15px;
+        padding: 15px;
+      }
+      .box {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-top: 10px;
+      }
+
+      /* 1. 절대 단위 (Absolute Units) */
+      .px-box {
+        width: 200px;
+      } /* px: 픽셀 단위, 고정된 크기 */
+
+      /* 2. 부모 요소에 대한 상대 단위 (Relative to Parent) */
+      .percent-box-parent {
+        width: 400px;
+      }
+      .percent-box-child {
+        width: 50%; /* %: 부모 요소의 크기에 대한 백분율 (400px의 50% = 200px) */
+      }
+
+      /* 3. 뷰포트에 대한 상대 단위 (Viewport Relative Units) */
+      .vw-box {
+        width: 50vw;
+      } /* vw: 뷰포트 너비의 1/100 */
+      .vh-box {
+        height: 20vh;
+        background-color: #e3f2fd;
+      } /* vh: 뷰포트 높이의 1/100 */
+      .vmin-box {
+        width: 30vmin;
+        height: 10vmin;
+        background-color: #e8f5e9;
+      } /* vmin: 뷰포트의 너비와 높이 중 작은 값의 1/100 */
+      .vmax-box {
+        width: 30vmax;
+        height: 10vmax;
+        background-color: #fce4ec;
+      } /* vmax: 뷰포트의 너비와 높이 중 큰 값의 1/100 */
+
+      /* 4. 폰트 크기에 대한 상대 단위 (Font-size Relative Units) */
+      .em-parent {
+        font-size: 20px;
+      }
+      .em-child {
+        font-size: 1.5em; /* 부모 폰트 크기의 1.5배 (20px * 1.5 = 30px) */
+        padding: 1em; /* 현재 요소 폰트 크기의 1배 (30px) */
+      }
+      .em-grandchild {
+        font-size: 0.8em; /* 부모(.em-child) 폰트 크기의 0.8배 (30px * 0.8 = 24px) */
+      }
+
+      .rem-box {
+        font-size: 1.6rem; /* 루트(html) 폰트 크기의 1.6배 (10px * 1.6 = 16px) */
+      }
+      .rem-parent {
+        font-size: 2rem; /* 20px */
+      }
+      .rem-child {
+        font-size: 1.2rem; /* 12px. 부모 크기에 영향받지 않고 루트 기준. */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS Units 예시</h1>
+
+    <div class="container">
+      <h2>1. 절대 단위: px</h2>
+      <div class="box px-box">width: 200px (고정 크기)</div>
+    </div>
+
+    <div class="container">
+      <h2>2. 부모 요소 상대 단위: %</h2>
+      <div class="box percent-box-parent">
+        Parent (width: 400px)
+        <div class="box percent-box-child">Child: width: 50% (200px)</div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>3. 뷰포트 상대 단위: vw, vh, vmin, vmax</h2>
+      <div class="box vw-box">width: 50vw (뷰포트 너비의 50%)</div>
+      <div class="box vh-box">height: 20vh (뷰포트 높이의 20%)</div>
+      <div class="box vmin-box">width: 30vmin (뷰포트의 작은 쪽 기준 30%)</div>
+      <div class="box vmax-box">width: 30vmax (뷰포트의 큰 쪽 기준 30%)</div>
+      <p>* 브라우저 창 크기를 조절해보세요.</p>
+    </div>
+
+    <div class="container">
+      <h2>4. 폰트 상대 단위: em, rem</h2>
+
+      <div class="box em-parent">
+        <strong>em:</strong> Parent (font-size: 20px)
+        <div class="box em-child">
+          Child (font-size: 1.5em = 30px)
+          <div class="box em-grandchild">
+            Grandchild (font-size: 0.8em = 24px) - em은 중첩될수록 복잡해짐
+          </div>
+        </div>
+      </div>
+
+      <div class="box">
+        <strong>rem:</strong> (root font-size: 10px)
+        <div class="box rem-box">font-size: 1.6rem (16px)</div>
+        <div class="box rem-parent">
+          Parent (font-size: 2rem = 20px)
+          <div class="box rem-child">
+            Child (font-size: 1.2rem = 12px) - rem은 중첩되어도 루트 기준이라
+            계산이 쉬움
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
