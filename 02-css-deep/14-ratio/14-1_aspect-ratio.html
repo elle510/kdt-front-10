@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS aspect-ratio Property</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f4f4f4;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+        background-color: #fff;
+      }
+      h2,
+      h3 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+      .wrapper {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+      .box {
+        width: 100%; /* 너비를 100%로 설정하면, 높이는 비율에 따라 자동 계산됨 */
+        background-color: #e3f2fd;
+        border: 2px solid #007bff;
+        display: grid;
+        place-items: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      /* --- 1. 기본 비율 예제 --- */
+      .ratio-16-9 {
+        aspect-ratio: 16 / 9;
+      }
+      .ratio-4-3 {
+        aspect-ratio: 4 / 3;
+      }
+      .ratio-1-1 {
+        aspect-ratio: 1 / 1;
+      } /* 정사각형 */
+
+      /* --- 2. 반응형 비디오 예제 --- */
+      .video-wrapper iframe {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+      }
+
+      /* --- 3. 이미지와 object-fit 예제 --- */
+      .image-box {
+        width: 100%;
+        aspect-ratio: 1 / 1; /* 정사각형 비율 강제 */
+      }
+      .image-box img {
+        width: 100%;
+        height: 100%;
+      }
+      /*
+        object-fit: cover
+
+          - 목표: 컨테이너를 완전히 덮는 것이 목표입니다.
+          - 동작 방식:
+            - 이미지의 가로세로 비율을 유지하면서, 컨테이너의 더 넓은 쪽에 맞춰 이미지를 확대/축소합니다.
+            - 컨테이너를 가득 채우기 때문에 빈 공간이 생기지 않습니다.
+          - 결과:
+            - 컨테이너의 비율과 이미지의 비율이 다를 경우, 이미지의 일부(넘치는 부분)가 잘려나갑니다.
+          - 비유: 배경 이미지를 background-size: cover로 설정한 것과 비슷합니다. "꽉 채우기"로 생각하시면 쉽습니다.
+      */
+      .fit-cover {
+        object-fit: cover;
+      } /* 비율에 맞춰 이미지를 채우고, 넘치는 부분은 잘라냄 */
+
+      /*
+      object-fit: contain
+
+        - 목표: 이미지 전체를 모두 보여주는 것이 목표입니다.
+        - 동작 방식:
+          - 이미지의 가로세로 비율을 유지하면서, 컨테이너의 더 짧은 쪽에 맞춰 이미지를 확대/축소합니다.
+          - 이미지 전체가 컨테이너 안에 들어와야 하므로, 잘리는 부분이 없습니다.
+        - 결과:
+          - 컨테이너의 비율과 이미지의 비율이 다를 경우, 컨테이너 내부에 빈 공간(위아래 또는 양옆)이 생길 수 있습니다. (이를 '레터박스'라고도 합니다.)
+        - 비유: 와이드스크린 영화를 일반 TV에서 볼 때 위아래에 검은색 바가 생기는 것과 비슷합니다. "모두 담기"로 생각하시면 쉽습니다.
+      */
+      .fit-contain {
+        object-fit: contain;
+      } /* 비율 안에 이미지가 모두 보이도록 맞춤 (빈 공간 생길 수 있음) */
+    </style>
+  </head>
+  <body>
+    <h1>CSS <code>aspect-ratio</code> 속성 예시</h1>
+
+    <div class="container">
+      <h2>1. 기본 비율 예제</h2>
+      <p>
+        <code>aspect-ratio</code> 속성을 사용하면 요소의 가로세로 비율을 쉽게
+        지정할 수 있습니다. 아래 박스들은 너비가 100%로 설정되어 있으며, 높이는
+        <code>aspect-ratio</code>에 따라 자동으로 조절됩니다.
+      </p>
+      <div class="wrapper">
+        <div class="box ratio-16-9">16 / 9</div>
+        <div class="box ratio-4-3">4 / 3</div>
+        <div class="box ratio-1-1">1 / 1</div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>2. 반응형 비디오 (iframe)</h2>
+      <p>
+        과거에는 padding-hack 등을 사용해야 했던 반응형 비디오 비율 유지를 이제
+        <code>aspect-ratio</code> 속성 하나로 간단하게 구현할 수 있습니다.
+        (브라우저 창 크기를 조절해보세요)
+      </p>
+      <div class="video-wrapper">
+        <iframe
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>3. 이미지와 <code>object-fit</code> 함께 사용하기</h2>
+      <p>
+        이미지의 고유 비율과 다른 <code>aspect-ratio</code>를 지정한 후,
+        <code>object-fit</code> 속성을 사용하여 이미지를 어떻게 채울지 제어할 수
+        있습니다.
+      </p>
+      <div class="wrapper">
+        <div>
+          <h3>object-fit: cover</h3>
+          <div class="image-box">
+            <img
+              src="https://picsum.photos/id/1060/400/200"
+              alt="Landscape"
+              class="fit-cover"
+            />
+          </div>
+        </div>
+        <div>
+          <h3>object-fit: contain</h3>
+          <div class="image-box">
+            <img
+              src="https://picsum.photos/id/1060/400/200"
+              alt="Landscape"
+              class="fit-contain"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

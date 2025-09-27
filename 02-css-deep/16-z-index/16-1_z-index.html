@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS z-index Property</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .container {
+        border: 2px dashed #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+        min-height: 200px;
+        position: relative; /* 자식 absolute 요소들의 기준점 */
+      }
+      h2,
+      h3 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+      .box {
+        width: 120px;
+        height: 120px;
+        color: white;
+        display: grid;
+        place-items: center;
+        font-weight: bold;
+        position: absolute;
+      }
+
+      /* --- 1. 기본 쌓임 순서 --- */
+      .basic-stacking .box1 {
+        background-color: #ef5350;
+        top: 20px;
+        left: 20px;
+      }
+      .basic-stacking .box2 {
+        background-color: #42a5f5;
+        top: 40px;
+        left: 40px;
+      }
+      .basic-stacking .box3 {
+        background-color: #66bb6a;
+        top: 60px;
+        left: 60px;
+      }
+      /* z-index가 없으면, HTML 코드상 나중에 오는 요소가 위로 쌓임 (box3 > box2 > box1) */
+
+      /* --- 2. z-index 적용 --- */
+      .z-index-applied .box1 {
+        background-color: #ef5350;
+        top: 20px;
+        left: 20px;
+        z-index: 3;
+      }
+      .z-index-applied .box2 {
+        background-color: #42a5f5;
+        top: 40px;
+        left: 40px;
+        z-index: 1;
+      }
+      .z-index-applied .box3 {
+        background-color: #66bb6a;
+        top: 60px;
+        left: 60px;
+        z-index: 2;
+      }
+      /* z-index 숫자가 클수록 위로 쌓임 (box1 > box3 > box2) */
+
+      /* --- 3. 쌓임 맥락(Stacking Context) --- */
+      .stacking-context-parent {
+        position: relative;
+        border: 2px solid black;
+        padding: 20px;
+        margin-top: 20px;
+      }
+      .parent-a {
+        z-index: 2;
+        background-color: rgba(255, 0, 0, 0.2);
+      }
+      .parent-b {
+        z-index: 1;
+        background-color: rgba(0, 0, 255, 0.2);
+        top: 80px;
+        left: 80px;
+      }
+
+      .child-a {
+        background-color: #d32f2f;
+        top: 20px;
+        left: 20px;
+        z-index: 999; /* 부모 A 안에서는 가장 높지만, 부모 B를 넘어설 수 없음 */
+      }
+      .child-b {
+        background-color: #1565c0;
+        top: 20px;
+        left: 20px;
+        z-index: 1; /* 부모 B 안에서는 가장 낮지만, 부모 A보다는 위에 있음 */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS <code>z-index</code> 속성 예시</h1>
+    <p>
+      <code>z-index</code>는 <code>position</code> 속성이 <code>static</code>이
+      아닌 요소에만 적용됩니다.
+    </p>
+
+    <div class="container basic-stacking">
+      <h2>1. z-index 미적용 시 (기본 쌓임 순서)</h2>
+      <p>HTML 코드 순서에 따라 나중에 작성된 요소가 위로 쌓입니다.</p>
+      <div class="box box1">Box 1</div>
+      <div class="box box2">Box 2</div>
+      <div class="box box3">Box 3</div>
+    </div>
+
+    <div class="container z-index-applied">
+      <h2>2. z-index 적용 시</h2>
+      <p><code>z-index</code> 숫자 값이 클수록 위로 쌓입니다.</p>
+      <div class="box box1">Box 1 (z-index: 3)</div>
+      <div class="box box2">Box 2 (z-index: 1)</div>
+      <div class="box box3">Box 3 (z-index: 2)</div>
+    </div>
+
+    <div class="container">
+      <h2>3. 쌓임 맥락 (Stacking Context)</h2>
+      <p>
+        <code>z-index</code>는 독립된 전역 순서가 아니라, 부모의 '쌓임 맥락'
+        안에서만 의미가 있습니다. 자식 요소는 부모의 <code>z-index</code> 레벨을
+        넘어 다른 쌓임 맥락의 요소 위로 올라갈 수 없습니다.
+      </p>
+
+      <div class="stacking-context-parent parent-a">
+        Parent A (z-index: 2)
+        <div class="box child-a">Child A (z-index: 999)</div>
+      </div>
+
+      <div class="stacking-context-parent parent-b">
+        Parent B (z-index: 1)
+        <div class="box child-b">Child B (z-index: 1)</div>
+      </div>
+      <p style="margin-top: 250px">
+        Parent A의 z-index(2)가 Parent B의 z-index(1)보다 높기 때문에, Parent
+        A의 자식인 Child A(z-index: 999)가 Parent B와 그 자식들보다 항상 위에
+        있습니다. Child A의 999는 Parent A의 컨텍스트 안에서만 유효합니다.
+      </p>
+    </div>
+  </body>
+</html>
