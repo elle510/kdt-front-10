@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Attribute Selector Examples</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        line-height: 1.6;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+      .demo-box > * {
+        display: block;
+        margin-bottom: 10px;
+        padding: 8px;
+      }
+
+      /* 1. 모든 외부 링크(https://로 시작)를 파란색으로 */
+      a[href^="https"] {
+        color: #007bff;
+        font-weight: bold;
+      }
+
+      /* 2. 이메일 입력 필드에 특별한 테두리 */
+      input[type="email"] {
+        border: 2px solid #17a2b8;
+        border-radius: 5px;
+        background-color: #e3f2fd;
+      }
+
+      /* 3. data-status="important"인 요소를 빨간 배경으로 */
+      [data-status="important"] {
+        background-color: #ffcdd2;
+        border-left: 5px solid #d32f2f;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>속성 선택자 활용 예제</h1>
+
+    <div class="container">
+      <h2>1. 외부 링크 스타일링</h2>
+      <div class="demo-box">
+        <a href="https://www.google.com">Google (외부 링크)</a>
+        <a href="http://www.example.com">Example (http 링크)</a>
+        <a href="#internal">Internal Link (내부 링크)</a>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>2. 특정 타입 입력 필드 스타일링</h2>
+      <div class="demo-box">
+        <input type="text" placeholder="일반 텍스트 필드" />
+        <input type="email" placeholder="이메일 필드" />
+        <input type="password" placeholder="비밀번호 필드" />
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>3. data-* 속성으로 요소 스타일링</h2>
+      <div class="demo-box">
+        <p data-status="normal">일반 상태의 알림입니다.</p>
+        <p data-status="important">중요한 상태의 알림입니다.</p>
+        <div data-status="important">이 div도 중요한 상태입니다.</div>
+      </div>
+    </div>
+  </body>
+</html>

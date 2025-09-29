@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>통합 UI 컴포넌트</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="component-section button-system-section">
+      <h2>버튼 상태 시스템</h2>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Default</th>
+            <th>Primary</th>
+            <th>Danger</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>default</td>
+            <td><button class="btn btn-default">Button</button></td>
+            <td><button class="btn btn-primary">Yes</button></td>
+            <td><button class="btn btn-danger">Del</button></td>
+          </tr>
+          <tr>
+            <td>hover</td>
+            <td>
+              <button class="btn btn-default btn-hover-simulate">Button</button>
+            </td>
+            <td>
+              <button class="btn btn-primary btn-hover-simulate">Yes</button>
+            </td>
+            <td>
+              <button class="btn btn-danger btn-hover-simulate">Del</button>
+            </td>
+          </tr>
+          <tr>
+            <td>active</td>
+            <td>
+              <button class="btn btn-default btn-active-simulate">
+                Button
+              </button>
+            </td>
+            <td>
+              <button class="btn btn-primary btn-active-simulate">Yes</button>
+            </td>
+            <td>
+              <button class="btn btn-danger btn-active-simulate">Del</button>
+            </td>
+          </tr>
+          <tr>
+            <td>disabled</td>
+            <td><button class="btn btn-default" disabled>Button</button></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+/* 기본 리셋 및 섹션 구분 */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  padding: 20px;
+}
+
+.component-section {
+  background-color: white;
+  padding: 30px;
+  margin-bottom: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* ------------------------------------- */
+/* 버튼 스타일 */
+/* ------------------------------------- */
+.button-system-section table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.button-system-section td,
+.button-system-section th {
+  padding: 10px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+/* 공통 버튼 스타일 */
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 기본 그림자 */
+  transition: all 0.1s ease-in-out;
+}
+
+/* --- Type Styles --- */
+/* Default (Dark) Button */
+.btn-default {
+  background-color: #343f50;
+  color: white;
+}
+
+/* Primary (Blue) Button */
+.btn-primary {
+  background-color: #4a89f9;
+  color: white;
+}
+
+/* Danger (Red) Button */
+.btn-danger {
+  background-color: #db4c4c;
+  color: white;
+}
+
+/* --- State Styles --- */
+/* Hover State (simulate class for display) */
+.btn-hover-simulate,
+.btn:hover {
+  text-decoration: underline;
+  /* hover 시 배경이 살짝 밝아지고 그림자가 퍼지는 효과 */
+  filter: brightness(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.btn-danger.btn-hover-simulate {
+  /* Danger 버튼의 hover는 좀 더 명확한 주황빛이 감도는 경향이 있어 filter를 조정 */
+  filter: brightness(1.15);
+}
+
+/* Active State (simulate class for display) */
+.btn-active-simulate,
+.btn:active {
+  text-decoration: underline;
+  /* active 시 눌린 듯한 효과 (그림자 제거 및 배경 어두워짐) */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  transform: translateY(1px);
+  filter: brightness(0.9);
+}
+
+/* Disabled State */
+.btn:disabled {
+  background-color: #343f50;
+  color: rgba(255, 255, 255, 0.5); /* 텍스트를 흐리게 */
+  cursor: not-allowed;
+  box-shadow: none;
+  filter: none;
+}

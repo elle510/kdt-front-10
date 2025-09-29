@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Translate vs. Position</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        line-height: 1.6;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+      .demo-area {
+        background-color: #f4f4f4;
+        border: 2px dashed #ccc;
+        padding: 20px;
+        margin-top: 20px;
+      }
+      .box {
+        width: 100px;
+        height: 100px;
+        color: white;
+        display: grid;
+        place-items: center;
+        font-weight: bold;
+      }
+      .sibling {
+        background-color: #7f8c8d;
+      }
+
+      /* --- position: relative 예시 --- */
+      .position-box {
+        position: relative;
+        left: 100px; /* 원래 위치에서 왼쪽으로 100px 이동 */
+        top: 10px;
+        background-color: #c0392b;
+      }
+
+      /* --- transform: translate 예시 --- */
+      .translate-box {
+        transform: translate(
+          100px,
+          10px
+        ); /* 원래 위치에서 x축으로 100px, y축으로 10px 이동 */
+        background-color: #2980b9;
+      }
+
+      /* --- 애니메이션 비교 --- */
+      .position-box.animated {
+        animation: move-position 3s infinite alternate;
+      }
+      .translate-box.animated {
+        animation: move-translate 3s infinite alternate;
+      }
+
+      @keyframes move-position {
+        from {
+          left: 0;
+        }
+        to {
+          left: 200px;
+        }
+      }
+
+      @keyframes move-translate {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(200px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1><code>transform: translate()</code> vs. <code>position</code></h1>
+
+    <div class="container">
+      <h2>1. 시각적 배치 비교</h2>
+      <p>
+        두 방법 모두 요소를 원래 위치에서 시각적으로 이동시키지만, 원래 차지하던
+        공간은 그대로 유지합니다. 따라서 뒤따르는 sibling 요소의 위치는 영향을
+        받지 않습니다.
+      </p>
+
+      <div class="demo-area">
+        <strong>Position (relative)</strong>
+        <div class="box position-box">Moved</div>
+        <div class="box sibling">Sibling</div>
+      </div>
+
+      <div class="demo-area">
+        <strong>Transform (translate)</strong>
+        <div class="box translate-box">Moved</div>
+        <div class="box sibling">Sibling</div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>2. 성능 및 렌더링 차이 (가장 중요한 차이점)</h2>
+      <p>
+        <code>position</code>의 <code>top, left</code> 값을 변경하면 브라우저가
+        <strong>Layout(Reflow)</strong>을 다시 계산해야 할 수 있어 성능에 부담을
+        줍니다. 반면, <code>transform</code>은
+        <strong>Composite</strong> 단계에서만 처리되어 GPU 가속을 받기 때문에
+        훨씬 부드러운 애니메이션을 제공합니다.
+      </p>
+
+      <div class="demo-area">
+        <strong>Position 애니메이션</strong> (성능이 상대적으로 떨어짐)
+        <div class="box position-box animated"></div>
+      </div>
+
+      <div class="demo-area">
+        <strong>Transform 애니메이션</strong> (성능이 더 좋고 부드러움)
+        <div class="box translate-box animated"></div>
+      </div>
+    </div>
+
+    <div class="container" style="background-color: #e8f5e9">
+      <h2>결론: 언제 무엇을 쓸까?</h2>
+      <ul>
+        <li>
+          <strong><code>position</code></strong
+          >: 페이지의 초기 **정적 레이아웃**을 구성할 때 사용합니다.
+        </li>
+        <li>
+          <strong><code>transform</code></strong
+          >: 요소의 위치를 **동적으로 변경**하거나 **애니메이션**을 적용할 때
+          사용합니다. 성능상 이점이 명확합니다.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Attribute Selectors</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        line-height: 1.6;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      h2,
+      h3 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+      .demo-list a,
+      .demo-list p,
+      .demo-list input {
+        display: block;
+        margin-bottom: 8px;
+        padding: 5px;
+      }
+
+      /* --- 속성 선택자 예시 --- */
+
+      /* [attr]: 특정 속성을 가진 요소 */
+      a[title] {
+        border-left: 4px solid #007bff;
+      }
+
+      /* [attr="value"]: 속성값이 정확히 일치하는 요소 */
+      input[type="password"] {
+        background-color: #fff3e0;
+      }
+
+      /* [attr~="value"]: 띄어쓰기로 구분된 값 목록 중 하나가 일치하는 요소 */
+      p[class~="important"] {
+        color: #d32f2f;
+        font-weight: bold;
+      }
+
+      /* [attr|="value"]: 값이 정확히 일치하거나, 값- 으로 시작하는 요소 */
+      p[lang|="en"] {
+        font-style: italic;
+      }
+
+      /* [attr^="value"]: 값으로 시작하는 요소 */
+      a[href^="https"] {
+        background-color: #e8f5e9;
+      }
+
+      /* [attr$="value"]: 값으로 끝나는 요소 */
+      a[href$=".pdf"]::after {
+        content: " (PDF)";
+        font-size: 0.8em;
+        color: red;
+      }
+
+      /* [attr*="value"]: 값을 포함하는 요소 */
+      a[href*="example"] {
+        text-decoration: underline;
+        text-decoration-style: wavy;
+      }
+
+      /* i 수정자: 대소문자 구분 안함 */
+      input[value*="search" i] {
+        border-color: #8e44ad;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS 속성 선택자(Attribute Selectors) 예시</h1>
+
+    <div class="container">
+      <div class="demo-list">
+        <h3>[attr] - <code>title</code> 속성을 가진 링크</h3>
+        <a href="#" title="This is a tooltip">Link with title</a>
+        <a href="#">Link without title</a>
+
+        <h3>[attr="value"] - <code>type="password"</code>인 입력창</h3>
+        <input type="text" placeholder="text type" />
+        <input type="password" placeholder="password type" />
+
+        <h3>[attr~="value"] - class에 <code>important</code>가 포함된 단락</h3>
+        <p class="text important">Important paragraph</p>
+        <p class="text">Normal paragraph</p>
+
+        <h3>
+          [attr|="value"] - lang이 <code>en</code> 또는 <code>en-</code>으로
+          시작하는 단락
+        </h3>
+        <p lang="en">English</p>
+        <p lang="en-US">American English</p>
+        <p lang="ko">Korean</p>
+
+        <h3>[attr^="value"] / [attr$="value"] / [attr*="value"] - href 속성</h3>
+        <a href="https://www.google.com">https link (시작)</a>
+        <a href="http://www.example.com">http example link (포함)</a>
+        <a href="/docs/document.pdf">pdf link (끝)</a>
+        <a href="http://www.naver.com">http link</a>
+
+        <h3><code>i</code> 수정자 - 대소문자 미구분</h3>
+        <input type="text" value="Search Text" />
+        <input type="text" value="SEARCH MORE" />
+        <input type="text" value="Find something" />
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Transform Property</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      h2,
+      h3 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+      .demo-area {
+        background-color: #f4f4f4;
+        border: 2px dashed #ccc;
+        height: 150px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: #3498db;
+        color: white;
+        display: grid;
+        place-items: center;
+        font-weight: bold;
+        transition: transform 0.4s ease;
+      }
+
+      /* --- Transform 함수 예시 --- */
+      .translate:hover {
+        transform: translate(30px, 20px);
+      }
+      .rotate:hover {
+        transform: rotate(45deg);
+      }
+      .scale:hover {
+        transform: scale(1.5, 1.2);
+      }
+      .skew:hover {
+        transform: skew(20deg, 10deg);
+      }
+      .multiple:hover {
+        transform: translateX(50px) rotate(30deg) scale(1.2);
+      }
+
+      /* --- transform-origin 예시 --- */
+      .origin-center {
+        transform-origin: center;
+      } /* 기본값 */
+      .origin-top-left {
+        transform-origin: top left;
+      }
+
+      /* --- 3D Transform 예시 --- */
+      .perspective-area {
+        perspective: 500px;
+      } /* 부모에 원근감 설정 */
+      .rotate-y:hover {
+        transform: rotateY(60deg);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS <code>transform</code> 속성 예시</h1>
+    <p>아래 각 박스에 마우스를 올려보세요.</p>
+
+    <div class="container">
+      <h2>2D Transforms</h2>
+      <h3><code>translate(x, y)</code>: 이동</h3>
+      <div class="demo-area"><div class="box translate">Translate</div></div>
+
+      <h3><code>rotate(angle)</code>: 회전</h3>
+      <div class="demo-area"><div class="box rotate">Rotate</div></div>
+
+      <h3><code>scale(x, y)</code>: 크기 조절</h3>
+      <div class="demo-area"><div class="box scale">Scale</div></div>
+
+      <h3><code>skew(x-angle, y-angle)</code>: 기울이기</h3>
+      <div class="demo-area"><div class="box skew">Skew</div></div>
+
+      <h3>Multiple Transforms: 여러 효과 동시 적용</h3>
+      <div class="demo-area"><div class="box multiple">Multiple</div></div>
+    </div>
+
+    <div class="container">
+      <h2><code>transform-origin</code>: 변형 기준점</h2>
+      <p>회전, 크기 조절 등이 일어나는 중심점을 변경합니다.</p>
+      <h3>기본값 (center)</h3>
+      <div class="demo-area">
+        <div class="box rotate origin-center">Center</div>
+      </div>
+      <h3>top left 기준</h3>
+      <div class="demo-area">
+        <div class="box rotate origin-top-left">Top Left</div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>3D Transforms</h2>
+      <p>
+        3D 변형을 적용하려면, 부모 요소에 <code>perspective</code>(원근감)
+        속성을 설정해야 합니다.
+      </p>
+      <h3><code>rotateY(angle)</code>: Y축 회전</h3>
+      <div class="demo-area perspective-area">
+        <div class="box rotate-y">Rotate Y</div>
+      </div>
+    </div>
+  </body>
+</html>
