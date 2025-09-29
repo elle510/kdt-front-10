@@ -1,0 +1,88 @@
+/* 기본 스타일 및 여백 제거 */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+}
+
+/* 컨테이너 */
+.container {
+  display: grid; /* Grid 레이아웃 활성화 */
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+  gap: 10px; /* 각 그리드 요소 사이의 간격 */
+
+  /* 1. 레이아웃 영역 정의 (Header와 Footer는 2칸 모두 사용) */
+  grid-template-areas:
+    "header header"
+    "sidebar main"
+    "footer footer";
+
+  /* 2. 컬럼 너비 정의 (Sidebar: 30%, Main: 남은 공간 1fr) */
+  grid-template-columns: 30% 1fr;
+
+  /* 3. 행 높이 정의 (Header/Footer: 내용에 따라, Main: 남은 공간 1fr) */
+  grid-template-rows: auto 1fr auto;
+  /*
+  min-height: 100vh;  전체 화면 높이 이상으로 최소 높이 지정 */
+}
+
+/* ------------------------------------- */
+/* Grid 요소 배치 */
+/* ------------------------------------- */
+
+/* Header 스타일 및 배치 */
+header {
+  grid-area: header; /* 정의된 header 영역에 배치 */
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  background-color: #d3d3d3;
+}
+
+/* Sidebar 스타일 및 배치 */
+.sidebar {
+  grid-area: sidebar; /* 정의된 sidebar 영역에 배치 */
+  min-height: 350px;
+  line-height: 350px;
+  text-align: center;
+  background-color: #e6e6e6;
+}
+
+/* Main Content 스타일 및 배치 */
+.main-content {
+  grid-area: main; /* 정의된 main 영역에 배치 */
+  padding: 20px;
+  text-align: left;
+  background-color: #d3d3d3;
+}
+
+/* Footer 스타일 및 배치 */
+footer {
+  grid-area: footer; /* 정의된 footer 영역에 배치 */
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  background-color: #e6e6e6;
+}
+
+/* 두 번째 이미지 콘텐츠 스타일 (변경 없음) */
+.user-info-content h2 {
+  font-size: 24px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.user-info-content ol,
+.user-info-content ul {
+  padding-left: 25px;
+  margin-bottom: 20px;
+}
+.user-info-content .quote {
+  font-style: italic;
+  margin-left: 10px;
+}
+.user-info-content a {
+  color: #007bff;
+  text-decoration: none;
+}

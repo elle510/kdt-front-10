@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grid Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 15px;
+      }
+      h2 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+
+      .grid-container {
+        /* 1. 3x3 그리드 생성 */
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+
+        /* 시각적 확인을 위한 스타일 */
+        height: 400px;
+        background-color: #f0f2f5;
+        border: 2px solid #bdc3c7;
+        gap: 10px;
+      }
+
+      .grid-item {
+        background-color: #3498db;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        display: grid;
+        place-items: center;
+        border-radius: 5px;
+      }
+
+      /* 2. 가운데 아이템(5번째)이 2x2 크기가 되도록 설정 */
+      .item-5 {
+        grid-column: 2 / span 2; /* 2번 열 라인에서 시작해서 2칸 차지 */
+        grid-row: 2 / span 2; /* 2번 행 라인에서 시작해서 2칸 차지 */
+
+        background-color: #e67e22; /* 눈에 띄도록 색상 변경 */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Grid 활용 예제</h1>
+
+    <div class="container">
+      <h2>요구사항: 3x3 그리드, 가운데 아이템은 2x2 크기</h2>
+      <div class="grid-container">
+        <div class="grid-item item-1">1</div>
+        <div class="grid-item item-2">2</div>
+        <div class="grid-item item-3">3</div>
+        <div class="grid-item item-4">4</div>
+        <div class="grid-item item-5">5</div>
+        <div class="grid-item item-6">6</div>
+        <!-- <div class="grid-item item-7">7</div>
+        <div class="grid-item item-8">8</div>
+        <div class="grid-item item-9">9</div> -->
+      </div>
+      <p>
+        <strong>설명:</strong> 5번 아이템이 2x2 영역을 차지하면서, 기존에 6, 8,
+        9번 아이템이 있던 자리를 덮었습니다.
+        <!-- 그리드는 자동으로 빈 공간을 찾아
+        나머지 아이템(6, 7, 8, 9)을 재배치합니다. -->
+      </p>
+    </div>
+  </body>
+</html>

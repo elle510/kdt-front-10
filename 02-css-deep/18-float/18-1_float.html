@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS float Property</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        line-height: 1.6;
+      }
+      .container {
+        border: 2px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      h2,
+      h3 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+      .box {
+        background-color: #e3f2fd;
+        border: 1px solid #90caf9;
+        padding: 10px;
+      }
+
+      /* --- 1. float 기본 동작 --- */
+      .float-left {
+        float: left;
+        margin-right: 15px;
+      }
+      .float-right {
+        float: right;
+        margin-left: 15px;
+      }
+
+      /* --- 2. clear 속성 --- */
+      .clear-both {
+        clear: both;
+      }
+
+      /* --- 3. 부모 높이 붕괴 문제 --- */
+      .collapsing-parent {
+        border: 3px solid #d32f2f;
+      }
+      .collapsing-parent .box {
+        float: left;
+        width: 30%;
+        margin: 1%;
+      }
+
+      /* --- 4. Clearfix 해결 방법 --- */
+      .clearfix::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS <code>float</code> 속성 예시</h1>
+    <p>
+      <strong>참고:</strong> 현재 <code>float</code>는 페이지 전체
+      레이아웃보다는, 이미지 주위를 텍스트로 감싸는 등 제한적인 용도로 주로
+      사용됩니다. 복잡한 레이아웃은 Flexbox나 Grid를 사용하는 것이 좋습니다.
+    </p>
+
+    <div class="container">
+      <h2>1. float 기본 동작 (이미지 감싸기)</h2>
+      <img
+        src="https://picsum.photos/id/1011/150/150"
+        alt="woman"
+        class="float-left"
+      />
+      <p>
+        <code>float: left;</code>가 적용된 이미지입니다. 이미지는 왼쪽으로
+        정렬되고, 뒤따르는 텍스트는 이미지의 오른쪽을 따라 흐릅니다. float된
+        요소는 일반적인 문서 흐름에서 벗어나 공중에 뜨게 됩니다. Lorem ipsum
+        dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat.
+      </p>
+      <div class="clear-both"></div>
+      <img
+        src="https://picsum.photos/id/1025/150/150"
+        alt="dog"
+        class="float-right"
+      />
+      <p>
+        <code>float: right;</code>가 적용된 이미지입니다. 이미지는 오른쪽으로
+        정렬되고, 텍스트는 이미지의 왼쪽을 따라 흐릅니다. Duis aute irure dolor
+        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+        qui officia deserunt mollit anim id est laborum.
+      </p>
+    </div>
+
+    <div class="container">
+      <h2>2. <code>clear</code> 속성</h2>
+      <div class="box float-left" style="width: 150px">Floated Box</div>
+      <p>이 텍스트는 float된 박스 옆을 따라 흐릅니다.</p>
+      <p class="clear-both">
+        하지만 이 텍스트는 <code>clear: both;</code>가 적용되어, 위쪽의 float된
+        요소의 영향을 받지 않고 그 아래로 내려옵니다.
+      </p>
+    </div>
+
+    <div class="container">
+      <h2>3. 부모 높이 붕괴 문제</h2>
+      <div class="collapsing-parent">
+        <div class="box">Child 1</div>
+        <div class="box">Child 2</div>
+        <div class="box">Child 3</div>
+        <!-- 부모(.collapsing-parent)의 빨간 테두리가 자식 요소들을 감싸지 못하고 높이가 0이 된 것을 확인하세요. -->
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>4. Clearfix를 이용한 문제 해결</h2>
+      <div class="collapsing-parent clearfix">
+        <div class="box">Child 1</div>
+        <div class="box">Child 2</div>
+        <div class="box">Child 3</div>
+        <!-- 부모에게 .clearfix 클래스를 적용하여, ::after 가상 요소가 float를 해제(clear)하고 부모가 높이를 되찾도록 합니다. -->
+      </div>
+    </div>
+  </body>
+</html>

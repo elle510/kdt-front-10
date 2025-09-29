@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Variables & Functions</title>
+    <style>
+      /* --- 1. CSS 변수 (Custom Properties) --- */
+      :root {
+        /* 
+        :root 의사 클래스에 변수를 선언하면 전역 변수가 됩니다.
+        변수 이름은 -- 로 시작해야 합니다.
+      */
+        --primary-color: #007bff;
+        --secondary-color: #6c757d;
+        --base-font-size: 16px;
+        --spacing-medium: 20px;
+        --border-radius: 8px;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        font-size: var(--base-font-size);
+        line-height: 1.6;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: var(--spacing-medium);
+        margin-bottom: var(--spacing-medium);
+        border-radius: var(--border-radius);
+      }
+      h2 {
+        color: var(--primary-color);
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 10px;
+      }
+      .button {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+      }
+
+      /* 변수의 지역 스코프(Local Scope)와 재정의 */
+      .dark-theme {
+        --primary-color: #ffa726; /* .dark-theme 안에서는 primary-color가 오렌지색으로 변경됨 */
+        background-color: #333;
+        color: #eee;
+      }
+
+      /* --- 2. calc() 함수 --- */
+      .calc-box {
+        /* 100% 너비에서 50px를 뺀 만큼의 너비를 가짐 */
+        width: calc(100% - 50px);
+        background-color: #e3f2fd;
+        padding: 10px;
+        border: 1px solid var(--primary-color);
+      }
+
+      /* --- 3. min() / max() 함수 --- */
+      .min-box {
+        /* 너비가 90%이지만, 최대 800px를 넘지 않음 */
+        width: min(90%, 800px);
+        background-color: #e8f5e9;
+        padding: 10px;
+        border: 1px solid #388e3c;
+      }
+      .max-box {
+        /* 너비가 50%이지만, 최소 300px보다는 작아지지 않음 */
+        width: max(50%, 300px);
+        background-color: #fce4ec;
+        padding: 10px;
+        border: 1px solid #ad1457;
+      }
+
+      /* --- 4. clamp() 함수 --- */
+      .clamp-title {
+        /* clamp(최소값, 기본값, 최대값) */
+        /* 폰트 크기가 뷰포트 너비의 5%를 따라 유동적으로 변하지만, 
+           최소 1.5rem보다는 작아지지 않고, 최대 4rem보다는 커지지 않음 */
+        font-size: clamp(1.5rem, 5vw, 4rem);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>1. CSS 변수와 <code>var()</code></h2>
+      <p>
+        <code>--변수명</code>으로 선언하고, <code>var(--변수명)</code>으로
+        사용합니다. 테마 변경, 유지보수에 매우 유용합니다.
+      </p>
+      <button class="button">Primary Button</button>
+
+      <div class="container dark-theme" style="margin-top: 20px">
+        <h3>다크 테마 (지역 변수)</h3>
+        <p>
+          이 컨테이너 안에서는 <code>--primary-color</code>가 재정의되어 버튼
+          색상이 다릅니다.
+        </p>
+        <button class="button">Themed Button</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>2. <code>calc()</code> 함수</h2>
+      <p>
+        CSS 속성 값 내에서 덧셈(+), 뺄셈(-), 곱셈(*), 나눗셈(/) 같은 계산을 할
+        수 있게 해줍니다.
+      </p>
+      <div class="calc-box">width: calc(100% - 50px)</div>
+    </div>
+
+    <div class="container">
+      <h2>3. <code>min()</code> / <code>max()</code> 함수</h2>
+      <p>
+        <code>min()</code>은 여러 값 중 가장 작은 값을, <code>max()</code>는
+        가장 큰 값을 선택합니다. 반응형 디자인에 유용합니다.
+      </p>
+      <div class="min-box">
+        <code>width: min(90%, 800px)</code> - 더 작은 값 선택, 너비가 90%이지만
+        800px를 넘지 않음
+      </div>
+      <div class="max-box" style="margin-top: 10px">
+        <code>width: max(50%, 300px)</code> - 더 큰 값 선택, 너비가 50%이지만
+        300px보다 작아지지 않음
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>4. <code>clamp()</code> 함수 (Fluid Typography)</h2>
+      <p>
+        <code>clamp(최소값, 기본값, 최대값)</code> 형태로, 값의 범위를
+        제한합니다. 반응형 폰트 크기 설정에 매우 효과적입니다. (브라우저 창
+        크기를 조절해보세요)
+      </p>
+      <h1 class="clamp-title">This is a Fluid Title</h1>
+    </div>
+  </body>
+</html>

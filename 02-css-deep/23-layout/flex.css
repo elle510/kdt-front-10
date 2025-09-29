@@ -1,0 +1,80 @@
+/* 기본 스타일 및 여백 제거 */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+}
+
+/* 컨테이너 */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+/* Header 스타일 */
+header {
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  margin-bottom: 10px;
+  background-color: #d3d3d3; /* 이미지와 유사한 색상 적용 */
+}
+
+/* ------------------------------------- */
+/* Flexbox 핵심: Sidebar와 Main Content 레이아웃 */
+/* ------------------------------------- */
+.main-wrapper {
+  display: flex; /* 자식 요소들을 유연하게 배치 */
+}
+
+/* Sidebar 스타일 */
+.sidebar {
+  /* 1. 고정 너비 지정 */
+  width: 30%;
+  height: 350px;
+  line-height: 350px;
+  text-align: center;
+  background-color: #e6e6e6; /* 이미지와 유사한 색상 적용 */
+}
+
+/* Main Content 스타일 */
+.main-content {
+  /* 2. 남은 공간을 모두 차지하도록 설정 */
+  flex-grow: 1;
+  min-height: 350px;
+  text-align: left;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #d3d3d3; /* 이미지와 유사한 색상 적용 */
+}
+
+/* Footer 스타일 */
+footer {
+  /* Flexbox에서는 clear:both가 필요 없습니다. */
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  margin-top: 10px;
+  background-color: #e6e6e6; /* 이미지와 유사한 색상 적용 */
+}
+
+/* 두 번째 이미지 콘텐츠 스타일 (변경 없음) */
+.user-info-content h2 {
+  font-size: 24px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.user-info-content ol,
+.user-info-content ul {
+  padding-left: 25px;
+  margin-bottom: 20px;
+}
+.user-info-content .quote {
+  font-style: italic;
+  margin-left: 10px;
+}
+.user-info-content a {
+  color: #007bff;
+  text-decoration: none;
+}

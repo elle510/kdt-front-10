@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>위니브 로그인</title>
+    <style>
+      body {
+        background-color: #e0dbdb;
+      }
+
+      /* CSS는 아래에 별도로 제공됩니다. */
+      .login-container {
+        width: 400px; /* 카드 전체 너비 */
+        padding: 30px;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 은은한 그림자 */
+        margin: 50px auto; /* 중앙 정렬을 위한 임시 마진 */
+        font-family: Arial, sans-serif;
+      }
+      .card {
+        width: 350px; /* 카드 전체 너비 */
+        padding: 25px;
+        border-radius: 12px;
+        border: #dbdbdb 1px solid;
+        font-family: Arial, sans-serif;
+      }
+
+      .welcome-text {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 25px;
+      }
+
+      .login-btn {
+        width: 100%;
+        padding: 15px 0;
+        background-color: #8a2be2; /* 보라색 계열 */
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .login-options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        font-size: 14px;
+        color: #555;
+      }
+
+      .login-link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: inherit; /* 부모 요소의 색상 상속 */
+      }
+
+      .icon {
+        margin-right: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="card">
+        <p class="welcome-text">더 편리해진 위니브에 오신 것을 환영합니다.</p>
+        <button class="login-btn">weniv 로그인</button>
+        <div class="login-options">
+          <a href="#" class="login-link">
+            <span class="icon"
+              ><svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12.6667 7.33333H3.33333C2.59695 7.33333 2 7.93028 2 8.66666V13.3333C2 14.0697 2.59695 14.6667 3.33333 14.6667H12.6667C13.403 14.6667 14 14.0697 14 13.3333V8.66666C14 7.93028 13.403 7.33333 12.6667 7.33333Z"
+                  stroke="#767676"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M4.66667 7.33333V4.66666C4.66667 3.78261 5.01786 2.93476 5.64298 2.30964C6.2681 1.68452 7.11595 1.33333 8 1.33333C8.88406 1.33333 9.7319 1.68452 10.357 2.30964C10.9821 2.93476 11.3333 3.78261 11.3333 4.66666V7.33333"
+                  stroke="#767676"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg> </span
+            >아이디 | 비밀번호찾기
+          </a>
+          <a href="#" class="login-link">
+            <span class="icon"
+              ><svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M13.3333 14V12.6667C13.3333 11.9594 13.0524 11.2811 12.5523 10.781C12.0522 10.281 11.3739 10 10.6667 10H5.33332C4.62608 10 3.9478 10.281 3.4477 10.781C2.94761 11.2811 2.66666 11.9594 2.66666 12.6667V14"
+                  stroke="#767676"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M8.00001 7.33333C9.47277 7.33333 10.6667 6.13943 10.6667 4.66667C10.6667 3.19391 9.47277 2 8.00001 2C6.52725 2 5.33334 3.19391 5.33334 4.66667C5.33334 6.13943 6.52725 7.33333 8.00001 7.33333Z"
+                  stroke="#767676"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg> </span
+            >회원가입
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

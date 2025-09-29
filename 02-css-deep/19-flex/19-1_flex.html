@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Flexbox Guide</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .guide-container {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      h2,
+      h3 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+      .flex-container {
+        display: flex;
+        background-color: #f0f2f5;
+        border: 2px solid #bdc3c7;
+        padding: 10px;
+        height: 150px; /* align-items, align-self 예제를 위해 높이 지정 */
+      }
+      .flex-item {
+        background-color: #3498db;
+        color: white;
+        font-size: 1.2rem;
+        font-weight: bold;
+        padding: 20px;
+        margin: 5px;
+        border-radius: 5px;
+        text-align: center;
+      }
+
+      /* --- Container 속성 --- */
+      .direction-row-reverse {
+        flex-direction: row-reverse;
+      }
+      .direction-column {
+        flex-direction: column;
+        height: auto;
+      }
+      .direction-column-reverse {
+        flex-direction: column-reverse;
+      }
+
+      .justify-flex-end {
+        justify-content: flex-end;
+      }
+      .justify-center {
+        justify-content: center;
+      }
+      .justify-space-between {
+        justify-content: space-between;
+      }
+      .justify-space-around {
+        justify-content: space-around;
+      }
+      .justify-space-evenly {
+        justify-content: space-evenly;
+      }
+
+      .align-flex-start {
+        align-items: flex-start;
+      }
+      .align-flex-end {
+        align-items: flex-end;
+      }
+      .align-center {
+        align-items: center;
+      }
+      .align-stretch {
+        align-items: stretch;
+      }
+      .align-stretch > .flex-item {
+        padding: 40px 20px;
+      } /* stretch를 보여주기 위해 item 높이 제거 */
+
+      .align-content-container {
+        height: 250px;
+        flex-wrap: wrap;
+      }
+      .align-content-flex-start {
+        align-content: flex-start;
+      }
+      .align-content-center {
+        align-content: center;
+      }
+      .align-content-space-between {
+        align-content: space-between;
+      }
+
+      .wrap {
+        flex-wrap: wrap;
+      }
+      .wrap .flex-item {
+        flex-basis: 40%;
+      } /* 아이템들이 한 줄에 다 못들어가게 강제 */
+
+      .gap {
+        gap: 20px;
+      }
+
+      /* --- Item 속성 --- */
+      .grow .item-2 {
+        flex-grow: 1;
+        background-color: #e67e22;
+      }
+
+      .shrink .flex-item {
+        flex-basis: 150px;
+      }
+      .shrink .item-1 {
+        flex-shrink: 1; /* 기본값 */
+      }
+      .shrink .item-2 {
+        flex-shrink: 0;
+        background-color: #e67e22;
+      } /* 축소되지 않음 */
+      .shrink .item-3 {
+        flex-shrink: 2;
+        background-color: #9b59b6;
+      } /* 더 많이 축소됨 */
+
+      .order .item-1 {
+        order: 3;
+      }
+      .order .item-2 {
+        order: 1;
+      }
+      .order .item-3 {
+        order: 2;
+      }
+
+      .align-self .item-2 {
+        align-self: flex-end;
+        background-color: #e67e22;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS Flexbox 완전 정복</h1>
+
+    <div class="guide-container">
+      <h2>Flex Container 속성</h2>
+
+      <h3>flex-direction: 아이템의 주축 방향 설정</h3>
+      <div class="flex-container">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+        <div class="flex-item">3</div>
+      </div>
+      <small>row (기본값)</small>
+      <div class="flex-container direction-row-reverse">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+        <div class="flex-item">3</div>
+      </div>
+      <small>row-reverse</small>
+      <div class="flex-container direction-column">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+        <div class="flex-item">3</div>
+      </div>
+      <small>column</small>
+
+      <h3>justify-content: 주축(main-axis) 정렬</h3>
+      <div class="flex-container justify-flex-end">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+      </div>
+      <small>flex-end</small>
+      <div class="flex-container justify-center">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+      </div>
+      <small>center</small>
+      <div class="flex-container justify-space-between">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+      </div>
+      <small>space-between</small>
+      <div class="flex-container justify-space-around">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+      </div>
+      <small>space-around</small>
+      <div class="flex-container justify-space-evenly">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+      </div>
+      <small>space-evenly</small>
+
+      <h3>align-items: 교차축(cross-axis) 정렬</h3>
+      <div class="flex-container align-flex-start">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+      </div>
+      <small>flex-start</small>
+      <div class="flex-container align-center">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+      </div>
+      <small>center</small>
+      <div class="flex-container align-stretch">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+      </div>
+      <small>stretch (기본값)</small>
+
+      <h3>align-content: 여러 줄(flex-lines)의 교차축 정렬</h3>
+      <p>
+        이 속성은 <code>flex-wrap: wrap;</code>이 설정되어 있고, 아이템이 두 줄
+        이상일 때만 효과가 있습니다. 전체 아이템 라인들을 교차축 방향으로 어떻게
+        정렬할지 결정합니다.
+      </p>
+      <div
+        class="flex-container align-content-container align-content-flex-start"
+      >
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+        <div class="flex-item">3</div>
+        <div class="flex-item">4</div>
+        <div class="flex-item">5</div>
+      </div>
+      <small>flex-start</small>
+      <div class="flex-container align-content-container align-content-center">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+        <div class="flex-item">3</div>
+        <div class="flex-item">4</div>
+        <div class="flex-item">5</div>
+      </div>
+      <small>center</small>
+      <div
+        class="flex-container align-content-container align-content-space-between"
+      >
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+        <div class="flex-item">3</div>
+        <div class="flex-item">4</div>
+        <div class="flex-item">5</div>
+      </div>
+      <small>space-between</small>
+
+      <h3>flex-wrap: 아이템 줄바꿈</h3>
+      <div class="flex-container wrap">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+        <div class="flex-item">3</div>
+      </div>
+      <small>wrap</small>
+
+      <h3>gap: 아이템 사이의 간격</h3>
+      <div class="flex-container gap">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+        <div class="flex-item">3</div>
+      </div>
+      <small>gap: 20px</small>
+    </div>
+
+    <div class="guide-container">
+      <h2>Flex Items 속성</h2>
+
+      <h3>flex-grow: 아이템 팽창 비율</h3>
+      <p>
+        컨테이너에 여유 공간이 있을 때, 아이템이 얼마나 그 공간을 차지할지
+        결정합니다. (item-2에 flex-grow: 1 적용)
+      </p>
+      <div class="flex-container grow">
+        <div class="flex-item item-1">1</div>
+        <div class="flex-item item-2">2</div>
+        <div class="flex-item item-3">3</div>
+      </div>
+
+      <h3>flex-shrink: 아이템 축소 비율</h3>
+      <p>
+        컨테이너 공간이 부족할 때, 아이템이 얼마나 줄어들지 결정합니다.
+        (item-2에 flex-shrink: 0 적용)
+      </p>
+      <div class="flex-container shrink">
+        <div class="flex-item item-1">Item 1</div>
+        <div class="flex-item item-2">Item 2</div>
+        <div class="flex-item item-3">Item 3</div>
+      </div>
+
+      <h3>order: 아이템 순서</h3>
+      <p>HTML 구조와 상관없이 시각적인 순서를 변경합니다.</p>
+      <div class="flex-container order">
+        <div class="flex-item item-1">1 (order: 3)</div>
+        <div class="flex-item item-2">2 (order: 1)</div>
+        <div class="flex-item item-3">3 (order: 2)</div>
+      </div>
+
+      <h3>align-self: 개별 아이템 정렬</h3>
+      <p>
+        컨테이너의 align-items 설정을 무시하고 개별 아이템을 정렬합니다.
+        (item-2에 align-self: flex-end 적용)
+      </p>
+      <div class="flex-container align-self">
+        <div class="flex-item item-1">1</div>
+        <div class="flex-item item-2">2</div>
+        <div class="flex-item item-3">3</div>
+      </div>
+    </div>
+  </body>
+</html>

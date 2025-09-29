@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flexbox Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 15px;
+      }
+      h2 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+
+      .flex-container {
+        /* 1. 3개의 박스를 가로로 나열하기 위해 flex 컨테이너로 지정 */
+        display: flex;
+
+        /* 3. 세로 방향으로 가운데 정렬 */
+        align-items: center;
+
+        /* 시각적 확인을 위한 스타일 */
+        height: 200px;
+        background-color: #f0f2f5;
+        border: 2px solid #bdc3c7;
+        padding: 10px;
+        gap: 10px;
+      }
+
+      .flex-item {
+        /* 모든 아이템이 기본적으로 1의 비율로 늘어나도록 설정 */
+        flex-grow: 1;
+
+        /* flex-basis를 0으로 설정하여, 순수하게 grow 비율로만 크기가 결정되도록 함 */
+        flex-basis: 0;
+
+        /* 시각적 확인을 위한 스타일 */
+        background-color: #3498db;
+        color: white;
+        font-size: 1.2rem;
+        font-weight: bold;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+      }
+
+      /* 2. 가운데 박스만 2배 크기로 늘어나도록 설정 */
+      .item-2 {
+        flex-grow: 2;
+        background-color: #e67e22; /* 눈에 띄도록 색상 변경 */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Flexbox 활용 예제</h1>
+
+    <div class="container">
+      <h2>요구사항: 3개의 박스, 가운데 박스만 2배 성장, 세로 중앙 정렬</h2>
+      <div class="flex-container">
+        <div class="flex-item item-1">Box 1 (flex-grow: 1)</div>
+        <div class="flex-item item-2">Box 2 (flex-grow: 2)</div>
+        <div class="flex-item item-3">Box 3 (flex-grow: 1)</div>
+      </div>
+    </div>
+  </body>
+</html>
