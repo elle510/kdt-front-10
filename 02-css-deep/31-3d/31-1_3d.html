@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS 3D 속성 예제</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 20px;
+      }
+      .container {
+        border: 2px solid #ccc;
+        padding: 20px;
+        margin-bottom: 30px;
+      }
+      h2 {
+        margin-top: 0;
+      }
+      .box {
+        width: 150px;
+        height: 150px;
+        background-color: #3498db;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.2em;
+        margin: 20px;
+      }
+
+      /* 1. perspective & perspective-origin */
+      .perspective-container {
+        perspective: 300px; /* 원근감(거리)을 부여합니다. */
+      }
+      .perspective-origin-container {
+        perspective: 300px;
+        perspective-origin: 20% 80%; /* 소실점의 위치를 변경합니다. */
+      }
+      .perspective-box {
+        transform: rotateY(45deg);
+      }
+
+      /* 2. transform (3D) */
+      .transform-box-x {
+        transform: rotateX(45deg); /* x축으로 45도 회전 */
+      }
+      .transform-box-y {
+        transform: rotateY(45deg); /* y축으로 45도 회전 */
+      }
+      .transform-box-z {
+        transform: translateZ(-100px); /* z축으로 -100px 이동 (멀어짐) */
+      }
+      .transform-box-rz {
+        transform: rotateZ(45deg); /* z축 기준으로 45도 회전 */
+      }
+      .transform-box-sz {
+        transform: perspective(200px) scaleZ(1.5); /* z축으로 1.5배 확대. perspective가 있어야 확인 가능 */
+      }
+      .transform-box-t3d {
+        transform: translate3d(
+          20px,
+          -20px,
+          50px
+        ); /* x, y, z 축으로 한번에 이동 */
+      }
+      .transform-box-r3d {
+        transform: rotate3d(
+          1,
+          1,
+          1,
+          45deg
+        ); /* x,y,z 벡터를 기준으로 45도 회전 */
+      }
+      .transform-box-s3d {
+        transform: scale3d(1.2, 0.8, 1.5); /* x, y, z 축으로 한번에 크기 조절 */
+      }
+
+      /* 3. transform-style */
+      .transform-style-container {
+        perspective: 500px;
+      }
+      .parent {
+        width: 200px;
+        height: 200px;
+        position: relative;
+        transition: transform 1s;
+      }
+      .parent:hover {
+        transform: rotateY(60deg);
+      }
+      .flat {
+        transform-style: flat; /* 기본값. 자식 요소가 부모의 3D 공간을 상속받지 않음 */
+      }
+      .preserve-3d {
+        transform-style: preserve-3d; /* 자식 요소가 부모의 3D 공간을 상속받음 */
+      }
+      .child {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(231, 76, 60, 0.7);
+        transform: rotateY(30deg); /* 부모로부터 독립적인 3D 변환 */
+      }
+
+      /* 4. backface-visibility */
+      .flip-container {
+        perspective: 1000px;
+        width: 150px;
+        height: 150px;
+      }
+      .flipper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+      }
+      .flip-container:hover .flipper {
+        transform: rotateY(180deg);
+      }
+      .front,
+      .back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .front {
+        background: #2ecc71;
+        z-index: 2;
+      }
+      .back {
+        background: #e74c3c;
+        transform: rotateY(180deg);
+      }
+      .hidden .front {
+        backface-visibility: hidden; /* 요소의 뒷면을 렌더링하지 않습니다. 요소가 뒤집히면 투명하게 처리되어 보이지 않게 됩니다. */
+      }
+      .visible .front {
+        backface-visibility: visible; /* (기본값) 요소의 뒷면을 항상 렌더링합니다. 따라서 요소가 뒤집히면 내용이 거꾸로 보입니다. */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS 3D 속성 예제</h1>
+
+    <div class="container">
+      <h2>1. perspective & perspective-origin</h2>
+      <p>
+        <code>perspective</code>: 3D 공간의 원근감을 정의합니다. 값이 작을수록
+        왜곡이 심해집니다.
+      </p>
+      <div class="perspective-container">
+        <div class="box perspective-box">perspective: 300px</div>
+      </div>
+      <p>
+        <code>perspective-origin</code>: 3D 공간의 소실점(사라지는 점) 위치를
+        변경합니다.
+      </p>
+      <div class="perspective-origin-container">
+        <div class="box perspective-box">perspective-origin: 20% 80%</div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>2. transform (3D)</h2>
+      <p>
+        3D 변환 함수들입니다. (rotateX, rotateY, translateZ, rotateZ, scaleZ,
+        translate3d, rotate3d, scale3d)
+      </p>
+      <div class="box transform-box-x">rotateX(45deg)</div>
+      <div class="box transform-box-y">rotateY(45deg)</div>
+      <div class="box transform-box-z">translateZ(-100px)</div>
+      <div class="box transform-box-rz">rotateZ(45deg)</div>
+      <div class="box transform-box-sz">scaleZ(1.5)</div>
+      <div class="box transform-box-t3d">translate3d(20, -20, 50)</div>
+      <div class="box transform-box-r3d">rotate3d(1,1,1,45deg)</div>
+      <div class="box transform-box-s3d">scale3d(1.2, 0.8, 1.5)</div>
+    </div>
+
+    <div class="container">
+      <h2>3. transform-style</h2>
+      <p>
+        중첩된 요소에서 3D 변환을 어떻게 렌더링할지 결정합니다. 부모 요소에
+        마우스를 올려보세요.
+      </p>
+      <div style="display: flex; gap: 40px">
+        <div>
+          <p><code>transform-style: flat;</code> (기본값)</p>
+          <div class="transform-style-container">
+            <div class="parent flat">
+              <div class="child">Child</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p><code>transform-style: preserve-3d;</code></p>
+          <div class="transform-style-container">
+            <div class="parent preserve-3d">
+              <div class="child">Child</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>4. backface-visibility</h2>
+      <p>
+        요소의 뒷면이 사용자에게 보여질지 여부를 설정합니다. 카드에 마우스를
+        올려보세요.
+      </p>
+      <div style="display: flex; gap: 40px">
+        <div>
+          <p><code>backface-visibility: hidden;</code></p>
+          <div class="flip-container">
+            <div class="flipper hidden">
+              <div class="front">Front</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p><code>backface-visibility: visible;</code> (기본값)</p>
+          <div class="flip-container">
+            <div class="flipper visible">
+              <div class="front">Front</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p>카드 뒤집기</p>
+        <div class="flip-container">
+          <div class="flipper hidden">
+            <div class="front">Front</div>
+            <div class="back">Back</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Animation Property</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      h2,
+      h3 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+      .demo-area {
+        background-color: #f4f4f4;
+        padding: 20px;
+        min-height: 120px;
+      }
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: #e67e22;
+        color: white;
+        display: grid;
+        place-items: center;
+        font-weight: bold;
+        border-radius: 5px;
+      }
+
+      /* --- @keyframes 정의 --- */
+      /* 1. 간단한 이동 애니메이션 */
+      @keyframes move-right {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(300px);
+        }
+      }
+      /* 2. 복잡한 애니메이션 (크기, 색상 변경) */
+      @keyframes pulse-and-change {
+        0% {
+          transform: scale(1);
+          background-color: #e67e22;
+        }
+        50% {
+          transform: scale(1.2);
+          background-color: #9b59b6;
+        }
+        100% {
+          transform: scale(1);
+          background-color: #e67e22;
+        }
+      }
+
+      /* --- animation-* 개별 속성 예시 --- */
+      .a-name {
+        animation-name: move-right;
+        animation-duration: 3s;
+      }
+      .a-duration {
+        animation-name: move-right;
+        animation-duration: 1s;
+      }
+      .a-timing {
+        animation-name: move-right;
+        animation-duration: 3s;
+        animation-timing-function: ease-in-out;
+      }
+      .a-delay {
+        animation-name: move-right;
+        animation-duration: 3s;
+        animation-delay: 1s;
+      }
+      .a-iteration {
+        animation-name: pulse-and-change;
+        animation-duration: 2s;
+        animation-iteration-count: 3;
+      }
+      .a-infinite {
+        animation-name: pulse-and-change;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+      }
+
+      .a-direction {
+        animation-name: move-right;
+        animation-duration: 3s;
+        animation-iteration-count: infinite;
+      }
+      .d-normal {
+        animation-direction: normal;
+      } /* 기본값 */
+      .d-reverse {
+        animation-direction: reverse;
+      }
+      .d-alternate {
+        animation-direction: alternate;
+      }
+      .d-alternate-reverse {
+        animation-direction: alternate-reverse;
+      }
+
+      .a-fill-mode {
+        animation-name: move-right;
+        animation-duration: 2s;
+        animation-delay: 1s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards; /* 애니메이션이 끝난 후 마지막 상태를 유지 */
+        transform: translateX(0); /* 초기 상태 */
+      }
+
+      .a-play-state {
+        animation: move-right 3s infinite alternate;
+        animation-play-state: running; /* 기본값 */
+      }
+      .a-play-state:hover {
+        animation-play-state: paused; /* 마우스를 올리면 일시정지 */
+      }
+
+      /* --- animation 단축 속성 예시 --- */
+      .a-shorthand {
+        /* name | duration | timing-function | delay | iteration-count | direction | fill-mode */
+        animation: pulse-and-change 2s ease-in-out 0.5s infinite alternate;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS <code>animation</code> 속성 예시</h1>
+
+    <div class="container">
+      <h3><code>animation-name</code> & <code>duration</code></h3>
+      <div class="demo-area"><div class="box a-name">3s</div></div>
+      <div class="demo-area"><div class="box a-duration">1s</div></div>
+
+      <h3><code>animation-timing-function</code></h3>
+      <div class="demo-area"><div class="box a-timing">ease-in-out</div></div>
+
+      <h3><code>animation-delay</code> (1초 후 시작)</h3>
+      <div class="demo-area"><div class="box a-delay">Delay</div></div>
+
+      <h3><code>animation-iteration-count</code> (반복 횟수)</h3>
+      <div class="demo-area"><div class="box a-iteration">3 times</div></div>
+      <div class="demo-area"><div class="box a-infinite">Infinite</div></div>
+
+      <h3><code>animation-direction</code> (진행 방향)</h3>
+      <div class="demo-area">
+        <div class="box a-direction d-alternate">alternate</div>
+      </div>
+
+      <h3><code>animation-fill-mode</code> (애니메이션 전후 상태)</h3>
+      <p>
+        <code>forwards</code>로 설정되어, 1초 딜레이 후 2초간 애니메이션이
+        실행되고, 끝난 상태를 유지합니다.
+      </p>
+      <div class="demo-area"><div class="box a-fill-mode">Fill Mode</div></div>
+
+      <h3><code>animation-play-state</code> (재생/정지 제어)</h3>
+      <p>박스에 마우스를 올리면 애니메이션이 일시정지됩니다.</p>
+      <div class="demo-area">
+        <div class="box a-play-state">Play/Pause</div>
+      </div>
+
+      <h3><code>animation</code> (단축 속성)</h3>
+      <div class="demo-area"><div class="box a-shorthand">Shorthand</div></div>
+    </div>
+  </body>
+</html>

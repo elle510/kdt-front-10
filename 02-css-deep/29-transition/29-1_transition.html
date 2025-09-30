@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Transition Property</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      h2,
+      h3 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+      .demo-area {
+        background-color: #f4f4f4;
+        padding: 20px;
+        min-height: 80px;
+      }
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: #3498db;
+        color: white;
+        display: grid;
+        place-items: center;
+        font-weight: bold;
+      }
+
+      /* --- 개별 속성 예시 --- */
+
+      /* 1. transition-property: 전환 효과를 적용할 속성 지정 */
+      .property-box {
+        transition-property: background-color; /* 배경색에만 전환 효과 적용 */
+        transition-duration: 0.5s;
+      }
+      .property-box:hover {
+        background-color: #e67e22;
+        transform: scale(1.2); /* transform은 즉시 변경됨 */
+      }
+
+      /* 2. transition-duration: 전환 효과의 지속 시간 */
+      .duration-box {
+        transition-property: transform;
+        transition-timing-function: ease-in-out;
+      }
+      .duration-1 {
+        transition-duration: 0.3s;
+      }
+      .duration-2 {
+        transition-duration: 1s;
+      }
+      .duration-3 {
+        transition-duration: 2.5s;
+      }
+      .duration-box:hover {
+        transform: translateX(300px);
+      }
+
+      /* 3. transition-timing-function: 전환 효과의 속도 곡선 */
+      .timing-box {
+        transition-property: transform;
+        transition-duration: 2s;
+      }
+      .ease {
+        transition-timing-function: ease;
+      } /* (기본값) 느리게-빠르게-느리게 */
+      .linear {
+        transition-timing-function: linear;
+      } /* 등속 */
+      .ease-in {
+        transition-timing-function: ease-in;
+      } /* 느리게 시작 */
+      .ease-out {
+        transition-timing-function: ease-out;
+      } /* 느리게 끝남 */
+      .cubic {
+        transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      } /* 사용자 정의 곡선 (튕기는 효과) */
+      .timing-box:hover {
+        transform: translateX(300px);
+      }
+
+      /* 4. transition-delay: 전환 효과의 지연 시간 (양수) */
+      .delay-box {
+        transition-property: background-color;
+        transition-duration: 1s;
+        transition-delay: 0.5s; /* 0.5초 후에 전환 시작 */
+      }
+      .delay-box:hover {
+        background-color: #9b59b6;
+      }
+
+      /* 5. transition-delay: 전환 효과의 지연 시간 (음수) */
+      .neg-delay-box {
+        transition-property: transform;
+        transition-duration: 2s;
+        transition-timing-function: linear; /* 효과를 명확히 보기 위해 linear 사용 */
+        transition-delay: -1s; /* -1초 딜레이: 애니메이션이 중간부터 시작 */
+      }
+      .neg-delay-box:hover {
+        transform: translateX(300px);
+      }
+
+      /* --- 단축 속성 예시 --- */
+      .shorthand-box {
+        /* property | duration | timing-function | delay */
+        transition: all 0.5s ease-in-out 0.1s;
+      }
+      .shorthand-box:hover {
+        background-color: #1abc9c;
+        transform: rotate(360deg) scale(1.2);
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS <code>transition</code> 속성 예시</h1>
+    <p>아래 각 박스에 마우스를 올려보세요.</p>
+
+    <div class="container">
+      <h2>개별 속성(Longhand Properties)</h2>
+
+      <h3>1. <code>transition-property</code></h3>
+      <p>
+        전환 효과를 적용할 CSS 속성을 지정합니다. (현재
+        <code>background-color</code>에만 적용)
+      </p>
+      <div class="demo-area"><div class="box property-box">Property</div></div>
+
+      <h3>2. <code>transition-duration</code></h3>
+      <p>전환 효과가 완료되는 데 걸리는 시간을 지정합니다.</p>
+      <div class="demo-area">
+        <div class="box duration-box duration-1" style="margin-bottom: 10px">
+          0.3s
+        </div>
+        <div class="box duration-box duration-2" style="margin-bottom: 10px">
+          1s
+        </div>
+        <div class="box duration-box duration-3">2.5s</div>
+      </div>
+
+      <h3>3. <code>transition-timing-function</code></h3>
+      <p>전환 효과의 시간당 속도를 조절합니다. (가속/감속 등)</p>
+      <div class="demo-area">
+        <div class="box timing-box ease" style="margin-bottom: 10px">ease</div>
+        <div class="box timing-box linear" style="margin-bottom: 10px">
+          linear
+        </div>
+        <div class="box timing-box ease-in" style="margin-bottom: 10px">
+          ease-in
+        </div>
+        <div class="box timing-box ease-out" style="margin-bottom: 10px">
+          ease-out
+        </div>
+        <div class="box timing-box cubic">cubic-bezier</div>
+      </div>
+
+      <h3>4. <code>transition-delay</code> (양수)</h3>
+      <p>
+        전환 효과가 시작되기 전의 지연 시간을 지정합니다. (마우스를 올리고 0.5초
+        후에 시작)
+      </p>
+      <div class="demo-area"><div class="box delay-box">Delay</div></div>
+
+      <h3>5. <code>transition-delay</code> (음수)</h3>
+      <p>
+        딜레이에 음수 값을 주면, 애니메이션이 즉시 시작되지만 지정된 시간만큼
+        이미 진행된 상태에서 시작됩니다. (아래는 2초 애니메이션에 -1초 딜레이
+        적용)
+      </p>
+      <div class="demo-area">
+        <div class="box neg-delay-box">Negative Delay</div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>단축 속성(Shorthand Property) - <code>transition</code></h2>
+      <p>
+        위의 모든 속성을 한 줄에 작성할 수 있습니다. (<code
+          >transition: all 0.5s ease-in-out 0.1s;</code
+        >)
+      </p>
+      <div class="demo-area">
+        <div class="box shorthand-box">Shorthand</div>
+      </div>
+    </div>
+  </body>
+</html>

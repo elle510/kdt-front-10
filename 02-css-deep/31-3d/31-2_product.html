@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>과제 31-2: 제품 이미지 3D 호버 효과</title>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background-color: #f0f0f0;
+      }
+
+      .product-container {
+        perspective: 1000px;
+      }
+
+      .product-image {
+        width: 250px;
+        border-radius: 10px;
+        transition: transform 0.5s, box-shadow 0.5s;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .product-container:hover .product-image {
+        transform: translateZ(50px) rotateX(15deg) rotateY(15deg);
+        box-shadow: 0 25px 40px rgba(0, 0, 0, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="product-container">
+      <img
+        src="../17-card/images/img-card.png"
+        alt="Product Image"
+        class="product-image"
+      />
+    </div>
+  </body>
+</html>
