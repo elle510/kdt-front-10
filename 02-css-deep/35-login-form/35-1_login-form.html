@@ -18,35 +18,31 @@
             EST에서 여러분의 궁금증을 해결하세요! :)
           </p>
 
-          <form action="#" method="POST" class="login-form">
+          <form action="#" method="POST" class="login-form" id="loginForm">
             <input
               type="text"
               id="username"
               name="username"
-              placeholder="fkSldkfjASdlDFka"
-              value="fksldkfjASdlDFka"
-              class="input-field error-input"
+              placeholder="아이디"
+              class="input-field"
             />
+            <p class="error-message" id="username-error">
+              아이디를 입력해주세요.
+            </p>
+
             <input
               type="password"
               id="password"
               name="password"
-              placeholder="••••••"
-              value="••••••"
-              class="input-field error-input"
+              placeholder="비밀번호"
+              class="input-field"
             />
-
-            <p class="error-message">
-              아이디 혹은 비밀번호와 일치하지 않습니다.
+            <p class="error-message" id="password-error">
+              비밀번호를 입력해주세요.
             </p>
 
             <div class="checkbox-group">
-              <input
-                type="checkbox"
-                id="keep-login"
-                name="keep-login"
-                checked
-              />
+              <input type="checkbox" id="keep-login" name="keep-login" />
               <label for="keep-login" class="checkbox-label">
                 <span class="custom-checkbox"></span> 로그인 상태 유지
               </label>
@@ -102,5 +98,46 @@
         </div>
       </div>
     </div>
+
+    <script>
+      const loginForm = document.getElementById("loginForm");
+      const usernameInput = document.getElementById("username");
+      const passwordInput = document.getElementById("password");
+      const usernameError = document.getElementById("username-error");
+      const passwordError = document.getElementById("password-error");
+
+      loginForm.addEventListener("submit", function (event) {
+        // 폼의 기본 제출 동작(페이지 새로고침)을 막습니다.
+        event.preventDefault();
+
+        let isValid = true;
+
+        // 아이디 유효성 검사
+        if (usernameInput.value.trim() === "") {
+          usernameInput.classList.add("error-input");
+          usernameError.classList.add("show");
+          isValid = false;
+        } else {
+          usernameInput.classList.remove("error-input");
+          usernameError.classList.remove("show");
+        }
+
+        // 비밀번호 유효성 검사
+        if (passwordInput.value.trim() === "") {
+          passwordInput.classList.add("error-input");
+          passwordError.classList.add("show");
+          isValid = false;
+        } else {
+          passwordInput.classList.remove("error-input");
+          passwordError.classList.remove("show");
+        }
+
+        // 모든 필드가 유효하면 폼을 제출합니다. (실제로는 서버로 전송)
+        if (isValid) {
+          alert("로그인 성공!");
+          // loginForm.submit(); // 실제 서버로 폼을 전송해야 할 경우 이 코드의 주석을 해제합니다.
+        }
+      });
+    </script>
   </body>
 </html>
