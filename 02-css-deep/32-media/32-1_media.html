@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS 미디어 쿼리 예제</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background: #f4f4f4;
+        line-height: 1.6;
+      }
+      .container {
+        max-width: 1200px;
+        margin: auto;
+      }
+      .example-box {
+        background: white;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2 {
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 10px;
+      }
+      .status {
+        padding: 15px;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: bold;
+        color: white;
+        transition: background-color 0.3s ease;
+      }
+      pre {
+        background: #eee;
+        padding: 15px;
+        border-radius: 5px;
+        white-space: pre-wrap;
+      }
+
+      /* 1. 화면 너비 (min-width) - Mobile First */
+      .width-demo {
+        background-color: #dc3545; /* 기본 (모바일) */
+      }
+      .width-demo::before {
+        content: "📱 모바일 (기본)";
+      }
+
+      @media screen and (min-width: 768px) {
+        .width-demo {
+          background-color: #ffc107; /* 태블릿 */
+          color: #333;
+        }
+        .width-demo::before {
+          content: "💻 태블릿 (768px 이상)";
+        }
+      }
+
+      @media screen and (min-width: 1024px) {
+        .width-demo {
+          background-color: #28a745; /* 데스크톱 */
+          color: white;
+        }
+        .width-demo::before {
+          content: "🖥️ 데스크톱 (1024px 이상)";
+        }
+      }
+
+      /* 2. 화면 너비 범위 (and) */
+      .range-demo {
+        background-color: #6c757d;
+      }
+      @media screen and (min-width: 700px) and (max-width: 900px) {
+        .range-demo {
+          background-color: #17a2b8;
+        }
+      }
+
+      /* 3. 화면 방향 (orientation) */
+      .orientation-demo {
+        background-color: #6610f2;
+      }
+      @media (orientation: landscape) {
+        .orientation-demo {
+          background-color: #fd7e14;
+        }
+      }
+
+      /* 4. 사용자 환경 설정 (prefers-color-scheme) */
+      .theme-demo {
+        background-color: #fff;
+        color: #333;
+        border: 1px solid #333;
+      }
+      @media (prefers-color-scheme: dark) {
+        .theme-demo {
+          background-color: #343a40;
+          color: #fff;
+          border: 1px solid #fff;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>CSS 미디어 쿼리 예제</h1>
+
+      <div class="example-box">
+        <h2>1. 화면 너비 (min-width) - 모바일 우선 접근법</h2>
+        <p>
+          가장 일반적인 반응형 디자인 방법입니다. 작은 화면을 기본으로
+          디자인하고, 화면이 커짐에 따라 스타일을 추가합니다.
+        </p>
+        <div class="status width-demo">브라우저 창의 너비를 조절해보세요.</div>
+        <pre>
+/* 기본 스타일 (모바일) */
+.width-demo {
+  background-color: #dc3545;
+}
+
+/* 태블릿 (768px 이상) */
+@media screen and (min-width: 768px) {
+  .width-demo {
+    background-color: #ffc107;
+  }
+}
+
+/* 데스크톱 (1024px 이상) */
+@media screen and (min-width: 1024px) {
+  .width-demo {
+    background-color: #28a745;
+  }
+}
+      </pre
+        >
+      </div>
+
+      <div class="example-box">
+        <h2>2. 특정 화면 너비 범위 (and 연산자)</h2>
+        <p>
+          두 가지 조건을 and로 연결하여 특정 너비 구간을 타겟할 수 있습니다.
+        </p>
+        <div class="status range-demo">
+          이 박스는 화면 너비가 700px에서 900px 사이일 때만 청록색으로 변합니다.
+        </div>
+        <pre>
+@media screen and (min-width: 700px) and (max-width: 900px) {
+  .range-demo {
+    background-color: #17a2b8;
+  }
+}
+      </pre
+        >
+      </div>
+
+      <div class="example-box">
+        <h2>3. 화면 방향 (orientation)</h2>
+        <p>
+          기기의 화면이 가로 모드인지 세로 모드인지에 따라 다른 스타일을 적용할
+          수 있습니다.
+        </p>
+        <div class="status orientation-demo">
+          세로 모드에서는 보라색, 가로 모드에서는 주황색으로 보입니다. (개발자
+          도구에서 확인 가능)
+        </div>
+        <pre>
+/* 기본 (세로) */
+.orientation-demo {
+  background-color: #6610f2;
+}
+
+/* 가로 모드일 때 */
+@media (orientation: landscape) {
+  .orientation-demo {
+    background-color: #fd7e14;
+  }
+}
+      </pre
+        >
+      </div>
+
+      <div class="example-box">
+        <h2>4. 사용자 환경 설정 (prefers-color-scheme)</h2>
+        <p>사용자의 운영체제(OS) 테마 설정(라이트/다크 모드)을 감지합니다.</p>
+        <div class="status theme-demo">OS 테마를 변경해보세요.</div>
+        <pre>
+/* 기본 (라이트 모드) */
+.theme-demo {
+  background-color: #fff;
+  color: #333;
+}
+
+/* 다크 모드를 선호하는 사용자일 때 */
+@media (prefers-color-scheme: dark) {
+  .theme-demo {
+    background-color: #343a40;
+    color: #fff;
+  }
+}
+      </pre
+        >
+      </div>
+    </div>
+  </body>
+</html>

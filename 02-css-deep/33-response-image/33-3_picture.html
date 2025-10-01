@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>과제 33-2: Art Direction with Picture</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-color: #f0f2f5;
+        text-align: center;
+        padding: 20px;
+      }
+      .container {
+        max-width: 1000px;
+        margin: auto;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+      }
+      h1 {
+        border-bottom: 2px solid #28a745;
+        padding-bottom: 15px;
+      }
+      pre {
+        background: #eee;
+        padding: 15px;
+        border-radius: 5px;
+        text-align: left;
+        white-space: pre-wrap;
+        margin-top: 20px;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>모바일과 데스크톱에서 다른 이미지 보여주기</h1>
+      <p>
+        브라우저 창의 너비를 768px 기준으로 조절해보세요.<br />좁은
+        화면(모바일)에서는 토끼 이미지가, 넓은 화면(데스크톱)에서는 다른 예제
+        이미지가 나타납니다.
+      </p>
+
+      <picture>
+        <!-- 데스크톱용 (넓은 화면): 화면 너비가 768px 이상일 때 이 이미지를 보여줍니다. -->
+        <source media="(min-width: 768px)" srcset="./images/image-medium.png" />
+
+        <!-- 모바일용 (좁은 화면): 위의 source 조건에 맞지 않을 경우, 이 기본 이미지를 보여줍니다. -->
+        <img src="./images/image-small.png" alt="반응형 아트 디렉션 예제" />
+      </picture>
+
+      <pre>
+&lt;picture&gt;
+  &lt;!-- 브라우저는 이 조건을 먼저 확인합니다: "화면 너비가 768px 이상인가?" --&gt;
+  &lt;!-- 조건이 참이면, 아래 이미지를 선택하고 picture 요소 검사를 중단합니다. --&gt;
+  &lt;source 
+    media="(min-width: 768px)" 
+    srcset="desktop-image.png"&gt;
+  
+  &lt;!-- 위의 &lt;source&gt; 조건이 거짓이거나 &lt;picture&gt; 태그를 지원하지 않는 경우, --&gt;
+  &lt;!-- 이 &lt;img&gt; 태그의 이미지를 최종적으로 사용합니다. (모바일 기본값) --&gt;
+  &lt;img src="mobile-image.png" alt="..."&gt;
+&lt;/picture&gt;
+    </pre
+      >
+    </div>
+  </body>
+</html>

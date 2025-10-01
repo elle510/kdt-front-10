@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>로그인 또는 회원가입 모달</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="modal-backdrop">
+      <div class="login-modal">
+        <div class="modal-header">
+          <h3 class="modal-title">로그인 또는 회원가입</h3>
+          <button class="close-btn" aria-label="닫기">×</button>
+        </div>
+
+        <div class="modal-body">
+          <p class="welcome-message">
+            EST에서 여러분의 궁금증을 해결하세요! :)
+          </p>
+
+          <form action="#" method="POST" class="login-form">
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="fkSldkfjASdlDFka"
+              value="fksldkfjASdlDFka"
+              class="input-field error-input"
+            />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="••••••"
+              value="••••••"
+              class="input-field error-input"
+            />
+
+            <p class="error-message">
+              아이디 혹은 비밀번호와 일치하지 않습니다.
+            </p>
+
+            <div class="checkbox-group">
+              <input
+                type="checkbox"
+                id="keep-login"
+                name="keep-login"
+                checked
+              />
+              <label for="keep-login" class="checkbox-label">
+                <span class="custom-checkbox"></span> 로그인 상태 유지
+              </label>
+            </div>
+
+            <button type="submit" class="main-login-btn">로그인</button>
+          </form>
+
+          <div class="aux-links">
+            <a href="#">회원가입</a>
+            |
+            <a href="#">아이디/비밀번호 찾기</a>
+          </div>
+
+          <div class="divider">
+            <span class="divider-text">또는</span>
+          </div>
+
+          <div class="social-login-group">
+            <button class="social-btn google-btn">
+              <img
+                src="./images/google-logo.png"
+                alt="Google 로고"
+                class="logo-icon"
+              />
+              구글 계정으로 로그인
+            </button>
+            <button class="social-btn facebook-btn">
+              <img
+                src="./images/facebook-logo.png"
+                alt="Facebook 로고"
+                class="logo-icon"
+              />
+              페이스북 계정으로 로그인
+            </button>
+            <button class="social-btn naver-btn">
+              <img
+                src="./images/naver-logo.png"
+                alt="Naver 로고"
+                class="logo-icon"
+              />
+              네이버 계정으로 로그인
+            </button>
+            <button class="social-btn kakaotalk-btn">
+              <img
+                src="./images/kakao-logo.png"
+                alt="Kakao 로고"
+                class="logo-icon"
+              />
+              카카오톡 계정으로 로그인
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>과제 32-1: 인쇄용 스타일 작성</title>
+    <style>
+      /* --- 기본 (Screen) 스타일 --- */
+      body {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.8;
+        background-color: #f8f9fa;
+        color: #333;
+        padding: 20px;
+      }
+      .container {
+        max-width: 800px;
+        margin: auto;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #007bff;
+      }
+      .no-print {
+        background-color: #dc3545;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        border-radius: 5px;
+        margin: 20px 0;
+      }
+      a {
+        color: #007bff;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      /* --- 인쇄용 (Print) 스타일 --- */
+      @media print {
+        body {
+          font-family: "Georgia", "Times New Roman", serif; /* 인쇄에 적합한 세리프 폰트로 변경 */
+          background-color: #fff; /* 배경색 제거 */
+          color: #000; /* 모든 텍스트를 검은색으로 */
+          padding: 0;
+          margin: 0;
+        }
+        .container {
+          box-shadow: none; /* 그림자 제거 */
+          border: 1px solid #ccc;
+          padding: 0;
+          margin: 0;
+        }
+        h1 {
+          color: #000; /* 제목 색상 검은색으로 */
+          border-bottom: 2px solid #000;
+        }
+        .no-print {
+          display: none; /* 인쇄하지 않을 요소 숨기기 */
+        }
+        a {
+          color: #000;
+          text-decoration: underline; /* 링크에 밑줄 표시 */
+        }
+        /* 모든 링크 옆에 전체 URL 표시 (인쇄물에서 참고하기 좋음) */
+        a[href^="http"]::after {
+          content: " (" attr(href) ")";
+          font-size: 0.9em;
+          color: #555;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>인쇄용 스타일 테스트</h1>
+      <p>
+        이 페이지는 화면에서 보는 것과 인쇄할 때의 모습이 다릅니다. 브라우저의
+        인쇄 미리보기(Ctrl+P 또는 Cmd+P) 기능을 통해 확인해보세요.
+      </p>
+
+      <div class="no-print">이 영역은 화면에만 보이며, 인쇄되지 않습니다.</div>
+
+      <p>
+        일반적인 텍스트 단락입니다. 인쇄 시에는 가독성을 위해 폰트가 변경되고,
+        텍스트 색상은 모두 검은색이 됩니다.
+      </p>
+
+      <p>이메일 링크: <a href="mailto:test@example.com">test@example.com</a></p>
+      <p>
+        외부 링크:
+        <a href="https://www.google.com" target="_blank">Google 홈페이지</a>
+      </p>
+
+      <p>
+        인쇄 시에는 외부 링크 옆에 전체 URL 주소가 자동으로 표시되어, 종이
+        인쇄물에서도 출처를 쉽게 알 수 있습니다.
+      </p>
+    </div>
+  </body>
+</html>

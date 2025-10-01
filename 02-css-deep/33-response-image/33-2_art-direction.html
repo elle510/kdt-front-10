@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>반응형 이미지: Art Direction</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        padding: 20px;
+        background-color: #f4f4f4;
+        text-align: center;
+      }
+      .container {
+        max-width: 1000px;
+        margin: auto;
+      }
+      .example-box {
+        background: white;
+        padding: 20px;
+        margin-bottom: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2 {
+        border-bottom: 2px solid #28a745;
+        padding-bottom: 10px;
+      }
+      pre {
+        background: #eee;
+        padding: 15px;
+        border-radius: 5px;
+        text-align: left;
+        white-space: pre-wrap;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        margin-top: 15px;
+        border: 1px solid #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>반응형 이미지: Art Direction</h1>
+      <p>
+        화면의 크기나 특성에 따라 완전히 다른 이미지(다른 구도, 다른 비율, 다른
+        대상)를 보여주는 기법입니다.<br />주로 <code>&lt;picture&gt;</code>와
+        <code>&lt;source&gt;</code> 요소를 사용합니다.
+      </p>
+
+      <div class="example-box">
+        <h2>1. 화면 너비에 따라 다른 이미지 보여주기</h2>
+        <p>
+          좁은 화면에서는 이미지의 핵심만 보여주고, 넓은 화면에서는 더 많은
+          정보가 담긴 이미지를 보여줄 수 있습니다.<br />브라우저 창의 너비를
+          조절하며 이미지가 어떻게 바뀌는지 확인해보세요.
+        </p>
+
+        <picture>
+          <!-- 600px 이하의 좁은 화면에서는 토끼 이미지를 보여줍니다. -->
+          <source
+            media="(max-width: 600px)"
+            srcset="./images/image-small.png"
+          />
+
+          <!-- 1000px 이하의 중간 화면에서는 예제 이미지를 보여줍니다. -->
+          <source
+            media="(max-width: 1000px)"
+            srcset="./images/image-medium.png"
+          />
+
+          <!-- 위의 조건이 모두 아닐 때(1001px 이상) 또는 picture 태그 미지원 브라우저를 위한 기본 이미지입니다. -->
+          <img src="./images/image-large.png" alt="아트 디렉션 예제" />
+        </picture>
+
+        <pre>
+&lt;picture&gt;
+  &lt;!-- 1. 브라우저는 이 조건을 먼저 확인: 화면 너비가 600px 이하인가? --&gt;
+  &lt;source media="(max-width: 600px)" srcset="image-small.png"&gt;
+  
+  &lt;!-- 2. 1번이 아니라면 이 조건을 확인: 화면 너비가 1000px 이하인가? --&gt;
+  &lt;source media="(max-width: 1000px)" srcset="image-medium.png"&gt;
+  
+  &lt;!-- 3. 위 조건에 맞는게 하나도 없거나, &lt;picture&gt;를 지원하지 않는 브라우저라면 이 img 태그를 사용 --&gt;
+  &lt;img src="image-large.png" alt="아트 디렉션 예제"&gt;
+&lt;/picture&gt;
+      </pre
+        >
+      </div>
+
+      <div class="example-box">
+        <h2>2. 브라우저 지원 포맷에 따라 다른 이미지 보여주기</h2>
+        <p>
+          WebP와 같이 압축률이 좋은 최신 이미지 포맷을 지원하는 브라우저에게는
+          WebP를 우선 제공하고,<br />지원하지 않는 브라우저에게는 범용적인
+          JPG/PNG를 제공할 수 있습니다.
+        </p>
+
+        <picture>
+          <!-- 브라우저가 image/webp 포맷을 지원하면 이 이미지를 사용합니다. -->
+          <source type="image/webp" srcset="./images/image-large.webp" />
+
+          <!-- WebP를 지원하지 않으면, 브라우저는 다음 source인 image/png 포맷을 확인하고 이 이미지를 사용합니다. -->
+          <source type="image/png" srcset="./images/image-medium.png" />
+
+          <!-- picture 태그 미지원 브라우저를 위한 최종 대체 이미지입니다. -->
+          <img src="./images/image-medium.png" alt="이미지 포맷 스위칭 예제" />
+        </picture>
+
+        <pre>
+&lt;picture&gt;
+  &lt;!-- 1. 브라우저가 WebP 포맷을 지원하는가? --&gt;
+  &lt;source type="image/webp" srcset="image-large.webp"&gt;
+
+  &lt;!-- 2. WebP를 지원하지 않으면 PNG 포맷을 지원하는가? --&gt;
+  &lt;source type="image/png" srcset="image-medium.png"&gt;
+
+  &lt;!-- 3. 최종 대체 이미지 --&gt;
+  &lt;img src="image-medium.png" alt="..."&gt;
+&lt;/picture&gt;
+      </pre
+        >
+      </div>
+    </div>
+  </body>
+</html>

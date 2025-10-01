@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>과제 33-1: 반응형 이미지 갤러리</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-color: #f0f2f5;
+      }
+      .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 15px;
+        margin-bottom: 30px;
+      }
+
+      /* --- 갤러리 레이아웃 --- */
+      .gallery {
+        display: grid;
+        gap: 20px;
+      }
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* 이미지가 영역을 꽉 채우도록 설정 */
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+      .gallery-item img:hover {
+        transform: scale(1.05);
+      }
+
+      /* ========== 레이아웃 미디어 쿼리 ========== */
+
+      /* 기본 (모바일): 1열 */
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      /* 태블릿 (600px 이상): 2열 */
+      @media (min-width: 600px) {
+        .gallery {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      /* 데스크톱 (1000px 이상): 4열 */
+      @media (min-width: 1000px) {
+        .gallery {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>반응형 이미지 갤러리</h1>
+
+      <div class="gallery">
+        <div class="gallery-item">
+          <img
+            src="./images/image-small.png"
+            srcset="
+              ./images/image-small.png   400w,
+              ./images/image-medium.png  800w,
+              ./images/image-large.png  1200w
+            "
+            sizes="(min-width: 1000px) 25vw, (min-width: 600px) 50vw, 100vw"
+            alt="갤러리 이미지 1"
+          />
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="./images/image-small.png"
+            srcset="
+              ./images/image-small.png   400w,
+              ./images/image-medium.png  800w,
+              ./images/image-large.png  1200w
+            "
+            sizes="(min-width: 1000px) 25vw, (min-width: 600px) 50vw, 100vw"
+            alt="갤러리 이미지 2"
+          />
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="./images/image-small.png"
+            srcset="
+              ./images/image-small.png   400w,
+              ./images/image-medium.png  800w,
+              ./images/image-large.png  1200w
+            "
+            sizes="(min-width: 1000px) 25vw, (min-width: 600px) 50vw, 100vw"
+            alt="갤러리 이미지 3"
+          />
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="./images/image-small.png"
+            srcset="
+              ./images/image-small.png   400w,
+              ./images/image-medium.png  800w,
+              ./images/image-large.png  1200w
+            "
+            sizes="(min-width: 1000px) 25vw, (min-width: 600px) 50vw, 100vw"
+            alt="갤러리 이미지 4"
+          />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // sizes 속성 설명:
+      // (min-width: 1000px) 25vw: 화면이 1000px 이상일 때, 이미지는 뷰포트 너비의 25% 크기로 표시될 것이다. (4열 레이아웃)
+      // (min-width: 600px) 50vw: 화면이 600px 이상일 때, 이미지는 뷰포트 너비의 50% 크기로 표시될 것이다. (2열 레이아웃)
+      // 100vw: 그 외의 경우(600px 미만)일 때, 이미지는 뷰포트 너비의 100% 크기로 표시될 것이다. (1열 레이아웃)
+      // 브라우저는 이 sizes 정보를 바탕으로 현재 화면에 가장 적합한 이미지를 srcset 목록에서 "스스로" 골라 다운로드합니다.
+    </script>
+  </body>
+</html>

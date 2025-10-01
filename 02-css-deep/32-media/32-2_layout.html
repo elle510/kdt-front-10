@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>과제 32-2: 반응형 레이아웃</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-color: #f0f2f5;
+      }
+      .header,
+      .footer,
+      .main,
+      .sidebar,
+      .content-item {
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 1.2em;
+      }
+      .header,
+      .footer {
+        background-color: #4a5568;
+        color: white;
+      }
+      .main {
+        background-color: #a0aec0;
+      }
+      .sidebar {
+        background-color: #cbd5e0;
+      }
+      .content-item {
+        background-color: #e2e8f0;
+        color: #2d3748;
+      }
+
+      /* --- 레이아웃 --- */
+      .container {
+        display: grid;
+        gap: 15px;
+        padding: 15px;
+      }
+      .main-content {
+        display: grid;
+        gap: 15px;
+      }
+
+      /* ========== 기본 (모바일 세로) ========== */
+      .container {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "header"
+          "main"
+          "sidebar"
+          "footer";
+      }
+      .main-content {
+        grid-template-columns: 1fr;
+      }
+      .header {
+        grid-area: header;
+      }
+      .main {
+        grid-area: main;
+      }
+      .sidebar {
+        grid-area: sidebar;
+      }
+      .footer {
+        grid-area: footer;
+      }
+
+      /* ========== 모바일 가로 (landscape) ========== */
+      @media (orientation: landscape) and (max-width: 767px) {
+        .main-content {
+          grid-template-columns: 1fr 1fr; /* 메인 콘텐츠만 2열로 변경 */
+        }
+      }
+
+      /* ========== 태블릿 (768px 이상) ========== */
+      @media (min-width: 768px) {
+        .container {
+          grid-template-columns: 3fr 1fr; /* 메인과 사이드바를 3:1 비율로 */
+          grid-template-areas:
+            "header  header"
+            "main    sidebar"
+            "footer  footer";
+        }
+        .main-content {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      /* ========== 데스크톱 (1024px 이상) ========== */
+      @media (min-width: 1024px) {
+        .main-content {
+          grid-template-columns: 1fr 1fr 1fr; /* 메인 콘텐츠를 3열로 */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">Header</header>
+      <main class="main">
+        <h2>Main Content</h2>
+        <div class="main-content">
+          <div class="content-item">Content 1</div>
+          <div class="content-item">Content 2</div>
+          <div class="content-item">Content 3</div>
+          <div class="content-item">Content 4</div>
+          <div class="content-item">Content 5</div>
+          <div class="content-item">Content 6</div>
+        </div>
+      </main>
+      <aside class="sidebar">Sidebar</aside>
+      <footer class="footer">Footer</footer>
+    </div>
+  </body>
+</html>
