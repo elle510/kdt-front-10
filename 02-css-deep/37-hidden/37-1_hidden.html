@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS로 콘텐츠 숨기는 방법</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif;
+        padding: 20px;
+        background-color: #f9f9f9;
+      }
+      .container {
+        max-width: 800px;
+        margin: auto;
+      }
+      .example-box {
+        background: white;
+        padding: 20px;
+        margin-bottom: 25px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+      }
+      h1,
+      h2 {
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 10px;
+      }
+      pre {
+        background: #eee;
+        padding: 15px;
+        border-radius: 5px;
+        white-space: pre-wrap;
+      }
+      .target {
+        background-color: #ffc107;
+        border: 2px dashed #e0a800;
+        padding: 10px;
+        margin: 10px 0;
+      }
+      .space-holder {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        padding: 10px;
+      }
+
+      /* 방법 1-1: display: none */
+      .hide-display {
+        display: none;
+      }
+
+      /* 방법 1-2: visibility: hidden */
+      .hide-visibility {
+        visibility: hidden;
+      }
+
+      /* 방법 2: width/height 0 */
+      .hide-dimensions {
+        width: 0;
+        height: 0;
+        overflow: hidden; /* 내용이 넘치는 것을 방지 */
+        padding: 0;
+        margin: 0;
+        border: none;
+      }
+
+      /* 방법 3: text-indent */
+      .hide-text-indent {
+        text-indent: -9999px;
+        /* 한 줄 짜리 요소에만 적용 가능 */
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      /* 방법 4: 화면 밖으로 보내기 */
+      .sr-only {
+        /* sr-only: screen-reader-only */
+        position: absolute;
+        left: -9999px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
+
+      /* 방법 5: clip-path (접근성을 위한 추천 방법) */
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(
+          0,
+          0,
+          0,
+          0
+        ); /* clip 속성은 이제 사용 중단(deprecated)되었지만, 구형 브라우저 호환성을 위해 포함 */
+        clip-path: inset(50%); /* 최신 브라우저를 위한 clip-path */
+        border: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>CSS로 콘텐츠 숨기는 5가지 방법</h1>
+
+      <div class="example-box">
+        <h2>
+          1. <code>display: none</code> vs <code>visibility: hidden</code>
+        </h2>
+        <p>가장 기본적인 숨김 방법입니다.</p>
+
+        <div class="space-holder">
+          이 요소 다음에 <code>display: none</code>이 적용된 요소가 있지만,
+          공간을 차지하지 않아 보이지 않습니다.
+        </div>
+        <div class="target hide-display">이 텍스트는 보이지 않습니다.</div>
+        <div class="space-holder">
+          이 요소 앞에는 <code>visibility: hidden</code>이 적용된 요소가 있어,
+          보이지 않지만 자신의 공간은 그대로 차지하고 있습니다.
+        </div>
+        <div class="target hide-visibility">이 텍스트는 보이지 않습니다.</div>
+        <div class="space-holder">
+          앞 요소의 공간 때문에 이 요소는 아래로 밀려났습니다.
+        </div>
+
+        <pre><code>.hide-display { display: none; }</code>
+<code>.hide-visibility { visibility: hidden; }</code></pre>
+        <ul>
+          <li>
+            <b>display: none</b>: 요소를 렌더링 트리에서 완전히 제거합니다.
+            공간을 차지하지 않으며, 스크린 리더도 읽지 않습니다.
+          </li>
+          <li>
+            <b>visibility: hidden</b>: 시각적으로만 숨깁니다. 요소의 공간은
+            그대로 유지되며, 스크린 리더도 대부분 읽지 않습니다.
+          </li>
+        </ul>
+      </div>
+
+      <div class="example-box">
+        <h2>2. <code>width: 0; height: 0;</code></h2>
+        <p>
+          너비와 높이를 0으로 만들어 시각적으로 보이지 않게 합니다.
+          <code>overflow: hidden;</code>을 함께 사용해야 합니다.
+        </p>
+        <div class="space-holder">
+          이 요소 다음에 크기가 0인 요소가 있습니다.
+        </div>
+        <div class="target hide-dimensions">이 텍스트는 보이지 않습니다.</div>
+        <div class="space-holder">
+          앞 요소가 공간을 차지하지 않아, 이 요소는 바로 위에 붙어 있습니다.
+        </div>
+        <pre><code>.hide-dimensions {
+  width: 0; height: 0; overflow: hidden;
+}</code></pre>
+        <ul>
+          <li>
+            공간을 차지하지 않으며, 스크린 리더가 읽지 않는 경우가 많습니다.
+            <code>display: none</code>과 유사한 효과를 냅니다.
+          </li>
+        </ul>
+      </div>
+
+      <div class="example-box">
+        <h2>3. <code>text-indent: -9999px;</code></h2>
+        <p>
+          주로 배경 이미지로 대체할 텍스트를 숨기기 위해 사용되던 오래된
+          기법입니다.
+        </p>
+        <div class="target hide-text-indent">
+          이 텍스트는 화면 밖으로 들여쓰기 되어 보이지 않습니다.
+        </div>
+        <pre><code>.hide-text-indent {
+  text-indent: -9999px;
+  overflow: hidden;
+  white-space: nowrap;
+}</code></pre>
+        <ul>
+          <li>요소의 공간은 그대로 차지합니다.</li>
+          <li>
+            접근성 측면에서 문제가 있을 수 있고, 최신 CSS 기법이 아니므로 사용을
+            권장하지 않습니다.
+          </li>
+        </ul>
+      </div>
+
+      <div class="example-box">
+        <h2>4. 화면 밖으로 보내기</h2>
+        <p>
+          시각적으로는 완전히 숨겨지지만, 스크린 리더는 정상적으로 읽을 수 있어
+          접근성에 유리한 방법입니다. "Skip to main content" 링크 등에 널리
+          사용됩니다.
+        </p>
+        <div class="target sr-only">
+          이 텍스트는 화면에 보이지 않지만, 스크린 리더는 읽을 수 있습니다.
+        </div>
+        <p>
+          위 요소는 시각적으로 보이지 않지만, 페이지 소스나 개발자 도구에는
+          존재하며 스크린 리더 사용자에게 정보를 제공합니다.
+        </p>
+        <pre><code>.sr-only { /* sr-only: screen-reader-only */
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+</code></pre>
+        <ul>
+          <li>
+            <b>용도</b>: 스크린 리더 사용자에게는 정보를 제공해야 하지만,
+            디자인상 화면에는 보이지 않아야 하는 텍스트를 숨길 때 사용합니다.
+          </li>
+        </ul>
+      </div>
+
+      <div class="example-box">
+        <h2>5. CSS 클립 (⭐ 접근성을 위한 추천 방법)</h2>
+        <p>
+          시각적으로는 완전히 숨겨지지만, 스크린 리더는 정상적으로 읽을 수 있어
+          접근성에 가장 유리한 방법입니다. "Skip to main content" 링크 등에 널리
+          사용됩니다.
+        </p>
+        <div class="target visually-hidden">
+          이 텍스트는 화면에 보이지 않지만, 스크린 리더는 읽을 수 있습니다.
+        </div>
+        <p>
+          위 요소는 시각적으로 보이지 않지만, 페이지 소스나 개발자 도구에는
+          존재하며 스크린 리더 사용자에게 정보를 제공합니다.
+        </p>
+        <pre><code>.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  border: 0;
+}</code></pre>
+        <ul>
+          <li>
+            <b>용도</b>: 스크린 리더 사용자에게는 정보를 제공해야 하지만,
+            디자인상 화면에는 보이지 않아야 하는 텍스트를 숨길 때 사용합니다.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
