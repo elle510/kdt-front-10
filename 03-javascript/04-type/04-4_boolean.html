@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Boolean 타입과 논리 연산자</title>
+  </head>
+  <body>
+    <script>
+      // Boolean: 참(true) 또는 거짓(false)을 나타내는 원시 타입
+
+      // 1. Boolean 값
+      console.log("--- Boolean 값 ---");
+      const isTrue = true;
+      const isFalse = false;
+
+      console.log(`isTrue: ${isTrue}`, typeof isTrue);
+      console.log(`isFalse: ${isFalse}`, typeof isFalse);
+
+      // 비교 연산의 결과는 항상 boolean 입니다.
+      const isGreater = 10 > 5;
+      console.log(`10 > 5 : ${isGreater}`);
+
+      // 2. 논리 연산자 (Logical Operators)
+      console.log("\n--- 논리 연산자 ---");
+      let a = true;
+      let b = false;
+
+      // && (AND): 두 피연산자가 모두 true일 때만 true
+      console.log(`a && a : ${a && a}`); // true
+      console.log(`a && b : ${a && b}`); // false
+      console.log(`b && b : ${b && b}`); // false
+
+      // || (OR): 두 피연산자 중 하나라도 true이면 true
+      console.log(`a || a : ${a || a}`); // true
+      console.log(`a || b : ${a || b}`); // true
+      console.log(`b || b : ${b || b}`); // false
+
+      // ! (NOT): 피연산자의 boolean 값을 반전
+      console.log(`!a : ${!a}`); // false
+      console.log(`!b : ${!b}`); // true
+
+      // ! (NOT) 연산자는 값을 boolean으로 강제 변환 후 그 값을 반전합니다.
+      console.log("\n! (NOT) 연산자 심화:");
+      console.log(`!null : ${!null}`); // null은 falsy -> true
+      console.log(`!0 : ${!0}`); // 0은 falsy -> true
+      console.log(`!'hello' : ${!"hello"}`); // 'hello'는 truthy -> false
+      console.log(`![] : ${![]}`); // 빈 배열은 truthy -> false
+
+      // !! (Double NOT): 값을 boolean으로 강제 변환하는 트릭으로 자주 사용됩니다.
+      console.log(`!!'text' : ${!!"text"}`); // 'text'는 truthy -> true
+      console.log(`!!0 : ${!!0}`); // 0은 falsy -> false
+
+      // 3. Truthy 와 Falsy
+      // JavaScript에서는 boolean이 와야 할 자리에 다른 타입의 값이 오면, 그 값을 boolean으로 자동 변환합니다.
+      console.log("\n--- Truthy 와 Falsy ---");
+
+      // Falsy 값: boolean 문맥에서 false로 평가되는 6가지 값
+      // false, 0, '', null, undefined, NaN
+      console.log("Falsy 값들:");
+      console.log(`Boolean(false): ${Boolean(false)}`);
+      console.log(`Boolean(0): ${Boolean(0)}`);
+      console.log(`Boolean(''): ${Boolean("" || "")} `); // 빈 문자열
+      console.log(`Boolean(null): ${Boolean(null)}`);
+      console.log(`Boolean(undefined): ${Boolean(undefined)}`);
+      console.log(`Boolean(NaN): ${Boolean(NaN)}`);
+
+      // Truthy 값: Falsy가 아닌 모든 값
+      console.log("\nTruthy 값들 (예시):");
+      console.log(`Boolean(true): ${Boolean(true)}`);
+      console.log(`Boolean(123): ${Boolean(123)}`);
+      console.log(`Boolean(-1): ${Boolean(-1)}`);
+      console.log(`Boolean('hello'): ${Boolean("hello")} `);
+      console.log(`Boolean(' '): ${Boolean(" ")} `); // 공백 문자열도 truthy
+      console.log(`Boolean([]): ${Boolean([])}`); // 빈 배열
+      console.log(`Boolean({}): ${Boolean({})}`); // 빈 객체
+
+      // if 문에서 활용
+      function checkValue(value) {
+        if (value) {
+          console.log(`'${value}'는(은) Truthy 입니다.`);
+        } else {
+          console.log(`'${value}'는(은) Falsy 입니다.`);
+        }
+      }
+
+      checkValue(1);
+      checkValue(0);
+      checkValue("text");
+      checkValue("");
+      checkValue(null);
+
+      // 4. 단축 평가 (Short-circuit Evaluation)
+      console.log("\n--- 단축 평가 ---");
+      // ||: 왼쪽 피연산자가 truthy면 왼쪽 값을, 아니면 오른쪽 값을 반환
+      // 기본값 설정에 유용
+      const name = null;
+      const displayName = name || "Guest";
+      console.log(`displayName: ${displayName}`); // 'Guest'
+
+      // &&: 왼쪽 피연산자가 falsy면 왼쪽 값을, 아니면 오른쪽 값을 반환
+      // 특정 조건이 만족될 때만 함수를 실행하는 등에 유용
+      const isLoggedIn = true;
+      isLoggedIn && console.log("로그인한 사용자입니다.");
+    </script>
+  </body>
+</html>

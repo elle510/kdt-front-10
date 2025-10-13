@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript 원시 타입(Primitive Types)</title>
+  </head>
+  <body>
+    <script>
+      // JavaScript의 데이터 타입은 크게 원시 타입(Primitive Type)과 참조 타입(Reference Type)으로 나뉩니다.
+      // 원시 타입은 값이 변수에 직접 저장되는 불변(immutable) 데이터 타입입니다.
+
+      // 1. String (문자열)
+      // 텍스트 데이터를 나타냅니다. 작은따옴표(''), 큰따옴표(""), 백틱(``)으로 감쌉니다.
+      const myName = "홍길동";
+      const email = "test@example.com";
+      const template = `이름: ${myName}, 이메일: ${email}`;
+      console.log("String:", myName, typeof myName);
+      console.log("Template Literal:", template, typeof template);
+
+      // 2. Number (숫자)
+      // 정수와 실수를 모두 포함합니다.
+      const age = 30;
+      const height = 175.5;
+      console.log("Number (Integer):", age, typeof age);
+      console.log("Number (Float):", height, typeof height);
+
+      // 특별한 숫자 값들
+      const infinity = Infinity; // 양의 무한대
+      const negativeInfinity = -Infinity; // 음의 무한대
+      const nan = NaN; // Not-a-Number (산술 연산 불가)
+      console.log("Special Numbers:", infinity, negativeInfinity, nan);
+      console.log("1 / 0 =", 1 / 0); // Infinity
+      console.log(`'abc' / 2 =`, "abc" / 2); // NaN
+
+      // 3. Boolean (불리언)
+      // true 또는 false 값을 가집니다.
+      const isStudent = true;
+      const isMarried = false;
+      console.log("Boolean:", isStudent, typeof isStudent);
+
+      // 4. undefined
+      // 변수를 선언했지만 값을 할당하지 않은 상태를 나타냅니다.
+      let notAssigned;
+      console.log("undefined:", notAssigned, typeof notAssigned);
+
+      // 5. null
+      // '값이 없음'을 의도적으로 명시할 때 사용합니다.
+      // typeof null이 'object'로 나오는 것은 JavaScript의 초기 버그이지만, 하위 호환성을 위해 수정되지 않고 있습니다.
+      const noValue = null;
+      console.log("null:", noValue, typeof noValue); // object
+
+      // 6. Symbol (ES6+)
+      // 유일하고 변경 불가능한 값을 만들 때 사용합니다. 주로 객체 속성의 키로 사용됩니다.
+      const mySymbol1 = Symbol("description");
+      const mySymbol2 = Symbol("description");
+      console.log("Symbol:", mySymbol1, typeof mySymbol1);
+      console.log("mySymbol1 === mySymbol2 :", mySymbol1 === mySymbol2); // false (설명이 같아도 값은 유일함)
+
+      // 7. BigInt (ES2020+)
+      // Number가 표현할 수 있는 최대 정수(2^53 - 1)보다 큰 정수를 다룰 때 사용합니다.
+      // 숫자 뒤에 'n'을 붙여서 표현합니다.
+      const veryBigNumber = 9007199254740991n;
+      const bigIntFromNumber = BigInt(9007199254740991);
+      console.log("BigInt:", veryBigNumber, typeof veryBigNumber);
+      console.log("veryBigNumber + 1n =", veryBigNumber + 1n);
+    </script>
+  </body>
+</html>

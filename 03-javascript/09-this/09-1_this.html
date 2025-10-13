@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript 'this'</title>
+  </head>
+  <body>
+    <button id="myButton">Click Me (Regular Function)</button>
+    <button id="arrowButton">Click Me (Arrow Function)</button>
+
+    <script>
+      // 'this'는 함수가 호출되는 방식(호출 컨텍스트)에 따라 동적으로 결정되는 특별한 키워드입니다.
+
+      // 1. 전역 컨텍스트 (Global Context)
+      // - 코드의 가장 바깥 레벨에서 'this'는 전역 객체를 가리킵니다.
+      // - 브라우저 환경에서는 window 객체입니다.
+      console.log("--- 1. 전역 컨텍스트 ---");
+      console.log("전역 this:", this); // window
+
+      // 2. 함수 컨텍스트 (Function Context) - 단순 호출
+      // - 일반 함수 내부에서 호출된 'this'는 기본적으로 전역 객체(window)를 가리킵니다.
+      // - 단, 'use strict' (엄격 모드)에서는 undefined 입니다.
+      console.log("\n--- 2. 함수 컨텍스트 (단순 호출) ---");
+      function showThis() {
+        console.log("일반 함수 this:", this);
+      }
+      showThis(); // window
+
+      // 3. 메소드 컨텍스트 (Method Context)
+      // - 객체의 메소드로 함수가 호출될 때, 'this'는 해당 메소드를 호출한 객체를 가리킵니다.
+      console.log("\n--- 3. 메소드 컨텍스트 ---");
+      const user = {
+        name: "홍길동",
+        greet: function () {
+          // 이 때의 this는 user 객체입니다.
+          console.log(`안녕하세요, ${this.name}님!`);
+          console.log("메소드 this:", this);
+        },
+      };
+      user.greet();
+
+      // 4. 화살표 함수에서의 this (Arrow Function Context)
+      // - 화살표 함수는 자신만의 'this'를 생성하지 않습니다.
+      // - 대신, 자신을 감싸고 있는 상위 스코프(lexical scope)의 'this'를 그대로 물려받습니다.
+      console.log("\n--- 4. 화살표 함수에서의 this ---");
+      const person = {
+        name: "김철수",
+        age: 30,
+        // 일반 함수 메소드
+        getInfo: function () {
+          console.log("getInfo의 this:", this); // person 객체
+
+          // setTimeout의 콜백 함수(일반 함수)는 단독으로 호출되므로 this는 window가 됨
+          setTimeout(function () {
+            console.log("setTimeout(일반함수)의 this:", this); // window
+            // console.log(`이름: ${this.name}, 나이: ${this.age}`); // 의도대로 동작하지 않음
+          }, 100);
+
+          // 화살표 함수는 상위 스코프(getInfo)의 this를 그대로 사용함
+          setTimeout(() => {
+            console.log("setTimeout(화살표함수)의 this:", this); // person 객체
+            console.log(`이름: ${this.name}, 나이: ${this.age}`); // 의도대로 동작함
+          }, 200);
+        },
+      };
+      person.getInfo();
+
+      // 5. 이벤트 핸들러 컨텍스트 (Event Handler Context)
+      // - 일반 함수를 이벤트 핸들러로 사용하면, 'this'는 이벤트를 받은 DOM 요소를 가리킵니다.
+      // - 화살표 함수를 사용하면, 'this'는 상위 스코프(자신이 정의된 환경)의 'this'를 가리킵니다 (여기서는 window).
+      console.log("\n--- 7. 이벤트 핸들러 컨텍스트 ---");
+      const myButton = document.getElementById("myButton");
+      const arrowButton = document.getElementById("arrowButton");
+
+      myButton.addEventListener("click", function () {
+        console.log("이벤트 핸들러(일반함수) this:", this); // <button id="myButton">...</button>
+        this.textContent = "Clicked!";
+      });
+
+      arrowButton.addEventListener("click", () => {
+        console.log("이벤트 핸들러(화살표함수) this:", this); // window
+        // this.textContent = 'Clicked!'; // TypeError: this.textContent is not a function
+      });
+
+      // 6. 명시적 바인딩 (Explicit Binding) - call, apply, bind
+      // - 'this'를 특정 객체에 강제로 바인딩(연결)하는 방법입니다.
+      console.log("\n--- 5. 명시적 바인딩 ---");
+      function introduce(job, country) {
+        console.log(
+          `저는 ${this.name}이고, 직업은 ${job}이며, ${country}에서 왔습니다.`
+        );
+      }
+
+      const student = { name: "이영희" };
+
+      // call(thisArg, arg1, arg2, ...): this를 student로 설정하고 함수 호출
+      introduce.call(student, "학생", "한국");
+
+      // apply(thisArg, [arg1, arg2, ...]): this를 student로 설정하고, 인수를 배열로 전달하여 함수 호출
+      introduce.apply(student, ["대학생", "미국"]);
+
+      // bind(thisArg): this가 student로 영구히 바인딩된 새로운 함수를 반환
+      const introduceStudent = introduce.bind(student, "교사", "캐나다");
+      introduceStudent(); // 나중에 호출해도 this는 student로 고정됨
+
+      // 7. 생성자 함수 컨텍스트 (Constructor Context)
+      // - 'new' 키워드를 사용하여 함수를 생성자 함수로 호출할 때, 'this'는 새로 생성되는 객체를 가리킵니다.
+      console.log("\n--- 6. 생성자 함수 컨텍스트 ---");
+      function Car(brand, model) {
+        // 이 때의 this는 새로 생성될 인스턴스(myCar)를 가리킴
+        this.brand = brand;
+        this.model = model;
+        console.log("생성자 함수 this:", this);
+      }
+
+      const myCar = new Car("Hyundai", "Sonata");
+      console.log("생성된 인스턴스:", myCar);
+    </script>
+  </body>
+</html>

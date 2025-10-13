@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript String 타입과 메소드</title>
+  </head>
+  <body>
+    <script>
+      // String: 텍스트 데이터를 나타내는 원시 타입
+
+      // 1. 문자열 선언
+      const str1 = "Hello, World!"; // 작은따옴표
+      const str2 = "JavaScript"; // 큰따옴표
+      const str3 = `Template Literal`; // 백틱 (ES6+)
+
+      console.log("--- 문자열 선언 ---");
+      console.log(str1);
+      console.log(str2);
+      console.log(str3);
+
+      // 2. 주요 속성 및 메소드
+      console.log("\n--- 주요 속성 및 메소드 ---");
+      const text = "  Hello, JavaScript World!  ";
+      console.log(`원본 텍스트: "${text}"`);
+
+      // length: 문자열 길이
+      console.log(`length: ${text.length}`);
+
+      // [index]: 특정 인덱스의 문자에 접근 (배열처럼)
+      console.log(`[0]: ${text[2]}`); // 공백도 문자로 취급
+
+      // toUpperCase() / toLowerCase(): 대소문자 변환
+      console.log(`toUpperCase(): ${text.toUpperCase()}`);
+      console.log(`toLowerCase(): ${text.toLowerCase()}`);
+
+      // trim(): 양쪽 끝의 공백 제거
+      const trimmedText = text.trim();
+      console.log(`trim(): "${trimmedText}"`);
+
+      // indexOf(searchValue): 특정 문자열의 시작 인덱스를 반환 (없으면 -1)
+      console.log(`indexOf('Java'): ${trimmedText.indexOf("Java")}`); // 7
+      console.log(`indexOf('Python'): ${trimmedText.indexOf("Python")}`); // -1
+
+      // includes(searchValue): 특정 문자열 포함 여부를 boolean으로 반환 (ES6+)
+      console.log(`includes('Script'): ${trimmedText.includes("Script")}`); // true
+
+      // startsWith(searchValue) / endsWith(searchValue): 특정 문자열로 시작/끝나는지 여부 (ES6+)
+      console.log(`startsWith('Hello'): ${trimmedText.startsWith("Hello")}`); // true
+      console.log(`endsWith('!'): ${trimmedText.endsWith("!")}`); // true
+
+      // slice(startIndex, endIndex): 문자열 자르기 (endIndex는 포함하지 않음)
+      console.log(`slice(7, 17): ${trimmedText.slice(7, 17)}`); // 'JavaScript'
+      console.log(`slice(7): ${trimmedText.slice(7)}`); // 'JavaScript World!'
+      console.log(`slice(-6): ${trimmedText.slice(-6)}`); // 'World!' (뒤에서부터)
+
+      // substring(startIndex, endIndex): slice와 유사하지만, 음수 인수를 0으로 취급
+      console.log(`substring(7, 17): ${trimmedText.substring(7, 17)}`); // 'JavaScript'
+
+      // replace(searchValue, newValue): 특정 문자열을 다른 문자열로 교체 (첫 번째 일치 항목만)
+      const replacedText = trimmedText.replace("JavaScript", "JS");
+      console.log(`replace('JavaScript', 'JS'): "${replacedText}"`);
+
+      // replaceAll(searchValue, newValue): 모든 일치 항목을 교체 (ES2021+)
+      const textWithDuplicates = "hello-hello-world";
+      console.log(
+        `replaceAll('hello', 'hi'): "${textWithDuplicates.replaceAll(
+          "hello",
+          "hi"
+        )}"`
+      );
+
+      // split(separator): 문자열을 구분자(separator) 기준으로 나누어 배열로 반환
+      const fruits = "사과,바나나,딸기,오렌지";
+      const fruitArray = fruits.split(",");
+      console.log(`split(','):`, fruitArray);
+      console.log(`fruitArray[1]: ${fruitArray[1]}`); // '바나나'
+
+      // concat(string2, ...): 두 개 이상의 문자열을 합침
+      const hello = "Hello, ";
+      const world = "World!";
+      console.log(`concat(): ${hello.concat(world, " Have a nice day!")}`);
+      // + 연산자를 사용하는 것이 더 일반적입니다.
+      console.log("+ 연산자:", hello + world + " Have a nice day!");
+
+      // padStart(targetLength, padString) / padEnd(): 문자열 길이를 맞추기 위해 앞/뒤를 채움 (ES2017+)
+      const number = "123";
+      console.log(`padStart(5, '0'): ${number.padStart(5, "0")}`); // '00123'
+      console.log(`padEnd(5, '*'): ${number.padEnd(5, "*")}`); // '123**'
+    </script>
+  </body>
+</html>

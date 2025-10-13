@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript if 문 (조건문)</title>
+  </head>
+  <body>
+    <script>
+      // if 문: 주어진 조건식(conditional expression)이 참(true)으로 평가될 때 코드 블록을 실행합니다.
+
+      // 1. 기본 if 문
+      console.log("--- 기본 if 문 ---");
+      const isRaining = true;
+
+      if (isRaining) {
+        console.log("우산을 챙기세요.");
+      }
+
+      // 2. if...else 문
+      console.log("\n--- if...else 문 ---");
+      const age = 20;
+
+      if (age >= 19) {
+        console.log("성인입니다.");
+      } else {
+        console.log("미성년자입니다.");
+      }
+
+      // 3. if...else if...else 문
+      // 여러 조건을 순차적으로 확인할 수 있습니다.
+      console.log("\n--- if...else if...else 문 ---");
+      const score = 85;
+
+      if (score >= 90) {
+        console.log("A 학점입니다.");
+      } else if (score >= 80) {
+        console.log("B 학점입니다."); // score가 85이므로 이 블록이 실행됩니다.
+      } else if (score >= 70) {
+        console.log("C 학점입니다.");
+      } else {
+        console.log("D 학점 이하입니다.");
+      }
+
+      // 4. 중첩 if 문
+      console.log("\n--- 중첩 if 문 ---");
+      const isLoggedIn = true;
+      const isAdmin = false;
+
+      if (isLoggedIn) {
+        console.log("로그인 되었습니다.");
+        if (isAdmin) {
+          console.log("관리자 계정입니다.");
+        } else {
+          console.log("일반 사용자 계정입니다.");
+        }
+      } else {
+        console.log("로그인이 필요합니다.");
+      }
+
+      // 5. Truthy/Falsy 값을 이용한 조건 확인
+      // if 문은 조건식의 값을 boolean으로 변환하여 평가합니다.
+      console.log("\n--- Truthy/Falsy 활용 ---");
+      let user = "홍길동";
+
+      if (user) {
+        // '홍길동'은 Truthy 값이므로 true로 평가됨
+        console.log(`안녕하세요, ${user}님!`);
+      }
+
+      user = ""; // 빈 문자열은 Falsy 값이므로 false로 평가됨
+      if (user) {
+        console.log("이 메시지는 출력되지 않습니다.");
+      } else {
+        console.log("사용자 이름이 비어있습니다.");
+      }
+
+      // 6. 삼항 조건 연산자 (Ternary Operator)
+      // 간단한 if...else 문을 한 줄로 표현할 수 있는 유용한 구문입니다.
+      // 형식: 조건 ? 참일_때_값 : 거짓일_때_값
+      console.log("\n--- 삼항 조건 연산자 ---");
+      const temperature = 15;
+      const message =
+        temperature >= 20 ? "날씨가 따뜻합니다." : "날씨가 쌀쌀합니다.";
+      console.log(message);
+
+      // 7. switch 문
+      // 하나의 표현식을 평가하여 그 값과 일치하는 case 문의 코드 블록을 실행합니다.
+      // if...else if...else 문을 대체하여 코드를 더 간결하게 만들 수 있을 때 유용합니다.
+      console.log("\n--- switch 문 ---");
+      const fruit = "사과";
+
+      switch (fruit) {
+        case "사과":
+          console.log("사과는 1000원 입니다.");
+          break; // break를 만나면 switch 문을 빠져나갑니다.
+        case "바나나":
+          console.log("바나나는 1500원 입니다.");
+          break;
+        case "체리":
+        case "딸기": // 의도적인 fall-through: '체리'와 '딸기'는 같은 코드를 실행합니다.
+          console.log("체리와 딸기는 2000원 입니다.");
+          break;
+        default: // 일치하는 case가 없을 때 실행됩니다.
+          console.log("해당 과일은 판매하지 않습니다.");
+          break;
+      }
+    </script>
+  </body>
+</html>

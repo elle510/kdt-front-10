@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript 변수</title>
+  </head>
+  <body>
+    <script>
+      // 변수 선언과 할당
+
+      // 1. var (ES5 이전) - 함수 레벨 스코프
+      // 거의 사용하지 않음
+      var name = "홍길동";
+      console.log("var name:", name);
+
+      name = "성춘향"; // 재할당 가능
+      console.log("var name (재할당):", name);
+
+      var name = "이몽룡"; // 재선언 가능
+      console.log("var name (재선언):", name);
+
+      // 2. let (ES6+) - 블록 레벨 스코프
+      let age = 30;
+      console.log("let age:", age);
+
+      age = 31; // 재할당 가능
+      console.log("let age (재할당):", age);
+
+      // let age = 32; // 재선언 불가능 (SyntaxError)
+
+      // 3. const (ES6+) - 블록 레벨 스코프
+      const PI = 3.14;
+      console.log("const PI:", PI);
+
+      // PI = 3.141592; // 재할당 불가능 (TypeError)
+      // const PI = 3.14; // 재선언 불가능 (SyntaxError)
+
+      // const로 선언된 객체의 속성은 변경 가능
+      const person = {
+        name: "김철수",
+        age: 25,
+      };
+      console.log("const person:", person);
+
+      person.age = 26; // 객체의 속성은 변경 가능
+      console.log("const person (속성 변경):", person);
+
+      /*
+    person = {
+      name: '박영희',
+      age: 28
+    }; // 객체 자체를 재할당하는 것은 불가능 (TypeError)
+    */
+
+      // 스코프(Scope) 예제
+      if (true) {
+        var varScope = "var는 함수 스코프";
+        let letScope = "let은 블록 스코프";
+        const constScope = "const는 블록 스코프";
+      }
+
+      console.log(varScope); // 접근 가능
+      // console.log(letScope); // 접근 불가능 (ReferenceError)
+      // console.log(constScope); // 접근 불가능 (ReferenceError)
+
+      // --- 스코프 상세 예제 ---
+
+      // 1. 전역 스코프 (Global Scope)
+      // 코드의 가장 바깥 영역에 선언된 변수
+      let globalVar = "전역 변수";
+
+      function showGlobal() {
+        console.log("함수 내부에서:", globalVar); // 접근 가능
+      }
+      showGlobal();
+      console.log("함수 외부에서:", globalVar); // 접근 가능
+
+      // 2. 함수 스코프 (Function Scope)
+      // 함수 내부에 선언된 변수 (var 키워드)
+      function functionScopeExample() {
+        var funcVar = "함수 스코프 변수";
+        console.log(funcVar); // 접근 가능
+      }
+      functionScopeExample();
+      // console.log(funcVar); // 접근 불가능 (ReferenceError)
+
+      // 3. 블록 스코프 (Block Scope)
+      // { } (코드 블록) 내부에 선언된 변수 (let, const 키워드)
+      if (true) {
+        let blockVar = "블록 스코프 변수 (let)";
+        const blockConst = "블록 스코프 변수 (const)";
+        console.log(blockVar); // 접근 가능
+        console.log(blockConst); // 접근 가능
+      }
+      // console.log(blockVar); // 접근 불가능 (ReferenceError)
+      // console.log(blockConst); // 접근 불가능 (ReferenceError)
+
+      // var는 블록 스코프를 따르지 않음
+      if (true) {
+        var blockVarForVar = "var는 블록 스코프 무시";
+      }
+      console.log(blockVarForVar); // 접근 가능
+    </script>
+  </body>
+</html>

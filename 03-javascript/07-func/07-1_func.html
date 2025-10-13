@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript 함수(Function)</title>
+  </head>
+  <body>
+    <script>
+      // 함수(Function): 특정 작업을 수행하기 위한 코드의 집합입니다.
+      // 코드를 재사용하고, 프로그램을 모듈화하여 구조적으로 만드는 데 사용됩니다.
+
+      // 1. 함수 선언문 (Function Declaration)
+      // - function 키워드로 정의합니다.
+      // - 호이스팅(hoisting)의 대상이 되어, 선언 위치와 관계없이 코드 내 어디서든 호출할 수 있습니다.
+      console.log("--- 함수 선언문 ---");
+      const result1 = add(10, 20);
+      console.log(`add(10, 20) = ${result1}`);
+
+      function add(a, b) {
+        // a, b는 매개변수(parameter)
+        return a + b;
+      }
+
+      // 2. 함수 표현식 (Function Expression)
+      // - 변수에 익명 함수(anonymous function)를 할당하는 형태입니다.
+      // - 변수 호이스팅 규칙을 따르므로, 선언 이전에 호출할 수 없습니다. (TDZ)
+      console.log("\n--- 함수 표현식 ---");
+      // console.log(subtract(20, 10)); // ReferenceError: Cannot access 'subtract' before initialization
+
+      const subtract = function (a, b) {
+        return a - b;
+      };
+      const result2 = subtract(20, 10); // 20, 10은 인수(argument)
+      console.log(`subtract(20, 10) = ${result2}`);
+
+      // 3. 화살표 함수 (Arrow Function, ES6+)
+      // - function 키워드 대신 화살표(=>)를 사용하여 함수를 간결하게 표현합니다.
+      // - 자체적인 'this'를 갖지 않고, 상위 스코프의 'this'를 그대로 물려받습니다(lexical this).
+      console.log("\n--- 화살표 함수 ---");
+
+      const multiply = (a, b) => {
+        return a * b;
+      };
+      console.log(`multiply(5, 4) = ${multiply(5, 4)}`);
+
+      // 코드 블록이 한 줄의 return 문으로만 구성된 경우, 중괄호와 return 키워드 생략 가능
+      const divide = (a, b) => a / b;
+      console.log(`divide(10, 2) = ${divide(10, 2)}`);
+
+      // 매개변수가 하나인 경우, 소괄호 생략 가능
+      const square = (x) => x * x;
+      console.log(`square(7) = ${square(7)}`);
+
+      // 4. 매개변수(Parameters)와 인수(Arguments)
+      console.log("\n--- 매개변수와 인수 ---");
+
+      // 기본값 매개변수 (Default Parameters, ES6+)
+      function greet(name = "Guest") {
+        console.log(`안녕하세요, ${name}님!`);
+      }
+      greet("홍길동"); // 인수가 있을 때
+      greet(); // 인수가 없을 때 기본값 사용
+
+      // 나머지 매개변수 (Rest Parameters, ES6+)
+      // 여러 개의 인수를 배열로 모아서 받을 수 있습니다.
+      function sumAll(...numbers) {
+        return numbers.reduce((acc, current) => acc + current, 0);
+      }
+      console.log(`sumAll(1, 2, 3, 4, 5) = ${sumAll(1, 2, 3, 4, 5)}`);
+
+      // 5. 즉시 실행 함수 표현식 (IIFE, Immediately Invoked Function Expression)
+      // - 함수를 정의하자마자 즉시 호출하는 방법입니다.
+      // - 전역 스코프를 오염시키지 않고, 변수를 캡슐화하여 private 스코프를 만드는 데 사용됩니다.
+      console.log("\n--- IIFE ---");
+      (function () {
+        const privateVar = "이 변수는 외부에서 접근할 수 없습니다.";
+        console.log("IIFE가 실행되었습니다.");
+        console.log(privateVar);
+      })();
+
+      // console.log(privateVar); // ReferenceError: privateVar is not defined
+    </script>
+  </body>
+</html>

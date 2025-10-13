@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript 호이스팅(Hoisting)</title>
+  </head>
+  <body>
+    <script>
+      // 호이스팅(Hoisting): 변수나 함수의 선언이 해당 스코프의 최상단으로 끌어올려지는 것처럼 동작하는 현상
+
+      // 1. var 변수 호이스팅
+      // 선언은 호이스팅되지만, 할당은 호이스팅되지 않습니다.
+      // 변수는 선언과 동시에 undefined로 초기화됩니다.
+      console.log("var 호이스팅:", myVar); // undefined (에러가 발생하지 않음)
+      var myVar = "Hello, var!";
+      console.log("var 할당 후:", myVar); // Hello, var!
+
+      // 2. let, const 변수 호이스팅
+      // 선언은 호이스팅되지만, 초기화는 되지 않습니다.
+      // 선언문 이전에 접근하면 일시적 사각지대(TDZ: Temporal Dead Zone)에 빠져 ReferenceError가 발생합니다.
+      try {
+        console.log("let 호이스팅:", myLet); // ReferenceError
+      } catch (e) {
+        console.error(e);
+      }
+      let myLet = "Hello, let!";
+      console.log("let 할당 후:", myLet);
+
+      try {
+        console.log("const 호이스팅:", myConst); // ReferenceError
+      } catch (e) {
+        console.error(e);
+      }
+      const myConst = "Hello, const!";
+      console.log("const 할당 후:", myConst);
+
+      // 3. 함수 선언문(Function Declaration) 호이스팅
+      // 함수 선언문은 선언과 동시에 완성된 함수 객체로 초기화되어 통째로 호이스팅됩니다.
+      // 따라서 선언문 이전에 호출해도 정상적으로 작동합니다.
+      sayHello(); // "안녕하세요!"
+
+      function sayHello() {
+        console.log("안녕하세요!");
+      }
+
+      // 4. 함수 표현식(Function Expression) 호이스팅
+      // 함수 표현식은 변수 호이스팅 규칙을 따릅니다.
+      // var로 선언된 경우, 변수 선언만 호이스팅되고 undefined로 초기화됩니다.
+      try {
+        sayGoodbye(); // TypeError: sayGoodbye is not a function
+      } catch (e) {
+        console.error(e);
+      }
+
+      var sayGoodbye = function () {
+        console.log("안녕히 가세요!");
+      };
+
+      sayGoodbye();
+
+      // let이나 const로 선언된 함수 표현식은 TDZ의 영향을 받습니다.
+      try {
+        saySomething(); // ReferenceError
+      } catch (e) {
+        console.error(e);
+      }
+
+      let saySomething = function () {
+        console.log("무언가 말해봐요.");
+      };
+
+      saySomething();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Destructuring (구조 분해 할당)</title>
+  </head>
+  <body>
+    <script>
+      // Destructuring Assignment (구조 분해 할당): 배열이나 객체의 속성을 분해하여 그 값을 개별 변수에 담을 수 있게 하는 표현식입니다.
+
+      // 1. 배열 구조 분해
+      console.log("--- 배열 구조 분해 ---");
+      const fruits = ["사과", "바나나", "딸기"];
+
+      // 기본 할당
+      const [a, b, c] = fruits;
+      console.log(`a: ${a}, b: ${b}, c: ${c}`);
+
+      // 일부 요소만 할당
+      const [firstFruit, secondFruit] = fruits;
+      console.log(`첫 번째 과일: ${firstFruit}, 두 번째 과일: ${secondFruit}`);
+
+      // 요소 건너뛰기
+      const [, , lastFruit] = fruits;
+      console.log(`마지막 과일: ${lastFruit}`);
+
+      // 나머지 요소 할당 (Rest pattern)
+      const [winner, ...losers] = ["김철수", "박영희", "홍길동"];
+      console.log(`우승자: ${winner}`);
+      console.log(`나머지:`, losers);
+
+      // 기본값 할당
+      const [x, y, z = 3] = [1, 2];
+      console.log(`x: ${x}, y: ${y}, z: ${z}`); // z에 해당하는 값이 없으므로 기본값 3이 할당됨
+
+      // 변수 값 교환 (Swap)
+      let val1 = 10;
+      let val2 = 20;
+      [val1, val2] = [val2, val1];
+      console.log(`교환 후 val1: ${val1}, val2: ${val2}`);
+
+      // 2. 객체 구조 분해
+      console.log("\n--- 객체 구조 분해 ---");
+      const user = {
+        name: "홍길동",
+        age: 30,
+        isAdmin: true,
+        address: {
+          city: "서울",
+          zipcode: "12345",
+        },
+      };
+
+      // 기본 할당 (변수 이름과 객체의 키 이름이 같아야 함)
+      const { name, age } = user;
+      console.log(`이름: ${name}, 나이: ${age}`);
+
+      // 새로운 변수 이름으로 할당
+      const { name: userName, age: userAge } = user;
+      console.log(`사용자 이름: ${userName}, 사용자 나이: ${userAge}`);
+
+      // 기본값 할당
+      const { job = "개발자", isAdmin } = user;
+      console.log(`직업: ${job}, 관리자 여부: ${isAdmin}`);
+
+      // 나머지 속성 할당 (Rest pattern)
+      const { name: n, ...restInfo } = user;
+      console.log(`이름: ${n}`);
+      console.log("나머지 정보:", restInfo);
+
+      // 중첩 객체 구조 분해
+      const {
+        address: { city, zipcode },
+      } = user;
+      console.log(`도시: ${city}, 우편번호: ${zipcode}`);
+
+      // 함수 매개변수에서의 구조 분해
+      console.log("\n--- 함수 매개변수 구조 분해 ---");
+      function printUserInfo({ name, age, job = "미입력" }) {
+        console.log(`이름: ${name}, 나이: ${age}, 직업: ${job}`);
+      }
+
+      printUserInfo(user);
+    </script>
+  </body>
+</html>

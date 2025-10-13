@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript 연산자</title>
+  </head>
+  <body>
+    <script>
+      // 1. 산술 연산자 (Arithmetic Operators)
+      console.log("--- 산술 연산자 ---");
+      let a = 10;
+      let b = 4;
+
+      console.log(`a + b = ${a + b}`); // 14 (덧셈)
+      console.log(`a - b = ${a - b}`); // 6 (뺄셈)
+      console.log(`a * b = ${a * b}`); // 40 (곱셈)
+      console.log(`a / b = ${a / b}`); // 2.5 (나눗셈)
+      console.log(`a % b = ${a % b}`); // 2 (나머지)
+      console.log(`a ** b = ${a ** b}`); // 10000 (거듭제곱, ES7)
+
+      let c = 5;
+      c++; // c = c + 1
+      console.log(`c++ = ${c}`); // 6 (증감)
+
+      c--; // c = c - 1
+      console.log(`c-- = ${c}`); // 5 (감소)
+
+      // 2. 비교 연산자 (Comparison Operators)
+      console.log("\n--- 비교 연산자 ---");
+      let x = 5;
+      let y = "5";
+
+      // 동등 연산자 (==): 값만 비교 (타입 변환을 수행함)
+      console.log(`x == y : ${x == y}`); // true
+
+      // 일치 연산자 (===): 값과 타입을 모두 비교 (엄격한 비교)
+      console.log(`x === y : ${x === y}`); // false
+
+      // 부동등 연산자 (!=): 값이 다른지 비교
+      console.log(`x != y : ${x != y}`); // false
+
+      // 불일치 연산자 (!==): 값 또는 타입이 다른지 비교
+      console.log(`x !== y : ${x !== y}`); // true
+
+      console.log(`10 > 5 : ${10 > 5}`); // true (크다)
+      console.log(`10 < 5 : ${10 < 5}`); // false (작다)
+      console.log(`10 >= 10 : ${10 >= 10}`); // true (크거나 같다)
+      console.log(`10 <= 5 : ${10 <= 5}`); // false (작거나 같다)
+
+      // 3. 논리 연산자 (Logical Operators)
+      console.log("\n--- 논리 연산자 ---");
+
+      // && (AND): 두 피연산자가 모두 true일 때 true를 반환
+      console.log(`true && true : ${true && true}`); // true
+      console.log(`true && false : ${true && false}`); // false
+      console.log(`false && false : ${false && false}`); // false
+
+      // || (OR): 두 피연산자 중 하나라도 true일 때 true를 반환
+      console.log(`true || true : ${true || true}`); // true
+      console.log(`true || false : ${true || false}`); // true
+      console.log(`false || false : ${false || false}`); // false
+
+      // ! (NOT): 피연산자의 boolean 값을 반전
+      console.log(`!true : ${!true}`); // false
+      console.log(`!false : ${!false}`); // true
+      console.log(`!0 : ${!0}`); // true (0은 falsy 값이므로)
+      console.log(`!'Hello' : ${!"Hello"}`); // false (빈 문자열이 아닌 문자열은 truthy 값이므로)
+
+      // 단축 평가 (Short-circuit evaluation)
+      // &&: 앞의 값이 false이면 뒤의 값은 평가하지 않음
+      let resultAnd = false && console.log("이 메시지는 보이지 않습니다.");
+
+      // ||: 앞의 값이 true이면 뒤의 값은 평가하지 않음
+      let resultOr = true || console.log("이 메시지도 보이지 않습니다.");
+    </script>
+  </body>
+</html>
