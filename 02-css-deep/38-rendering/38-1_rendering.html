@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>브라우저 렌더링 과정</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        line-height: 1.6;
+        padding: 20px;
+      }
+      .container {
+        max-width: 800px;
+        margin: auto;
+      }
+      .box {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      h1,
+      h2 {
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 10px;
+      }
+      pre {
+        background: #eee;
+        padding: 15px;
+        border-radius: 5px;
+        white-space: pre-wrap;
+      }
+      code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+          Courier, monospace;
+      }
+      .note {
+        background-color: #fffbe6;
+        border-left: 4px solid #ffc107;
+        padding: 15px;
+        margin: 15px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>브라우저가 화면을 그리는 과정 (렌더링)</h1>
+
+      <div class="box">
+        <h2>핵심 렌더링 경로 (Critical Rendering Path)</h2>
+        <p>
+          브라우저가 HTML, CSS, JavaScript를 화면에 픽셀로 변환하는 일련의
+          단계를 의미합니다.
+        </p>
+        <ol>
+          <li>
+            <strong>DOM 트리 구축:</strong> 브라우저가 HTML 코드를
+            파싱(해석)하여 객체 모델인 DOM(Document Object Model)을 만듭니다.
+          </li>
+          <li>
+            <strong>CSSOM 트리 구축:</strong> CSS 코드를 파싱하여 스타일 규칙
+            모델인 CSSOM(CSS Object Model)을 만듭니다.
+          </li>
+          <li>
+            <strong>렌더 트리 구축:</strong> DOM과 CSSOM을 결합하여 화면에
+            표시될 요소들로만 구성된 렌더 트리를 만듭니다. (이때
+            <code>display: none;</code> 과 같이 화면에 보이지 않는 요소는 렌더
+            트리에 포함되지 않습니다.)
+          </li>
+          <li>
+            <strong>레이아웃(Layout/Reflow):</strong> 렌더 트리의 각 노드가
+            화면의 어느 위치에 어떤 크기로 배치될지 계산합니다.
+          </li>
+          <li>
+            <strong>페인트(Paint):</strong> 레이아웃 단계에서 계산된 정보를
+            바탕으로, 각 노드를 화면의 실제 픽셀로 그립니다.
+          </li>
+          <li>
+            <strong>합성(Composite):</strong> 여러 레이어로 나뉘어 그려진 부분을
+            순서에 맞게 합쳐 최종적으로 화면에 표시합니다.
+          </li>
+        </ol>
+      </div>
+
+      <div class="box">
+        <h2>렌더링을 차단(Blocking)하는 리소스</h2>
+        <p>
+          브라우저는 렌더링 경로의 특정 단계가 완료될 때까지 다음 단계를
+          진행하지 못하는 경우가 있습니다. 이를 '렌더링 차단'이라고 합니다.
+        </p>
+
+        <h3>1. CSS는 '렌더링 차단' 리소스입니다.</h3>
+        <p>
+          브라우저는 CSSOM 트리가 모두 구축되기 전까지 렌더링을 시작하지
+          않습니다. 스타일이 적용되지 않은 화면이 잠시 보였다가 스타일이
+          적용되면서 화면이 번쩍이는 현상(FOUC)을 막기 위함입니다.
+        </p>
+        <pre><code>&lt;!-- style.css가 다운로드되고 파싱되어 CSSOM이 만들어질 때까지
+     브라우저는 아래 h1 태그를 화면에 그리지 않고 기다립니다. --&gt;
+&lt;head&gt;
+  &lt;link href="style.css" rel="stylesheet"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;안녕하세요&lt;/h1&gt;
+&lt;/body&gt;</code></pre>
+
+        <h3>2. JavaScript는 '파싱 차단' 리소스입니다.</h3>
+        <p>
+          브라우저는 HTML을 파싱하다가 <code>&lt;script&gt;</code> 태그를
+          만나면, DOM 생성을 잠시 멈추고 스크립트를 다운로드하여 실행합니다.
+          스크립트 실행이 완료된 후에야 나머지 HTML 파싱을 재개합니다.
+        </p>
+        <pre><code>&lt;!-- 1. "첫 번째 문단" 까지만 파싱하여 DOM에 추가됩니다. --&gt;
+&lt;p&gt;첫 번째 문단&lt;/p&gt;
+
+&lt;!-- 2. 브라우저는 DOM 생성을 멈추고 이 스크립트를 실행합니다. --&gt;
+&lt;script&gt;
+  alert('스크립트가 DOM 생성을 막고 있습니다!');
+&lt;/script&gt;
+
+&lt;!-- 3. 스크립트 실행이 끝나야 비로소 이 문단을 파싱합니다. --&gt;
+&lt;p&gt;두 번째 문단&lt;/p&gt;</code></pre>
+        <div class="note">
+          <strong>참고:</strong> CSSOM이 아직 생성되지 않은 상태에서
+          JavaScript가 특정 요소의 스타일을 요청하면, 브라우저는 정확한 값을
+          제공하기 위해 동기적으로 CSSOM 생성을 완료해야 하므로 렌더링 지연이 더
+          심해질 수 있습니다.
+        </div>
+      </div>
+
+      <div class="box">
+        <h2>렌더링 최적화: <code>async</code>와 <code>defer</code></h2>
+        <p>
+          스크립트로 인한 파싱 차단을 막기 위해
+          <code>&lt;script&gt;</code> 태그에 <code>async</code>나
+          <code>defer</code> 속성을 사용할 수 있습니다.
+        </p>
+
+        <h3><code>&lt;script async&gt;</code></h3>
+        <p>
+          HTML 파싱과 동시에 스크립트를 비동기적으로 다운로드합니다. 다운로드가
+          완료되면 즉시 HTML 파싱을 멈추고 스크립트를 실행합니다. 여러 개의
+          async 스크립트가 있을 경우, 먼저 다운로드된 순서대로 실행되어 실행
+          순서가 보장되지 않습니다.
+        </p>
+        <pre><code>&lt;script async src="analytics.js"&gt;&lt;/script&gt;</code></pre>
+
+        <h3><code>&lt;script defer&gt;</code> (⭐ 추천)</h3>
+        <p>
+          HTML 파싱과 동시에 스크립트를 비동기적으로 다운로드하지만, 실행은 HTML
+          파싱이 모두 끝난 후(<code>DOMContentLoaded</code> 이벤트 발생 직전)에
+          합니다. 스크립트들이 선언된 순서대로 실행되는 것이 보장됩니다.
+        </p>
+        <pre><code>&lt;script defer src="library.js"&gt;&lt;/script&gt;
+&lt;script defer src="main.js"&gt;&lt;/script&gt; &lt;!-- library.js 실행 후 실행됨 --&gt;</code></pre>
+      </div>
+
+      <div class="box">
+        <h2>최적화된 구조 예시</h2>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ko"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;최적화된 페이지&lt;/title&gt;
+
+  &lt;!-- 1. 렌더링 차단 리소스인 CSS는 항상 head 태그 상단에 배치 --&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+
+  &lt;!-- 2. DOM과 상호작용하며, 실행 순서가 중요한 스크립트는 defer 속성과 함께 배치 --&gt;
+  &lt;script defer src="main.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;h1&gt;콘텐츠&lt;/h1&gt;
+
+  &lt;!-- 3. DOM과 즉시 상호작용할 필요 없는 서드파티 스크립트 등은 async 속성 사용 가능 --&gt;
+  &lt;script async src="analytics.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+    </div>
+  </body>
+</html>
