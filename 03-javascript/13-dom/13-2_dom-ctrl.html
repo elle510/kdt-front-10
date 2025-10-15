@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM 제어</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      .highlight {
+        background-color: yellow;
+        border-left: 5px solid red;
+        padding-left: 10px;
+      }
+      .dark-theme {
+        background-color: #333;
+        color: #fff;
+      }
+      .new-item {
+        color: blue;
+        font-style: italic;
+      }
+      .appended-p {
+        background-color: #e0f7fa;
+        border: 1px solid #007bff;
+        padding: 8px;
+        margin: 4px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="main-title">DOM 제어 명령어</h1>
+    <p id="main-text">이 단락의 내용을 변경해 봅시다.</p>
+    <div id="list-container">
+      <li>기존 항목</li>
+    </div>
+
+    <hr />
+
+    <button id="event-btn">1. 이벤트 삽입 (클릭)</button><br /><br />
+    <button id="add-class-btn">2. 클래스 추가</button>
+    <button id="remove-class-btn">2. 클래스 제거</button>
+    <button id="toggle-class-btn">2. 클래스 토글</button><br /><br />
+    <button id="add-element-btn">3. 요소 추가 (appendChild)</button>
+    <button id="append-btn">3. 요소 추가 (append)</button>
+    <button id="remove-element-btn">3. 요소 제거 (remove)</button>
+    <button id="remove-child-btn">3. 요소 제거 (removeChild)</button
+    ><br /><br />
+    <button id="change-text-btn">4. 텍스트 조작</button>
+    <button id="change-html-btn">4. HTML 조작</button><br /><br />
+    <button id="change-style-btn">5. 스타일 제어</button>
+
+    <script>
+      // 제어할 주요 요소들을 변수에 할당
+      const mainTitle = document.getElementById("main-title");
+      const mainText = document.getElementById("main-text");
+      const listContainer = document.getElementById("list-container");
+
+      // 1. 이벤트 삽입: addEventListener(이벤트명, 실행할 함수)
+      document.getElementById("event-btn").addEventListener("click", () => {
+        alert("클릭 이벤트가 실행되었습니다!");
+      });
+
+      // 2. 클래스 제어: element.classList
+      document.getElementById("add-class-btn").addEventListener("click", () => {
+        mainTitle.classList.add("highlight");
+      });
+      document
+        .getElementById("remove-class-btn")
+        .addEventListener("click", () => {
+          mainTitle.classList.remove("highlight");
+        });
+      document
+        .getElementById("toggle-class-btn")
+        .addEventListener("click", () => {
+          document.body.classList.toggle("dark-theme");
+        });
+
+      // 3. 요소 제어: createElement, appendChild, append, remove, removeChild
+      document
+        .getElementById("add-element-btn")
+        .addEventListener("click", () => {
+          const newItem = document.createElement("li"); // li 요소 생성
+          newItem.textContent = "appendChild로 추가된 항목"; // 텍스트 설정
+          newItem.classList.add("new-item"); // 클래스 추가
+          listContainer.appendChild(newItem); // 부모 요소에 추가 (한 번에 하나의 노드만 가능)
+        });
+
+      document.getElementById("append-btn").addEventListener("click", () => {
+        // append()는 여러 개의 노드와 텍스트를 동시에 추가할 수 있습니다.
+        const p1 = document.createElement("p");
+        p1.textContent = "append로 추가된 첫 번째 문단";
+        p1.className = "appended-p";
+
+        const p2 = document.createElement("p");
+        p2.textContent = "append로 추가된 두 번째 문단";
+        p2.className = "appended-p";
+
+        listContainer.append(p1, p2);
+      });
+
+      document
+        .getElementById("remove-element-btn")
+        .addEventListener("click", () => {
+          // .remove(): append로 추가된 .appended-p 요소를 제거합니다.
+          const itemToRemove = listContainer.querySelector(".appended-p");
+          if (itemToRemove) {
+            itemToRemove.remove();
+          } else {
+            alert("append로 추가된 요소가 없습니다.");
+          }
+        });
+
+      document
+        .getElementById("remove-child-btn")
+        .addEventListener("click", () => {
+          // .removeChild(): appendChild로 추가된 .new-item 요소를 제거합니다.
+          const itemToRemove = listContainer.querySelector(".new-item");
+          if (itemToRemove) {
+            listContainer.removeChild(itemToRemove);
+          } else {
+            alert("appendChild로 추가된 요소가 없습니다.");
+          }
+        });
+
+      // 4. 콘텐츠 조작: textContent, innerHTML
+      document
+        .getElementById("change-text-btn")
+        .addEventListener("click", () => {
+          // textContent: 순수 텍스트만 변경 (보안에 유리)
+          mainText.textContent =
+            "textContent로 텍스트가 안전하게 변경되었습니다.";
+        });
+      document
+        .getElementById("change-html-btn")
+        .addEventListener("click", () => {
+          // innerHTML: 내부 HTML 구조를 변경 (HTML 태그가 해석됨)
+          mainText.innerHTML =
+            "<strong>innerHTML</strong>을 사용하면 <em>HTML 태그</em>를 넣을 수 있습니다.";
+        });
+
+      // 5. 스타일 제어: element.style.속성명
+      document
+        .getElementById("change-style-btn")
+        .addEventListener("click", () => {
+          mainTitle.style.color = "green";
+          mainTitle.style.fontSize = "40px";
+          mainTitle.style.transform = "rotate(-5deg)";
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM 트리에 접근하기</title>
+  </head>
+  <body>
+    <h1 id="main-title">DOM 조작</h1>
+    <div class="container">
+      <p class="content">첫 번째 단락</p>
+      <p class="content">두 번째 단락</p>
+      <ul>
+        <li class="item">항목 1</li>
+        <li class="item special">항목 2 (Special)</li>
+        <li class="item">항목 3</li>
+      </ul>
+    </div>
+
+    <script>
+      // DOM(Document Object Model): 웹 페이지의 HTML 구조를 객체로 표현한 것.
+      // JavaScript는 DOM API를 통해 이러한 객체에 접근하고 조작할 수 있습니다.
+
+      // --- 1. ID로 요소 접근하기 (가장 빠르고 일반적인 방법) ---
+      // document.getElementById('id'): 해당 ID를 가진 유일한 요소를 반환합니다.
+      console.log("--- 1. getElementById ---");
+      const mainTitle = document.getElementById("main-title");
+      console.log(mainTitle);
+      mainTitle.style.color = "#007bff"; // 요소의 스타일 변경
+
+      // --- 2. CSS 선택자를 이용해 요소 접근하기 (매우 유연하고 강력함) ---
+      // document.querySelector('selector'): 선택자와 일치하는 첫 번째 요소를 반환합니다.
+      console.log("\n--- 2. querySelector ---");
+      const firstContent = document.querySelector(".content");
+      console.log(firstContent);
+
+      // document.querySelectorAll('selector'): 선택자와 일치하는 모든 요소를 NodeList(유사 배열)로 반환합니다.
+      console.log("\n--- 3. querySelectorAll ---");
+      const allContents = document.querySelectorAll(".content");
+      console.log(allContents);
+      allContents.forEach((p) => {
+        p.style.fontWeight = "bold";
+      });
+
+      // --- 4. 태그 이름 및 클래스 이름으로 요소 접근하기 (구식 방법) ---
+      // document.getElementsByTagName('tag'): 지정된 태그를 가진 모든 요소를 HTMLCollection으로 반환합니다.
+      console.log("\n--- 4. getElementsByTagName ---");
+      const listItems = document.getElementsByTagName("li");
+      console.log(listItems);
+
+      // document.getElementsByClassName('class'): 지정된 클래스를 가진 모든 요소를 HTMLCollection으로 반환합니다.
+      console.log("\n--- 5. getElementsByClassName ---");
+      const items = document.getElementsByClassName("item");
+      console.log(items);
+      // HTMLCollection은 forEach가 없으므로, for...of 또는 Array.from()을 사용해야 합니다.
+      for (const item of items) {
+        // console.log(item);
+      }
+
+      // --- 6. 특정 요소를 기준으로 DOM 트리 순회하기 ---
+      console.log("\n--- 6. DOM 트리 순회 ---");
+      const specialItem = document.querySelector(".special");
+
+      // 부모 요소 찾기
+      console.log("Parent:", specialItem.parentNode);
+
+      // 자식 요소들 찾기
+      const ulElement = document.querySelector("ul");
+      console.log("Children:", ulElement.children); // HTMLCollection
+      console.log("First Child:", ulElement.firstElementChild);
+      console.log("Last Child:", ulElement.lastElementChild);
+
+      // 형제 요소 찾기
+      console.log("Previous Sibling:", specialItem.previousElementSibling);
+      console.log("Next Sibling:", specialItem.nextElementSibling);
+    </script>
+  </body>
+</html>

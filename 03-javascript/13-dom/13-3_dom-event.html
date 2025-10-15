@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이벤트 심화: 전파, this, target</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      .box {
+        border: 2px solid;
+        padding: 20px;
+        margin: 10px;
+        text-align: center;
+        cursor: pointer;
+      }
+      #grandparent {
+        border-color: red;
+      }
+      #parent {
+        border-color: green;
+      }
+      #child {
+        border-color: blue;
+      }
+      #log-container {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        min-height: 150px;
+        background-color: #f9f9f9;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>이벤트 전파, this, target, currentTarget</h1>
+    <p>가장 안쪽의 'Child' 박스를 클릭하고 아래 로그를 확인하세요.</p>
+
+    <div id="grandparent" class="box">
+      Grandparent
+      <div id="parent" class="box">
+        Parent
+        <div id="child" class="box">Child</div>
+      </div>
+    </div>
+
+    <button id="clear-log-btn">로그 지우기</button>
+    <h3>이벤트 로그:</h3>
+    <div id="log-container"></div>
+
+    <script>
+      const logContainer = document.getElementById("log-container");
+      document
+        .getElementById("clear-log-btn")
+        .addEventListener("click", () => (logContainer.innerHTML = ""));
+
+      function log(message) {
+        logContainer.innerHTML += message + "<br>";
+        console.log(message);
+      }
+
+      const elements = document.querySelectorAll(".box");
+
+      // --- 이벤트 핸들러 함수 ---
+      function eventHandler(event) {
+        const phase = event.eventPhase === 1 ? "캡처링" : "버블링";
+        log(`--- [${this.id}] 리스너 실행 ---`);
+        log(`1. 이벤트 단계: ${phase}`);
+        log(
+          `2. event.target: [${event.target.id}] (이벤트가 최초 발생한 요소)`
+        );
+        log(
+          `3. event.currentTarget: [${event.currentTarget.id}] (리스너가 부착된 요소)`
+        );
+        log(`4. this: [${this.id}] (핸들러 내의 this는 currentTarget과 동일)`);
+        log("--------------------");
+      }
+
+      elements.forEach((elem) => {
+        // --- 캡처링 단계의 리스너 등록 ---
+        // addEventListener의 세 번째 인자를 true로 설정하면 캡처링 단계에서 이벤트를 감지합니다.
+        // 캡처링: 이벤트가 부모 -> 자식 방향으로 전파
+        elem.addEventListener("click", eventHandler, true);
+
+        // --- 버블링 단계의 리스너 등록 ---
+        // 세 번째 인자가 없거나 false이면 버블링 단계에서 이벤트를 감지합니다. (기본값)
+        // 버블링: 이벤트가 자식 -> 부모 방향으로 전파
+        elem.addEventListener("click", eventHandler, false);
+      });
+
+      /*
+       * Child 박스 클릭 시 이벤트 전파 순서:
+       * 1. 캡처링 단계: grandparent -> parent -> child 순서로 이벤트 핸들러 실행
+       * 2. 버블링 단계: child -> parent -> grandparent 순서로 이벤트 핸들러 실행
+       *
+       * event.target은 클릭이 시작된 요소(child)로 항상 동일합니다.
+       * event.currentTarget과 this는 이벤트 리스너가 부착된 요소로, 전파 단계에 따라 변합니다.
+       */
+    </script>
+  </body>
+</html>
