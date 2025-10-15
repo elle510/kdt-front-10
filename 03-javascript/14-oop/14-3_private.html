@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>클래스 Private 필드</title>
+  </head>
+  <body>
+    <h1>클래스 Private 필드 (#)</h1>
+    <p>브라우저의 개발자 도구(F12) 콘솔을 열어 결과를 확인하세요.</p>
+
+    <script>
+      // ----------------------------------------
+      // 1. Private 필드가 없는 클래스 (비교용)
+      // ----------------------------------------
+      class PublicCounter {
+        constructor() {
+          this.count = 0; // Public 필드
+        }
+
+        increment() {
+          this.count++;
+        }
+
+        getCount() {
+          return this.count;
+        }
+      }
+
+      const publicCounter = new PublicCounter();
+      publicCounter.increment();
+      console.log("(Public) Counter:", publicCounter.getCount()); // 1
+
+      // 외부에서 필드에 직접 접근하고 수정할 수 있습니다.
+      // 이는 의도치 않은 버그를 유발할 수 있습니다. (캡슐화 위반)
+      publicCounter.count = 99;
+      console.log("(Public) 외부에서 강제 수정 후:", publicCounter.getCount()); // 99
+
+      console.log("----------------------------------------");
+
+      // ----------------------------------------
+      // 2. Private 필드 (#) 를 사용한 클래스
+      // ----------------------------------------
+      // 필드 이름 앞에 #을 붙이면 해당 필드는 클래스 외부에서 접근할 수 없는 private 필드가 됩니다.
+      class PrivateCounter {
+        // #count는 Private 필드 선언입니다.
+        #count = 0;
+
+        increment() {
+          // 클래스 내부에서는 'this.#필드명'으로 접근합니다.
+          this.#count++;
+        }
+
+        // 외부에서 private 필드의 값을 안전하게 읽을 수 있도록 public 메서드(getter)를 제공합니다.
+        getCount() {
+          return this.#count;
+        }
+      }
+
+      const privateCounter = new PrivateCounter();
+      privateCounter.increment();
+      privateCounter.increment();
+      console.log("(Private) Counter:", privateCounter.getCount()); // 2
+
+      // 외부에서 private 필드에 직접 접근하려고 하면 에러가 발생합니다.
+      // console.log(privateCounter.#count); // SyntaxError: Private field '#count' must be declared in an enclosing class
+
+      // 외부에서 private 필드를 수정하려고 해도, 새로운 public 필드가 생성될 뿐,
+      // 기존 private 필드는 영향을 받지 않습니다.
+      privateCounter["#count"] = 99; // private 필드를 수정하는 것이 아님!
+      console.log(
+        "(Private) 이상한 방법으로 수정 시도 후:",
+        privateCounter.getCount()
+      ); // 여전히 2
+      console.log("privateCounter 객체 내부 모습:", privateCounter); // {#count: 2, #count: 99} 와 같이 보임
+
+      console.log("----------------------------------------");
+
+      // ----------------------------------------
+      // 3. (참고) 관례적인 Private 필드 (_)
+      // ----------------------------------------
+      // # 문법이 나오기 전에는, 개발자들 사이에서 밑줄(_)로 시작하는 필드는
+      // "외부에서 건드리지 마세요"라는 약속(관례)으로 사용했습니다.
+      // 하지만 이는 실제 강제성은 없습니다.
+      class ConventionalCounter {
+        constructor() {
+          this._count = 0; // "이건 private입니다" 라는 의미의 관례적 표현
+        }
+
+        increment() {
+          this._count++;
+        }
+
+        getCount() {
+          return this._count;
+        }
+      }
+
+      const conventionalCounter = new ConventionalCounter();
+      conventionalCounter.increment();
+      console.log("(관례적) Counter:", conventionalCounter.getCount()); // 1
+
+      // 관례일 뿐, 실제로는 외부에서 접근 및 수정이 가능합니다.
+      conventionalCounter._count = 123;
+      console.log("(관례적) 외부에서 수정 후:", conventionalCounter.getCount()); // 123
+    </script>
+  </body>
+</html>

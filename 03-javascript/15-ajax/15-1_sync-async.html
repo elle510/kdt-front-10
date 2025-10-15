@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>동기와 비동기 (Sync & Async)</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        line-height: 1.6;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 5px;
+      }
+      pre {
+        background-color: #f4f4f4;
+        padding: 10px;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>동기와 비동기 (Synchronous & Asynchronous)</h1>
+    <p>브라우저의 개발자 도구(F12) 콘솔을 열어 코드 실행 순서를 확인하세요.</p>
+
+    <div class="container">
+      <h2>동기(Synchronous) 처리</h2>
+      <p>
+        코드가 위에서 아래로 순서대로 실행됩니다. 하나의 작업이 끝나야 다음
+        작업이 시작됩니다. (Blocking)
+      </p>
+      <button onclick="runSync()">동기 코드 실행</button>
+      <pre id="sync-output"></pre>
+    </div>
+
+    <div class="container">
+      <h2>비동기(Asynchronous) 처리</h2>
+      <p>
+        작업이 완료될 때까지 기다리지 않고 바로 다음 코드를 실행합니다. 시간이
+        걸리는 작업(예: 타이머, 네트워크 요청)은 백그라운드에서 처리되고,
+        완료되면 지정된 콜백 함수가 실행됩니다. (Non-blocking)
+      </p>
+      <button onclick="runAsync()">비동기 코드 실행</button>
+      <pre id="async-output"></pre>
+    </div>
+
+    <script>
+      // --- 1. 동기 코드 예제 ---
+      function runSync() {
+        const output = document.getElementById("sync-output");
+        let log = [];
+
+        log.push("1. 동기 작업 시작");
+        console.log("1. 동기 작업 시작");
+
+        // 시간이 걸리는 작업 (Blocking)
+        // 이 함수가 실행되는 동안 브라우저는 다른 작업을 하지 못하고 멈칫할 수 있습니다.
+        function heavyTask() {
+          let sum = 0;
+          for (let i = 0; i < 1000000000; i++) {
+            sum += i;
+          }
+          return sum;
+        }
+        heavyTask();
+        log.push("2. 무거운 작업 완료");
+        console.log("2. 무거운 작업 완료");
+
+        log.push("3. 동기 작업 종료");
+        console.log("3. 동기 작업 종료");
+
+        output.textContent = log.join("\n");
+      }
+
+      // --- 2. 비동기 코드 예제 ---
+      function runAsync() {
+        const output = document.getElementById("async-output");
+        let log = [];
+
+        log.push("1. 비동기 작업 시작");
+        console.log("1. 비동기 작업 시작");
+
+        // setTimeout은 대표적인 비동기 함수입니다.
+        // 2초를 기다렸다가 콜백 함수를 실행하라고 "요청"만 하고,
+        // 코드는 바로 다음 줄로 넘어갑니다.
+        setTimeout(function () {
+          const message = "3. (2초 후) 비동기 콜백 실행 완료!";
+          log.push(message);
+          console.log(message);
+          // 비동기 작업이 완료된 후에야 이 부분이 실행되므로, 로그를 여기서 다시 업데이트합니다.
+          output.textContent = log.join("\n");
+        }, 2000); // 2000ms = 2초
+
+        log.push("2. 비동기 함수 호출 직후 (콜백을 기다리지 않음)");
+        console.log("2. 비동기 함수 호출 직후 (콜백을 기다리지 않음)");
+
+        output.textContent = log.join("\n");
+      }
+
+      /*
+       * [비동기 코드 실행 순서 정리]
+       * 1. `runAsync()` 함수가 호출됩니다.
+       * 2. "1. 비동기 작업 시작"이 콘솔에 찍힙니다.
+       * 3. `setTimeout` 함수가 호출됩니다. 브라우저는 타이머(2초)를 설정하고, 콜백 함수를 "나중에 실행할 작업 목록(Task Queue)"에 넘깁니다.
+       * 4. `setTimeout`은 기다리지 않고 즉시 종료되고, 다음 코드인 "2. 비동기 함수 호출 직후..."가 콘솔에 찍힙니다.
+       * 5. `runAsync()` 함수의 모든 동기 코드가 실행 완료됩니다.
+       * 6. (2초 후) 브라우저의 타이머가 완료되면, `setTimeout`의 콜백 함수가 Task Queue에서 Call Stack으로 이동하여 실행됩니다.
+       * 7. "3. (2초 후) 비동기 콜백 실행 완료!"가 콘솔에 찍힙니다.
+       */
+    </script>
+  </body>
+</html>

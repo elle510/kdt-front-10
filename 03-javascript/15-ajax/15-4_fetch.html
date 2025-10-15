@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fetch API 예제</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 20px;
+      }
+      pre {
+        background-color: #f4f4f4;
+        padding: 10px;
+        border-radius: 5px;
+        min-height: 50px;
+      }
+      #status {
+        color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Fetch API 사용법</h1>
+    <p>브라우저의 개발자 도구(F12) 콘솔을 열어 결과를 확인하세요.</p>
+
+    <div class="container">
+      <h2>GET 요청 보내기</h2>
+      <button id="getBtn">게시물(id:1) 가져오기</button>
+      <button id="errBtn">잘못된 주소로 요청하기 (404)</button>
+      <pre id="getResult"></pre>
+    </div>
+
+    <div class="container">
+      <h2>POST 요청 보내기</h2>
+      <button id="postBtn">새 게시물 등록하기</button>
+      <pre id="postResult"></pre>
+    </div>
+
+    <script>
+      const getBtn = document.getElementById("getBtn");
+      const errBtn = document.getElementById("errBtn");
+      const postBtn = document.getElementById("postBtn");
+      const getResult = document.getElementById("getResult");
+      const postResult = document.getElementById("postResult");
+
+      const baseUrl = "https://jsonplaceholder.typicode.com";
+
+      // --- 1. GET 요청 예제 ---
+      getBtn.addEventListener("click", () => {
+        getResult.textContent = "로딩 중...";
+
+        // fetch는 URL을 인자로 받아 Promise를 반환합니다.
+        fetch(`${baseUrl}/posts/1`)
+          .then((response) => {
+            // fetch는 서버의 응답(404, 500 등)이 있어도 네트워크 에러가 아니면 reject하지 않습니다.
+            // 따라서 response.ok (status가 200-299 범위인지)를 확인하는 과정이 매우 중요합니다.
+            if (!response.ok) {
+              // 응답이 정상이 아닐 경우, 에러를 발생시켜 catch 블록으로 넘깁니다.
+              throw new Error(`HTTP 에러! status: ${response.status}`);
+            }
+            // response.json()은 응답 본문을 JSON으로 파싱하는 Promise를 반환합니다.
+            return response.json();
+          })
+          .then((data) => {
+            // response.json()의 Promise가 이행되면, 파싱된 데이터를 받습니다.
+            console.log("GET 성공:", data);
+            getResult.textContent = JSON.stringify(data, null, 2);
+          })
+          .catch((error) => {
+            // 네트워크 에러 또는 위에서 throw한 에러를 여기서 잡습니다.
+            console.error("GET 요청 실패:", error);
+            getResult.textContent = `에러: ${error.message}`;
+          });
+      });
+
+      // --- 2. 에러 처리 예제 (404) ---
+      errBtn.addEventListener("click", () => {
+        getResult.textContent = "로딩 중...";
+        fetch(`${baseUrl}/posts/9999`) // 존재하지 않는 리소스
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                `HTTP 에러! status: ${response.status} ${response.statusText}`
+              );
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("성공:", data);
+            getResult.textContent = JSON.stringify(data, null, 2);
+          })
+          .catch((error) => {
+            console.error("요청 실패:", error);
+            getResult.textContent = `에러: ${error.message}`;
+          });
+      });
+
+      // --- 3. POST 요청 예제 ---
+      postBtn.addEventListener("click", () => {
+        postResult.textContent = "요청 보내는 중...";
+
+        const newPost = {
+          title: "foo",
+          body: "bar",
+          userId: 1,
+        };
+
+        // fetch의 두 번째 인자로 옵션 객체를 전달하여 POST 요청을 설정합니다.
+        fetch(`${baseUrl}/posts`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json", // 보내는 데이터의 타입을 명시
+          },
+          body: JSON.stringify(newPost), // JavaScript 객체를 JSON 문자열로 변환하여 body에 담음
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP 에러! status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("POST 성공:", data);
+            postResult.textContent = `서버로부터 받은 응답:\n${JSON.stringify(
+              data,
+              null,
+              2
+            )}`;
+          })
+          .catch((error) => {
+            console.error("POST 요청 실패:", error);
+            postResult.textContent = `에러: ${error.message}`;
+          });
+      });
+    </script>
+  </body>
+</html>

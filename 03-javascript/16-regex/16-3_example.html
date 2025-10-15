@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>정규식 실용 예제</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        line-height: 1.6;
+      }
+      .example {
+        margin-bottom: 20px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+      }
+      pre {
+        background-color: #f4f4f4;
+        padding: 10px;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>정규식 실용 예제</h1>
+    <p>브라우저의 개발자 도구(F12) 콘솔을 열어 결과를 확인하세요.</p>
+
+    <div class="example">
+      <h2>1. 이메일 주소 검증 및 추출</h2>
+      <pre id="email-output"></pre>
+    </div>
+
+    <div class="example">
+      <h2>2. 전화번호 검증 및 자동 하이픈 추가</h2>
+      <pre id="phone-output"></pre>
+    </div>
+
+    <div class="example">
+      <h2>3. HTML 태그 제거</h2>
+      <pre id="html-output"></pre>
+    </div>
+
+    <script>
+      // --- 1. 이메일 예제 ---
+      (function () {
+        const output = document.getElementById("email-output");
+        const log = [];
+
+        // RFC 5322 표준을 완벽하게 만족하는 정규식은 매우 복잡합니다.
+        // 아래는 일반적인 이메일 형식을 검증하는 실용적인 수준의 정규식입니다.
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        function isValidEmail(email) {
+          return emailRegex.test(email);
+        }
+
+        const emails = [
+          "test@example.com",
+          "test.kim@example.co.kr",
+          "test_123@my-domain.org",
+          "test@.com",
+          "test@com",
+          "test@example",
+        ];
+        emails.forEach((email) => {
+          log.push(`'${email}' 유효성 검사: ${isValidEmail(email)}`);
+        });
+
+        log.push("\n--------------------\n");
+
+        const textWithEmails =
+          "연락처: abc@test.com, 문의: help@support.net 입니다.";
+        const extractedEmails = textWithEmails.match(
+          /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g
+        );
+        log.push(`추출된 이메일: ${extractedEmails.join(", ")}`);
+
+        output.textContent = log.join("\n");
+      })();
+
+      // --- 2. 전화번호 예제 ---
+      (function () {
+        const output = document.getElementById("phone-output");
+        const log = [];
+
+        const phoneRegex = /^\d{3}-\d{4}-\d{4}$/;
+
+        function isValidPhoneNumber(phone) {
+          return phoneRegex.test(phone);
+        }
+
+        const phones = [
+          "010-1234-5678",
+          "011-987-6543",
+          "010-123-45678",
+          "01012345678",
+        ];
+        phones.forEach((phone) => {
+          log.push(`'${phone}' 유효성 검사: ${isValidPhoneNumber(phone)}`);
+        });
+
+        log.push("\n--- 자동 하이픈 추가 ---\n");
+
+        function formatPhoneNumber(phone) {
+          const digitsOnly = phone.replace(/\D/g, ""); // 숫자가 아닌 문자 모두 제거
+          // 캡처 그룹($1, $2, $3)을 사용하여 하이픈을 추가합니다.
+          return digitsOnly.replace(/^(\d{3})(\d{4})(\d{4})$/, "$1-$2-$3");
+        }
+
+        const rawPhone = "01012345678";
+        log.push(`원본: ${rawPhone} -> 변환: ${formatPhoneNumber(rawPhone)}`);
+        const rawPhone2 = "010-11112222";
+        log.push(`원본: ${rawPhone2} -> 변환: ${formatPhoneNumber(rawPhone2)}`);
+
+        output.textContent = log.join("\n");
+      })();
+
+      // --- 3. HTML 태그 제거 예제 ---
+      (function () {
+        const output = document.getElementById("html-output");
+        const log = [];
+
+        // <로 시작하고 >로 끝나는 모든 문자열을 찾습니다.
+        // [^>]* 는 >가 아닌 모든 문자가 0회 이상 반복되는 것을 의미합니다. (탐욕적 수량자)
+        const htmlTagRegex = /<[^>]*>/g;
+
+        function stripHtmlTags(html) {
+          // 기본적으로는 첫 번째 일치하는 문자(열)만 바꿔주지만, 정규식의 `g` 플래그를 사용하면 모든 문자를 바꿀 수 있습니다.
+          return html.replace(htmlTagRegex, "");
+        }
+
+        const htmlString =
+          '<p>안녕하세요! <strong>정규표현식</strong> 예제입니다. <a href="#">링크</a></p>';
+        const textOnly = stripHtmlTags(htmlString);
+
+        log.push("원본 HTML:");
+        log.push(htmlString);
+        log.push("\n태그 제거 후:");
+        log.push(textOnly);
+
+        output.textContent = log.join("\n");
+      })();
+    </script>
+  </body>
+</html>

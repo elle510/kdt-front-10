@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이벤트 위임 (Event Delegation)</title>
+    <style>
+      #container {
+        border: 2px solid #333;
+        padding: 10px;
+      }
+      .item {
+        padding: 10px;
+        margin: 5px;
+        background-color: #f4f4f4;
+        border: 1px solid #ddd;
+        cursor: pointer;
+      }
+      .item:hover {
+        background-color: #e9e9e9;
+      }
+      #log {
+        margin-top: 10px;
+        font-weight: bold;
+        color: #007bff;
+      }
+      button {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>이벤트 위임 예제</h1>
+    <p>
+      컨테이너(div)에만 이벤트 리스너가 있습니다. 아이템(div)을 클릭해 보세요.
+    </p>
+
+    <div id="container">
+      <div class="item">아이템 1</div>
+      <div class="item">아이템 2</div>
+      <div class="item">아이템 3</div>
+    </div>
+
+    <button id="addItemBtn">새 아이템 추가</button>
+
+    <p id="log">클릭된 아이템이 여기에 표시됩니다.</p>
+
+    <script>
+      const container = document.getElementById("container");
+      const addItemBtn = document.getElementById("addItemBtn");
+      const log = document.getElementById("log");
+      let itemCount = 3;
+
+      // 부모 요소인 #container에만 이벤트 리스너를 추가합니다.
+      container.addEventListener("click", function (event) {
+        // event.target은 실제로 클릭된 요소를 가리킵니다.
+        // event.currentTarget은 이벤트 리스너가 바인딩된 요소(여기서는 #container)를 가리킵니다.
+
+        // 클릭된 요소가 'item' 클래스를 가지고 있는지 확인합니다.
+        if (event.target.classList.contains("item")) {
+          // 'item' 클래스를 가진 자식 요소가 클릭되었을 때만 아래 코드를 실행합니다.
+          const itemText = event.target.textContent;
+          const message = `"${itemText}" 클릭됨! (이벤트는 container가 처리)`;
+
+          console.log(message);
+          log.textContent = message;
+        }
+      });
+
+      // 새 아이템을 추가하는 버튼의 이벤트 리스너
+      addItemBtn.addEventListener("click", function () {
+        itemCount++;
+        const newItem = document.createElement("div");
+        newItem.classList.add("item");
+        newItem.textContent = `아이템 ${itemCount}`;
+        container.appendChild(newItem);
+        console.log(`"아이템 ${itemCount}"이(가) 동적으로 추가되었습니다.`);
+      });
+
+      /*
+       * 이벤트 위임의 장점:
+       * 1. 효율성: 수많은 자식 요소 각각에 이벤트 리스너를 다는 대신, 부모 요소에 하나만 달아 메모리 사용이 줄어듭니다.
+       * 2. 동적 요소 처리: 아이템이 동적으로 추가되거나 삭제되어도 이벤트 리스너를 다시 달거나 제거할 필요가 없습니다.
+       *    부모에 있는 리스너가 새로운 자식 요소의 이벤트도 자동으로 처리해줍니다.
+       */
+    </script>
+  </body>
+</html>

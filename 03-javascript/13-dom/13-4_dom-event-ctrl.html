@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Control</title>
+    <style>
+      body * {
+        border: 2px solid black;
+        padding: 20px;
+        margin: 20px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Event Propagation and Default Behavior</h1>
+
+    <h2>event.stopPropagation()</h2>
+    <p>
+      Clicking the "Child" div will only trigger its own event, not the Parent
+      or Grandparent's, because of stopPropagation.
+    </p>
+    <div id="grandparent">
+      Grandparent
+      <div id="parent">
+        Parent
+        <div id="child">Child</div>
+      </div>
+    </div>
+
+    <hr />
+
+    <h2>event.preventDefault()</h2>
+    <p>
+      Clicking the link below will not navigate to Google because
+      preventDefault() is called.
+    </p>
+    <a href="https://www.google.com">Go to Google</a>
+
+    <script>
+      // event.stopPropagation() Example
+      const grandparent = document.getElementById("grandparent");
+      const parent = document.getElementById("parent");
+      const child = document.getElementById("child");
+
+      grandparent.addEventListener("click", (event) => {
+        console.log("Grandparent clicked!");
+      });
+
+      parent.addEventListener("click", (event) => {
+        console.log("Parent clicked!");
+      });
+
+      child.addEventListener("click", (event) => {
+        // 이벤트가 DOM 트리 상에서 부모 요소로 퍼져나가는 현상(이벤트 버블링)을 중단시킵니다.
+        // By calling stopPropagation, we prevent the event from bubbling up
+        // to the parent and grandparent elements.
+        event.stopPropagation();
+        console.log("Child clicked! Propagation stopped.");
+      });
+
+      // event.preventDefault() Example
+      const link = document.querySelector("a");
+
+      link.addEventListener("click", (event) => {
+        // 브라우저의 기본 동작을 취소합니다.
+        // preventDefault stops the browser's default action for this event.
+        // For a link, the default action is to navigate to the href URL.
+        event.preventDefault();
+        console.log("Link clicked! Default navigation prevented.");
+        alert("Navigation to Google was prevented by event.preventDefault()!");
+      });
+    </script>
+  </body>
+</html>

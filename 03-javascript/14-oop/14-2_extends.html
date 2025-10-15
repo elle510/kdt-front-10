@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>클래스 상속 (extends)</title>
+  </head>
+  <body>
+    <h1>클래스 상속 (extends & super)</h1>
+    <p>브라우저의 개발자 도구(F12) 콘솔을 열어 결과를 확인하세요.</p>
+
+    <script>
+      // ----------------------------------------
+      // 1. 부모 클래스 (Base Class)
+      // ----------------------------------------
+      class Animal {
+        constructor(name) {
+          this.name = name;
+          this.speed = 0;
+        }
+
+        run(speed) {
+          this.speed = speed;
+          console.log(`${this.name}은(는) 시속 ${this.speed}km로 달립니다.`);
+        }
+
+        stop() {
+          this.speed = 0;
+          console.log(`${this.name}이(가) 멈췄습니다.`);
+        }
+
+        speak() {
+          console.log(`${this.name}이(가) 소리를 냅니다.`);
+        }
+      }
+
+      const genericAnimal = new Animal("동물");
+      genericAnimal.run(5);
+      genericAnimal.speak();
+
+      console.log("----------------------------------------");
+
+      // ----------------------------------------
+      // 2. 자식 클래스 (Derived Class)
+      // `extends` 키워드를 사용하여 Animal 클래스를 상속받습니다.
+      // ----------------------------------------
+      class Dog extends Animal {
+        // 자식 클래스에서 constructor를 정의할 경우, 반드시 super()를 먼저 호출해야 합니다.
+        constructor(name, breed) {
+          // super()는 부모 클래스의 constructor를 호출합니다.
+          // 부모 클래스가 필요로 하는 `name` 인자를 전달합니다.
+          super(name);
+
+          // 자식 클래스만의 속성을 추가합니다.
+          this.breed = breed;
+        }
+
+        // 메서드 오버라이딩 (Method Overriding)
+        // 부모 클래스의 `speak` 메서드를 자식 클래스에 맞게 재정의합니다.
+        speak() {
+          console.log(`${this.name}이(가) 멍멍! 짖습니다.`);
+        }
+
+        // 자식 클래스만의 새로운 메서드를 추가합니다.
+        wagTail() {
+          console.log(`${this.name}이(가) 꼬리를 흔듭니다.`);
+        }
+
+        // super 키워드를 사용하여 부모 메서드를 호출할 수도 있습니다.
+        speakLikeParent() {
+          super.speak();
+        }
+      }
+
+      // Dog 클래스의 인스턴스 생성
+      const myDog = new Dog("뽀삐", "진돗개");
+
+      // 부모 클래스로부터 상속받은 메서드 호출
+      myDog.run(20);
+      myDog.stop();
+
+      // 자식 클래스에서 오버라이딩한 메서드 호출
+      myDog.speak();
+
+      // 자식 클래스 고유의 메서드 호출
+      myDog.wagTail();
+
+      // super를 통해 부모 메서드 호출
+      myDog.speakLikeParent();
+
+      console.log(myDog); // { name: '뽀삐', speed: 0, breed: '진돗개' }
+
+      // `instanceof` 연산자로 상속 관계 확인
+      console.log("myDog는 Dog의 인스턴스인가?", myDog instanceof Dog); // true
+      console.log("myDog는 Animal의 인스턴스인가?", myDog instanceof Animal); // true
+    </script>
+  </body>
+</html>

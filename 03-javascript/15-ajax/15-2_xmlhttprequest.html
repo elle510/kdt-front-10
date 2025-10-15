@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XMLHttpRequest 예제</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      #result {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-top: 10px;
+        background-color: #f9f9f9;
+        min-height: 50px;
+      }
+      #status {
+        color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>XMLHttpRequest (XHR) 로 데이터 가져오기</h1>
+    <p>
+      버튼을 누르면 JSONPlaceholder API를 통해 게시물 데이터를 비동기적으로
+      가져옵니다.
+    </p>
+
+    <button id="loadBtn">데이터 불러오기</button>
+
+    <div id="status"></div>
+    <pre id="result"></pre>
+
+    <script>
+      const loadBtn = document.getElementById("loadBtn");
+      const resultDiv = document.getElementById("result");
+      const statusDiv = document.getElementById("status");
+
+      loadBtn.addEventListener("click", function () {
+        // 1. XMLHttpRequest 객체 생성
+        const xhr = new XMLHttpRequest();
+
+        // API 주소
+        const url = "https://jsonplaceholder.typicode.com/posts/1";
+
+        // 2. 요청을 초기화합니다.
+        // xhr.open(HTTP메서드, URL, 비동기여부(default:true));
+        xhr.open("GET", url, true);
+
+        // 3. 요청 상태가 변경될 때마다 호출될 이벤트 핸들러를 설정합니다.
+        // (onload, onerror, onprogress 등을 사용하는 것이 더 최신 방식입니다.)
+        xhr.onload = function () {
+          // 요청이 성공적으로 완료되었는지 확인 (status 200: OK)
+          if (xhr.status >= 200 && xhr.status < 300) {
+            // 성공적인 응답 (2xx) 처리
+            statusDiv.textContent = "데이터 로딩 성공!";
+
+            // 서버로부터 받은 응답 텍스트 (JSON 형식의 문자열)
+            const responseText = xhr.responseText;
+
+            // JSON 문자열을 JavaScript 객체로 파싱
+            const post = JSON.parse(responseText);
+
+            // 결과를 예쁘게 포맷팅하여 화면에 표시
+            resultDiv.textContent = JSON.stringify(post, null, 2);
+          } else {
+            // 서버에서 에러 응답이 온 경우 (404, 500 등)
+            statusDiv.textContent = `에러 발생: ${xhr.status} ${xhr.statusText}`;
+            resultDiv.textContent = "";
+          }
+        };
+
+        // 요청 중 네트워크 에러가 발생했을 때 호출될 이벤트 핸들러
+        xhr.onerror = function () {
+          statusDiv.textContent = "네트워크 에러가 발생했습니다.";
+          resultDiv.textContent = "";
+        };
+
+        // 로딩 중에 표시할 이벤트 핸들러
+        xhr.onprogress = function () {
+          statusDiv.textContent = "데이터 로딩 중...";
+        };
+
+        // 4. 서버로 요청을 전송합니다.
+        // GET 요청의 경우 보통 본문(body)이 없으므로 null이나 비워둡니다.
+        xhr.send();
+
+        statusDiv.textContent = "요청을 보냈습니다...";
+        resultDiv.textContent = "";
+      });
+
+      /*
+       * XMLHttpRequest의 주요 속성과 이벤트
+       *
+       * - xhr.readyState: 요청의 현재 상태를 나타내는 숫자
+       *   - 0 (UNSENT): 객체는 생성되었지만, open()은 아직 호출되지 않음.
+       *   - 1 (OPENED): open()이 호출됨.
+       *   - 2 (HEADERS_RECEIVED): send()가 호출되었고, 헤더와 상태 코드를 받을 수 있음.
+       *   - 3 (LOADING): 응답을 받는 중. responseText에 부분적인 데이터가 들어있음.
+       *   - 4 (DONE): 요청 작업이 완료됨.
+       *
+       * - xhr.status: HTTP 상태 코드 (예: 200, 404, 500)
+       * - xhr.statusText: HTTP 상태 메시지 (예: "OK", "Not Found")
+       * - xhr.responseText: 서버 응답을 텍스트 문자열로 반환
+       *
+       * - onload: 요청이 성공적으로 완료되었을 때 발생하는 이벤트
+       * - onerror: 요청 중 에러가 발생했을 때 (예: 네트워크 문제)
+       * - onprogress: 데이터 수신 중에 주기적으로 발생
+       */
+      /* 예전 방식: readyState 변화를 감지하는 이벤트 핸들러
+      xhr.onreadystatechange = function () {
+        // readyState가 4(DONE)가 아니면 아직 로딩 중이므로 아무것도 하지 않음
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          // readyState가 4일 때, HTTP 상태 코드를 확인
+          if (xhr.status === 200) {
+            // 성공
+            console.log("성공:", JSON.parse(xhr.responseText));
+          } else {
+            // 서버 에러 (404, 500 등)
+            console.error("서버 에러:", xhr.status);
+          }
+        }
+      };
+      */
+    </script>
+  </body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript 생성자 (Constructor)</title>
+  </head>
+  <body>
+    <h1>JavaScript 생성자 (Constructor)</h1>
+    <p>브라우저의 개발자 도구(F12) 콘솔을 열어 결과를 확인하세요.</p>
+
+    <script>
+      // 객체 리터럴 방식 (비교용)
+      // 비슷한 객체를 여러 개 만들어야 할 때 비효율적입니다.
+      const user1 = {
+        name: "Alice",
+        age: 30,
+        greet: function () {
+          console.log(`(객체 리터럴) 안녕하세요, 저는 ${this.name}입니다.`);
+        },
+      };
+      const user2 = {
+        name: "Bob",
+        age: 25,
+        greet: function () {
+          console.log(`(객체 리터럴) 안녕하세요, 저는 ${this.name}입니다.`);
+        },
+      };
+      user1.greet();
+      user2.greet();
+
+      console.log("----------------------------------------");
+
+      // ----------------------------------------
+      // 1. ES5: 생성자 함수 (Constructor Function)
+      // ----------------------------------------
+      // - 함수 이름의 첫 글자는 대문자로 작성하는 것이 관례입니다.
+      // - 'new' 키워드와 함께 호출되어 새로운 객체를 생성하고 초기화합니다.
+      function Person(name, age) {
+        // 1. (암묵적으로) 새로운 빈 객체가 생성되고 'this'에 바인딩됩니다.
+
+        // 2. 'this'를 사용하여 속성(property)을 추가합니다.
+        this.name = name;
+        this.age = age;
+
+        // 3. 메서드(method)를 프로토타입(prototype)에 추가하는 것이 좋습니다.
+        //    이렇게 하면 모든 인스턴스가 하나의 메서드를 공유하여 메모리를 절약할 수 있습니다.
+      }
+
+      // 프로토타입에 메서드 추가
+      Person.prototype.greet = function () {
+        console.log(
+          `(ES5 생성자) 안녕하세요, 저는 ${this.name}이고 ${this.age}살입니다.`
+        );
+      };
+
+      // 'new' 키워드를 사용하여 인스턴스(instance) 생성
+      const person1 = new Person("Charlie", 35);
+      const person2 = new Person("Dana", 28);
+
+      person1.greet();
+      person2.greet();
+
+      console.log("person1:", person1);
+      console.log("person2:", person2);
+      console.log(
+        "person1과 person2의 greet 메서드는 동일한가?",
+        person1.greet === person2.greet
+      ); // true
+
+      console.log("----------------------------------------");
+
+      // ----------------------------------------
+      // 2. ES6: 클래스 (Class)
+      // ----------------------------------------
+      // - ES5 생성자 함수를 더 명확하고 편리하게 사용할 수 있는 "문법적 설탕(syntactic sugar)"입니다.
+      // - 내부적으로는 프로토타입 기반으로 동작합니다.
+      class Car {
+        // constructor는 클래스의 인스턴스가 생성될 때 호출되는 특별한 메서드입니다.
+        constructor(brand, year) {
+          console.log(`'${brand}' Car 인스턴스가 생성되었습니다.`);
+          this.brand = brand;
+          this.year = year;
+        }
+
+        // 클래스 내부에 메서드를 바로 정의할 수 있습니다.
+        // 이 메서드들은 자동으로 프로토타입에 추가됩니다.
+        displayInfo() {
+          console.log(
+            `(ES6 클래스) 이 차는 ${this.year}년식 ${this.brand}입니다.`
+          );
+        }
+      }
+
+      // 'new' 키워드를 사용하여 인스턴스 생성
+      const myCar = new Car("Hyundai", 2023);
+      const yourCar = new Car("Kia", 2024);
+
+      myCar.displayInfo();
+      yourCar.displayInfo();
+
+      console.log("myCar:", myCar);
+      console.log("yourCar:", yourCar);
+      console.log(
+        "myCar와 yourCar의 displayInfo 메서드는 동일한가?",
+        myCar.displayInfo === yourCar.displayInfo
+      ); // true
+    </script>
+  </body>
+</html>

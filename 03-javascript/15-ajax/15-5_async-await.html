@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Async/Await 와 Fetch</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 20px;
+      }
+      pre {
+        background-color: #f4f4f4;
+        padding: 10px;
+        border-radius: 5px;
+        min-height: 50px;
+      }
+      #status {
+        color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Async/Await 로 Fetch API 사용하기</h1>
+    <p>
+      Promise의 .then() 체이닝을 async/await를 사용하여 동기적인 코드처럼 개선한
+      예제입니다.
+    </p>
+
+    <div class="container">
+      <h2>GET 요청 보내기</h2>
+      <button id="getBtn">게시물(id:1) 가져오기</button>
+      <button id="errBtn">잘못된 주소로 요청하기 (404)</button>
+      <pre id="getResult"></pre>
+    </div>
+
+    <div class="container">
+      <h2>POST 요청 보내기</h2>
+      <button id="postBtn">새 게시물 등록하기</button>
+      <pre id="postResult"></pre>
+    </div>
+
+    <script>
+      const getBtn = document.getElementById("getBtn");
+      const errBtn = document.getElementById("errBtn");
+      const postBtn = document.getElementById("postBtn");
+      const getResult = document.getElementById("getResult");
+      const postResult = document.getElementById("postResult");
+
+      const baseUrl = "https://jsonplaceholder.typicode.com";
+
+      /**
+       * async/await는 Promise를 더 쉽게 다룰 수 있게 해주는 문법적 설탕(Syntactic Sugar)입니다.
+       * - async 함수는 항상 Promise를 반환합니다.
+       * - await 키워드는 Promise가 처리될 때까지(settled) 함수의 실행을 일시 중지합니다.
+       * - 에러 처리는 try...catch 블록을 사용합니다.
+       */
+
+      // --- 1. GET 요청 예제 (async/await) ---
+      getBtn.addEventListener("click", async () => {
+        // 이벤트 핸들러를 async 함수로 선언
+        getResult.textContent = "로딩 중...";
+        try {
+          // await: fetch Promise가 완료될 때까지 기다린 후 결과를 response에 할당
+          const response = await fetch(`${baseUrl}/posts/1`);
+
+          if (!response.ok) {
+            throw new Error(`HTTP 에러! status: ${response.status}`);
+          }
+
+          // await: response.json() Promise가 완료될 때까지 기다린 후 결과를 data에 할당
+          const data = await response.json();
+
+          console.log("GET 성공:", data);
+          getResult.textContent = JSON.stringify(data, null, 2);
+        } catch (error) {
+          // try 블록 안에서 발생한 모든 에러(네트워크 에러, throw된 에러)를 여기서 잡습니다.
+          console.error("GET 요청 실패:", error);
+          getResult.textContent = `에러: ${error.message}`;
+        }
+      });
+
+      // --- 2. 에러 처리 예제 (404) (async/await) ---
+      errBtn.addEventListener("click", async () => {
+        getResult.textContent = "로딩 중...";
+        try {
+          const response = await fetch(`${baseUrl}/posts/9999`); // 존재하지 않는 리소스
+          if (!response.ok) {
+            throw new Error(
+              `HTTP 에러! status: ${response.status} ${response.statusText}`
+            );
+          }
+          const data = await response.json();
+          console.log("성공:", data);
+          getResult.textContent = JSON.stringify(data, null, 2);
+        } catch (error) {
+          console.error("요청 실패:", error);
+          getResult.textContent = `에러: ${error.message}`;
+        }
+      });
+
+      // --- 3. POST 요청 예제 (async/await) ---
+      postBtn.addEventListener("click", async () => {
+        postResult.textContent = "요청 보내는 중...";
+        try {
+          const newPost = {
+            title: "foo",
+            body: "bar",
+            userId: 1,
+          };
+
+          const response = await fetch(`${baseUrl}/posts`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newPost),
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP 에러! status: ${response.status}`);
+          }
+
+          const data = await response.json();
+          console.log("POST 성공:", data);
+          postResult.textContent = `서버로부터 받은 응답:\n${JSON.stringify(
+            data,
+            null,
+            2
+          )}`;
+        } catch (error) {
+          console.error("POST 요청 실패:", error);
+          postResult.textContent = `에러: ${error.message}`;
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript 정규표현식 (RegExp)</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        line-height: 1.6;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 20px;
+      }
+      pre {
+        background-color: #f4f4f4;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      code {
+        color: #c7254e;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>JavaScript 정규표현식 (Regular Expression)</h1>
+    <p>브라우저의 개발자 도구(F12) 콘솔을 열어 결과를 확인하세요.</p>
+
+    <script>
+      console.log("--- 정규표현식 기본 ---");
+
+      const str = "Hello, my name is Lee. My email is test@example.com.";
+
+      // 1. 정규표현식 생성
+      // a) 리터럴 방식 (가장 일반적)
+      const re1 = /Lee/;
+
+      // b) 생성자 방식 (패턴을 동적으로 만들어야 할 때 유용)
+      const target = "Lee";
+      const re2 = new RegExp(target);
+
+      // 2. 주요 메서드
+
+      // RegExp.prototype.test() -> Boolean
+      // 문자열에 패턴이 존재하는지 여부를 true/false로 반환합니다. (가장 많이 사용)
+      console.log("re1.test(str):", re1.test(str)); // true
+      console.log("/world/.test(str):", /world/.test(str)); // false
+
+      // String.prototype.match() -> Array | null
+      // 문자열에서 패턴과 일치하는 부분들을 찾아 배열로 반환합니다.
+      console.log("str.match(re1):", str.match(re1));
+      // 결과: ["Lee", index: 18, input: "...", groups: undefined]
+
+      // String.prototype.replace() -> String
+      // 문자열에서 패턴과 일치하는 부분을 다른 문자열로 교체합니다.
+      const replacedStr = str.replace(re1, "Kim");
+      console.log(`str.replace(re1, 'Kim'):`, replacedStr);
+      // 결과: "Hello, my name is Kim. My email is test@example.com."
+
+      console.log("\n--- 플래그(Flag)와 주요 패턴 ---");
+
+      const str2 = "Is this all there is? This is it.";
+
+      // i (ignore case): 대소문자를 구분하지 않고 검색
+      const re_i = /is/i;
+      console.log("str2.match(re_i):", str2.match(re_i)); // "Is"
+
+      // g (global): 문자열 전체에서 일치하는 모든 것을 검색
+      const re_g = /is/g;
+      console.log("str2.match(re_g):", str2.match(re_g)); // ["is", "is", "is"]
+
+      // ig (global & ignore case): 대소문자 구분 없이 전체 검색
+      const re_ig = /is/gi;
+      console.log("str2.match(re_ig):", str2.match(re_ig)); // ["Is", "is", "is", "is"]
+
+      // replace와 g 플래그 함께 사용하기
+      console.log(`str2.replace(/is/g, 'IS'):`, str2.replace(/is/g, "IS"));
+      // 결과: "Is thIS all there IS? ThIS IS it."
+    </script>
+  </body>
+</html>
