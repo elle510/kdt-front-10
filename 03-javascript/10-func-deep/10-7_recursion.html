@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>재귀 함수 (Recursive Function)</title>
+  </head>
+  <body>
+    <script>
+      // 재귀 함수: 함수가 자기 자신을 호출하여 문제를 해결하는 방식
+      // 재귀 함수는 반드시 '종료 조건(Base Case)'을 가져야 합니다.
+      // 그렇지 않으면 무한 루프에 빠져 'Maximum call stack size exceeded' 에러가 발생합니다.
+
+      // --- 1. 팩토리얼(Factorial) 예제 --- //
+      // n! = n * (n-1) * (n-2) * ... * 1
+
+      function factorial(n) {
+        // 종료 조건: n이 1 이하일 경우 1을 반환하고 재귀를 멈춤
+        if (n <= 1) {
+          return 1;
+        }
+        // 재귀 호출: n과 n-1의 팩토리얼 결과를 곱함
+        else {
+          return n * factorial(n - 1);
+        }
+      }
+      /*
+       * factorial(4) 실행 과정
+       * 4 * factorial(3)
+       * 4 * (3 * factorial(2))
+       * 4 * (3 * (2 * factorial(1)))
+       * 4 * (3 * (2 * 1)) = 24
+       */
+
+      console.log("--- 팩토리얼 예제 ---");
+      console.log("factorial(4) =", factorial(4)); // 24
+      console.log("factorial(5) =", factorial(5)); // 120
+
+      // --- 2. 배열의 모든 요소 합산 예제 --- //
+      function sumArray(arr) {
+        // 종료 조건: 배열이 비어있으면 0을 반환
+        if (arr.length === 0) {
+          return 0;
+        }
+        // 재귀 호출: 배열의 첫 번째 요소와 나머지 배열의 합을 더함
+        else {
+          // arr.slice(1)은 첫 번째 요소를 제외한 새 배열을 반환합니다.
+          return arr[0] + sumArray(arr.slice(1));
+        }
+      }
+
+      console.log("\n--- 배열 합산 예제 ---");
+      const numbers = [1, 2, 3, 4, 5];
+      console.log(`[${numbers}]의 합 =`, sumArray(numbers)); // 15
+
+      // --- 3. 무한 재귀 (에러 발생) --- //
+      function infiniteLoop() {
+        // 종료 조건이 없으므로 스택이 가득 찰 때까지 자신을 계속 호출합니다.
+        infiniteLoop();
+      }
+
+      console.log("\n--- 무한 재귀 예제 (주석 처리됨) ---");
+      // 아래 코드의 주석을 해제하고 실행하면 에러가 발생합니다.
+      // try {
+      //   infiniteLoop();
+      // } catch (e) {
+      //   console.error(e);
+      // }
+    </script>
+  </body>
+</html>

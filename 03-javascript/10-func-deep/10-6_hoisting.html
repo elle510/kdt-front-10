@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>함수 호이스팅 (Hoisting)</title>
+  </head>
+  <body>
+    <script>
+      // 호이스팅(Hoisting): var 변수 선언과 함수 선언문이 해당 스코프의 최상단으로 끌어올려지는 것처럼 동작하는 현상
+
+      // --- 1. 함수 선언문의 호이스팅 ---
+      // 함수 선언문은 전체가 호이스팅되어, 선언 위치보다 앞에서 호출할 수 있습니다.
+      console.log("--- 함수 선언문 ---");
+      hoistedFunction(); // 정상적으로 호출됨
+
+      function hoistedFunction() {
+        console.log("함수 선언문이 호이스팅되었습니다.");
+      }
+
+      // --- 2. 함수 표현식의 호이스팅 ---
+      // 함수 표현식은 변수 호이스팅 규칙을 따릅니다.
+
+      // 2-1. `var`로 할당한 함수 표현식
+      console.log("\n--- var 함수 표현식 ---");
+      try {
+        // 변수 선언(var notHoistedVar)만 호이스팅되고, 할당은 제자리에 남아있습니다.
+        // 이 시점에서 notHoistedVar는 `undefined` 상태입니다.
+        console.log("호출 전 notHoistedVar:", notHoistedVar);
+        notHoistedVar(); // TypeError: notHoistedVar is not a function
+      } catch (e) {
+        console.error(e);
+      }
+
+      var notHoistedVar = function () {
+        console.log("이 메시지는 보이지 않습니다.");
+      };
+
+      // 2-2. `let` 또는 `const`로 할당한 함수 표현식
+      console.log("\n--- let/const 함수 표현식 ---");
+      try {
+        // `let`과 `const`는 호이스팅되지만, TDZ(Temporal Dead Zone)의 영향을 받습니다.
+        // 선언 이전에 접근하면 참조 에러가 발생합니다.
+        notHoistedLet(); // ReferenceError: Cannot access 'notHoistedLet' before initialization
+      } catch (e) {
+        console.error(e);
+      }
+
+      let notHoistedLet = function () {
+        console.log("이 메시지도 보이지 않습니다.");
+      };
+
+      console.log(
+        "\n결론: 함수 선언문은 호이스팅되지만, 함수 표현식은 호이스팅되지 않는 것처럼 동작합니다. 따라서 코드는 가급적 선언 후에 사용하는 것이 좋습니다."
+      );
+    </script>
+  </body>
+</html>

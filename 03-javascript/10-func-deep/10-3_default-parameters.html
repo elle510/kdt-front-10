@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>매개변수 초기화</title>
+  </head>
+  <body>
+    <script>
+      // ES6 이전 방식
+      function greetOld(name, message) {
+        name = name || "Guest";
+        message = message || "Welcome";
+        console.log(`${name}, ${message}!`);
+      }
+
+      console.log("--- ES6 이전 방식 ---");
+      greetOld("홍길동", "안녕하세요");
+      greetOld("홍길동");
+      greetOld();
+
+      // ES6+ 기본 매개변수
+      function greetNew(name = "Guest", message = "Welcome") {
+        console.log(`${name}, ${message}!`);
+      }
+
+      console.log("\n--- ES6+ 기본 매개변수 ---");
+      greetNew("홍길동", "안녕하세요");
+      greetNew("홍길동"); // message는 기본값 사용
+      greetNew(); // name, message 둘 다 기본값 사용
+
+      // undefined를 전달하면 기본값이 사용됩니다.
+      console.log("\n--- undefined 전달 ---");
+      greetNew(undefined, "반갑습니다");
+
+      // null은 값으로 취급되어 기본값이 사용되지 않습니다.
+      console.log("\n--- null 전달 ---");
+      greetNew(null, "반갑습니다");
+    </script>
+  </body>
+</html>

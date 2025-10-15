@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Map</title>
+  </head>
+  <body>
+    <script>
+      // Map: 키(key)와 값(value)의 쌍으로 이루어진 컬렉션입니다. 객체(Object)와 유사하지만 중요한 차이점이 있습니다.
+      // - 키(Key)로 모든 타입의 값(객체, 함수 등 포함)을 사용할 수 있습니다.
+      // - 요소의 순서가 삽입된 순서대로 유지됩니다.
+      // - `size` 프로퍼티로 컬렉션의 크기를 쉽게 알 수 있습니다.
+      // - 이터러블(Iterable)이므로 반복문을 직접 사용할 수 있습니다.
+
+      // --- 1. Map 생성 및 값 설정 ---
+      console.log("--- 생성 및 값 설정 ---");
+      const map = new Map();
+
+      // set(key, value): 키를 이용해 값을 설정합니다.
+      map.set("name", "홍길동");
+      map.set(123, "숫자 키");
+      const user = { id: 1, name: "user" };
+      map.set(user, "객체 키");
+
+      console.log(map);
+
+      // --- 2. 값 조회 및 확인 ---
+      console.log("\n--- 값 조회 및 확인 ---");
+
+      // get(key): 키에 해당하는 값을 가져옵니다. 없으면 undefined를 반환합니다.
+      console.log('map.get("name"):', map.get("name"));
+      console.log("map.get(user):", map.get(user));
+
+      // has(key): 키가 존재하는지 확인하고 boolean 값을 반환합니다.
+      console.log("map.has(123):", map.has(123)); // true
+      console.log('map.has("email"):', map.has("email")); // false
+
+      // size: 요소의 개수를 반환합니다.
+      console.log("map.size:", map.size);
+
+      // --- 3. 값 삭제 ---
+      console.log("\n--- 값 삭제 ---");
+
+      // delete(key): 키에 해당하는 요소를 삭제합니다.
+      map.delete(123);
+      console.log("delete(123) 후:", map);
+
+      // clear(): 모든 요소를 삭제합니다.
+      map.clear();
+      console.log("clear() 후:", map);
+
+      // --- 4. Map 반복 ---
+      console.log("\n--- Map 반복 ---");
+      const menu = new Map([
+        ["아메리카노", 3000],
+        ["카페라떼", 3500],
+        ["카푸치노", 3500],
+      ]);
+
+      // for...of (기본적으로 [key, value] 쌍을 순회)
+      for (const [key, value] of menu) {
+        console.log(`${key}는 ${value}원`);
+      }
+
+      // forEach(callback(value, key, map))
+      menu.forEach((value, key) => {
+        console.log(`[forEach] ${key}: ${value}원`);
+      });
+
+      // --- 5. Object를 Map으로, Map을 Object로 변환 ---
+      console.log("\n--- 객체/맵 변환 ---");
+      const obj = {
+        name: "사과",
+        price: 2000,
+      };
+
+      // Object -> Map
+      const mapFromObj = new Map(Object.entries(obj));
+      console.log("Object -> Map:", mapFromObj);
+
+      // Map -> Object
+      const objFromMap = Object.fromEntries(menu);
+      console.log("Map -> Object:", objFromMap);
+    </script>
+  </body>
+</html>

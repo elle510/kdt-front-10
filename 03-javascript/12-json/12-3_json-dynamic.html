@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>테이블 동적 생성</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+      }
+      thead {
+        background-color: #007bff;
+        color: white;
+      }
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      tr:hover {
+        background-color: #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>사용자 정보</h1>
+    <table id="user-table">
+      <thead>
+        <tr>
+          <th>이름</th>
+          <th>나이</th>
+          <th>도시</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 자바스크립트로 동적 생성된 행이 여기에 추가됩니다. -->
+      </tbody>
+    </table>
+
+    <script>
+      // 서버로부터 받았다고 가정한 JSON 데이터를 파싱한 결과 (JavaScript 객체 배열)
+      const users = [
+        { name: "홍길동", age: 30, city: "서울" },
+        { name: "이순신", age: 45, city: "부산" },
+        { name: "김유신", age: 52, city: "경주" },
+        { name: "유관순", age: 18, city: "천안" },
+        { name: "강감찬", age: 67, city: "인천" },
+      ];
+
+      // 나이가 30세 이상인 사용자만 필터링하여 나이순으로 내림차순 정렬
+      const processedUsers = users
+        .filter((user) => user.age >= 30)
+        .sort((a, b) => b.age - a.age);
+
+      // 테이블의 tbody 요소를 선택
+      const tableBody = document.querySelector("#user-table tbody");
+
+      // 처리된 사용자 데이터를 기반으로 테이블 행(row)을 동적으로 생성
+      processedUsers.forEach((user) => {
+        // 1. 새로운 행(tr) 요소 생성
+        const row = document.createElement("tr");
+
+        // 2. 행에 들어갈 셀(td)들의 HTML 내용 구성
+        row.innerHTML = `
+        <td>${user.name}</td>
+        <td>${user.age}</td>
+        <td>${user.city}</td>
+      `;
+
+        // 3. 생성된 행(tr)을 tbody에 추가
+        tableBody.appendChild(row);
+      });
+    </script>
+  </body>
+</html>

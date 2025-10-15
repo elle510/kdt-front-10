@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>생성자 함수 (Constructor Function)</title>
+  </head>
+  <body>
+    <script>
+      // 생성자 함수: `new` 키워드와 함께 호출되어 객체(인스턴스)를 생성하고 초기화하는 함수입니다.
+      // 관례적으로 함수 이름의 첫 글자는 대문자로 작성합니다.
+
+      // --- 1. 생성자 함수 정의 ---
+      function User(name, age) {
+        // `new` 키워드로 호출되면, 내부적으로 다음과 같은 일이 발생합니다.
+        // 1. 빈 객체가 생성되고 `this`에 할당됩니다. (예: this = {};)
+
+        // 2. `this`에 프로퍼티를 추가하여 객체를 초기화합니다.
+        this.name = name;
+        this.age = age;
+
+        // 3. `this`가 암묵적으로 반환됩니다.
+      }
+
+      // --- 2. 인스턴스 생성 ---
+      // `new` 키워드를 사용하여 생성자 함수를 호출하면 새로운 객체(인스턴스)가 생성됩니다.
+      console.log("--- 인스턴스 생성 ---");
+      const user1 = new User("홍길동", 30);
+      const user2 = new User("이순신", 45);
+
+      console.log(user1);
+      console.log(user2);
+
+      // --- 3. 프로토타입을 이용한 메서드 추가 ---
+      // 생성자 함수 내부에 메서드를 직접 추가하면, 각 인스턴스가 개별적인 함수를 소유하게 되어 메모리 낭비가 발생합니다.
+      // 모든 인스턴스가 공유할 메서드는 `prototype`에 추가하는 것이 효율적입니다.
+      User.prototype.introduce = function () {
+        console.log(
+          `안녕하세요, 저는 ${this.name}이고, 나이는 ${this.age}살입니다.`
+        );
+      };
+
+      console.log("\n--- 프로토타입 메서드 호출 ---");
+      user1.introduce();
+      user2.introduce();
+
+      // --- 4. `instanceof` 연산자 ---
+      // 객체가 특정 생성자 함수의 인스턴스인지 확인할 수 있습니다.
+      console.log("\n--- instanceof 확인 ---");
+      console.log("user1 instanceof User:", user1 instanceof User); // true
+      console.log("user1 instanceof Object:", user1 instanceof Object); // true (모든 객체는 Object의 프로토타입을 상속받음)
+
+      // 참고: `new` 없이 생성자 함수를 호출하면?
+      // `this`는 전역 객체(window)를 가리키게 되어, 의도치 않게 전역 변수를 만들게 됩니다.
+      const user3 = User("김유신", 50); // new를 빼먹은 실수
+      console.log("\n--- new 없이 호출 (주의!) ---");
+      console.log("user3:", user3); // undefined (반환값이 없으므로)
+      console.log("window.name:", window.name); // 전역 변수 name이 '김유신'으로 설정됨
+    </script>
+  </body>
+</html>

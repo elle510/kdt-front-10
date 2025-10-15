@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Scope</title>
+  </head>
+  <body>
+    <script>
+      // 1. 전역 스코프 (Global Scope)
+      // 함수 밖에서 선언된 변수는 어디에서든 접근 가능합니다.
+      const globalVariable = "전역 변수";
+
+      function checkGlobal() {
+        console.log("함수 안:", globalVariable); // 접근 가능
+      }
+
+      console.log("--- 전역 스코프 ---");
+      checkGlobal();
+      console.log("함수 밖:", globalVariable); // 접근 가능
+
+      // 2. 함수 스코프 (Function Scope)
+      // 함수 안에서 `var`로 선언된 변수는 함수 내에서만 유효합니다.
+      function checkFunctionScope() {
+        var functionScopedVar = "함수 스코프 변수";
+        console.log("함수 안:", functionScopedVar);
+      }
+
+      console.log("\n--- 함수 스코프 ---");
+      checkFunctionScope();
+      // console.log('함수 밖:', functionScopedVar); // 에러 발생: Uncaught ReferenceError: functionScopedVar is not defined
+
+      // 3. 블록 스코프 (Block Scope)
+      // `let`, `const`로 선언된 변수는 `{}` 블록 내에서만 유효합니다.
+      console.log("\n--- 블록 스코프 ---");
+      if (true) {
+        let blockScopedLet = "블록 스코프 let";
+        const blockScopedConst = "블록 스코프 const";
+        var functionScopedVarInBlock = "var는 블록 스코프를 무시";
+
+        console.log("블록 안:", blockScopedLet);
+        console.log("블록 안:", blockScopedConst);
+      }
+
+      // console.log('블록 밖:', blockScopedLet); // 에러 발생
+      // console.log('블록 밖:', blockScopedConst); // 에러 발생
+      console.log("블록 밖 var:", functionScopedVarInBlock); // var는 함수 스코프를 가지므로 if문 밖에서도 접근 가능
+
+      // 4. 렉시컬 스코프 (Lexical Scope)
+      // 함수는 선언될 때의 스코프를 기억합니다.
+      console.log("\n--- 렉시컬 스코프 ---");
+      const x = "global";
+
+      function outer() {
+        const x = "outer";
+        function inner() {
+          // inner 함수는 자신이 선언된 outer 함수의 스코프에 접근 가능
+          console.log("inner 함수 안:", x); // 'outer'
+        }
+        inner();
+      }
+
+      outer();
+      console.log("global:", x); // 'global'
+    </script>
+  </body>
+</html>

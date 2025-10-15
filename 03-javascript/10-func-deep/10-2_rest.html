@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rest 문법</title>
+  </head>
+  <body>
+    <script>
+      // Rest 문법: 여러 개의 인자를 배열로 받기
+      function sum(...numbers) {
+        // numbers는 배열이 됩니다.
+        return numbers.reduce((total, num) => total + num, 0);
+      }
+
+      console.log("--- 2개의 인자 ---");
+      console.log(sum(1, 2)); // 3
+
+      console.log("\n--- 5개의 인자 ---");
+      console.log(sum(1, 2, 3, 4, 5)); // 15
+
+      console.log("\n--- 인자가 없는 경우 ---");
+      console.log(sum()); // 0
+
+      // Rest 문법과 일반 파라미터 조합
+      // Rest 파라미터는 항상 마지막에 위치해야 합니다.
+      function displayPlayers(captain, ...players) {
+        console.log(`주장: ${captain}`);
+        console.log(`팀원: ${players.join(", ")}`);
+      }
+
+      console.log("\n--- Rest 문법과 일반 파라미터 조합 ---");
+      displayPlayers("손흥민", "김민재", "이강인", "황희찬");
+    </script>
+  </body>
+</html>

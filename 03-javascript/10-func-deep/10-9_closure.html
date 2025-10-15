@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>클로저 (Closure)</title>
+  </head>
+  <body>
+    <script>
+      // 클로저(Closure): 함수와 그 함수가 선언된 렉시컬 환경(Lexical Environment)의 조합입니다.
+      // 간단히 말해, 내부 함수가 외부 함수의 실행이 끝난 후에도, 외부 함수의 변수에 접근할 수 있는 현상을 의미합니다.
+
+      // --- 1. 클로저의 기본 원리 ---
+      function outer() {
+        const outerVar = "외부 함수의 변수";
+
+        function inner() {
+          // 이 inner 함수가 클로저입니다.
+          // 자신의 스코프 바깥에 있는 outer 함수의 변수에 접근
+          console.log(outerVar);
+        }
+
+        return inner;
+      }
+
+      console.log("--- 기본 클로저 ---");
+      const innerFunc = outer(); // outer 함수의 실행은 여기서 끝났지만,
+      innerFunc(); // 반환된 innerFunc는 자신이 선언된 환경(outer)을 기억하여 outerVar에 접근할 수 있습니다.
+
+      // --- 2. 클로저의 활용: 비공개(Private) 변수 만들기 ---
+      // 클로저를 사용하면 외부에서 직접 수정할 수 없는 비공개 변수를 만들 수 있습니다.
+      function createCounter() {
+        let count = 0; // 비공개 변수. 외부에서 직접 접근 불가.
+
+        return {
+          increment: function () {
+            count++;
+          },
+          getCount: function () {
+            return count;
+          },
+        };
+      }
+
+      console.log("\n--- 비공개 카운터 ---");
+      const counter1 = createCounter();
+      counter1.increment();
+      counter1.increment();
+      console.log("카운터 1의 값:", counter1.getCount()); // 2
+      // console.log(counter1.count); // undefined. 직접 접근 불가
+
+      const counter2 = createCounter(); // counter2는 자신만의 독립된 count 변수를 가집니다.
+      console.log("카운터 2의 값:", counter2.getCount()); // 0
+
+      // --- 3. 반복문에서의 클로저 문제와 해결 --- //
+      console.log("\n--- 반복문과 클로저 ---");
+
+      // (X) 잘못된 예시 (var 사용)
+      // setTimeout의 콜백 함수들이 실행될 시점에는 반복문이 모두 끝난 후이므로, i는 최종값인 3이 됩니다.
+      for (var i = 0; i < 3; i++) {
+        setTimeout(function () {
+          console.log(`var 사용: ${i}`); // 3, 3, 3 이 출력됨
+        }, 10);
+      }
+
+      // (O) 올바른 예시 (let 사용)
+      // let은 블록 스코프를 가지므로, 반복마다 새로운 스코프가 생성됩니다.
+      // 각 콜백 함수는 자신이 생성된 시점의 i 값을 기억합니다.
+      for (let j = 0; j < 3; j++) {
+        setTimeout(function () {
+          console.log(`let 사용: ${j}`); // 0, 1, 2 가 순서대로 출력됨
+        }, 20);
+      }
+    </script>
+  </body>
+</html>

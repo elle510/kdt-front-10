@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSON 데이터와 배열 메서드 활용</title>
+  </head>
+  <body>
+    <h1>상품 목록</h1>
+    <div id="product-container"></div>
+
+    <script>
+      // 서버로부터 받았다고 가정한 JSON 데이터를 파싱한 결과 (JavaScript 객체 배열)
+      const productsData = [
+        {
+          id: 1,
+          name: "노트북",
+          price: 1200000,
+          category: "전자기기",
+          stock: 5,
+        },
+        {
+          id: 2,
+          name: "스마트폰",
+          price: 800000,
+          category: "전자기기",
+          stock: 10,
+        },
+        { id: 3, name: "청바지", price: 50000, category: "의류", stock: 20 },
+        { id: 4, name: "티셔츠", price: 25000, category: "의류", stock: 0 },
+        {
+          id: 5,
+          name: "커피포트",
+          price: 80000,
+          category: "주방용품",
+          stock: 8,
+        },
+      ];
+
+      console.log("--- 원본 데이터 ---");
+      console.log(productsData);
+
+      // --- 1. filter(): '전자기기' 카테고리에 속하는 상품만 필터링 ---
+      const electronics = productsData.filter(
+        (product) => product.category === "전자기기"
+      );
+      console.log("\n--- filter() 결과 (전자기기) ---");
+      console.log(electronics);
+
+      // --- 2. map(): 상품의 이름을 모아 새로운 배열 생성 ---
+      const productNames = productsData.map((product) => product.name);
+      console.log("\n--- map() 결과 (상품명) ---");
+      console.log(productNames);
+
+      // --- 3. sort(): 가격이 비싼 순서대로 정렬 ---
+      // sort는 원본 배열을 변경하므로, [...productsData]로 복사본을 만들어 사용하는 것이 안전합니다.
+      const sortedByPriceDesc = [...productsData].sort(
+        (a, b) => b.price - a.price
+      );
+      console.log("\n--- sort() 결과 (가격 내림차순) ---");
+      console.log(sortedByPriceDesc);
+
+      // --- 4. 메서드 체이닝: 재고가 있는(stock > 0) '의류' 상품을 찾아 가격이 싼 순으로 정렬한 후, 이름과 가격을 포함한 객체 배열로 새로 만들기 ---
+      const processedData = productsData
+        .filter((p) => p.category === "의류" && p.stock > 0)
+        .sort((a, b) => a.price - b.price)
+        .map((p) => ({ name: p.name, price: p.price }));
+
+      console.log("\n--- 메서드 체이닝 결과 ---");
+      console.log(processedData);
+    </script>
+  </body>
+</html>

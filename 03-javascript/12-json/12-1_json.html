@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSON</title>
+  </head>
+  <body>
+    <script>
+      // JSON (JavaScript Object Notation): 데이터를 교환하기 위한 경량의 텍스트 기반 데이터 형식입니다.
+      // 서버와 클라이언트 간에 데이터를 주고받을 때 널리 사용됩니다.
+      // 자바스크립트 객체와 문법이 유사하지만, 몇 가지 중요한 규칙이 있습니다.
+      // 1. 키(key)는 반드시 큰따옴표("")로 묶어야 합니다.
+      // 2. 문자열 값도 반드시 큰따옴표("")로 묶어야 합니다.
+      // 3. 함수, undefined, 주석 등은 포함할 수 없습니다.
+
+      // --- 1. JSON.stringify(): JavaScript 객체 => JSON 문자열로 변환 ---
+      console.log("--- 1. JSON.stringify() ---");
+
+      const user = {
+        name: "홍길동",
+        age: 30,
+        isAdmin: true,
+        courses: ["HTML", "CSS", "JavaScript"],
+        wife: null,
+        // 아래 두 프로퍼티는 JSON으로 변환되지 않습니다.
+        sayHi: function () {
+          console.log("Hi");
+        },
+        hometown: undefined,
+      };
+
+      // JavaScript 객체를 JSON 형식의 문자열로 변환합니다.
+      const jsonString = JSON.stringify(user);
+
+      console.log("원본 JavaScript 객체:", user);
+      console.log("변환된 JSON 문자열:", jsonString);
+
+      // `space` 인자를 사용하면 JSON 문자열을 보기 좋게 포맷팅할 수 있습니다.
+      const prettyJson = JSON.stringify(user, null, 2);
+      console.log("포맷팅된 JSON 문자열:\n", prettyJson);
+
+      // --- 2. JSON.parse(): JSON 문자열 => JavaScript 객체로 변환 ---
+      console.log("\n--- 2. JSON.parse() ---");
+
+      const serverResponse = `{
+      "id": 1,
+      "title": "게시글 제목",
+      "isPublished": true,
+      "tags": ["news", "tech"],
+      "author": null
+    }`;
+
+      // JSON 형식의 문자열을 JavaScript 객체로 변환합니다.
+      const post = JSON.parse(serverResponse);
+
+      console.log("원본 JSON 문자열:", serverResponse);
+      console.log("변환된 JavaScript 객체:", post);
+      console.log("객체 프로퍼티 접근:", post.title);
+
+      // --- 3. reviver: parse 과정에서 값을 변형하기 ---
+      console.log("\n--- 3. JSON.parse()와 reviver 함수 ---");
+
+      const productJson = `{
+      "name": "노트북",
+      "price": 1500000,
+      "releaseDate": "2023-05-10T12:00:00Z"
+    }`;
+
+      // `reviver` 함수는 key와 value를 인자로 받아, 파싱 과정에서 값을 원하는 대로 변형할 수 있습니다.
+      const product = JSON.parse(productJson, (key, value) => {
+        // releaseDate 키를 만나면, 값(문자열)을 Date 객체로 변환하여 반환합니다.
+        if (key === "releaseDate") {
+          return new Date(value);
+        }
+        return value; // 나머지 키는 원래 값 그대로 반환
+      });
+
+      console.log("reviver로 변환된 객체:", product);
+      console.log("releaseDate의 타입:", product.releaseDate instanceof Date); // true
+      console.log("출시 년도:", product.releaseDate.getFullYear()); // 2023
+
+      // --- 4. JSON을 이용한 깊은 복사 (Deep Copy)와 한계 ---
+      console.log("\n--- 4. JSON을 이용한 깊은 복사 ---");
+
+      const originalObj = {
+        name: "원본 객체",
+        details: {
+          version: 1,
+          tags: ["a", "b"],
+        },
+        createdAt: new Date(),
+        run: function () {
+          console.log("실행");
+        },
+      };
+
+      // 객체를 JSON 문자열로 변환했다가 다시 객체로 변환하여, 참조가 끊어진 새로운 객체를 만듭니다.
+      const copiedObj = JSON.parse(JSON.stringify(originalObj));
+
+      // 복사된 객체의 내부 값을 변경해도 원본 객체는 영향을 받지 않습니다.
+      copiedObj.details.version = 2;
+
+      console.log("원본 객체:", originalObj);
+      console.log("복사된 객체:", copiedObj);
+
+      console.log("\n--- 깊은 복사의 한계 ---");
+      console.log("함수는 복사되지 않습니다:", copiedObj.run); // undefined
+      console.log(
+        "Date 객체는 문자열로 변환됩니다:",
+        typeof copiedObj.createdAt,
+        `(값: ${copiedObj.createdAt})`
+      ); // string
+      // 이 외에도 undefined, Symbol, 순환 참조 등은 제대로 처리되지 않으므로, 단순한 데이터 객체에만 사용하는 것이 좋습니다.
+
+      // --- 5. structuredClone()을 이용한 깊은 복사 (권장) ---
+      console.log("\n--- 5. structuredClone()을 이용한 깊은 복사 ---");
+
+      // structuredClone은 깊은 복사를 위해 나온 최신 표준 기능입니다.
+      // JSON 방식의 한계 대부분을 해결해 주므로, 이 방법을 사용하는 것이 좋습니다.
+      const clonedObj = structuredClone(originalObj);
+
+      clonedObj.details.version = 3;
+
+      console.log("원본 객체 (structuredClone 후):", originalObj);
+      console.log("structuredClone으로 복사된 객체:", clonedObj);
+
+      console.log("\nstructuredClone의 장점:");
+      console.log(
+        "Date 객체가 유지됩니다:",
+        clonedObj.createdAt instanceof Date
+      ); // true
+
+      console.log("\nstructuredClone의 한계:");
+      console.log("함수는 여전히 복사되지 않습니다:", clonedObj.run); // undefined
+    </script>
+  </body>
+</html>
