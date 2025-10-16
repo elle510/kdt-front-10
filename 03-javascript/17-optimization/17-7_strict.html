@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>엄격 모드 (Strict Mode)</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        line-height: 1.6;
+        padding: 20px;
+      }
+      .container {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .box {
+        width: 48%;
+        border: 1px solid #ccc;
+        padding: 10px;
+      }
+      h1,
+      h2 {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+      pre {
+        background-color: #f4f4f4;
+        padding: 10px;
+        border-radius: 5px;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+      .error {
+        color: red;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>엄격 모드 (Strict Mode) - 'use strict';</h1>
+    <p>
+      엄격 모드는 JavaScript 코드에 더 엄격한 오류 검사를 적용하여, 잠재적인
+      문제점을 미리 방지하고 더 안정적인 코드를 작성하도록 돕습니다.
+    </p>
+    <p>
+      ES6 모듈(<code>&lt;script type="module"&gt;</code>)에서는 기본적으로
+      활성화됩니다.
+    </p>
+
+    <div class="container">
+      <div class="box">
+        <h2>기본 모드 (Sloppy Mode)</h2>
+        <pre id="sloppy-log">결과가 여기에 표시됩니다.</pre>
+      </div>
+      <div class="box">
+        <h2>엄격 모드 (Strict Mode)</h2>
+        <pre id="strict-log">결과가 여기에 표시됩니다.</pre>
+      </div>
+    </div>
+
+    <hr />
+
+    <h3>1. 선언하지 않은 변수 사용</h3>
+    <button onclick="testUndeclaredVariable()">테스트 실행</button>
+    <p>
+      기본 모드에서는 선언되지 않은 변수에 값을 할당하면 전역 변수가 되어
+      잠재적인 버그의 원인이 됩니다. 엄격 모드에서는 이를 에러로 처리합니다.
+    </p>
+
+    <h3>2. 읽기 전용 속성에 값 할당</h3>
+    <button onclick="testReadonlyProperty()">테스트 실행</button>
+    <p>
+      기본 모드에서는 읽기 전용 속성에 값을 할당해도 아무런 에러 없이 조용히
+      실패합니다. 엄격 모드에서는 TypeError가 발생합니다.
+    </p>
+
+    <h3>3. 중복된 매개변수 이름 사용</h3>
+    <p>
+      기본 모드에서는 중복된 매개변수 이름을 허용하지만, 엄격 모드에서는 문법
+      에러(SyntaxError)로 처리하여 코드 실행 자체를 막습니다.
+    </p>
+    <pre>
+// 기본 모드: 에러 없음. 두 번째 'a'가 첫 번째를 덮어씀.
+function sloppyFunc(a, a) {
+  console.log(a);
+}
+sloppyFunc(1, 2); // 2 출력
+
+// 엄격 모드: SyntaxError 발생 (코드가 실행되기 전에)
+/*
+function strictFunc(a, a) { // Uncaught SyntaxError
+  'use strict';
+  console.log(a);
+}
+*/
+  </pre
+    >
+
+    <script>
+      const sloppyLog = document.getElementById("sloppy-log");
+      const strictLog = document.getElementById("strict-log");
+
+      // --- 1. 선언하지 않은 변수 ---
+      function testUndeclaredVariable() {
+        // Sloppy
+        try {
+          undeclaredSloppy = 10; // 전역 변수 window.undeclaredSloppy 가 생성됨
+          sloppyLog.innerHTML = `'undeclaredSloppy = 10;' 실행 성공.\n전역 변수(window.undeclaredSloppy)가 생성됨: ${window.undeclaredSloppy}`;
+        } catch (e) {
+          sloppyLog.innerHTML = `<span class="error">에러 발생: ${e.message}</span>`;
+        }
+
+        // Strict
+        function strictTest() {
+          "use strict";
+          undeclaredStrict = 20;
+        }
+        try {
+          strictTest();
+        } catch (e) {
+          strictLog.innerHTML = `<span class="error">'undeclaredStrict = 20;' 실행 시 에러 발생:\n${e.name}: ${e.message}</span>`;
+        }
+      }
+
+      // --- 2. 읽기 전용 속성 ---
+      function testReadonlyProperty() {
+        // Sloppy
+        const objSloppy = {};
+        Object.defineProperty(objSloppy, "prop", { value: 1, writable: false });
+        try {
+          objSloppy.prop = 2; // 조용히 실패함
+          sloppyLog.innerHTML = `'objSloppy.prop = 2;' 실행 후 값: ${objSloppy.prop}\n(에러 없이 조용히 실패함)`;
+        } catch (e) {
+          sloppyLog.innerHTML = `<span class="error">에러 발생: ${e.message}</span>`;
+        }
+
+        // Strict
+        function strictTest() {
+          "use strict";
+          const objStrict = {};
+          Object.defineProperty(objStrict, "prop", {
+            value: 1,
+            writable: false,
+          });
+          objStrict.prop = 2;
+        }
+        try {
+          strictTest();
+        } catch (e) {
+          strictLog.innerHTML = `<span class="error">'objStrict.prop = 2;' 실행 시 에러 발생:\n${e.name}: ${e.message}</span>`;
+        }
+      }
+    </script>
+  </body>
+</html>

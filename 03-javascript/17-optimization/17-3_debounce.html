@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>디바운스 (Debounce) 예제</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        line-height: 1.6;
+        padding: 20px;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+      }
+      .output-container {
+        display: flex;
+        justify-content: space-between;
+      }
+      .output {
+        width: 48%;
+        border: 1px solid #ccc;
+        padding: 10px;
+        height: 300px;
+        overflow-y: auto;
+      }
+      h2 {
+        font-size: 18px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>디바운스 (Debounce)</h1>
+    <p>
+      연속적으로 발생하는 이벤트를 그룹화하여, 특정 시간(delay)이 지난 후 마지막
+      이벤트에 대한 함수만 한 번 호출하는 기법입니다.
+    </p>
+    <p>아래 입력창에 빠르게 무언가를 입력해 보세요.</p>
+
+    <input type="text" id="searchInput" placeholder="검색어를 입력하세요..." />
+
+    <div class="output-container">
+      <div class="output">
+        <h2>디바운스 미적용 (모든 입력 이벤트)</h2>
+        <div id="raw-output"></div>
+      </div>
+      <div class="output">
+        <h2>디바운스 적용 (입력 멈춘 후 500ms)</h2>
+        <div id="debounced-output"></div>
+      </div>
+    </div>
+
+    <script>
+      const searchInput = document.getElementById("searchInput");
+      const rawOutput = document.getElementById("raw-output");
+      const debouncedOutput = document.getElementById("debounced-output");
+      let rawCallCount = 0;
+      let debouncedCallCount = 0;
+
+      /**
+       * 디바운스 함수
+       * @param {Function} func - 디바운싱을 적용할 함수
+       * @param {number} delay - 지연 시간 (밀리초)
+       * @returns {Function} - 디바운싱이 적용된 새로운 함수
+       */
+      function debounce(func, delay) {
+        let timeoutId = null; // setTimeout의 ID를 저장할 변수
+
+        // 디바운싱된 새로운 함수를 반환
+        return function (...args) {
+          // 이전에 설정된 timeout이 있다면 취소 (새로운 입력이 들어왔으므로)
+          clearTimeout(timeoutId);
+
+          // delay 이후에 func 함수를 실행하도록 새로운 timeout 설정
+          timeoutId = setTimeout(() => {
+            func.apply(this, args);
+          }, delay);
+        };
+      }
+
+      // 실제 API를 호출한다고 가정한 함수
+      function callApi(query) {
+        debouncedCallCount++;
+        const log = document.createElement("p");
+        log.textContent = `${debouncedCallCount}. API 호출: "${query}"`;
+        debouncedOutput.prepend(log);
+        console.log(`(Debounced) API CALL: ${query}`);
+      }
+
+      // 500ms의 지연 시간을 갖는 디바운스 함수 생성
+      const debouncedCallApi = debounce(callApi, 500);
+
+      // 입력창에 이벤트 리스너 추가
+      searchInput.addEventListener("input", (event) => {
+        const query = event.target.value;
+
+        // 1. 디바운스 미적용: 모든 입력에 대해 로그를 남김
+        rawCallCount++;
+        const rawLog = document.createElement("p");
+        rawLog.textContent = `${rawCallCount}. 입력: "${query}"`;
+        rawOutput.prepend(rawLog);
+        console.log(`(Raw) Input: ${query}`);
+
+        // 2. 디바운스 적용: 디바운싱된 함수를 호출
+        debouncedCallApi(query);
+      });
+    </script>
+  </body>
+</html>

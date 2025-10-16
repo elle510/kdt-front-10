@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>쓰로틀 (Throttle) 예제</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        line-height: 1.6;
+        padding: 20px;
+      }
+      .scroll-container {
+        height: 400px;
+        border: 2px solid #333;
+        overflow-y: scroll;
+        font-size: 24px;
+      }
+      .scroll-content {
+        height: 3000px;
+        background: linear-gradient(to bottom, #fff, #e0e0e0);
+        padding: 20px;
+      }
+      .output-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        font-size: 16px;
+        margin-top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>쓰로틀 (Throttle)</h1>
+    <p>
+      연속적으로 발생하는 이벤트를 일정한 시간(delay) 간격으로 최대 한 번만
+      호출하도록 제어하는 기법입니다.
+    </p>
+    <p>아래 상자 안에서 스크롤을 빠르게 위아래로 움직여 보세요.</p>
+
+    <div class="output-container">
+      <h2>이벤트 호출 횟수</h2>
+      <p>쓰로틀 미적용: <span id="raw-count">0</span></p>
+      <p>쓰로틀 적용 (1초 간격): <span id="throttled-count">0</span></p>
+    </div>
+
+    <div class="scroll-container" id="scrollBox">
+      <div class="scroll-content">스크롤을 내려보세요...</div>
+    </div>
+
+    <script>
+      const scrollBox = document.getElementById("scrollBox");
+      const rawCountSpan = document.getElementById("raw-count");
+      const throttledCountSpan = document.getElementById("throttled-count");
+      let rawCallCount = 0;
+      let throttledCallCount = 0;
+
+      /**
+       * 쓰로틀 함수
+       * @param {Function} func - 쓰로틀링을 적용할 함수
+       * @param {number} delay - 지연 시간 (밀리초)
+       * @returns {Function} - 쓰로틀링이 적용된 새로운 함수
+       */
+      function throttle(func, delay) {
+        let timeoutId = null; // setTimeout의 ID를 저장할 변수
+
+        return function (...args) {
+          // timeoutId가 존재한다는 것은 delay 시간 동안은 함수를 실행하지 않는다는 의미
+          if (timeoutId) {
+            return; // 아직 대기 시간이 끝나지 않았으면 함수를 실행하지 않고 반환
+          }
+
+          // timeoutId가 없다면 함수를 즉시 실행
+          func.apply(this, args);
+
+          // delay 시간 동안은 다시 실행되지 않도록 timeout 설정
+          timeoutId = setTimeout(() => {
+            // delay 시간이 지나면 timeoutId를 null로 만들어 다음 함수 호출이 가능하도록 함
+            timeoutId = null;
+          }, delay);
+        };
+      }
+
+      // 스크롤 시 실행될 함수 (예: 스크롤 위치에 따른 애니메이션, 데이터 로딩 등)
+      function onScroll() {
+        throttledCallCount++;
+        throttledCountSpan.textContent = throttledCallCount;
+        console.log(
+          `(Throttled) 스크롤 이벤트 처리! Count: ${throttledCallCount}`
+        );
+      }
+
+      // 1000ms(1초)의 지연 시간을 갖는 쓰로틀 함수 생성
+      const throttledOnScroll = throttle(onScroll, 1000);
+
+      // 스크롤 컨테이너에 이벤트 리스너 추가
+      scrollBox.addEventListener("scroll", () => {
+        // 1. 쓰로틀 미적용: 모든 스크롤 이벤트에 대해 카운트 증가
+        rawCallCount++;
+        rawCountSpan.textContent = rawCallCount;
+        console.log(`(Raw) Scroll event fired. Count: ${rawCallCount}`);
+
+        // 2. 쓰로틀 적용: 쓰로틀링된 함수를 호출
+        throttledOnScroll();
+      });
+
+      /**
+       * 디바운스(Debounce) vs 쓰로틀(Throttle)
+       *
+       * - 디바운스: 연이어 발생하는 이벤트를 무시하고, 마지막 이벤트가 발생한 후 일정 시간이 지나면 딱 한 번 실행. (예: 검색어 자동완성)
+       * - 쓰로틀: 연이어 발생하는 이벤트를 일정 시간 간격으로 최대 한 번씩만 실행. (예: 스크롤 위치 추적, 무한 스크롤)
+       */
+    </script>
+  </body>
+</html>

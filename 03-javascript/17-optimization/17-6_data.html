@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>효율적인 자료구조 사용</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        line-height: 1.6;
+        padding: 20px;
+      }
+      .container {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 20px;
+      }
+      button {
+        padding: 10px 15px;
+        margin-bottom: 10px;
+      }
+      pre {
+        background-color: #f4f4f4;
+        padding: 10px;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>효율적인 자료구조 사용</h1>
+    <p>
+      특정 작업에 적합한 자료구조를 선택하는 것이 어떻게 성능에 영향을 미치는지
+      비교합니다.
+    </p>
+    <p>브라우저의 개발자 도구(F12) 콘솔에서 실행 시간을 확인하세요.</p>
+
+    <div class="container">
+      <h2>예제 1: Object vs Map (많은 키-값 쌍 추가/삭제)</h2>
+      <button id="runMapTest">성능 테스트 실행</button>
+      <pre id="map-result"></pre>
+    </div>
+
+    <div class="container">
+      <h2>예제 2: Array vs Set (항목 존재 여부 확인)</h2>
+      <button id="runSetTest">성능 테스트 실행</button>
+      <pre id="set-result"></pre>
+    </div>
+
+    <script>
+      // --- 예제 1: Object vs Map ---
+      document.getElementById("runMapTest").onclick = function () {
+        const resultDiv = document.getElementById("map-result");
+        resultDiv.textContent =
+          "100만개 항목 추가/삭제 테스트 중... 콘솔을 확인하세요.";
+
+        setTimeout(() => {
+          const obj = {};
+          const map = new Map();
+          const count = 1000000;
+
+          // 엔진 최적화 덕분에 Object가 더 빠름.
+          // 키-값 쌍을 동적으로 많이 추가하거나 삭제하는 작업에서는 `Map`이 더 유리함.
+          console.group("Object vs Map: 항목 추가 성능");
+          console.time("Object Add");
+          for (let i = 0; i < count; i++) {
+            obj[i] = i;
+          }
+          console.timeEnd("Object Add");
+
+          console.time("Map Add");
+          for (let i = 0; i < count; i++) {
+            map.set(i, i);
+          }
+          console.timeEnd("Map Add");
+          console.groupEnd();
+
+          console.group("Object vs Map: 항목 삭제 성능");
+          console.time("Object Delete");
+          for (let i = 0; i < count; i++) {
+            delete obj[i];
+          }
+          console.timeEnd("Object Delete");
+
+          console.time("Map Delete");
+          for (let i = 0; i < count; i++) {
+            map.delete(i);
+          }
+          console.timeEnd("Map Delete");
+          console.groupEnd();
+
+          resultDiv.textContent =
+            "테스트 완료. 콘솔에서 자세한 실행 시간을 확인하세요.";
+        }, 50);
+      };
+
+      // --- 예제 2: Array vs Set ---
+      document.getElementById("runSetTest").onclick = function () {
+        const resultDiv = document.getElementById("set-result");
+        const size = 100000;
+        const array = [];
+        for (let i = 0; i < size; i++) array.push(i);
+        const set = new Set(array);
+        const lookups = 50000; // 확인할 횟수
+
+        resultDiv.textContent = `${size}개 항목 중 ${lookups}번의 존재 여부 확인 테스트 중...`;
+
+        setTimeout(() => {
+          console.group("Array vs Set: 항목 존재 여부 확인 성능");
+          console.time("Array.includes()");
+          for (let i = 0; i < lookups; i++) {
+            const target = Math.floor(Math.random() * size * 1.5); // 일부러 범위를 벗어나는 값도 찾도록 함
+            array.includes(target);
+          }
+          console.timeEnd("Array.includes()");
+
+          console.time("Set.has()");
+          for (let i = 0; i < lookups; i++) {
+            const target = Math.floor(Math.random() * size * 1.5);
+            set.has(target);
+          }
+          console.timeEnd("Set.has()");
+          console.groupEnd();
+          resultDiv.textContent =
+            "테스트 완료. 콘솔에서 자세한 실행 시간을 확인하세요.";
+        }, 50);
+      };
+
+      /**
+       * 왜 이런 차이가 날까요?
+       *
+       * 1. Object vs Map
+       *    - Map은 키-값 쌍의 추가/삭제가 빈번한 작업에 최적화되어 설계되었습니다.
+       *    - 반면, 일반 Object는 프로토타입 체인 등 추가적인 고려사항이 있으며, 키를 문자열로 변환하는 과정 등이 포함될 수 있습니다.
+       *    - 특히 항목을 '삭제'할 때, Map은 Object보다 훨씬 더 효율적인 알고리즘을 사용합니다.
+       *
+       * 2. Array vs Set
+       *    - Array.includes(item): 배열의 처음부터 끝까지 모든 항목을 하나씩 순회하며 `item`이 있는지 확인합니다. (시간 복잡도: O(n))
+       *    - Set.has(item): Set은 내부적으로 해시(Hash) 테이블과 유사한 구조로 데이터를 저장합니다. 덕분에 특정 `item`이 있는지 거의 즉시(상수 시간) 확인할 수 있습니다. (시간 복잡도: O(1))
+       *    - 따라서 데이터의 양이 많을수록, 존재 여부를 확인하는 작업은 Array보다 Set이 압도적으로 빠릅니다.
+       */
+    </script>
+  </body>
+</html>
