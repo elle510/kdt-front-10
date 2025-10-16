@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Array.prototype.sort()</title>
+  </head>
+  <body>
+    <script>
+      // Array.prototype.sort() 메서드는 배열의 요소를 적절한 위치에 정렬한 후
+      // 그 배열을 반환합니다. 정렬은 원본 배열에 직접 반영됩니다(in-place).
+
+      console.log("--- 기본 정렬 (문자열 변환) ---");
+      const numbers1 = [1, 30, 4, 21, 100000];
+      console.log("원본 배열:", numbers1);
+      // compareFunction이 제공되지 않으면, 요소들은 문자열로 변환되어
+      // 각 문자의 유니코드 코드 포인트 값에 따라 정렬됩니다.
+      numbers1.sort();
+      console.log("기본 sort() 후:", numbers1); // [1, 100000, 21, 30, 4] -> 예상과 다름
+
+      console.log("\n--- 숫자 오름차순 정렬 ---");
+      const numbers2 = [1, 30, 4, 21, 100000];
+      console.log("원본 배열:", numbers2);
+      // compareFunction (a, b) => a - b
+      // a - b가 음수이면 a가 앞으로, 양수이면 b가 앞으로 정렬됩니다.
+      numbers2.sort((a, b) => a - b);
+      console.log("오름차순 sort() 후:", numbers2); // [1, 4, 21, 30, 100000]
+
+      console.log("\n--- 숫자 내림차순 정렬 ---");
+      const numbers3 = [1, 30, 4, 21, 100000];
+      console.log("원본 배열:", numbers3);
+      // compareFunction (a, b) => b - a
+      // b - a가 음수이면 b가 앞으로, 양수이면 a가 앞으로 정렬됩니다.
+      numbers3.sort((a, b) => b - a);
+      console.log("내림차순 sort() 후:", numbers3); // [100000, 30, 21, 4, 1]
+
+      console.log("\n--- 문자열 정렬 ---");
+      const months = ["March", "Jan", "Feb", "Dec"];
+      months.sort();
+      console.log("정렬 후:", months); // ["Dec", "Feb", "Jan", "March"]
+
+      console.log("\n--- 객체 배열 정렬 ---");
+      const students = [
+        { name: "elle", age: 25 },
+        { name: "jane", age: 30 },
+        { name: "alex", age: 22 },
+        { name: "chris", age: 25 },
+      ];
+
+      // 나이(age) 기준으로 오름차순 정렬
+      students.sort((a, b) => a.age - b.age);
+      console.log("나이(age) 기준 오름차순:");
+      console.table(students);
+
+      // 이름(name) 기준으로 오름차순 정렬
+      students.sort((a, b) => {
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+      });
+      console.log("이름(name) 기준 오름차순:");
+      console.table(students);
+
+      // 참고: sort()는 원본 배열을 변경합니다.
+      // 원본을 유지하려면 배열을 복사한 후 정렬해야 합니다.
+      const originalArray = [5, 2, 8];
+      const sortedArray = [...originalArray].sort(); // spread 문법으로 복사
+      console.log("\n원본 배열:", originalArray); // [5, 2, 8]
+      console.log("복사 후 정렬된 배열:", sortedArray); // [2, 5, 8]
+    </script>
+  </body>
+</html>

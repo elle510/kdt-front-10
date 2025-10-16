@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>드모르간의 법칙 (De Morgan's Laws)</title>
+  </head>
+  <body>
+    <script>
+      // 드모르간의 법칙은 복잡한 논리식을 더 단순하고 읽기 쉽게 만드는 데 사용되는 규칙입니다.
+      // 주로 NOT(!) 연산자를 AND(&&)나 OR(||) 연산자 안으로 분배할 때 사용됩니다.
+
+      const isMember = true; // 회원인가?
+      const hasCoupon = false; // 쿠폰이 있는가?
+
+      console.log(`상황: isMember = ${isMember}, hasCoupon = ${hasCoupon}`);
+
+      // ------------------- 1. 드모르간의 첫 번째 법칙 -------------------
+      // !(A && B)  ===  !A || !B
+      // "A 그리고 B"의 부정은 "A의 부정 또는 B의 부정"과 같다.
+      console.log("\n--- 첫 번째 법칙: !(A && B) === !A || !B ---");
+
+      // 예: "회원이면서 동시에 쿠폰을 가진 경우가 아니라면" (할인 불가)
+      const originalLogic1 = !(isMember && hasCoupon);
+
+      // 위와 동일: "회원이 아니거나, 또는 쿠폰이 없거나"
+      const demorganLogic1 = !isMember || !hasCoupon;
+
+      console.log("원본 논리: !(isMember && hasCoupon) =>", originalLogic1);
+      console.log(
+        "드모르간 법칙 적용: !isMember || !hasCoupon =>",
+        demorganLogic1
+      );
+      console.log("두 결과는 같은가?", originalLogic1 === demorganLogic1);
+
+      // ------------------- 2. 드모르간의 두 번째 법칙 -------------------
+      // !(A || B)  ===  !A && !B
+      // "A 또는 B"의 부정은 "A의 부정 그리고 B의 부정"과 같다.
+      console.log("\n--- 두 번째 법칙: !(A || B) === !A && !B ---");
+
+      // 예: "회원이거나 또는 쿠폰을 가진 경우가 아니라면" (특별 혜택 불가)
+      const originalLogic2 = !(isMember || hasCoupon);
+
+      // 위와 동일: "회원이 아니면서, 그리고 쿠폰도 없으면"
+      const demorganLogic2 = !isMember && !hasCoupon;
+
+      console.log("원본 논리: !(isMember || hasCoupon) =>", originalLogic2);
+      console.log(
+        "드모르간 법칙 적용: !isMember && !hasCoupon =>",
+        demorganLogic2
+      );
+      console.log("두 결과는 같은가?", originalLogic2 === demorganLogic2);
+
+      // ------------------- 3. 활용 예시: 코드 가독성 높이기 -------------------
+      console.log("\n--- 활용 예시 ---");
+      const age = 25;
+      const isKorean = true;
+
+      // 복잡한 조건: "나이가 20세 미만이면서, 동시에 한국인이 아닌 경우가 아니라면"
+      // => 읽기가 매우 어렵다.
+      if (!(age < 20 && !isKorean)) {
+        console.log("(원본 조건) 통과");
+      }
+
+      // 드모르간의 법칙 적용: !(A && B)  ->  !A || !B
+      // A = age < 20
+      // B = !isKorean
+      // !A = age >= 20
+      // !B = isKorean
+      // 결과: age >= 20 || isKorean
+
+      // 개선된 조건: "나이가 20세 이상이거나, 또는 한국인이면"
+      // => 훨씬 이해하기 쉽다.
+      if (age >= 20 || isKorean) {
+        console.log("(개선된 조건) 통과");
+      }
+    </script>
+  </body>
+</html>

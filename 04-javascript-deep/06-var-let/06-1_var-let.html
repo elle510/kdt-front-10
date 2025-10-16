@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>var와 클로저 문제 및 해결</title>
+  </head>
+  <body>
+    <script>
+      // 'var'를 사용했을 때 클로저와 반복문이 결합되면서 발생하는
+      // 가장 흔한 문제 상황과 해결 방법을 알아봅니다.
+
+      // ------------------- 문제 상황 -------------------
+      console.log("--- 문제 상황 (var) ---");
+      var funcs = [];
+
+      for (var i = 0; i < 3; i++) {
+        // funcs 배열에 3개의 함수를 추가합니다.
+        // 이 때 각 함수는 'i'라는 변수를 참조하는 클로저입니다.
+        funcs[i] = function () {
+          return i;
+        };
+      }
+
+      // for 루프가 모두 실행된 후, 변수 i는 최종값인 3이 됩니다.
+      // var로 선언된 i는 함수 스코프를 가지므로, for문을 벗어나도 살아있습니다.
+      // funcs에 담긴 모든 함수는 동일한 i(값: 3)를 참조하고 있습니다.
+      console.log(funcs[0]()); // 3 (예상: 0)
+      console.log(funcs[1]()); // 3 (예상: 1)
+      console.log(funcs[2]()); // 3 (예상: 2)
+
+      // ------------------- 해결 방법 1: 'let' 사용 (가장 간단하고 현대적인 방법) -------------------
+      console.log("\n--- 해결 1: let 사용 ---");
+      const funcsWithLet = [];
+
+      for (let j = 0; j < 3; j++) {
+        // let은 블록 스코프를 가집니다.
+        // for 루프가 반복될 때마다 새로운 스코프가 생성되고, 변수 j도 새로 생성됩니다.
+        // 따라서 각 함수는 해당 반복 시점의 j 값을 독립적으로 참조하게 됩니다.
+        funcsWithLet[j] = function () {
+          return j;
+        };
+      }
+
+      console.log(funcsWithLet[0]()); // 0
+      console.log(funcsWithLet[1]()); // 1
+      console.log(funcsWithLet[2]()); // 2
+
+      // ------------------- 해결 방법 2: 즉시 실행 함수(IIFE) 사용 (ES5 시절 방법) -------------------
+      console.log("\n--- 해결 2: 즉시 실행 함수(IIFE) 사용 ---");
+      var funcsWithIIFE = [];
+
+      for (var k = 0; k < 3; k++) {
+        (function (index) {
+          // 즉시 실행 함수는 새로운 함수 스코프를 만듭니다.
+          // for 루프의 변수 k의 '값'이 index라는 새로운 변수에 복사됩니다.
+          // 내부 함수는 이 index 변수를 참조하게 됩니다.
+          funcsWithIIFE[k] = function () {
+            return index;
+          };
+        })(k); // k의 현재 값을 인자로 전달하여 즉시 실행
+      }
+
+      console.log(funcsWithIIFE[0]()); // 0
+      console.log(funcsWithIIFE[1]()); // 1
+      console.log(funcsWithIIFE[2]()); // 2
+    </script>
+  </body>
+</html>

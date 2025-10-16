@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSDoc 주석 예제</title>
+  </head>
+  <body>
+    <script>
+      // JSDoc은 JavaScript 코드에 대한 설명을 추가하는 표준화된 방법입니다.
+      // 주석은 /** 로 시작하고 */ 로 끝납니다.
+      // IDE(VSCode 등)는 이 주석을 분석하여 더 나은 자동 완성, 타입 체크, 정보 툴팁을 제공합니다.
+
+      // ------------------- 1. 기본 함수 주석 -------------------
+
+      /**
+       * 두 숫자를 더한 값을 반환합니다.
+       *
+       * @param {number} a - 첫 번째 숫자.
+       * @param {number} b - 두 번째 숫자.
+       * @returns {number} 두 숫자의 합.
+       * @example
+       * const sum = add(5, 10); // 15
+       */
+      function add(a, b) {
+        return a + b;
+      }
+
+      // ------------------- 2. 변수 및 상수 주석 -------------------
+
+      /**
+       * API 요청을 위한 기본 URL.
+       * @type {string}
+       */
+      const API_BASE_URL = "https://api.example.com";
+
+      /**
+       * 사용자의 최대 접속 시도 횟수.
+       * @const {number}
+       */
+      const MAX_RETRY_COUNT = 3;
+
+      // ------------------- 3. 복잡한 객체 타입 정의 (@typedef) -------------------
+
+      /**
+       * 사용자 정보를 나타내는 객체 타입입니다.
+       * @typedef {object} User
+       * @property {number} id - 사용자의 고유 ID.
+       * @property {string} name - 사용자 이름.
+       * @property {string} email - 사용자 이메일 주소.
+       * @property {boolean} [isActive=true] - 활성 상태 여부 (선택적 프로퍼티).
+       */
+
+      /**
+       * 새로운 사용자 객체를 생성합니다.
+       *
+       * @param {string} name - 사용자 이름.
+       * @param {string} email - 사용자 이메일.
+       * @returns {User} 생성된 사용자 객체.
+       */
+      function createUser(name, email) {
+        return {
+          id: Date.now(), // 간단한 ID 생성
+          name: name,
+          email: email,
+          isActive: true,
+        };
+      }
+
+      const newUser = createUser("elle", "elle@example.com");
+
+      /**
+       * 사용자 정보를 콘솔에 출력합니다.
+       *
+       * @param {User} user - 사용자 정보를 담고 있는 객체.
+       */
+      function displayUser(user) {
+        // 아래 user. 을 입력하면 IDE가 id, name, email, isActive를 추천해줍니다.
+        console.log(`ID: ${user.id}, Name: ${user.name}, Email: ${user.email}`);
+      }
+
+      displayUser(newUser);
+
+      // ------------------- 4. 기타 유용한 태그들 -------------------
+
+      /**
+       * 사용자의 전체 이름을 반환합니다.
+       * @deprecated 이 함수는 곧 없어질 예정입니다. `getFullName` 함수를 대신 사용하세요.
+       * @see getFullName
+       * @param {string} firstName
+       * @param {string} lastName
+       * @returns {string}
+       */
+      function makeFullName(firstName, lastName) {
+        return `${firstName} ${lastName}`;
+      }
+
+      /**
+       * 사용자의 전체 이름을 반환하는 새로운 함수입니다.
+       * @param {User} user - 사용자 객체
+       * @returns {string}
+       */
+      function getFullName(user) {
+        return user.name;
+      }
+    </script>
+  </body>
+</html>

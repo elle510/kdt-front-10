@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scope of var, let, const</title>
+  </head>
+  <body>
+    <script>
+      // 스코프(Scope)는 변수가 유효한 범위(접근할 수 있는 범위)를 의미합니다.
+      // JavaScript에는 전역 스코프, 함수 스코프, 블록 스코프가 있습니다.
+
+      // ------------------- 1. 전역 스코프 (Global Scope) -------------------
+      // 함수나 블록 밖에서 선언된 변수는 전역 스코프를 가집니다.
+      const globalVar = "전역 변수";
+
+      function checkGlobal() {
+        console.log("함수 내부에서 접근:", globalVar); // 어디서든 접근 가능
+      }
+      checkGlobal();
+      console.log("전역에서 접근:", globalVar);
+
+      // ------------------- 2. 함수 스코프 (Function Scope) - var -------------------
+      console.log("\n--- var (함수 스코프) ---");
+      function testVarScope() {
+        if (true) {
+          var functionScopedVar = "나는 함수 스코프!";
+        }
+        // var는 if, for, while 등의 블록 스코프를 무시합니다.
+        // 오직 함수 단위의 스코프만 가집니다.
+        console.log(functionScopedVar); // '나는 함수 스코프!' -> 함수 내에서는 접근 가능
+      }
+      testVarScope();
+      // console.log(functionScopedVar); // ReferenceError: functionScopedVar is not defined. 함수 밖에서는 접근 불가.
+
+      // ------------------- 3. 블록 스코프 (Block Scope) - let, const -------------------
+      console.log("\n--- let, const (블록 스코프) ---");
+      function testLetConstScope() {
+        if (true) {
+          let blockScopedLet = "나는 블록 스코프 (let)!";
+          const blockScopedConst = "나도 블록 스코프 (const)!";
+          console.log(blockScopedLet); // 블록 내부 접근 가능
+          console.log(blockScopedConst); // 블록 내부 접근 가능
+        }
+        // let과 const는 블록({}) 안에서 선언되면, 그 블록 안에서만 유효합니다.
+        // console.log(blockScopedLet);   // ReferenceError
+        // console.log(blockScopedConst); // ReferenceError
+      }
+      testLetConstScope();
+
+      // ------------------- 4. 스코프 차이로 발생하는 흔한 문제 (for문 예제) -------------------
+      console.log("\n--- for문 예제 ---");
+
+      // var를 사용한 경우
+      console.log("var를 사용한 for문 (0.01초 후 실행):");
+      for (var i = 0; i < 3; i++) {
+        setTimeout(function () {
+          // setTimeout의 콜백 함수가 실행될 시점(for문 종료 후)에는
+          // i가 이미 최종값인 3이 되어 있습니다. (하나의 i를 공유)
+          console.log(i);
+        }, 10);
+      }
+      // 예상 출력: 3, 3, 3
+
+      // let을 사용한 경우
+      console.log("let을 사용한 for문 (0.1초 후 실행):");
+      for (let j = 0; j < 3; j++) {
+        // let은 for문의 각 반복마다 새로운 블록 스코프를 생성합니다.
+        // 따라서 콜백 함수는 각 반복 시점의 j 값을 기억합니다.
+        setTimeout(function () {
+          console.log(j);
+        }, 100);
+      }
+      // 예상 출력: 0, 1, 2
+
+      /*
+       * 정리
+       * var: 함수 스코프. 오래된 방식으로, 예기치 않은 문제를 일으킬 수 있어 사용을 지양합니다.
+       * let: 블록 스코프. 재할당이 필요한 변수를 선언할 때 사용합니다.
+       * const: 블록 스코프. 재할당이 불가능한 상수를 선언할 때 사용합니다. (기본적으로 사용 권장)
+       */
+    </script>
+  </body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>localStorage 사용법</title>
+  </head>
+  <body>
+    <h1>localStorage 예제</h1>
+    <p>
+      브라우저의 개발자 도구(F12) > Application > Local Storage 에서 확인하세요.
+    </p>
+
+    <div>
+      <label for="key">Key:</label>
+      <input type="text" id="key" placeholder="예: userName" />
+    </div>
+    <div>
+      <label for="value">Value:</label>
+      <input type="text" id="value" placeholder="예: elle" />
+    </div>
+    <br />
+    <button id="setItem">Set Item</button>
+    <button id="getItem">Get Item</button>
+    <button id="removeItem">Remove Item</button>
+    <button id="clearAll">Clear All</button>
+
+    <div
+      id="result"
+      style="margin-top: 20px; border: 1px solid #ccc; padding: 10px"
+    ></div>
+
+    <script>
+      // localStorage는 브라우저에 데이터를 영구적으로 저장하기 위한 웹 스토리지 API입니다.
+      // 데이터는 도메인별로 저장되며, 브라우저를 닫았다 열어도 유지됩니다.
+      // Key와 Value는 모두 문자열(String) 형태로 저장됩니다.
+
+      // --- 1. 기본 사용법 (문자열 저장) ---
+      console.log("--- 기본 사용법 ---");
+      // setItem(key, value): 데이터 저장
+      localStorage.setItem("userName", "elle");
+      localStorage.setItem("theme", "dark");
+
+      // getItem(key): 데이터 읽기
+      const userName = localStorage.getItem("userName");
+      console.log("userName:", userName); // 'elle'
+
+      // removeItem(key): 특정 데이터 삭제
+      localStorage.removeItem("theme");
+      console.log("theme:", localStorage.getItem("theme")); // null
+
+      // clear(): 모든 데이터 삭제
+      // localStorage.clear();
+      // console.log('userName after clear:', localStorage.getItem('userName')); // null
+
+      // --- 2. 객체(Object) 저장하기 ---
+      // 객체나 배열은 문자열이 아니므로 그대로 저장할 수 없습니다.
+      // JSON.stringify()를 사용해 문자열로 변환한 후 저장해야 합니다.
+      console.log("\n--- 객체 저장하기 ---");
+      const user = {
+        name: "alex",
+        age: 30,
+        isAdmin: true,
+      };
+
+      // 객체를 JSON 문자열로 변환하여 저장
+      localStorage.setItem("user", JSON.stringify(user));
+
+      // 저장된 JSON 문자열 가져오기
+      const jsonUser = localStorage.getItem("user");
+      console.log("저장된 JSON 문자열:", jsonUser);
+
+      // JSON.parse()를 사용해 다시 객체로 변환
+      const parsedUser = JSON.parse(jsonUser);
+      console.log("다시 변환된 객체:", parsedUser);
+      console.log("객체의 name 프로퍼티:", parsedUser.name); // 'alex'
+
+      // --- 3. 인터랙티브 예제 ---
+      const keyInput = document.getElementById("key");
+      const valueInput = document.getElementById("value");
+      const resultDiv = document.getElementById("result");
+
+      document.getElementById("setItem").addEventListener("click", () => {
+        const key = keyInput.value;
+        const value = valueInput.value;
+        if (key && value) {
+          localStorage.setItem(key, value);
+          resultDiv.textContent = `"${key}"에 "${value}" 값을 저장했습니다.`;
+          keyInput.value = "";
+          valueInput.value = "";
+        } else {
+          resultDiv.textContent = "Key와 Value를 모두 입력해주세요.";
+        }
+      });
+
+      document.getElementById("getItem").addEventListener("click", () => {
+        const key = keyInput.value;
+        if (key) {
+          const value = localStorage.getItem(key);
+          if (value !== null) {
+            resultDiv.textContent = `"${key}"의 값은 "${value}" 입니다.`;
+          } else {
+            resultDiv.textContent = `"${key}"에 해당하는 값이 없습니다.`;
+          }
+        } else {
+          resultDiv.textContent = "조회할 Key를 입력해주세요.";
+        }
+      });
+
+      document.getElementById("removeItem").addEventListener("click", () => {
+        const key = keyInput.value;
+        if (key) {
+          localStorage.removeItem(key);
+          resultDiv.textContent = `"${key}" 값을 삭제했습니다.`;
+        } else {
+          resultDiv.textContent = "삭제할 Key를 입력해주세요.";
+        }
+      });
+
+      document.getElementById("clearAll").addEventListener("click", () => {
+        localStorage.clear();
+        resultDiv.textContent = "모든 localStorage 데이터를 삭제했습니다.";
+      });
+    </script>
+  </body>
+</html>

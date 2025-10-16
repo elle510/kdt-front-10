@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>isNaN() vs Number.isNaN()</title>
+  </head>
+  <body>
+    <script>
+      // NaN (Not-a-Number)은 "숫자가 아님"을 나타내는 특별한 숫자 값입니다.
+      // 주로 숫자로 변환할 수 없는 값을 숫자로 바꾸려고 하거나, 잘못된 수학 계산의 결과로 발생합니다.
+      console.log("--- NaN의 특징 ---");
+      console.log('1 / "hello" =', 1 / "hello"); // NaN
+      // NaN은 자기 자신과도 같지 않다고 판별되는 유일한 값입니다.
+      console.log("NaN === NaN ?", NaN === NaN); // false
+      // 따라서, 어떤 값이 NaN인지 확인하기 위해 isNaN 함수가 필요합니다.
+
+      // ------------------- 1. 전역 함수 isNaN() -------------------
+      // isNaN()은 인수를 숫자로 강제 변환한 후, 그 결과가 NaN인지 확인합니다.
+      // 이 '강제 변환' 때문에 예기치 않은 결과를 낳을 수 있습니다.
+      console.log("\n--- 1. 전역 함수 isNaN()의 동작 ---");
+
+      console.log("isNaN(NaN):", isNaN(NaN)); // true (예상대로)
+      console.log("isNaN(123):", isNaN(123)); // false (숫자이므로)
+
+      // --- 문제점: 숫자로 변환할 수 없는 값들도 모두 true를 반환 ---
+      console.log("isNaN('hello'):", isNaN("hello")); // true ('hello' -> NaN)
+      console.log("isNaN(undefined):", isNaN(undefined)); // true (undefined -> NaN)
+      console.log("isNaN({}):", isNaN({})); // true (객체 -> NaN)
+      console.log('isNaN("123"):', isNaN("123")); // false ('123'은 숫자 123으로 변환 가능)
+
+      // ------------------- 2. Number.isNaN() (ES6+) -------------------
+      // Number.isNaN()은 인수를 변환하지 않고, 값의 타입이 숫자이면서 NaN일 경우에만 true를 반환합니다.
+      // 훨씬 더 정확하고 예측 가능한 방법입니다.
+      console.log("\n--- 2. Number.isNaN()의 동작 (ES6+) ---");
+
+      console.log("Number.isNaN(NaN):", Number.isNaN(NaN)); // true (값이 정확히 NaN임)
+      console.log("Number.isNaN(123):", Number.isNaN(123)); // false
+
+      // --- isNaN()과 다른 결과 ---
+      console.log("Number.isNaN('hello'):", Number.isNaN("hello")); // false (값이 문자열이지 NaN이 아님)
+      console.log("Number.isNaN(undefined):", Number.isNaN(undefined)); // false (값이 undefined이지 NaN이 아님)
+      console.log("Number.isNaN({}):", Number.isNaN({})); // false (값이 객체이지 NaN이 아님)
+      console.log('Number.isNaN("123"):', Number.isNaN("123")); // false (값이 문자열이지 NaN이 아님)
+      console.log('Number.isNaN(1 / "hello"):', Number.isNaN(1 / "hello")); // true (계산 결과가 NaN임)
+
+      // ------------------- 3. 결론 및 권장 사항 -------------------
+      /*
+       * isNaN(): "이 값을 숫자로 바꿀 수 없니?" 라는 질문에 가깝습니다.
+       * Number.isNaN(): "이 값이 정말로 NaN이라는 바로 그 값이니?" 라는 정확한 질문입니다.
+       *
+       * 따라서, 어떤 값이 정말로 NaN인지 판별하고 싶을 때는
+       * 예기치 않은 형 변환을 방지하는 Number.isNaN()을 사용하는 것이 훨씬 안전하고 명확합니다.
+       *
+       * => 최신 JavaScript 환경에서는 항상 Number.isNaN() 사용을 권장합니다.
+       */
+    </script>
+  </body>
+</html>

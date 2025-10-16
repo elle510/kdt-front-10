@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>try...catch</title>
+  </head>
+  <body>
+    <script>
+      // try...catch 문은 코드 실행 중 발생할 수 있는 오류를 처리하는 데 사용됩니다.
+
+      console.log("--- 기본 try...catch 예제 ---");
+      try {
+        // 이 블록 안의 코드를 실행합니다.
+        console.log("try 블록 시작");
+        // 없는 함수를 호출하여 의도적으로 오류를 발생시킵니다.
+        nonExistentFunction();
+        console.log("try 블록 끝 (이 부분은 실행되지 않습니다)");
+      } catch (error) {
+        // try 블록에서 오류가 발생하면 이 블록이 실행됩니다.
+        console.error("catch 블록에서 오류를 잡았습니다!");
+        console.error("오류 이름:", error.name);
+        console.error("오류 메시지:", error.message);
+      }
+
+      console.log("\n--- finally 예제 ---");
+      try {
+        console.log("try 블록");
+        // 오류가 없는 경우
+      } catch (error) {
+        console.error("catch 블록 (실행되지 않음)");
+      } finally {
+        // finally 블록은 오류 발생 여부와 상관없이 항상 실행됩니다.
+        console.log("finally 블록 (오류가 없을 때)");
+      }
+
+      try {
+        console.log("try 블록");
+        anotherNonExistentFunction(); // 오류 발생
+      } catch (error) {
+        console.error("catch 블록 (오류가 있을 때)");
+      } finally {
+        console.log("finally 블록 (오류가 있을 때)");
+      }
+
+      console.log("\n--- throw 예제 ---");
+      function checkAge(age) {
+        if (age < 19) {
+          // throw를 사용하여 사용자 정의 오류를 만들 수 있습니다.
+          throw new Error("미성년자는 접근할 수 없습니다.");
+        }
+        return "성인입니다. 환영합니다!";
+      }
+
+      try {
+        console.log(checkAge(25)); // 성공
+        console.log(checkAge(15)); // 오류 발생
+      } catch (error) {
+        console.error("오류 발생:", error.message);
+      }
+    </script>
+  </body>
+</html>
