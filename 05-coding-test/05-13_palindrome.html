@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>팰린드롬(Palindrome) 검사</title>
+  </head>
+  <body>
+    <script>
+      // 팰린드롬(Palindrome) 또는 회문(回文)은 앞으로 읽으나 뒤로 읽으나 똑같은 단어나 문장을 말합니다.
+      // 예: level, 토마토, "A man, a plan, a canal: Panama"
+
+      // --- 1. 문자열을 뒤집어 비교하는 방법 ---
+      // 가장 직관적이고 JavaScript의 내장 함수를 활용하여 간결하게 작성할 수 있습니다.
+      console.log("--- 1. 문자열 뒤집어 비교 --- ");
+
+      function isPalindrome_reverse(str) {
+        // 1. 전처리: 비교에 불필요한 공백, 구두점 등을 제거하고 모두 소문자로 변환합니다.
+        // ["W_"]는 알파벳, 숫자를 제외한 모든 문자 및 언더스코어(_)를 의미합니다.
+        const cleaned = str.toLowerCase().replace(/["W_"]/g, "");
+
+        // 2. 문자열을 배열로 변환 -> 순서를 뒤집고 -> 다시 문자열로 합칩니다.
+        const reversed = cleaned.split("").reverse().join("");
+
+        console.log(`  - 원본(정리후): ${cleaned}, 뒤집은 후: ${reversed}`);
+
+        // 3. 원본과 뒤집은 문자열이 같은지 비교하여 반환합니다.
+        return cleaned === reversed;
+      }
+
+      console.log("level:", isPalindrome_reverse("level")); // true
+      console.log("hello:", isPalindrome_reverse("hello")); // false
+      console.log(
+        "A man, a plan, a canal: Panama:",
+        isPalindrome_reverse("A man, a plan, a canal: Panama")
+      ); // true
+
+      // --- 2. 투 포인터(Two Pointers)를 이용하는 방법 ---
+      // 문자열의 양 끝에서부터 안쪽으로 들어오면서 문자를 하나씩 비교하는 방식입니다.
+      // 새로운 문자열을 만들지 않아 메모리 효율성이 더 좋습니다.
+      console.log("\n--- 2. 투 포인터 방식 --- ");
+
+      function isPalindrome_twoPointers(str) {
+        // 1. 전처리 과정은 동일합니다.
+        const cleaned = str.toLowerCase().replace(/["W_"]/g, "");
+
+        let left = 0; // 왼쪽 끝 인덱스
+        let right = cleaned.length - 1; // 오른쪽 끝 인덱스
+
+        // 2. left 포인터가 right 포인터보다 작을 동안 계속 반복
+        while (left < right) {
+          // 3. 양 끝의 문자가 다르면 즉시 false를 반환하고 종료
+          if (cleaned[left] !== cleaned[right]) {
+            console.log(`  - 불일치: ${cleaned[left]} !== ${cleaned[right]}`);
+            return false;
+          }
+          // 4. 문자가 같으면 포인터를 한 칸씩 안쪽으로 이동
+          left++;
+          right--;
+        }
+
+        // 반복문이 중단 없이 모두 통과했다면 팰린드롬임
+        return true;
+      }
+
+      console.log("level:", isPalindrome_twoPointers("level")); // true
+      console.log("hello:", isPalindrome_twoPointers("hello")); // false
+      console.log(
+        "A man, a plan, a canal: Panama:",
+        isPalindrome_twoPointers("A man, a plan, a canal: Panama")
+      ); // true
+    </script>
+  </body>
+</html>

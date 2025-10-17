@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>자료구조: 큐(Queue)</title>
+  </head>
+  <body>
+    <script>
+      // 큐(Queue)는 가장 먼저 들어온 데이터가 가장 먼저 나가는
+      // 선입선출(FIFO, First-In, First-Out) 방식의 자료구조입니다.
+      // 비유: 은행 창구의 대기 줄, 프린터의 인쇄 대기열, 너비 우선 탐색(BFS) 알고리즘
+
+      // --- 1. 배열을 이용한 간단한 큐 구현 (쉬운 방법) ---
+      // 배열의 push(추가)와 shift(앞에서부터 제거)를 이용하면 큐를 흉내 낼 수 있습니다.
+      // ※ 주의: shift()는 배열의 모든 요소를 한 칸씩 앞으로 당겨오므로,
+      // 요소가 매우 많은 배열에서는 성능 저하가 발생할 수 있습니다.
+      console.log("--- 1. 배열로 큐 구현 ---");
+      const queueArray = [];
+
+      // enqueue: 데이터 추가
+      queueArray.push(1);
+      queueArray.push(2);
+      queueArray.push(3);
+      console.log("enqueue 후:", queueArray); // [1, 2, 3]
+
+      // dequeue: 데이터 제거
+      const dequeuedItem = queueArray.shift();
+      console.log("dequeue된 아이템:", dequeuedItem); // 1
+      console.log("dequeue 후:", queueArray); // [2, 3]
+
+      // --- 2. 클래스를 이용한 효율적인 큐 구현 (권장 방법) ---
+      // 배열의 shift() 성능 문제를 해결하기 위해, 객체와 포인터(인덱스)를 사용합니다.
+      console.log("\n--- 2. 클래스로 효율적인 큐 구현 ---");
+      class Queue {
+        constructor() {
+          this.items = {};
+          this.headIndex = 0;
+          this.tailIndex = 0;
+        }
+
+        // 데이터 추가 (Enqueue)
+        enqueue(element) {
+          this.items[this.tailIndex] = element;
+          this.tailIndex++;
+        }
+
+        // 데이터 제거 및 반환 (Dequeue)
+        dequeue() {
+          if (this.isEmpty()) {
+            return "Queue is empty";
+          }
+          const item = this.items[this.headIndex];
+          delete this.items[this.headIndex];
+          this.headIndex++;
+          return item;
+        }
+
+        // 맨 앞 데이터 확인
+        peek() {
+          if (this.isEmpty()) {
+            return "Queue is empty";
+          }
+          return this.items[this.headIndex];
+        }
+
+        // 큐가 비어있는지 확인
+        isEmpty() {
+          return this.size() === 0;
+        }
+
+        // 큐의 크기 반환
+        size() {
+          return this.tailIndex - this.headIndex;
+        }
+      }
+
+      const myQueue = new Queue();
+      console.log("큐가 비었나요?", myQueue.isEmpty()); // true
+
+      myQueue.enqueue("Task 1");
+      myQueue.enqueue("Task 2");
+      myQueue.enqueue("Task 3");
+      console.log("현재 큐 크기:", myQueue.size()); // 3
+      console.log("peek (다음에 나올 것):", myQueue.peek()); // 'Task 1'
+      console.log("dequeue:", myQueue.dequeue()); // 'Task 1'
+      console.log("dequeue 후 크기:", myQueue.size()); // 2
+      console.log("다음에 나올 것:", myQueue.peek()); // 'Task 2'
+
+      // --- 3. 큐 활용 예시: 프린터 대기열 ---
+      console.log("\n--- 3. 큐 활용 예시: 프린터 대기열 ---");
+      const printerQueue = new Queue();
+
+      // 인쇄 요청이 순서대로 들어옴
+      printerQueue.enqueue("보고서.docx");
+      printerQueue.enqueue("가족사진.png");
+      printerQueue.enqueue("계약서.pdf");
+
+      console.log(
+        `현재 인쇄 대기열에 ${printerQueue.size()}개의 문서가 있습니다.`
+      );
+
+      // 큐가 빌 때까지 순서대로 인쇄 작업을 처리
+      while (!printerQueue.isEmpty()) {
+        const currentTask = printerQueue.dequeue();
+        console.log(`인쇄 중: ${currentTask}`);
+      }
+
+      console.log("모든 인쇄 작업 완료!");
+      console.log("남은 작업 수:", printerQueue.size()); // 0
+    </script>
+  </body>
+</html>

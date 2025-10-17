@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>팩토리얼(Factorial) 계산</title>
+  </head>
+  <body>
+    <script>
+      // 팩토리얼(Factorial)은 1부터 어떤 양의 정수 n까지의 모든 정수를 곱한 것을 의미하며, n!로 표기합니다.
+      // 예: 5! = 5 * 4 * 3 * 2 * 1 = 120
+      // 특별한 경우로, 0!은 1로 정의됩니다.
+
+      // --- 1. 반복문(for loop)을 이용한 팩토리얼 구현 ---
+      // 가장 직관적이고 메모리 효율성이 좋은 방법입니다.
+      console.log("--- 1. 반복문 방식 ---");
+
+      function factorial_iterative(n) {
+        // 0보다 작은 값에 대해서는 팩토리얼이 정의되지 않음
+        if (n < 0) {
+          return "음수는 팩토리얼을 계산할 수 없습니다.";
+        }
+        // 0! = 1
+        if (n === 0) {
+          return 1;
+        }
+
+        let result = 1;
+        // n부터 1까지 1씩 감소하며 result에 곱함
+        for (let i = n; i > 0; i--) {
+          result = result * i;
+        }
+        return result;
+      }
+
+      console.log("5! =", factorial_iterative(5)); // 120
+      console.log("0! =", factorial_iterative(0)); // 1
+      console.log("1! =", factorial_iterative(1)); // 1
+      console.log("-1! =", factorial_iterative(-1));
+
+      // --- 2. 재귀(Recursion)를 이용한 팩토리얼 구현 ---
+      // 함수가 자기 자신을 다시 호출하는 방식으로, 수학적 정의와 유사하여 코드가 간결합니다.
+      console.log("\n--- 2. 재귀 방식 ---");
+
+      function factorial_recursive(n) {
+        if (n < 0) {
+          return "음수는 팩토리얼을 계산할 수 없습니다.";
+        }
+
+        // 재귀의 탈출 조건 (Base Case): n이 0이면 1을 반환하며 재귀를 멈춤
+        if (n === 0) {
+          return 1;
+        } else {
+          // 재귀 호출 (Recursive Step): n * (n-1)!
+          return n * factorial_recursive(n - 1);
+        }
+      }
+      /*
+       * factorial_recursive(3)의 동작 과정:
+       * = 3 * factorial_recursive(2)
+       * = 3 * (2 * factorial_recursive(1))
+       * = 3 * (2 * (1 * factorial_recursive(0)))
+       * = 3 * (2 * (1 * 1))  <- Base Case에서 1을 반환
+       * = 6
+       */
+
+      console.log("5! =", factorial_recursive(5)); // 120
+      console.log("0! =", factorial_recursive(0)); // 1
+
+      // --- 3. 비교 및 요약 ---
+      /*
+       * 반복문 방식:
+       * - 장점: 메모리 사용량이 적고(스택 오버플로우 위험 없음), 일반적으로 성능이 약간 더 좋음.
+       * - 단점: 코드가 재귀 방식보다 길어질 수 있음.
+       *
+       * 재귀 방식:
+       * - 장점: 코드가 간결하고, 문제의 수학적 정의를 그대로 표현하여 가독성이 높을 수 있음.
+       * - 단점: n이 매우 커지면 함수 호출 스택이 너무 깊어져 '스택 오버플로우(Stack Overflow)' 에러가 발생할 수 있음.
+       *
+       * 결론: 대부분의 경우 두 방법 모두 유효하지만, 안정성과 성능 면에서는 반복문이, 코드의 간결성 면에서는 재귀가 유리할 수 있습니다.
+       */
+    </script>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>정렬된 배열에서 중복 제거</title>
+  </head>
+  <body>
+    <script>
+      // 정렬된 배열이 주어졌을 때, 중복된 요소들을 제거하는 문제입니다.
+      // 예: [1, 1, 2, 2, 3, 4, 4, 5]  =>  [1, 2, 3, 4, 5]
+
+      const sortedArray = [1, 1, 2, 2, 3, 4, 4, 4, 5, 5];
+      console.log("원본 배열:", sortedArray);
+
+      // --- 1. Set을 이용한 방법 (가장 간단하고 현대적인 방법) ---
+      // Set 자료구조는 중복된 값을 허용하지 않는 특징을 가집니다.
+      // 시간 복잡도: O(n), 공간 복잡도: O(n)
+      console.log("\n--- 1. Set 이용 --- ");
+
+      function removeDuplicates_set(arr) {
+        // 1. 배열을 Set으로 변환하여 중복을 자동으로 제거
+        // 2. Set을 다시 배열로 변환 (전개 구문 ... 사용)
+        return [...new Set(arr)];
+      }
+
+      console.log("결과:", removeDuplicates_set(sortedArray));
+
+      // --- 2. 투 포인터(Two Pointers)를 이용한 방법 (In-place, 효율적인 방법) ---
+      // 배열이 정렬되어 있다는 점을 활용하여, 추가 공간 없이 배열 자체를 수정합니다.
+      // 코딩 인터뷰에서 공간 복잡도 제약이 있을 때 유용한 풀이입니다.
+      // 시간 복잡도: O(n), 공간 복잡도: O(1)
+      console.log("\n--- 2. 투 포인터 이용 --- ");
+
+      function removeDuplicates_twoPointers(nums) {
+        // 배열이 비어있으면 그대로 반환
+        if (nums.length === 0) {
+          return 0;
+        }
+
+        // `writeIndex`는 다음에 유니크한 값이 기록될 위치를 가리킵니다.
+        let writeIndex = 1;
+
+        // `readIndex`는 배열을 순회하며 값을 탐색합니다.
+        for (let readIndex = 1; readIndex < nums.length; readIndex++) {
+          // 현재 값(nums[readIndex])이 이전 유니크한 값(nums[writeIndex - 1])과 다른 경우
+          if (nums[readIndex] !== nums[writeIndex - 1]) {
+            // 유니크한 값을 writeIndex 위치에 덮어쓰고, writeIndex를 1 증가시킵니다.
+            nums[writeIndex] = nums[readIndex];
+            writeIndex++;
+          }
+        }
+        // writeIndex는 유니크한 요소의 개수와 같습니다.
+        // 원본 배열의 앞부분은 유니크한 값으로 채워지고, 그 이후는 불필요한 값들이 남습니다.
+        // nums.length = writeIndex; // 필요하다면 배열의 길이를 줄일 수 있습니다.
+        return writeIndex; // 유니크한 요소의 개수를 반환
+      }
+
+      const numsForTwoPointers = [...sortedArray]; // 원본 수정을 피하기 위해 배열 복사
+      const uniqueCount = removeDuplicates_twoPointers(numsForTwoPointers);
+      console.log("유니크한 요소의 개수:", uniqueCount);
+      console.log(
+        "처리 후 배열 상태:",
+        numsForTwoPointers.slice(0, uniqueCount)
+      );
+
+      // --- 3. filter 메서드를 이용한 방법 ---
+      // 배열의 내장 고차 함수를 이용한 선언적인 방법입니다.
+      // 시간 복잡도: O(n), 공간 복잡도: O(n)
+      console.log("\n--- 3. filter 이용 --- ");
+
+      function removeDuplicates_filter(arr) {
+        return arr.filter((value, index) => {
+          // 현재 요소의 값이 이전 요소의 값과 다를 경우에만 유지합니다.
+          // index가 0인 첫 번째 요소는 항상 유지됩니다.
+          return index === 0 || value !== arr[index - 1];
+        });
+      }
+
+      console.log("결과:", removeDuplicates_filter(sortedArray));
+    </script>
+  </body>
+</html>

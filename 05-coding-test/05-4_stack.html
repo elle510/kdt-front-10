@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>자료구조: 스택(Stack)</title>
+  </head>
+  <body>
+    <script>
+      // 스택(Stack)은 가장 마지막에 들어온 데이터가 가장 먼저 나가는
+      // 후입선출(LIFO, Last-In, First-Out) 방식의 자료구조입니다.
+      // 비유: 쌓여있는 접시, 책 더미, 웹 브라우저의 뒤로 가기 내역
+
+      // --- 1. 배열을 이용한 간단한 스택 구현 ---
+      // JavaScript의 배열은 push와 pop 메서드를 기본으로 제공하므로,
+      // 그 자체로 스택처럼 쉽게 사용할 수 있습니다. 코딩 테스트 등에서 유용합니다.
+      console.log("--- 1. 배열로 스택 구현 ---");
+      const stackArray = [];
+
+      // push: 스택의 맨 위에 데이터 추가
+      stackArray.push(1);
+      stackArray.push(2);
+      stackArray.push(3);
+      console.log("push 후:", stackArray); // [1, 2, 3]
+
+      // pop: 스택의 맨 위에서 데이터 제거 및 반환
+      const poppedItem = stackArray.pop();
+      console.log("pop된 아이템:", poppedItem); // 3
+      console.log("pop 후:", stackArray); // [1, 2]
+
+      // peek: 스택의 맨 위 데이터 확인 (제거하지 않음)
+      const topItem = stackArray[stackArray.length - 1];
+      console.log("peek한 아이템:", topItem); // 2
+      console.log("peek 후:", stackArray); // [1, 2]
+
+      // --- 2. 클래스를 이용한 스택 구현 ---
+      // 더 명확한 인터페이스와 캡슐화를 위해 클래스로 구현할 수 있습니다.
+      console.log("\n--- 2. 클래스로 스택 구현 ---");
+      class Stack {
+        constructor() {
+          this.items = [];
+        }
+
+        // 데이터 추가
+        push(element) {
+          this.items.push(element);
+        }
+
+        // 데이터 제거 및 반환
+        pop() {
+          if (this.isEmpty()) {
+            return "Stack is empty";
+          }
+          return this.items.pop();
+        }
+
+        // 맨 위 데이터 확인
+        peek() {
+          if (this.isEmpty()) {
+            return "Stack is empty";
+          }
+          return this.items[this.items.length - 1];
+        }
+
+        // 스택이 비어있는지 확인
+        isEmpty() {
+          return this.items.length === 0;
+        }
+
+        // 스택의 크기 반환
+        size() {
+          return this.items.length;
+        }
+
+        // 스택 초기화
+        clear() {
+          this.items = [];
+        }
+      }
+
+      const myStack = new Stack();
+      console.log("스택이 비었나요?", myStack.isEmpty()); // true
+
+      myStack.push("A");
+      myStack.push("B");
+      myStack.push("C");
+      console.log("현재 스택:", myStack.items);
+      console.log("스택 크기:", myStack.size()); // 3
+      console.log("peek:", myStack.peek()); // 'C'
+      console.log("pop:", myStack.pop()); // 'C'
+      console.log("pop 후 스택:", myStack.items);
+
+      // --- 3. 스택 활용 예시: 문자열 뒤집기 ---
+      console.log("\n--- 3. 스택 활용 예시: 문자열 뒤집기 ---");
+      function reverseString(str) {
+        const stack = new Stack();
+        let reversedStr = "";
+
+        // 1. 문자열의 각 글자를 스택에 넣는다.
+        for (let i = 0; i < str.length; i++) {
+          stack.push(str[i]);
+        }
+
+        // 2. 스택이 빌 때까지 pop하면서 새 문자열에 추가한다.
+        while (!stack.isEmpty()) {
+          reversedStr += stack.pop();
+        }
+
+        return reversedStr;
+      }
+
+      const originalString = "hello";
+      const reversed = reverseString(originalString);
+      console.log(`원본 문자열: ${originalString}`);
+      console.log(`뒤집힌 문자열: ${reversed}`); // 'olleh'
+    </script>
+  </body>
+</html>

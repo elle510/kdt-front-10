@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>계단 오르기 경우의 수</title>
+  </head>
+  <body>
+    <script>
+      // 한 번에 1계단 또는 2계단을 오를 수 있을 때, n개의 계단을 오르는 방법의 수를 구하는 문제입니다.
+
+      // 이 문제의 핵심 아이디어:
+      // n번째 계단에 도달하는 방법은 두 가지 뿐입니다.
+      // 1. (n-1)번째 계단에서 1계단을 올라오는 경우
+      // 2. (n-2)번째 계단에서 2계단을 올라오는 경우
+      // 따라서, ways(n) = ways(n-1) + ways(n-2) 라는 점화식이 성립합니다.
+      // 이는 피보나치 수열과 동일한 구조입니다.
+
+      // Base Cases:
+      // ways(1) = 1  (1칸)
+      // ways(2) = 2  (1칸+1칸, 2칸)
+
+      // --- 1. 반복문을 이용한 풀이 (동적 계획법 - Bottom-up, 가장 효율적) ---
+      // 작은 문제부터 계산하며 답을 쌓아 올리는 방식입니다.
+      // 시간 복잡도: O(n), 공간 복잡도: O(1)
+      console.log("--- 1. 반복문 방식 (가장 효율적) ---");
+
+      function climbStairs_iterative(n) {
+        if (n <= 2) {
+          return n;
+        }
+
+        // n-2번째 계단까지의 방법 수
+        let two_steps_before = 1;
+        // n-1번째 계단까지의 방법 수
+        let one_step_before = 2;
+        let all_ways = 0;
+
+        // 3번째 계단부터 n번째 계단까지 계산
+        for (let i = 3; i <= n; i++) {
+          all_ways = one_step_before + two_steps_before;
+          two_steps_before = one_step_before;
+          one_step_before = all_ways;
+        }
+
+        return all_ways;
+      }
+
+      console.log("5계단을 오르는 방법:", climbStairs_iterative(5)); // 8
+      console.log("10계단을 오르는 방법:", climbStairs_iterative(10)); // 89
+
+      // --- 2. 재귀와 메모이제이션(Memoization)을 이용한 풀이 (효율적) ---
+      // 한 번 계산한 결과를 저장(캐싱)하여 중복 계산을 피하는 방식입니다.
+      // 시간 복잡도: O(n), 공간 복잡도: O(n) (재귀 호출 스택 및 메모)
+      console.log("\n--- 2. 메모이제이션을 사용한 재귀 방식 --- ");
+
+      function climbStairs_memo(n, memo = {}) {
+        // 이미 계산된 값이면 바로 반환
+        if (n in memo) return memo[n];
+        if (n <= 2) return n;
+
+        // 계산되지 않았으면 재귀 호출로 계산하고, 결과를 memo에 저장
+        memo[n] = climbStairs_memo(n - 1, memo) + climbStairs_memo(n - 2, memo);
+        return memo[n];
+      }
+
+      console.log("5계단을 오르는 방법:", climbStairs_memo(5)); // 8
+      console.log("10계단을 오르는 방법:", climbStairs_memo(10)); // 89
+
+      // --- 3. 단순 재귀를 이용한 풀이 (매우 비효율적) ---
+      // 점화식을 그대로 코드로 옮긴 방식으로, n이 커지면 동일한 계산을 수없이 반복하여 매우 느려집니다.
+      // 코딩 테스트에서 이 방식으로 풀면 '시간 초과'가 발생합니다.
+      console.log("\n--- 3. 단순 재귀 방식 (참고용) --- ");
+
+      function climbStairs_recursive(n) {
+        if (n <= 2) return n;
+        return climbStairs_recursive(n - 1) + climbStairs_recursive(n - 2);
+      }
+
+      console.log("5계단을 오르는 방법:", climbStairs_recursive(5)); // 8
+      // console.log('40계단을 오르는 방법:', climbStairs_recursive(40)); // 실행 시간이 매우 오래 걸림
+    </script>
+  </body>
+</html>

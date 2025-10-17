@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>자료구조: 연결 리스트(Linked List)</title>
+  </head>
+  <body>
+    <script>
+      // 연결 리스트(Linked List)는 각 요소(Node)가 데이터와 다음 요소를 가리키는 참조(포인터)를 가지고
+      // 서로 연결된 형태의 자료구조입니다.
+      // 배열과 달리 메모리에 연속적으로 위치하지 않습니다.
+      // 비유: 기차 칸(Node)들이 서로 연결된 형태, 보물찾기(각 지점에서 다음 지점의 위치를 알려줌)
+
+      // --- 1. Node 클래스 구현 ---
+      // 연결 리스트의 기본 단위인 노드를 정의합니다.
+      class Node {
+        constructor(data) {
+          this.data = data; // 노드가 저장하는 데이터
+          this.next = null; // 다음 노드를 가리키는 포인터
+        }
+      }
+
+      // --- 2. SinglyLinkedList 클래스 구현 ---
+      // 단일 연결 리스트. 각 노드는 다음 노드만 가리킵니다.
+      class SinglyLinkedList {
+        constructor() {
+          this.head = null; // 리스트의 시작점(첫 번째 노드)
+          this.size = 0; // 리스트의 크기
+        }
+
+        // 리스트의 맨 끝에 노드 추가
+        append(data) {
+          const newNode = new Node(data);
+          if (this.isEmpty()) {
+            // 리스트가 비어있으면 head에 새 노드를 할당
+            this.head = newNode;
+          } else {
+            // 리스트가 비어있지 않으면, 마지막 노드를 찾아 연결
+            let current = this.head;
+            while (current.next !== null) {
+              current = current.next;
+            }
+            current.next = newNode;
+          }
+          this.size++;
+        }
+
+        // 특정 위치에 노드 삽입
+        insertAt(data, index) {
+          if (index < 0 || index > this.size) {
+            return console.log("Index out of bounds");
+          }
+
+          const newNode = new Node(data);
+          let current = this.head;
+
+          if (index === 0) {
+            // 맨 앞에 삽입
+            newNode.next = current;
+            this.head = newNode;
+          } else {
+            let previous = null;
+            let i = 0;
+            while (i < index) {
+              previous = current;
+              current = current.next;
+              i++;
+            }
+            // 이전 노드와 현재 노드 사이에 새 노드 삽입
+            newNode.next = current;
+            previous.next = newNode;
+          }
+          this.size++;
+        }
+
+        // 특정 위치의 노드 삭제
+        removeAt(index) {
+          if (index < 0 || index >= this.size) {
+            return null; // 삭제할 데이터 없음
+          }
+
+          let current = this.head;
+          if (index === 0) {
+            // 맨 앞 노드 삭제
+            this.head = current.next;
+          } else {
+            let previous = null;
+            let i = 0;
+            while (i < index) {
+              previous = current;
+              current = current.next;
+              i++;
+            }
+            // 이전 노드가 (삭제할 노드의 다음 노드)를 가리키게 하여 중간 노드를 제거
+            previous.next = current.next;
+          }
+          this.size--;
+          return current.data; // 삭제된 데이터 반환
+        }
+
+        // 리스트가 비어있는지 확인
+        isEmpty() {
+          return this.size === 0;
+        }
+
+        // 리스트의 모든 데이터를 배열로 반환하여 출력 (시각화를 위해)
+        printList() {
+          const list = [];
+          let current = this.head;
+          while (current !== null) {
+            list.push(current.data);
+            current = current.next;
+          }
+          console.log(list.join(" -> "));
+        }
+      }
+
+      // --- 3. 사용 예시 ---
+      console.log("--- 연결 리스트 사용 예시 ---");
+      const myList = new SinglyLinkedList();
+
+      console.log("리스트가 비었나요?", myList.isEmpty()); // true
+
+      console.log("\nappend 10, 20, 30");
+      myList.append(10);
+      myList.append(20);
+      myList.append(30);
+      myList.printList(); // 10 -> 20 -> 30
+      console.log("Size:", myList.size); // 3
+
+      console.log("\ninsert 15 at index 1");
+      myList.insertAt(15, 1);
+      myList.printList(); // 10 -> 15 -> 20 -> 30
+
+      console.log("\nremove at index 2");
+      const removedData = myList.removeAt(2);
+      console.log("삭제된 데이터:", removedData); // 20
+      myList.printList(); // 10 -> 15 -> 30
+      console.log("Size:", myList.size); // 3
+    </script>
+  </body>
+</html>

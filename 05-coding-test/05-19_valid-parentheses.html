@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>유효한 괄호 판단하기</title>
+  </head>
+  <body>
+    <script>
+      // 주어진 문자열 s가 '()', '{}', '[]' 괄호들로만 이루어져 있을 때,
+      // 이 괄호들이 유효하게 짝지어졌는지 판단하는 문제입니다.
+
+      // 유효한 괄호의 조건:
+      // 1. 열린 괄호는 반드시 같은 종류의 닫힌 괄호로 닫혀야 합니다. (예: ( ) 는 유효, ( ] 는 무효)
+      // 2. 열린 괄호는 올바른 순서로 닫혀야 합니다. (예: ( [ ] ) 는 유효, ( [ ) ] 는 무효)
+
+      // 이 문제의 핵심 아이디어는 스택(Stack) 자료구조를 사용하는 것입니다.
+      // 여는 괄호를 만나면 스택에 넣고, 닫는 괄호를 만나면 스택에서 가장 최근에 넣은(가장 위에 있는)
+      // 여는 괄호를 꺼내 짝이 맞는지 확인합니다. (LIFO - Last In, First Out)
+
+      console.log("--- 유효한 괄호 판단 --- ");
+
+      function isValid(s) {
+        // 처리 과정에서 여는 괄호를 담아둘 스택
+        const stack = [];
+
+        // 괄호의 짝을 쉽게 찾기 위한 맵(객체)
+        const bracketMap = {
+          "(": ")",
+          "{": "}",
+          "[": "]",
+        };
+
+        // 문자열의 모든 문자를 하나씩 순회
+        for (const char of s) {
+          // 1. 현재 문자가 여는 괄호인 경우
+          if (char in bracketMap) {
+            // 스택에 추가합니다.
+            stack.push(char);
+            console.log(
+              `  - 여는 괄호 '${char}' 발견, 스택에 push. 현재 스택: [${stack}]`
+            );
+          }
+          // 2. 현재 문자가 닫는 괄호인 경우
+          else {
+            // 스택이 비어있는데 닫는 괄호가 나오면, 짝이 맞는 여는 괄호가 없다는 의미이므로 무효
+            if (stack.length === 0) {
+              console.log(
+                `  - 닫는 괄호 '${char}' 발견, 하지만 스택이 비어있어 무효.`
+              );
+              return false;
+            }
+
+            // 스택에서 가장 마지막에 추가된 여는 괄호를 꺼냅니다.
+            const lastOpenBracket = stack.pop();
+            console.log(
+              `  - 닫는 괄호 '${char}' 발견, 스택에서 '${lastOpenBracket}' pop.`
+            );
+
+            // 꺼낸 여는 괄호의 짝(map[lastOpenBracket])이 현재 닫는 괄호와 일치하지 않으면 무효
+            if (bracketMap[lastOpenBracket] !== char) {
+              console.log(
+                `    -> 짝이 맞지 않음! ('${lastOpenBracket}'의 짝은 '${bracketMap[lastOpenBracket]}' 이어야 함)`
+              );
+              return false;
+            }
+          }
+        }
+
+        // 3. 모든 문자열을 순회한 후 스택에 여는 괄호가 남아있으면, 짝이 맞지 않은 것이므로 무효
+        // 스택이 비어있어야 모든 괄호의 짝이 맞은 것임
+        if (stack.length > 0) {
+          console.log(`
+      순회 종료 후 스택에 닫히지 않은 괄호 [${stack}]가 남아있어 무효.`);
+        }
+        return stack.length === 0;
+      }
+
+      // --- 사용 예시 ---
+      console.log(`
+      [테스트 케이스 1]: "()[]{}" `);
+      console.log("결과:", isValid("()[]{}")); // true
+
+      console.log(`
+      [테스트 케이스 2]: "([)]" `);
+      console.log("결과:", isValid("([)]")); // false
+
+      console.log(`
+      [테스트 케이스 3]: "{[]}" `);
+      console.log("결과:", isValid("{[]}")); // true
+
+      console.log(`
+      [테스트 케이스 4]: ")" `);
+      console.log("결과:", isValid(")")); // false
+
+      console.log(`
+      [테스트 케이스 5]: "(" `);
+      console.log("결과:", isValid("(")); // false
+    </script>
+  </body>
+</html>
