@@ -187,30 +187,33 @@ body {
 
 /* --- Section 4: Subscribe --- */
 .subscribe-section {
-  background-color: var(--dark-bg);
-  color: white;
-  padding: 20px 8%;
-  margin: 0 20px;
   position: relative;
-  border-radius: 20px;
-  margin-bottom: 100px; /* 고양이 이미지 공간 확보 */
+  margin: 0 20px 200px;
 }
 
 .subscribe-section::after {
   content: "";
   position: absolute;
-  bottom: -80px; /* 섹션 하단에서 이미지의 절반만큼 내림 */
+  bottom: -250px; /* 2배 커졌으므로 조정 */
   left: 50%;
   transform: translateX(-50%);
-  width: 160px; /* 고양이 이미지 너비 */
-  height: 160px; /* 고양이 이미지 높이 */
+  width: 100vw; /* 2배 크게 */
+  height: 100vw; /* 2배 크게 */
   background: url("images/up-cat.png") no-repeat center center;
   background-size: contain;
+  z-index: -1; /* 섹션의 배경 뒤로 보내기 */
 }
 
 .subscribe-content {
+  background-color: var(--dark-bg);
+  color: white;
+  border-radius: 20px;
   width: 100%;
   text-align: left;
+  position: relative;
+}
+.subscribe-text {
+  padding: 20px 8%;
 }
 
 .subscribe-content h3 {
@@ -225,14 +228,13 @@ body {
 .subscribe-form {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   gap: 10px;
   margin-top: 20px;
 }
 
 .email-input-wrapper {
   position: relative;
-  width: 80%;
+  width: 100%;
 }
 
 .mail-icon {
@@ -244,7 +246,7 @@ body {
 }
 
 .email-input {
-  padding: 12px 12px 12px 45px; /* 아이콘을 위한 왼쪽 패딩 추가 */
+  padding: 12px 12px 12px 45px;
   border: none;
   border-radius: 18px;
   width: 100%;
@@ -270,7 +272,7 @@ body {
 
 .footer-top {
   display: flex;
-  flex-direction: column; /* 모바일: 세로로 쌓기 */
+  flex-direction: column;
   gap: 15px;
 }
 
@@ -282,7 +284,7 @@ body {
 }
 
 .footer-bottom {
-  display: none; /* 모바일 이미지에 없음 */
+  display: none;
 }
 
 /* ========================================================= */
@@ -299,21 +301,21 @@ body {
   }
 
   .main-nav {
-    display: flex; /* 웹에서 네비게이션 표시 */
+    display: flex;
     align-items: center;
   }
 
   .download-btn {
-    display: block; /* 웹에서 Download 버튼 표시 */
+    display: block;
   }
 
   .mobile-menu-btn {
-    display: none; /* 웹 메뉴 버튼 숨김 */
+    display: none;
   }
 
   /* --- Section 1: Hero --- */
   .hero-section {
-    flex-direction: row; /* 웹: 가로 배치 */
+    flex-direction: row;
     padding: 50px 50px;
   }
 
@@ -323,7 +325,7 @@ body {
   }
 
   .hero-image {
-    order: 0; /* 이미지 순서 복원 */
+    order: 0;
     width: 50%;
     display: flex;
     justify-content: center;
@@ -336,7 +338,7 @@ body {
 
   /* --- Section 2: Image Left --- */
   .card-layout {
-    flex-direction: row; /* 웹: 가로 배치 */
+    flex-direction: row;
     padding: 60px 50px;
     gap: 50px;
   }
@@ -364,7 +366,7 @@ body {
   }
 
   .image-gallery {
-    flex-direction: row; /* 웹: 가로 배치 */
+    flex-direction: row;
     justify-content: center;
     gap: 20px;
   }
@@ -379,6 +381,14 @@ body {
   }
 
   /* --- Section 4: Subscribe --- */
+  .subscribe-section::after {
+    width: 25vw; /* 창 너비에 따라 크기 조정 */
+    height: 25vw;
+    max-width: 400px; /* 최대 크기 제한 */
+    max-height: 400px;
+    bottom: -12.5vw; /* 높이의 절반만큼 내리기 */
+  }
+
   .subscribe-content {
     max-width: 450px;
     margin-left: 50px;
@@ -409,11 +419,10 @@ body {
   }
 
   .footer-top {
-    flex-direction: row; /* 웹: 가로 배치 */
+    flex-direction: row;
   }
 
   .footer-bottom {
-    display: block; /* 웹 이미지에 있는 하단 링크 표시 */
-    text-align: right;
+    display: block;
   }
 }
