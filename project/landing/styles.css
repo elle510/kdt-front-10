@@ -256,6 +256,10 @@ body {
   width: 100%;
 }
 
+.email-input:focus {
+  outline: none;
+}
+
 .subscribe-btn-wrapper {
   display: flex;
   justify-content: flex-end;
