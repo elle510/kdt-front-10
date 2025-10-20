@@ -187,16 +187,30 @@ body {
 
 /* --- Section 4: Subscribe --- */
 .subscribe-section {
+  background-color: var(--dark-bg);
   color: white;
-  /* position: relative; */
+  padding: 20px 8%;
+  margin: 0 20px;
+  position: relative;
+  border-radius: 20px;
+  margin-bottom: 100px; /* 고양이 이미지 공간 확보 */
+}
+
+.subscribe-section::after {
+  content: "";
+  position: absolute;
+  bottom: -80px; /* 섹션 하단에서 이미지의 절반만큼 내림 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px; /* 고양이 이미지 너비 */
+  height: 160px; /* 고양이 이미지 높이 */
+  background: url("images/up-cat.png") no-repeat center center;
+  background-size: contain;
 }
 
 .subscribe-content {
-  background-color: var(--dark-bg);
-  padding: 20px 8%;
-  margin: 0 20px;
+  width: 100%;
   text-align: left;
-  border-radius: 20px;
 }
 
 .subscribe-content h3 {
@@ -206,17 +220,6 @@ body {
 .subscribe-content p {
   font-size: 14px;
   color: #f2e9d8;
-}
-
-.up-cat-image {
-  /* position: absolute;
-  top: -40px;
-  right: 20px;
-  width: 80px;
-  height: auto; */
-  z-index: -1;
-  height: 250px;
-  overflow: hidden;
 }
 
 .subscribe-form {
