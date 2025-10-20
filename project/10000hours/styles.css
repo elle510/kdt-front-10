@@ -1,0 +1,280 @@
+@font-face {
+  font-family: "OTEnjoystoriesBA";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/OTEnjoystoriesBA.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GmarketSansBold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ========================================================= */
+/* 기본 스타일 (모바일 우선 - 600px 미만) */
+/* ========================================================= */
+body {
+  margin: 0;
+  font-family: "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  background-color: #2f4f4f; /* 모바일 배경색: 어두운 녹색 */
+  color: white;
+  text-align: center;
+}
+
+.container {
+  padding: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* --- 제목 스타일 --- */
+.main-title {
+  position: relative;
+  height: 230px;
+  font-size: 38px;
+  font-weight: 900;
+  margin: 30px 0 10px 0;
+  letter-spacing: -1.5px;
+  color: #ffeb3b; /* 제목 기본색 */
+  /* 이미지의 겹쳐진 그림자 효과 */
+  text-shadow: -2px 2px 0 #5e8908, /* 짙은 녹색 그림자 */ -4px 4px 0 #1a2800; /* 어두운 그림자 */
+}
+
+.main-title img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.main-title img:first-child {
+  /* clock.png */
+  z-index: 1;
+}
+
+.main-title .title-icon {
+  /* title.png */
+  z-index: 2;
+  width: 35.125rem;
+  height: 7rem;
+}
+
+.quote {
+  font-family: "OTEnjoystoriesBA", sans-serif;
+  font-size: 30px;
+  font-style: italic;
+  font-weight: bold;
+  color: #f5df4d;
+  margin-bottom: 40px;
+}
+
+/* --- 정의 박스 --- */
+.definition-box {
+  position: relative; /* 자식 요소의 위치 기준 */
+  width: 90%;
+  margin: 0 auto 30px auto;
+}
+.definition-text {
+  font-family: "GmarketSansMedium", sans-serif;
+  position: relative; /* z-index를 주기 위해 */
+  z-index: 1; /* 텍스트가 이미지 위에 오도록 */
+  font-size: 15px;
+  line-height: 1.6;
+  color: #d3d3d3;
+  padding: 0 10px;
+}
+.quote-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%; /* 너비를 조정하여 적절한 크기로 만듭니다 */
+  z-index: -1; /* 텍스트 뒤로 보냅니다 */
+}
+.def-title {
+  color: white;
+}
+.def-title-bold {
+  font-family: "GmarketSansBold", sans-serif;
+  font-size: 32px;
+  /* font-weight: bold; */
+  color: white;
+}
+
+/* --- 입력 필드 --- */
+.input-prompt {
+  font-size: 16px;
+  line-height: 2.5;
+  margin-bottom: 30px;
+}
+
+.input-field {
+  padding: 8px 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  text-align: center;
+  color: #333;
+  background-color: white;
+}
+.subject-input {
+  width: 120px;
+}
+.time-input {
+  width: 70px;
+}
+
+/* --- 계산 버튼 --- */
+.calculate-button-area {
+  display: inline-flex;
+}
+
+.calculate-btn {
+  padding: 15px 35px;
+  background-color: #ffeb3b; /* 노란색 */
+  color: #333;
+  border: none;
+  border-radius: 38px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  margin-bottom: 30px;
+}
+.hand-icon {
+  font-size: 18px;
+  margin-left: 10px;
+  display: inline-block;
+  transform: rotateY(180deg); /* 모바일 이미지에 맞게 손가락 방향 회전 */
+}
+
+/* --- 결과 영역 --- */
+.result-area {
+  margin-bottom: 40px;
+  line-height: 1.8;
+}
+.result-text {
+  font-family: "GmarketSansMedium", sans-serif;
+  font-size: 16px;
+  color: #d3d3d3;
+}
+.highlight-subject {
+  font-family: "GmarketSansBold", sans-serif;
+  font-size: 40px;
+  /* font-weight: bold; */
+  color: white; /* 주제 강조 색상 */
+}
+.result-days {
+  font-family: "GmarketSansBold", sans-serif;
+  font-size: 40px;
+  /* font-weight: bold; */
+  color: white;
+  display: block; /* 모바일에서 큰 숫자를 별도 라인으로 분리 */
+  margin: 5px 0;
+}
+
+/* --- 액션 버튼 그룹 --- */
+.action-buttons {
+  display: flex;
+  flex-direction: column; /* 모바일: 세로로 쌓기 */
+  gap: 15px;
+  margin-bottom: 30px;
+}
+.action-btn {
+  padding: 12px 20px;
+  border: 2px solid white;
+  border-radius: 38px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.primary-btn {
+  background-color: #ffeb3b; /* 노란색 */
+  color: #333;
+  border-color: #ffeb3b;
+}
+.secondary-btn {
+  background-color: transparent;
+  color: white;
+  border-color: white;
+}
+
+/* ========================================================= */
+/* 반응형 웹 스타일 (600px 이상) */
+/* ========================================================= */
+@media (min-width: 600px) {
+  body {
+    background-color: #385e1a; /* 웹 배경색: 중간 녹색 */
+  }
+
+  .container {
+    padding: 50px 20px;
+    max-width: 800px; /* 웹 최대 너비 */
+  }
+
+  /* --- 제목 스타일 --- */
+  .main-title {
+    font-size: 50px;
+    margin: 50px 0 20px 0;
+  }
+
+  /* --- 정의 박스 (큰 따옴표 위치 변경) --- */
+  .definition-box {
+    position: relative;
+    width: 600px;
+    margin: 0 auto 50px auto;
+    padding: 0 20px;
+  }
+  .definition-text {
+    font-size: 18px;
+    color: #d3d3d3;
+  }
+  .quote-mark {
+    font-size: 48px;
+    position: absolute;
+  }
+  .quote-mark:first-child {
+    top: -10px;
+    left: -10px;
+  }
+  .quote-mark:last-child {
+    bottom: -30px;
+    right: -10px;
+  }
+
+  /* --- 입력 필드 --- */
+  .input-prompt {
+    font-size: 18px;
+    line-height: 3;
+  }
+
+  /* --- 결과 영역 --- */
+  .result-area {
+    margin-bottom: 50px;
+  }
+  .result-text {
+    font-size: 18px;
+  }
+  .result-days {
+    font-size: 60px;
+    display: inline; /* 웹에서 한 줄로 표시 */
+  }
+
+  /* --- 액션 버튼 그룹 --- */
+  .action-buttons {
+    flex-direction: row; /* 웹: 가로로 나란히 배치 */
+    justify-content: center;
+  }
+}
